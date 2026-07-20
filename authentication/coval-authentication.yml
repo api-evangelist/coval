@@ -1,0 +1,50 @@
+generated: '2026-07-18'
+method: searched
+docs: https://docs.coval.ai/api-reference/v1/introduction
+note: >-
+  Single scheme: an organization API key sent in the X-API-Key request header on every call.
+  Keys are issued/rotated from the dashboard (https://app.coval.dev/settings) and managed via the
+  api-keys API. No OAuth/OIDC — scopes/ intentionally omitted.
+source: openapi/coval-agents-openapi.yml, openapi/coval-api-keys-openapi.yml, openapi/coval-conversations-openapi.yml,
+  openapi/coval-dashboards-openapi.yml, openapi/coval-metrics-openapi.yml, openapi/coval-monitors-openapi.yml,
+  openapi/coval-mutations-openapi.yml, openapi/coval-organization-openapi.yml, openapi/coval-personas-openapi.yml,
+  openapi/coval-reports-openapi.yml, openapi/coval-reviews-openapi.yml, openapi/coval-run-templates-openapi.yml
+  ...
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: API key for authentication
+  sources:
+  - openapi/coval-agents-openapi.yml
+  - openapi/coval-organization-openapi.yml
+  - openapi/coval-reports-openapi.yml
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: X-API-Key
+  description: API key for authentication
+  sources:
+  - openapi/coval-api-keys-openapi.yml
+  - openapi/coval-conversations-openapi.yml
+  - openapi/coval-dashboards-openapi.yml
+  - openapi/coval-metrics-openapi.yml
+  - openapi/coval-monitors-openapi.yml
+  - openapi/coval-mutations-openapi.yml
+  - openapi/coval-personas-openapi.yml
+  - openapi/coval-reviews-openapi.yml
+  - openapi/coval-run-templates-openapi.yml
+  - openapi/coval-runs-openapi.yml
+  - openapi/coval-scheduled-runs-openapi.yml
+  - openapi/coval-simulations-openapi.yml
+  - openapi/coval-tags-openapi.yml
+  - openapi/coval-test-cases-openapi.yml
+  - openapi/coval-test-sets-openapi.yml
+  - openapi/coval-traces-openapi.yml
+  - openapi/coval-webhooks-openapi.yml
