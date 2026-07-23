@@ -1,0 +1,293 @@
+openapi: 3.0.3
+info:
+  title: Coval Agents Traces API
+  version: 1.0.0
+  description: '
+
+    Manage configurations for simulations and evaluations.
+
+    '
+  contact:
+    name: Coval API Support
+    email: support@coval.dev
+    url: https://docs.coval.ai
+  license:
+    name: Proprietary
+    url: https://coval.dev/terms
+servers:
+- url: https://api.coval.dev/v1
+  description: Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Traces
+  description: OTLP trace ingestion for simulations and monitoring conversations.
+paths:
+  /traces:
+    post:
+      summary: Ingest OTLP traces
+      description: 'Ingest OpenTelemetry trace data and associate it with a simulation
+
+        output or a monitoring conversation.
+
+
+        The request body must be a standard OTLP `ExportTraceServiceRequest`,
+
+        in protobuf binary (`application/x-protobuf`, the default for stock
+
+        OTLP HTTP exporters) or JSON (`application/json`) format. See the
+
+        [OTLP/HTTP specification](https://opentelemetry.io/docs/specs/otlp/#otlphttp)
+
+        and [opentelemetry-proto](https://github.com/open-telemetry/opentelemetry-proto)
+
+        for the wire format.
+
+
+        Identify the target by providing exactly one of `X-Simulation-Id` or
+
+        `X-Conversation-Id` (not both).
+
+        '
+      operationId: ingestTraces
+      tags:
+      - Traces
+      parameters:
+      - name: X-Simulation-Id
+        in: header
+        required: false
+        description: 'Simulation output ID to associate the spans with. Use for
+
+          simulation-based flows. Mutually exclusive with `X-Conversation-Id`.
+
+          '
+        schema:
+          type: string
+        example: a1b2c3d4
+      - name: X-Conversation-Id
+        in: header
+        required: false
+        description: 'Conversation (Run) ID returned by `POST /v1/conversations:submit`.
+
+          Use for monitoring flows. Mutually exclusive with `X-Simulation-Id`.
+
+          '
+        schema:
+          type: string
+        example: 01H8XYZABCDEFG
+      requestBody:
+        required: true
+        description: 'OTLP `ExportTraceServiceRequest` payload — protobuf or JSON.
+
+          '
+        content:
+          application/x-protobuf:
+            schema:
+              type: string
+              format: binary
+              description: 'OTLP/HTTP protobuf-encoded `ExportTraceServiceRequest`. This
+
+                is the default content type emitted by the OpenTelemetry HTTP
+
+                exporter (`opentelemetry-exporter-otlp-proto-http`).
+
+                '
+          application/json:
+            schema:
+              type: object
+              description: 'OTLP/HTTP JSON-encoded `ExportTraceServiceRequest`. Top-level
+
+                object with a `resourceSpans` array. See the
+
+                [OTLP/HTTP specification](https://opentelemetry.io/docs/specs/otlp/#otlphttp)
+
+                for the full schema. Field naming follows the OTLP JSON
+
+                convention (camelCase or snake_case both accepted).
+
+                '
+              example:
+                resourceSpans:
+                - resource:
+                    attributes:
+                    - key: service.name
+                      value:
+                        stringValue: my-agent
+                  scopeSpans:
+                  - scope:
+                      name: my-tracer
+                    spans:
+                    - traceId: 5b8aa5a2d2c872e8321cf37308d69df2
+                      spanId: 051581bf3cb55c13
+                      name: llm
+                      kind: 1
+                      startTimeUnixNano: '1738000000000000000'
+                      endTimeUnixNano: '1738000001000000000'
+                      attributes:
+                      - key: metrics.ttfb
+                        value:
+                          doubleValue: 0.42
+                      status:
+                        code: 1
+      responses:
+        '200':
+          description: Spans accepted and queued for ingestion.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - status
+                - simulation_output_id
+                properties:
+                  status:
+                    type: string
+                    description: Always `ok` on success.
+                    example: ok
+                  simulation_output_id:
+                    type: string
+                    description: 'The simulation output ID the spans were associated with.
+
+                      For monitoring flows submitted via `X-Conversation-Id`,
+
+                      this equals the conversation ID.
+
+                      '
+                    example: a1b2c3d4
+        '400':
+          description: 'Invalid request body, missing identification header, or both
+
+            `X-Simulation-Id` and `X-Conversation-Id` provided.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: 'Missing required header: X-Simulation-Id or X-Conversation-Id'
+                  details:
+                  - field: X-Simulation-Id
+                    description: Provide either X-Simulation-Id or X-Conversation-Id
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: API key lacks the `traces:write` scope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error:
+                  code: PERMISSION_DENIED
+                  message: Insufficient permissions
+                  details:
+                  - field: permissions
+                    description: API key lacks the traces:write scope
+        '404':
+          description: 'The simulation output or conversation does not exist, or it does
+
+            not belong to your organization.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error:
+                  code: NOT_FOUND
+                  message: Simulation output not found
+                  details:
+                  - field: X-Simulation-Id
+                    description: No simulation output found with this ID
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          description: 'Service temporarily unavailable, typically because per-organization
+
+            database routing has not yet activated. Retry after a brief delay.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error:
+                  code: INTERNAL
+                  message: Service temporarily unavailable
+                  details:
+                  - description: Database routing is temporarily unavailable. Please retry.
+components:
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred while processing the request
+    Unauthorized:
+      description: Authentication failed or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameters
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    description: Field that caused the error
+                    example: X-Simulation-Id
+                  description:
+                    type: string
+                    description: Description of the error
+                    example: No simulation output found with this ID
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key for authentication
+x-visibility: external

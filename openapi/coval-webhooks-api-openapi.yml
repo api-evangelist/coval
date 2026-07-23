@@ -1,0 +1,400 @@
+openapi: 3.0.3
+info:
+  title: Coval Agents Webhooks API
+  version: 1.0.0
+  description: '
+
+    Manage configurations for simulations and evaluations.
+
+    '
+  contact:
+    name: Coval API Support
+    email: support@coval.dev
+    url: https://docs.coval.ai
+  license:
+    name: Proprietary
+    url: https://coval.dev/terms
+servers:
+- url: https://api.coval.dev/v1
+  description: Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Webhooks
+  description: CRUD operations for event webhooks
+paths:
+  /webhooks:
+    get:
+      operationId: listWebhooks
+      summary: List webhooks
+      description: Retrieve all webhooks registered for your organization.
+      tags:
+      - Webhooks
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Webhooks retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListWebhooksResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    post:
+      operationId: createWebhook
+      summary: Create a webhook
+      description: Register a new webhook subscription.
+      tags:
+      - Webhooks
+      security:
+      - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+      responses:
+        '201':
+          description: Webhook created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+        '400':
+          $ref: '#/components/responses/InvalidArgument'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+  /webhooks/{webhook_id}:
+    patch:
+      operationId: updateWebhook
+      summary: Update a webhook
+      description: Update fields on an existing webhook. Only provided fields change. Send auth_token as null to clear a configured token.
+      tags:
+      - Webhooks
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: webhook_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Webhook resource ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWebhookRequest'
+      responses:
+        '200':
+          description: Webhook updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+        '400':
+          $ref: '#/components/responses/InvalidArgument'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+    delete:
+      operationId: deleteWebhook
+      summary: Delete a webhook
+      description: Permanently delete a webhook subscription.
+      tags:
+      - Webhooks
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: webhook_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Webhook resource ID
+      responses:
+        '200':
+          description: Webhook deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteWebhookResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+components:
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
+    PermissionDenied:
+      description: API key lacks required permission scope
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: 'API key does not have required permission: webhooks:write'
+    ServiceUnavailable:
+      description: Service temporarily unavailable (transient organization DB routing outage; retryable)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Service temporarily unavailable
+              details:
+              - description: Database routing is temporarily unavailable. Please retry.
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    NotFound:
+      description: The webhook does not exist or is not accessible
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Webhook not found
+              details:
+              - field: webhook_id
+                description: Webhook abc123 not found
+    InvalidArgument:
+      description: The request was malformed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: url
+                description: url must be an HTTP(S) URL.
+  schemas:
+    CreateWebhookRequest:
+      type: object
+      required:
+      - type
+      - url
+      properties:
+        type:
+          type: string
+          description: Event that triggers the webhook
+          enum:
+          - job_complete
+          example: job_complete
+        url:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: HTTP(S) URL Coval POSTs to when the event fires
+          example: https://example.com/hooks/coval
+        auth_token:
+          type: string
+          nullable: true
+          maxLength: 255
+          description: Optional secret Coval sends when calling your endpoint. Never returned.
+          example: whsec_example_token
+    ListWebhooksResponse:
+      type: object
+      required:
+      - webhooks
+      properties:
+        webhooks:
+          type: array
+          description: List of webhook resources
+          items:
+            $ref: '#/components/schemas/WebhookResource'
+    UpdateWebhookRequest:
+      type: object
+      description: Partial update. Only provided fields are changed.
+      properties:
+        type:
+          type: string
+          nullable: true
+          description: New triggering event
+          enum:
+          - job_complete
+          example: job_complete
+        url:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 200
+          description: New HTTP(S) URL
+          example: https://example.com/hooks/coval-v2
+        auth_token:
+          type: string
+          nullable: true
+          maxLength: 255
+          description: New secret; send null to clear the configured token.
+          example: whsec_rotated_token
+    DeleteWebhookResponse:
+      type: object
+      required:
+      - success
+      properties:
+        success:
+          type: boolean
+          description: True when the webhook was deleted
+          example: true
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              description: Error code enum
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - PERMISSION_DENIED
+              - NOT_FOUND
+              - ALREADY_EXISTS
+              - INTERNAL
+              example: NOT_FOUND
+            message:
+              type: string
+              description: Human-readable error message
+              example: Webhook not found
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    nullable: true
+                    description: Field name that caused the error
+                    example: webhook_id
+                  description:
+                    type: string
+                    description: Detailed error description
+                    example: Webhook abc123 not found
+    WebhookResource:
+      type: object
+      description: A webhook subscription. The auth token is never returned.
+      required:
+      - name
+      - id
+      - type
+      - url
+      - create_time
+      - has_auth_token
+      properties:
+        name:
+          type: string
+          description: Resource name in format "webhooks/{webhook_id}"
+          example: webhooks/abc123DEF456ghi789JKL0
+        id:
+          type: string
+          description: Webhook resource ID
+          example: abc123DEF456ghi789JKL0
+        type:
+          type: string
+          description: Event that triggers the webhook
+          enum:
+          - job_complete
+          example: job_complete
+        url:
+          type: string
+          description: HTTP(S) URL Coval POSTs to when the event fires
+          example: https://example.com/hooks/coval
+        create_time:
+          type: string
+          format: date-time
+          description: Creation timestamp (ISO 8601)
+          example: '2025-10-14T12:00:00Z'
+        last_triggered_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the webhook last fired (null if never)
+          example: '2025-10-15T09:30:00Z'
+        has_auth_token:
+          type: boolean
+          description: Whether an auth token is configured for this webhook
+          example: true
+    WebhookResponse:
+      type: object
+      required:
+      - webhook
+      properties:
+        webhook:
+          $ref: '#/components/schemas/WebhookResource'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key for authentication
+x-visibility: external

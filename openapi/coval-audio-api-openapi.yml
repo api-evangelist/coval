@@ -1,0 +1,429 @@
+openapi: 3.0.3
+info:
+  title: Coval Agents Audio API
+  version: 1.0.0
+  description: '
+
+    Manage configurations for simulations and evaluations.
+
+    '
+  contact:
+    name: Coval API Support
+    email: support@coval.dev
+    url: https://docs.coval.ai
+  license:
+    name: Proprietary
+    url: https://coval.dev/terms
+servers:
+- url: https://api.coval.dev/v1
+  description: Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Audio
+  description: Upload audio for evaluation and access conversation audio files
+paths:
+  /audio:upload:
+    post:
+      tags:
+      - Audio
+      summary: Upload audio
+      description: 'Issue an opaque `upload_id` and a short-lived presigned PUT URL for direct audio upload.
+
+        '
+      operationId: createAudioUpload
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAudioUploadRequest'
+            examples:
+              wavDefault:
+                summary: Default WAV upload (no body required)
+                value: {}
+              mp3Explicit:
+                summary: MP3 upload with size hint
+                value:
+                  content_type: audio/mp3
+                  expected_size_bytes: 12582912
+      responses:
+        '200':
+          description: Presigned upload URL issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAudioUploadResponse'
+              examples:
+                success:
+                  summary: Successful issuance
+                  value:
+                    upload_id: upl_01HRAB8N9G7Q4Y3K2J5W6X1ZTC
+                    upload_url: https://uploads.coval.dev/8fce4e70/upl_01HRAB8N9G7Q4Y3K2J5W6X1ZTC?signature=...
+                    expires_at: '2025-11-03T15:32:00Z'
+                    max_size_bytes: 104857600
+                    content_type: audio/wav
+        '400':
+          $ref: '#/components/responses/InvalidArgument'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /conversations/{conversation_id}/audio:
+    get:
+      tags:
+      - Audio
+      summary: Get conversation audio
+      description: 'Retrieve a presigned URL for downloading conversation audio.
+
+        '
+      operationId: getConversationAudio
+      parameters:
+      - name: conversation_id
+        in: path
+        description: Unique conversation identifier
+        required: true
+        schema:
+          type: string
+          minLength: 22
+          maxLength: 26
+        example: gk3jK9mPq2xRt5vW8yZaBc
+      responses:
+        '200':
+          description: Presigned audio URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetConversationAudioResponse'
+              examples:
+                success:
+                  summary: Presigned URL returned
+                  value:
+                    audio_url: https://coval-audio-prod.s3.us-east-2.amazonaws.com/audio/2025/11/03/gk3jK9mPq2xRt5vW8yZaBc.wav?X-Amz-Signature=...
+                    peaks_url: https://coval-audio-prod.s3.us-east-2.amazonaws.com/audio/2025/11/03/gk3jK9mPq2xRt5vW8yZaBc.peaks.json?X-Amz-Signature=...
+                    conversation_id: gk3jK9mPq2xRt5vW8yZaBc
+                    url_expires_in_seconds: 3600
+        '404':
+          description: Conversation not found or has no audio
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notFound:
+                  summary: Conversation not found
+                  value:
+                    error:
+                      code: NOT_FOUND
+                      message: Conversation not found
+                      details: []
+                noAudio:
+                  summary: No audio file available
+                  value:
+                    error:
+                      code: NOT_FOUND
+                      message: Conversation has no audio file available
+                      details:
+                      - field: audio
+                        description: No audio was provided when this conversation was submitted
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  schemas:
+    GetConversationAudioResponse:
+      type: object
+      required:
+      - audio_url
+      - conversation_id
+      - url_expires_in_seconds
+      properties:
+        audio_url:
+          type: string
+          format: uri
+          description: 'Presigned S3 URL for downloading audio file.
+
+
+            URL is valid for duration specified in url_expires_in_seconds.
+
+            No authentication required to access this URL.
+
+            '
+          example: https://coval-audio-prod.s3.us-east-2.amazonaws.com/audio/2025/11/03/gk3jK9mPq2xRt5vW8yZaBc.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&...
+        peaks_url:
+          type: string
+          format: uri
+          nullable: true
+          description: 'Presigned S3 URL for precomputed waveform peaks JSON (valid for 1 hour).
+
+            Contains an array of up to 800 [min, max] amplitude pairs for waveform visualization.
+
+            Null for older recordings without precomputed peaks. May return 404 if peaks
+
+            were not generated for this recording.
+
+            '
+          example: https://coval-audio-prod.s3.us-east-2.amazonaws.com/audio/2025/11/03/gk3jK9mPq2xRt5vW8yZaBc.peaks.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&...
+        conversation_id:
+          type: string
+          description: Conversation identifier
+          example: gk3jK9mPq2xRt5vW8yZaBc
+        url_expires_in_seconds:
+          type: integer
+          description: Number of seconds until presigned URL expires
+          example: 3600
+      description: 'Response containing presigned URL for audio download.
+
+        '
+    CreateAudioUploadRequest:
+      type: object
+      properties:
+        content_type:
+          type: string
+          enum:
+          - audio/wav
+          - audio/mp3
+          default: audio/wav
+          description: 'MIME type of the audio that will be uploaded. MUST match the
+
+            `Content-Type` header on your subsequent `PUT` request, otherwise
+
+            the upload will be rejected.
+
+            '
+          example: audio/wav
+        expected_size_bytes:
+          type: integer
+          minimum: 1
+          maximum: 104857600
+          description: 'Optional client-declared size hint in bytes. The presigned URL
+
+            always enforces the 100 MB hard cap regardless of this value.
+
+            '
+          example: 12582912
+      description: 'Request body for `POST /v1/audio:upload`. All fields are optional;
+
+        an empty body issues a WAV upload URL.
+
+        '
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+              description: Error code
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - NOT_FOUND
+              - ALREADY_EXISTS
+              - PAYLOAD_TOO_LARGE
+              - INTERNAL_ERROR
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Missing required input data
+            details:
+              type: array
+              items:
+                $ref: '#/components/schemas/ErrorDetail'
+              description: Additional error details
+              default: []
+    CreateAudioUploadResponse:
+      type: object
+      required:
+      - upload_id
+      - upload_url
+      - expires_at
+      - max_size_bytes
+      - content_type
+      properties:
+        upload_id:
+          type: string
+          pattern: ^upl_[0-9A-HJKMNP-TV-Z]{26}$
+          description: 'Opaque upload identifier. Pass this as `upload_id` on
+
+            `POST /v1/conversations:submit` after you''ve uploaded bytes to
+
+            `upload_url`.
+
+            '
+          example: upl_01HRAB8N9G7Q4Y3K2J5W6X1ZTC
+        upload_url:
+          type: string
+          format: uri
+          description: 'Short-lived presigned PUT URL. PUT the audio bytes here with
+
+            the matching `Content-Type` header from `content_type`.
+
+            '
+          example: https://uploads.coval.dev/8fce4e70/upl_01HRAB8N9G7Q4Y3K2J5W6X1ZTC?signature=...
+        expires_at:
+          type: string
+          format: date-time
+          description: 'Absolute UTC timestamp at which the presigned URL stops being
+
+            valid. The `upload_id` itself remains resolvable for 7 days from
+
+            issuance, but you cannot upload bytes after this timestamp.
+
+            '
+          example: '2025-11-03T15:32:00Z'
+        max_size_bytes:
+          type: integer
+          description: Hard upper bound on the uploaded payload size, in bytes.
+          example: 104857600
+        content_type:
+          type: string
+          enum:
+          - audio/wav
+          - audio/mp3
+          description: 'Content-Type the client must send on the PUT request. Equal to
+
+            the `content_type` requested (or default `audio/wav`).
+
+            '
+          example: audio/wav
+      description: 'Response for `POST /v1/audio:upload`.
+
+        '
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type: string
+          description: Field that caused the error
+          example: transcript
+        description:
+          type: string
+          description: Detailed description of the error
+          example: At least one of transcript, audio, or audio_url must be provided
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL_ERROR
+              message: An internal error occurred while processing the request
+              details: []
+    InvalidArgument:
+      description: Invalid request arguments
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            missingInput:
+              summary: Missing required input
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: Missing required input data
+                  details:
+                  - field: transcript
+                    description: At least one of transcript or audio_url must be provided
+            invalidFilter:
+              summary: Invalid filter expression
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: Invalid filter expression
+                  details:
+                  - field: filter
+                    description: 'Unknown field ''invalid_field''. Valid fields: status, create_time, occurred_at, external_conversation_id'
+            invalidPageSize:
+              summary: Invalid page_size
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: Invalid page_size
+                  details:
+                  - field: page_size
+                    description: page_size must be between 1 and 250
+            audioFormatInvalid:
+              summary: Unsupported audio format
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: 'Unsupported audio format: MP4. Only WAV and MP3 files are supported.'
+                  details:
+                  - field: audio_url
+                    description: Audio format detected as MP4 via magic byte analysis. Convert to WAV or MP3.
+            audioTooShort:
+              summary: Audio duration too short
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: 'Audio too short: 3.0 seconds. Minimum duration is 5 seconds.'
+                  details:
+                  - field: audio_url
+                    description: Audio file duration is below the 5 second minimum requirement
+            audioTooLong:
+              summary: Audio duration too long
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: 'Audio too long: 75.0 minutes. Maximum duration is 60 minutes.'
+                  details:
+                  - field: audio_url
+                    description: Audio file duration exceeds the 1 hour maximum limit
+            audioTooLarge:
+              summary: Audio file size too large
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: 'Audio file too large: 250.0 MB. Maximum size is 200 MB.'
+                  details:
+                  - field: audio_url
+                    description: Audio file size exceeds 200 MB limit
+            audioEmpty:
+              summary: Empty audio file
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: Audio file is empty.
+                  details:
+                  - field: audio_url
+                    description: Audio file contains no data
+            audioCorrupt:
+              summary: Corrupt or invalid audio file
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: Invalid or corrupt audio file. Unable to read audio metadata.
+                  details:
+                  - field: audio_url
+                    description: Audio file headers could not be read or are corrupted
+    Unauthenticated:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Invalid or missing API key
+              details: []
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key for authentication
+x-visibility: external

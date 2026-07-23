@@ -1,0 +1,747 @@
+openapi: 3.0.3
+info:
+  title: Coval Agents Review Projects API
+  version: 1.0.0
+  description: '
+
+    Manage configurations for simulations and evaluations.
+
+    '
+  contact:
+    name: Coval API Support
+    email: support@coval.dev
+    url: https://docs.coval.ai
+  license:
+    name: Proprietary
+    url: https://coval.dev/terms
+servers:
+- url: https://api.coval.dev/v1
+  description: Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Review Projects
+  description: Project CRUD operations
+paths:
+  /review-projects:
+    get:
+      operationId: listReviewProjects
+      summary: List review projects
+      description: List review projects for your organization with pagination.
+      tags:
+      - Review Projects
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+        description: Maximum number of results per page
+      - name: page_token
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Opaque pagination token from previous response
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          type: string
+          example: -create_time
+        description: 'Sort field and direction. Prefix with `-` for descending.
+
+          Valid fields: `create_time`, `update_time`, `display_name`.
+
+          '
+      responses:
+        '200':
+          description: Projects retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListReviewProjectsResponse'
+              examples:
+                success:
+                  $ref: '#/components/examples/ListProjectsSuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      operationId: createReviewProject
+      summary: Create review project
+      description: 'Create a new review project. Automatically generates annotations for every
+
+        (simulation, metric, assignee) combination.
+
+        '
+      tags:
+      - Review Projects
+      security:
+      - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReviewProjectRequest'
+            examples:
+              basic:
+                summary: Create a project
+                value:
+                  display_name: Q1 Voice Agent Review
+                  assignees:
+                  - alice@company.com
+                  - bob@company.com
+                  linked_simulation_ids:
+                  - sim-output-001
+                  - sim-output-002
+                  linked_metric_ids:
+                  - metric-accuracy
+                  - metric-latency
+      responses:
+        '201':
+          description: Project created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateReviewProjectResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /review-projects/{project_id}:
+    get:
+      operationId: getReviewProject
+      summary: Get review project
+      description: Get a single review project by ID.
+      tags:
+      - Review Projects
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The project ID (ULID)
+      responses:
+        '200':
+          description: Project retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetReviewProjectResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    patch:
+      operationId: updateReviewProject
+      summary: Update review project
+      description: Partially update a review project.
+      tags:
+      - Review Projects
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The project ID (ULID)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReviewProjectRequest'
+            examples:
+              update_name:
+                summary: Update project name
+                value:
+                  display_name: Updated Project Name
+              update_assignees:
+                summary: Update assignees
+                value:
+                  assignees:
+                  - alice@company.com
+                  - charlie@company.com
+      responses:
+        '200':
+          description: Project updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateReviewProjectResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    delete:
+      operationId: deleteReviewProject
+      summary: Delete review project
+      description: Delete a review project. This permanently removes the project record.
+      tags:
+      - Review Projects
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The project ID (ULID)
+      responses:
+        '200':
+          description: Project deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+              example: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /review-projects/{project_id}/metric-agreement:
+    get:
+      operationId: getReviewProjectMetricAgreement
+      summary: Get project metric agreement
+      description: Machine-vs-human agreement by metric for one review project. The project resolves to its linked simulations and metrics; agreement is computed over that derived scope.
+      tags:
+      - Review Projects
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The project ID (ULID)
+      responses:
+        '200':
+          description: Agreement computed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProjectMetricAgreementResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /review-projects/{project_id}/insights:
+    get:
+      operationId: getReviewProjectInsights
+      summary: Get project insights
+      description: Project-level human-review insights (label and metric stats) over a date range.
+      tags:
+      - Review Projects
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The project ID (ULID)
+      - name: start_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        description: Start of the insights window (ISO-8601).
+      - name: end_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+        description: End of the insights window (ISO-8601); must be after start_date.
+      - name: label_triage_time_basis
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - simulation
+          - label
+          default: simulation
+        description: Whether label triage timing is anchored to the simulation or the label.
+      responses:
+        '200':
+          description: Insights computed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetHumanReviewProjectInsightsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: The API key does not include the required reviews permission.
+    ServiceUnavailable:
+      description: Service temporarily unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Service temporarily unavailable
+              details:
+              - description: Database routing is temporarily unavailable. Please retry.
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Resource not found
+              details:
+              - field: annotation_id
+                description: Annotation not found or not accessible by your organization
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: simulation_output_id
+                description: simulation_output_id is required
+  schemas:
+    ProjectType:
+      type: string
+      enum:
+      - PROJECT_COLLABORATIVE
+      - PROJECT_INDIVIDUAL
+      default: PROJECT_INDIVIDUAL
+      description: 'Project type: COLLABORATIVE (shared annotations) or INDIVIDUAL (per-assignee annotations)'
+    ReviewProjectResource:
+      type: object
+      description: A single review project resource.
+      required:
+      - name
+      - id
+      - display_name
+      - assignees
+      - linked_simulation_ids
+      - linked_metric_ids
+      - project_type
+      - notifications
+      - create_time
+      - update_time
+      properties:
+        name:
+          type: string
+          description: 'Resource name: review-projects/{id}'
+          example: review-projects/01HXYZ1234567890ABCDEF
+        id:
+          type: string
+          description: Unique project ID (ULID)
+          example: 01HXYZ1234567890ABCDEF
+        display_name:
+          type: string
+          description: Human-readable project name
+        description:
+          type: string
+          nullable: true
+          description: Optional project description
+        assignees:
+          type: array
+          items:
+            type: string
+          description: List of reviewer email addresses
+        linked_simulation_ids:
+          type: array
+          items:
+            type: string
+          description: Simulation output IDs included in this project
+        linked_metric_ids:
+          type: array
+          items:
+            type: string
+          description: Metric IDs included in this project
+        project_type:
+          $ref: '#/components/schemas/ProjectType'
+        notifications:
+          type: boolean
+          description: Whether notifications are enabled
+        project_rules:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/ProjectRule'
+          description: Rules applied to this project (e.g. require notes on disagreement)
+        create_time:
+          type: string
+          format: date-time
+          description: Creation timestamp (ISO 8601)
+        update_time:
+          type: string
+          format: date-time
+          description: Last update timestamp (ISO 8601)
+    ProjectMetricAgreementResource:
+      type: object
+      required:
+      - metric_id
+      - agreements
+      - disagreements
+      - agreement_rate
+      properties:
+        metric_id:
+          type: string
+        agreements:
+          type: integer
+        disagreements:
+          type: integer
+        agreement_rate:
+          type: number
+    CreateReviewProjectResponse:
+      type: object
+      required:
+      - review_project
+      properties:
+        review_project:
+          $ref: '#/components/schemas/ReviewProjectResource'
+    CreateReviewProjectRequest:
+      type: object
+      required:
+      - display_name
+      - assignees
+      - linked_simulation_ids
+      - linked_metric_ids
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: Project name
+        description:
+          type: string
+          nullable: true
+          description: Optional project description
+        assignees:
+          type: array
+          minItems: 1
+          items:
+            type: string
+          description: Reviewer emails (at least one required)
+        linked_simulation_ids:
+          type: array
+          minItems: 1
+          items:
+            type: string
+          description: Simulation output IDs (at least one required)
+        linked_metric_ids:
+          type: array
+          minItems: 1
+          items:
+            type: string
+          description: Metric IDs (at least one required)
+        project_type:
+          $ref: '#/components/schemas/ProjectType'
+        notifications:
+          type: boolean
+          default: true
+          description: Enable notifications for assignees
+        project_rules:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/ProjectRule'
+          description: Rules to apply to this project
+        blind_labeling_shown_metric_ids:
+          type: array
+          nullable: true
+          items:
+            type: string
+          description: Metric IDs whose machine score stays visible during blind labeling
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameter
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    nullable: true
+                    description: Field that caused the error
+                  description:
+                    type: string
+                    description: Detailed error description
+    UpdateReviewProjectResponse:
+      type: object
+      required:
+      - review_project
+      properties:
+        review_project:
+          $ref: '#/components/schemas/ReviewProjectResource'
+    GetReviewProjectResponse:
+      type: object
+      required:
+      - review_project
+      properties:
+        review_project:
+          $ref: '#/components/schemas/ReviewProjectResource'
+    UpdateReviewProjectRequest:
+      type: object
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          nullable: true
+          description: Updated project name
+        description:
+          type: string
+          nullable: true
+          description: Updated description
+        assignees:
+          type: array
+          nullable: true
+          items:
+            type: string
+          description: Updated assignee list
+        linked_simulation_ids:
+          type: array
+          nullable: true
+          items:
+            type: string
+          description: Updated simulation IDs
+        add_linked_simulation_ids:
+          type: array
+          nullable: true
+          minItems: 1
+          items:
+            type: string
+          description: Simulation IDs to add atomically; cannot be combined with other project updates
+        remove_linked_simulation_ids:
+          type: array
+          nullable: true
+          minItems: 1
+          items:
+            type: string
+          description: Simulation IDs to remove atomically; cannot be combined with other project updates
+        linked_metric_ids:
+          type: array
+          nullable: true
+          items:
+            type: string
+          description: Updated metric IDs
+        notifications:
+          type: boolean
+          nullable: true
+          description: Updated notification setting
+        project_rules:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/ProjectRule'
+          description: Updated project rules
+        blind_labeling_shown_metric_ids:
+          type: array
+          nullable: true
+          items:
+            type: string
+          description: Metric IDs whose machine score stays visible during blind labeling
+        opted_out_assignees:
+          type: array
+          nullable: true
+          items:
+            type: string
+          description: Assignees who opted out of notifications
+    GetHumanReviewProjectInsightsResponse:
+      type: object
+      required:
+      - project
+      - label_overview
+      - label_stats
+      - metric_stats
+      properties:
+        project:
+          type: object
+          properties:
+            ulid:
+              type: string
+            name:
+              type: string
+            linked_metric_ids:
+              type: array
+              items:
+                type: string
+            review_label_options:
+              type: array
+              items:
+                type: string
+        label_overview:
+          type: object
+          description: Aggregate label coverage for the project window.
+        label_stats:
+          type: array
+          items:
+            type: object
+          description: Per-label insight rows.
+        metric_stats:
+          type: array
+          items:
+            type: object
+          description: Per-metric insight rows (counts, agreement rate, simulation output ids).
+    ListReviewProjectsResponse:
+      type: object
+      required:
+      - review_projects
+      properties:
+        review_projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewProjectResource'
+        next_page_token:
+          type: string
+          nullable: true
+          description: Opaque token for fetching the next page
+    GetProjectMetricAgreementResponse:
+      type: object
+      required:
+      - agreement_by_metric_id
+      properties:
+        agreement_by_metric_id:
+          type: object
+          description: Agreement stats keyed by metric ID.
+          additionalProperties:
+            $ref: '#/components/schemas/ProjectMetricAgreementResource'
+    ProjectRule:
+      type: string
+      enum:
+      - require_disagreement_notes
+      description: 'Project rule: require_disagreement_notes requires reviewer notes when ground truth disagrees with model output'
+  examples:
+    ListProjectsSuccess:
+      summary: Successful project list response
+      value:
+        review_projects:
+        - name: review-projects/01HXYZ1234567890ABCDEF
+          id: 01HXYZ1234567890ABCDEF
+          display_name: Q1 Voice Agent Review
+          description: Review project for Q1 evaluations
+          assignees:
+          - alice@company.com
+          - bob@company.com
+          linked_simulation_ids:
+          - sim-output-001
+          - sim-output-002
+          linked_metric_ids:
+          - metric-accuracy
+          - metric-latency
+          project_type: PROJECT_INDIVIDUAL
+          notifications: true
+          create_time: '2026-01-10T08:00:00Z'
+          update_time: '2026-01-15T14:30:00Z'
+        next_page_token: null
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key for authentication
+x-visibility: external

@@ -1,0 +1,655 @@
+openapi: 3.0.3
+info:
+  title: Coval Agents Reports API
+  version: 1.0.0
+  description: '
+
+    Manage configurations for simulations and evaluations.
+
+    '
+  contact:
+    name: Coval API Support
+    email: support@coval.dev
+    url: https://docs.coval.ai
+  license:
+    name: Proprietary
+    url: https://coval.dev/terms
+servers:
+- url: https://api.coval.dev/v1
+  description: Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Reports
+  description: CRUD operations for saved multi-run reports
+paths:
+  /reports:
+    get:
+      operationId: listReports
+      summary: List reports
+      description: Retrieve a paginated list of saved reports for the authenticated organization.
+      tags:
+      - Reports
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
+          pattern: ^\d+$
+        description: Cursor from the previous page.
+        example: '50'
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+        description: Maximum number of reports to return.
+        example: 50
+      responses:
+        '200':
+          description: Reports retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListReportsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      operationId: createReport
+      summary: Create report
+      description: 'Create a saved report from existing run IDs. All runs must belong to the
+
+        authenticated organization. Public reports are shareable without login and
+
+        mark their included runs public.
+
+        '
+      tags:
+      - Reports
+      security:
+      - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReportRequest'
+            examples:
+              personaComparison:
+                summary: Compare by persona
+                value:
+                  name: Accent sweep
+                  run_ids:
+                  - 8EktrIgaVxn9LfxkIynagX
+                  - 9FltuJhbWyoAMgymJzobhY
+                  compare_by: persona
+                  permissions: PRIVATE
+              metadataComparison:
+                summary: Compare by metadata value
+                value:
+                  name: Plan comparison
+                  run_ids:
+                  - 8EktrIgaVxn9LfxkIynagX
+                  - 9FltuJhbWyoAMgymJzobhY
+                  compare_by: metadata
+                  metadata_key: customer.plan
+                  permissions: PUBLIC
+      responses:
+        '201':
+          description: Report created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateReportResponse'
+              examples:
+                created:
+                  $ref: '#/components/examples/ReportCreated'
+        '400':
+          description: Invalid request body or validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingMetadataKey:
+                  value:
+                    error:
+                      code: INVALID_ARGUMENT
+                      message: Invalid request body
+                      details:
+                      - field: metadata_key
+                        description: metadata_key is required when compare_by is metadata
+                invalidRuns:
+                  value:
+                    error:
+                      code: INVALID_ARGUMENT
+                      message: Validation failed
+                      details:
+                      - description: Invalid report run ids.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /reports/{report_id}:
+    get:
+      operationId: getReport
+      summary: Get report
+      description: Retrieve a saved report by ID.
+      tags:
+      - Reports
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - $ref: '#/components/parameters/ReportId'
+      responses:
+        '200':
+          description: Report retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetReportResponse'
+              examples:
+                success:
+                  $ref: '#/components/examples/ReportCreated'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    patch:
+      operationId: updateReport
+      summary: Update report
+      description: 'Partially update a saved report. To group by metadata, provide both
+
+        `compare_by: metadata` and `metadata_key`.
+
+        '
+      tags:
+      - Reports
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - $ref: '#/components/parameters/ReportId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReportRequest'
+            examples:
+              rename:
+                summary: Rename a report
+                value:
+                  name: Q2 plan comparison
+              metadataGrouping:
+                summary: Update metadata grouping and visibility
+                value:
+                  compare_by: metadata
+                  metadata_key: customer.plan
+                  permissions: PUBLIC
+      responses:
+        '200':
+          description: Report updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateReportResponse'
+              examples:
+                updated:
+                  $ref: '#/components/examples/ReportCreated'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    delete:
+      operationId: deleteReport
+      summary: Delete report
+      description: 'Soft-delete a saved report. If the report is public, its run visibility
+
+        is revoked unless another public report still references the same runs.
+
+        '
+      tags:
+      - Reports
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - $ref: '#/components/parameters/ReportId'
+      responses:
+        '200':
+          description: Report deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteReportResponse'
+              examples:
+                deleted:
+                  value:
+                    message: Report deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  responses:
+    InternalError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred while processing the report request
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: The API key does not include the required report permission.
+    ServiceUnavailable:
+      description: Service temporarily unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Service temporarily unavailable
+              details:
+              - description: Database routing is temporarily unavailable. Please retry.
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: x-api-key
+                description: API key is required in the x-api-key header
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Report not found
+              details:
+              - field: report_id
+                description: Report not found or not authorized.
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: metadata_key
+                description: metadata_key is required when compare_by is metadata
+  schemas:
+    DeleteReportResponse:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          example: Report deleted successfully.
+    CompareBy:
+      type: string
+      enum:
+      - none
+      - run
+      - agent
+      - mutation
+      - persona
+      - test_case
+      - metadata
+      default: none
+      description: Dimension to group and compare runs by in the report view.
+      example: persona
+    GetReportResponse:
+      type: object
+      required:
+      - report
+      properties:
+        report:
+          $ref: '#/components/schemas/Report'
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type: string
+          nullable: true
+          description: Field that caused the error, when available.
+          example: metadata_key
+        description:
+          type: string
+          description: Human-readable detail about the error.
+          example: metadata_key is required when compare_by is metadata
+    Error:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          enum:
+          - INVALID_ARGUMENT
+          - UNAUTHENTICATED
+          - PERMISSION_DENIED
+          - NOT_FOUND
+          - INTERNAL
+          description: Machine-readable error code.
+          example: INVALID_ARGUMENT
+        message:
+          type: string
+          description: Human-readable error message.
+          example: Invalid request body
+        details:
+          type: array
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+    CreateReportResponse:
+      type: object
+      required:
+      - report
+      properties:
+        report:
+          $ref: '#/components/schemas/Report'
+    UpdateReportRequest:
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: Display name for the saved report.
+          example: Q2 plan comparison
+        run_ids:
+          type: array
+          minItems: 1
+          maxItems: 2000
+          items:
+            type: string
+          description: Replacement run IDs. All must belong to the authenticated organization.
+          example:
+          - 8EktrIgaVxn9LfxkIynagX
+          - 9FltuJhbWyoAMgymJzobhY
+        simulation_output_ids:
+          type: array
+          maxItems: 10000
+          items:
+            type: string
+          description: 'Replacement simulation IDs pinning the report to a subset of simulations. When set,
+
+            this is the report''s authoritative scope.
+
+            '
+          example:
+          - AGktrIgaVxn9LfxkIynagX
+        source_human_review_project_id:
+          type: string
+          minLength: 26
+          maxLength: 26
+          description: 'Human review project the simulations were sourced from; `simulation_output_ids`
+
+            must belong to it. Omit to leave unchanged — null is rejected, the linkage
+
+            cannot be cleared via update.
+
+            '
+          example: 01JABCDEFGHJKMNPQRSTVWXYZ0
+        compare_by:
+          $ref: '#/components/schemas/CompareBy'
+        metadata_key:
+          type: string
+          minLength: 1
+          maxLength: 200
+          nullable: true
+          description: Required when changing `compare_by` to `metadata`; otherwise omit it.
+          example: customer.plan
+        permissions:
+          $ref: '#/components/schemas/ReportPermission'
+    UpdateReportResponse:
+      type: object
+      required:
+      - report
+      properties:
+        report:
+          $ref: '#/components/schemas/Report'
+    Report:
+      type: object
+      required:
+      - id
+      - name
+      - run_ids
+      - compare_by
+      - metadata_key
+      - permissions
+      properties:
+        id:
+          type: string
+          minLength: 26
+          maxLength: 26
+          description: The report's ULID. Open it in the app at /<organization>/reports/<id>.
+          example: 01JABCDEFGHJKMNPQRSTVWXYZ0
+        name:
+          type: string
+          description: Display name for the saved report.
+          example: Plan comparison
+        run_ids:
+          type: array
+          maxItems: 2000
+          items:
+            type: string
+          description: Run IDs included in the saved report.
+          example:
+          - 8EktrIgaVxn9LfxkIynagX
+          - 9FltuJhbWyoAMgymJzobhY
+        simulation_output_ids:
+          type: array
+          maxItems: 10000
+          items:
+            type: string
+          description: Simulation IDs pinning the saved report to a subset of simulations; empty for run-scoped reports.
+          example:
+          - AGktrIgaVxn9LfxkIynagX
+        source_human_review_project_id:
+          type: string
+          nullable: true
+          description: Human review project the pinned simulations were sourced from; null when not report-linked.
+          example: 01JABCDEFGHJKMNPQRSTVWXYZ0
+        compare_by:
+          $ref: '#/components/schemas/CompareBy'
+        metadata_key:
+          type: string
+          nullable: true
+          description: Metadata key used for grouping when `compare_by` is `metadata`; null otherwise.
+          example: customer.plan
+        permissions:
+          $ref: '#/components/schemas/ReportPermission'
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    CreateReportRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - name
+      - run_ids
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: Display name for the saved report.
+          example: Accent sweep
+        run_ids:
+          type: array
+          minItems: 1
+          maxItems: 2000
+          items:
+            type: string
+          description: Run IDs to include in the report. All must belong to the authenticated organization.
+          example:
+          - 8EktrIgaVxn9LfxkIynagX
+          - 9FltuJhbWyoAMgymJzobhY
+        simulation_output_ids:
+          type: array
+          maxItems: 10000
+          items:
+            type: string
+          description: 'Optional simulation IDs pinning the report to a subset of simulations. When set,
+
+            this is the report''s authoritative scope. All must belong to the authenticated
+
+            organization.
+
+            '
+          example:
+          - AGktrIgaVxn9LfxkIynagX
+        source_human_review_project_id:
+          type: string
+          minLength: 26
+          maxLength: 26
+          nullable: true
+          default: null
+          description: Optional human review project the simulations were sourced from; `simulation_output_ids` must belong to it.
+          example: 01JABCDEFGHJKMNPQRSTVWXYZ0
+        compare_by:
+          $ref: '#/components/schemas/CompareBy'
+        metadata_key:
+          type: string
+          minLength: 1
+          maxLength: 200
+          nullable: true
+          default: null
+          description: 'Metadata key to group by. Required when `compare_by` is `metadata`;
+
+            otherwise omit it.
+
+            '
+          example: customer.plan
+        permissions:
+          $ref: '#/components/schemas/ReportPermission'
+    ListReportsResponse:
+      type: object
+      required:
+      - reports
+      properties:
+        reports:
+          type: array
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/Report'
+        next_cursor:
+          type: string
+          nullable: true
+          description: Cursor for fetching the next page of results.
+          example: '50'
+    ReportPermission:
+      type: string
+      enum:
+      - PUBLIC
+      - PRIVATE
+      default: PRIVATE
+      description: PUBLIC creates a login-free shareable report; PRIVATE keeps it organization-only.
+      example: PRIVATE
+  examples:
+    ReportCreated:
+      value:
+        report:
+          id: 01JABCDEFGHJKMNPQRSTVWXYZ0
+          name: Plan comparison
+          run_ids:
+          - 8EktrIgaVxn9LfxkIynagX
+          - 9FltuJhbWyoAMgymJzobhY
+          compare_by: metadata
+          metadata_key: customer.plan
+          permissions: PUBLIC
+  parameters:
+    ReportId:
+      name: report_id
+      in: path
+      required: true
+      schema:
+        type: string
+        minLength: 26
+        maxLength: 26
+      description: Saved report ULID.
+      example: 01JABCDEFGHJKMNPQRSTVWXYZ0
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key for authentication
+x-visibility: external

@@ -1,0 +1,277 @@
+openapi: 3.0.3
+info:
+  title: Coval Agents Monitor Events API
+  version: 1.0.0
+  description: '
+
+    Manage configurations for simulations and evaluations.
+
+    '
+  contact:
+    name: Coval API Support
+    email: support@coval.dev
+    url: https://docs.coval.ai
+  license:
+    name: Proprietary
+    url: https://coval.dev/terms
+servers:
+- url: https://api.coval.dev/v1
+  description: Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Monitor Events
+  description: Monitor evaluation event history
+paths:
+  /monitors/{monitor_id}/events:
+    get:
+      operationId: listMonitorEvents
+      summary: List monitor events
+      description: 'Returns evaluation events for a monitor, ordered by most recent first.
+
+
+        Every run completion that evaluates this monitor produces an event,
+
+        regardless of outcome (TRIGGERED, NOT_MET, SUPPRESSED, ERROR).
+
+        '
+      tags:
+      - Monitor Events
+      parameters:
+      - $ref: '#/components/parameters/MonitorId'
+      - name: outcome
+        in: query
+        schema:
+          type: string
+          enum:
+          - TRIGGERED
+          - NOT_MET
+          - SUPPRESSED
+          - ERROR
+        description: Filter events by outcome
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+        description: Number of results per page
+      - name: page_token
+        in: query
+        schema:
+          type: string
+        description: Token for fetching the next page of results
+      responses:
+        '200':
+          description: List of monitor events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListMonitorEventsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/PermissionDenied'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  schemas:
+    MonitorEventResource:
+      type: object
+      required:
+      - ulid
+      - monitor_ulid
+      - run_id
+      - outcome
+      - created_at
+      properties:
+        ulid:
+          type: string
+          pattern: ^[0-9A-Z]{26}$
+          description: Event ULID
+        monitor_ulid:
+          type: string
+          description: Monitor ULID that produced this event
+        run_id:
+          type: string
+          description: Run that triggered evaluation
+        outcome:
+          $ref: '#/components/schemas/MonitorEventOutcome'
+        condition_results:
+          type: array
+          items:
+            type: object
+            properties:
+              metric_id:
+                type: string
+              metric_display_name:
+                type: string
+              aggregation:
+                type: string
+              computed_value:
+                oneOf:
+                - type: number
+                - type: string
+                nullable: true
+              threshold:
+                oneOf:
+                - type: number
+                - type: string
+                nullable: true
+              operator:
+                type: string
+              met:
+                type: boolean
+          description: Per-condition evaluation results
+        dispatched_channels:
+          type: array
+          items:
+            type: object
+            properties:
+              channel_type:
+                type: string
+              channel_summary:
+                type: string
+              success:
+                type: boolean
+              error:
+                type: string
+                nullable: true
+          description: Per-channel dispatch results
+        message_sent:
+          type: string
+          nullable: true
+          description: Notification message that was dispatched
+        created_at:
+          type: string
+          format: date-time
+          description: Event creation timestamp
+    MonitorEventOutcome:
+      type: string
+      enum:
+      - TRIGGERED
+      - NOT_MET
+      - SUPPRESSED
+      - ERROR
+      description: Outcome of a monitor evaluation
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - PERMISSION_DENIED
+              - NOT_FOUND
+              - ALREADY_EXISTS
+              - INTERNAL
+            message:
+              type: string
+              description: Human-readable error message
+            details:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    nullable: true
+                  description:
+                    type: string
+    ListMonitorEventsResponse:
+      type: object
+      required:
+      - events
+      - total_count
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitorEventResource'
+        next_page_token:
+          type: string
+          nullable: true
+        total_count:
+          type: integer
+  responses:
+    InternalError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
+    PermissionDenied:
+      description: Permission Denied
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: 'Required scope: monitors:read'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Monitor not found
+              details:
+              - field: monitor_id
+                description: Monitor '01HZ0EXAMPLE00000000000000' not found
+  parameters:
+    MonitorId:
+      name: monitor_id
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^[0-9A-Z]{26}$
+      description: Monitor ULID
+      example: 01HZ0EXAMPLE00000000000000
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key for authentication
+x-visibility: external

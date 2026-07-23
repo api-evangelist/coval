@@ -1,0 +1,797 @@
+openapi: 3.0.3
+info:
+  title: Coval Agents Review Annotations API
+  version: 1.0.0
+  description: '
+
+    Manage configurations for simulations and evaluations.
+
+    '
+  contact:
+    name: Coval API Support
+    email: support@coval.dev
+    url: https://docs.coval.ai
+  license:
+    name: Proprietary
+    url: https://coval.dev/terms
+servers:
+- url: https://api.coval.dev/v1
+  description: Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Review Annotations
+  description: Annotation CRUD operations
+paths:
+  /review-annotations:
+    get:
+      operationId: listReviewAnnotations
+      summary: List review annotations
+      description: List review annotations for your organization with optional filtering, sorting, and pagination.
+      tags:
+      - Review Annotations
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+        description: Maximum number of results per page
+      - name: page_token
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Opaque pagination token from previous response
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          type: string
+          example: -create_time
+        description: 'Sort field and direction. Prefix with `-` for descending.
+
+          Valid fields: `create_time`, `update_time`, `assignee`, `priority`.
+
+          '
+      - name: filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Filter expression. Supported fields:
+
+          - `simulation_output_id` — exact match
+
+          - `metric_id` — exact match
+
+          - `assignee` — exact match
+
+          - `status` — `ACTIVE` or `ARCHIVED`
+
+          - `completion_status` — `PENDING` or `COMPLETED`
+
+          - `project_id` — annotations belonging to a project
+
+          '
+      responses:
+        '200':
+          description: Annotations retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListReviewAnnotationsResponse'
+              examples:
+                success:
+                  $ref: '#/components/examples/ListAnnotationsSuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      operationId: createReviewAnnotation
+      summary: Create review annotation
+      description: Create a new review annotation for your organization.
+      tags:
+      - Review Annotations
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: project_id
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Optional project ID to apply project-rule-aware completion status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReviewAnnotationRequest'
+            examples:
+              basic:
+                summary: Create a basic annotation
+                value:
+                  simulation_output_id: sim-output-abc123
+                  metric_id: metric-accuracy-001
+                  assignee: reviewer@company.com
+              with_ground_truth:
+                summary: Create with ground truth (auto-completes)
+                value:
+                  simulation_output_id: sim-output-abc123
+                  metric_id: metric-accuracy-001
+                  assignee: reviewer@company.com
+                  ground_truth_float_value: 0.95
+                  reviewer_notes: Verified correct response
+      responses:
+        '201':
+          description: Annotation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateReviewAnnotationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /review-annotations/{annotation_id}:
+    get:
+      operationId: getReviewAnnotation
+      summary: Get review annotation
+      description: Get a single review annotation by ID.
+      tags:
+      - Review Annotations
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: annotation_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The annotation ID
+      - name: project_id
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Optional project ID to apply project-rule-aware completion status
+      responses:
+        '200':
+          description: Annotation retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetReviewAnnotationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    patch:
+      operationId: updateReviewAnnotation
+      summary: Update review annotation
+      description: 'Partially update a review annotation.
+
+        Providing a ground truth value auto-sets `completion_status` to `COMPLETED`.
+
+        '
+      tags:
+      - Review Annotations
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: annotation_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The annotation ID
+      - name: project_id
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Optional project ID to apply project-rule-aware completion status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReviewAnnotationRequest'
+            examples:
+              set_ground_truth:
+                summary: Set ground truth (auto-completes)
+                value:
+                  ground_truth_float_value: 0.85
+              update_assignee:
+                summary: Reassign annotation
+                value:
+                  assignee: new-reviewer@company.com
+      responses:
+        '200':
+          description: Annotation updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateReviewAnnotationResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    delete:
+      operationId: deleteReviewAnnotation
+      summary: Delete review annotation
+      description: Delete a review annotation.
+      tags:
+      - Review Annotations
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: annotation_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The annotation ID
+      responses:
+        '200':
+          description: Annotation deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+              example: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /review-annotations/metric-health-stats:
+    get:
+      operationId: getReviewMetricHealthStats
+      summary: Get metric health stats
+      description: Compact machine-vs-human and human-vs-human agreement health for one metric, computed from its review annotations. Metric-scoped (no project).
+      tags:
+      - Review Annotations
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: metric_id
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The metric ID (22-char ShortUUID).
+      responses:
+        '200':
+          description: Health stats computed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMetricHealthStatsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /review-annotations:withMetricOutputs:
+    post:
+      operationId: getReviewAnnotationsWithMetricOutputs
+      summary: Get annotations with metric outputs
+      description: Review annotations grouped by metric plus the latest pipeline metric outputs, scoped by any of metric_ids / simulation_output_ids / project_ids (all optional). Offset-paginated via page_token / page_size.
+      tags:
+      - Review Annotations
+      security:
+      - ApiKeyAuth: []
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAnnotationsWithMetricOutputsRequest'
+      responses:
+        '200':
+          description: Annotations retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAnnotationsWithMetricOutputsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: The API key does not include the required reviews permission.
+    ServiceUnavailable:
+      description: Service temporarily unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Service temporarily unavailable
+              details:
+              - description: Database routing is temporarily unavailable. Please retry.
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Resource not found
+              details:
+              - field: annotation_id
+                description: Annotation not found or not accessible by your organization
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: simulation_output_id
+                description: simulation_output_id is required
+  schemas:
+    UpdateReviewAnnotationResponse:
+      type: object
+      required:
+      - review_annotation
+      properties:
+        review_annotation:
+          $ref: '#/components/schemas/ReviewAnnotationResource'
+    GetMetricHealthStatsResponse:
+      type: object
+      required:
+      - conversations
+      - annotations
+      - agreement_rate
+      - agreements
+      - disagreements
+      - human_agreement
+      properties:
+        conversations:
+          type: integer
+        annotations:
+          type: integer
+        agreement_rate:
+          type: number
+        agreements:
+          type: integer
+        disagreements:
+          type: integer
+        human_agreement:
+          $ref: '#/components/schemas/HumanAgreementStatsResource'
+    ListReviewAnnotationsResponse:
+      type: object
+      required:
+      - review_annotations
+      properties:
+        review_annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewAnnotationResource'
+        next_page_token:
+          type: string
+          nullable: true
+          description: Opaque token for fetching the next page
+    HumanAgreementStatsResource:
+      type: object
+      required:
+      - human_agreement_rate
+      - human_agreement_total
+      - human_agreements
+      - human_disagreements
+      properties:
+        human_agreement_rate:
+          type: number
+        human_agreement_total:
+          type: integer
+        human_agreements:
+          type: integer
+        human_disagreements:
+          type: integer
+    AnnotationStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - ARCHIVED
+      description: 'Annotation lifecycle status: ACTIVE (default) or ARCHIVED'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameter
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    nullable: true
+                    description: Field that caused the error
+                  description:
+                    type: string
+                    description: Detailed error description
+    ReviewMetricOutputForAnnotationResource:
+      type: object
+      required:
+      - created_at
+      properties:
+        output_type:
+          type: string
+          nullable: true
+        float_value:
+          type: number
+          nullable: true
+        string_value:
+          type: string
+          nullable: true
+        set_value:
+          type: array
+          nullable: true
+          items:
+            type: string
+        error_status:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        explanation:
+          type: string
+          nullable: true
+        result_json:
+          nullable: true
+        subvalues_by_timestamp:
+          nullable: true
+        metric_version_number:
+          type: integer
+          nullable: true
+        metric_version_ulid:
+          type: string
+          nullable: true
+    UpdateReviewAnnotationRequest:
+      type: object
+      properties:
+        ground_truth_float_value:
+          type: number
+          format: float
+          nullable: true
+          description: Ground truth numeric value (auto-completes annotation)
+        ground_truth_string_value:
+          type: string
+          nullable: true
+          description: Ground truth string value (auto-completes annotation)
+        ground_truth_subvalues_by_timestamp:
+          type: array
+          nullable: true
+          items:
+            type: object
+          description: Ground truth subvalues
+        reviewer_notes:
+          type: string
+          nullable: true
+          description: Reviewer notes
+        priority:
+          $ref: '#/components/schemas/AnnotationPriority'
+        assignee:
+          type: string
+          nullable: true
+          description: Reassign to a different reviewer
+    GetAnnotationsWithMetricOutputsRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        metric_id:
+          type: string
+          nullable: true
+        metric_ids:
+          type: array
+          nullable: true
+          maxItems: 10000
+          items:
+            type: string
+        simulation_output_ids:
+          type: array
+          nullable: true
+          maxItems: 10000
+          items:
+            type: string
+        project_ids:
+          type: array
+          nullable: true
+          maxItems: 1000
+          items:
+            type: string
+        filter_archived:
+          type: boolean
+          default: false
+        include_metric_output_details:
+          type: boolean
+          default: true
+        include_audio_lengths:
+          type: boolean
+          default: true
+        page_size:
+          type: integer
+          nullable: true
+          minimum: 1
+          maximum: 1000
+        page_token:
+          type: string
+          nullable: true
+    GetReviewAnnotationResponse:
+      type: object
+      required:
+      - review_annotation
+      properties:
+        review_annotation:
+          $ref: '#/components/schemas/ReviewAnnotationResource'
+    CreateReviewAnnotationRequest:
+      type: object
+      required:
+      - simulation_output_id
+      - metric_id
+      - assignee
+      properties:
+        simulation_output_id:
+          type: string
+          minLength: 1
+          description: Simulation output ID to link
+        metric_id:
+          type: string
+          minLength: 1
+          description: Metric ID to link
+        assignee:
+          type: string
+          minLength: 1
+          description: Email of the reviewer to assign
+        ground_truth_float_value:
+          type: number
+          format: float
+          nullable: true
+          description: Optional ground truth numeric value (auto-completes annotation)
+        ground_truth_string_value:
+          type: string
+          nullable: true
+          description: Optional ground truth string value (auto-completes annotation)
+        ground_truth_subvalues_by_timestamp:
+          type: array
+          nullable: true
+          items:
+            type: object
+          description: Optional ground truth subvalues
+        reviewer_notes:
+          type: string
+          nullable: true
+          description: Optional reviewer notes
+        priority:
+          $ref: '#/components/schemas/AnnotationPriority'
+    GetAnnotationsWithMetricOutputsResponse:
+      type: object
+      required:
+      - annotations
+      - metric_outputs
+      - audio_lengths_by_simulation_output_id
+      properties:
+        annotations:
+          type: object
+          description: Annotations keyed by metric ID.
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/ReviewAnnotationResource'
+        metric_outputs:
+          type: object
+          description: Latest pipeline metric output keyed by metric ID then simulation output ID.
+          additionalProperties:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/ReviewMetricOutputForAnnotationResource'
+        audio_lengths_by_simulation_output_id:
+          type: object
+          additionalProperties:
+            type: number
+            nullable: true
+        next_page_token:
+          type: string
+          nullable: true
+    CreateReviewAnnotationResponse:
+      type: object
+      required:
+      - review_annotation
+      properties:
+        review_annotation:
+          $ref: '#/components/schemas/ReviewAnnotationResource'
+    AnnotationPriority:
+      type: string
+      enum:
+      - PRIORITY_PRIMARY
+      - PRIORITY_STANDARD
+      default: PRIORITY_STANDARD
+      description: Annotation priority level
+    ReviewAnnotationResource:
+      type: object
+      description: A single review annotation resource.
+      required:
+      - name
+      - id
+      - simulation_output_id
+      - metric_id
+      - assignee
+      - status
+      - completion_status
+      - priority
+      - create_time
+      - update_time
+      properties:
+        name:
+          type: string
+          description: 'Resource name: review-annotations/{id}'
+          example: review-annotations/abc123def456ghi789jklm
+        id:
+          type: string
+          description: Unique annotation ID
+          example: abc123def456ghi789jklm
+        simulation_output_id:
+          type: string
+          description: Linked simulation output ID
+        metric_id:
+          type: string
+          description: Linked metric ID
+        assignee:
+          type: string
+          description: Email of the assigned reviewer
+        ground_truth_float_value:
+          type: number
+          format: float
+          nullable: true
+          description: Reviewer-provided ground truth numeric value
+        ground_truth_string_value:
+          type: string
+          nullable: true
+          description: Reviewer-provided ground truth string value
+        ground_truth_subvalues_by_timestamp:
+          type: array
+          nullable: true
+          description: Reviewer-provided ground truth subvalues keyed by timestamp
+          items:
+            type: object
+        reviewer_notes:
+          type: string
+          nullable: true
+          description: Free-text reviewer notes
+        status:
+          $ref: '#/components/schemas/AnnotationStatus'
+        completion_status:
+          $ref: '#/components/schemas/CompletionStatus'
+        priority:
+          $ref: '#/components/schemas/AnnotationPriority'
+        create_time:
+          type: string
+          format: date-time
+          description: Creation timestamp (ISO 8601)
+        update_time:
+          type: string
+          format: date-time
+          description: Last update timestamp (ISO 8601)
+    CompletionStatus:
+      type: string
+      enum:
+      - PENDING
+      - COMPLETED
+      description: 'Annotation completion status: PENDING or COMPLETED'
+  examples:
+    ListAnnotationsSuccess:
+      summary: Successful annotation list response
+      value:
+        review_annotations:
+        - name: review-annotations/abc123def456ghi789jklm
+          id: abc123def456ghi789jklm
+          simulation_output_id: sim-output-001
+          metric_id: metric-accuracy
+          assignee: alice@company.com
+          ground_truth_float_value: null
+          ground_truth_string_value: null
+          reviewer_notes: null
+          status: ACTIVE
+          completion_status: PENDING
+          priority: PRIORITY_STANDARD
+          create_time: '2026-01-15T12:00:00Z'
+          update_time: '2026-01-15T12:00:00Z'
+        next_page_token: null
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key for authentication
+x-visibility: external
