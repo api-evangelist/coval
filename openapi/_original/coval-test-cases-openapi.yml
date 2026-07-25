@@ -1,0 +1,540 @@
+openapi: 3.0.3
+x-visibility: external  # external | internal — only `external` specs are published to the public API/docs
+info:
+  title: Test Cases API
+  version: 1.0.0
+  description: |
+    API for managing test cases - individual test inputs for evaluation.
+
+    Test cases are standalone resources accessed at `/v1/test-cases`.
+  contact:
+    name: Coval API Support
+    url: https://coval.dev
+    email: support@coval.dev
+servers:
+- url: https://api.coval.dev/v1
+  description: Production API
+security:
+- apiKey: []
+paths:
+  /test-cases:
+    get:
+      summary: List test cases
+      description: |
+        List test cases for your organization.
+      operationId: listTestCases
+      tags:
+      - Test Cases
+      parameters:
+      - name: filter
+        in: query
+        description: |
+          Filter expression syntax.
+          Values may be unquoted or double-quoted. Values containing spaces must be quoted.
+          Example: `test_set_id=abc12345`
+        schema:
+          type: string
+        example: test_set_id=abc12345
+      - name: page_size
+        in: query
+        description: Maximum number of test cases to return (default 50, max 100)
+        schema:
+          type: integer
+          default: 50
+          maximum: 100
+      - name: page_token
+        in: query
+        description: Token for retrieving the next page of results
+        schema:
+          type: string
+      - name: order_by
+        in: query
+        description: |
+          Field to order results by. Prefix with `-` for descending order.
+          Example: `-create_time` for newest first
+        schema:
+          type: string
+          default: -create_time
+        example: -create_time
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  test_cases:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TestCaseResource'
+                  next_page_token:
+                    type: string
+                    description: Token for retrieving the next page (empty if last page)
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      summary: Create test case
+      description: Create a new test case.
+      operationId: createTestCase
+      tags:
+      - Test Cases
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTestCaseRequest'
+      responses:
+        '201':
+          description: Test case created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  test_case:
+                    $ref: '#/components/schemas/TestCaseResource'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Test set not found or doesn't belong to organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /test-cases/{test_case_id}:
+    parameters:
+    - name: test_case_id
+      in: path
+      required: true
+      description: Test case ID
+      schema:
+        type: string
+        minLength: 22
+        maxLength: 22
+      example: abc123def456ghi789jklm
+    get:
+      summary: Get test case
+      description: Retrieve a test case by ID.
+      operationId: getTestCase
+      tags:
+      - Test Cases
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  test_case:
+                    $ref: '#/components/schemas/TestCaseResource'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    patch:
+      summary: Update test case
+      description: Update a test case.
+      operationId: updateTestCase
+      tags:
+      - Test Cases
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTestCaseRequest'
+      responses:
+        '200':
+          description: Test case updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  test_case:
+                    $ref: '#/components/schemas/TestCaseResource'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    delete:
+      summary: Delete test case
+      description: |
+        Delete a test case permanently.
+      operationId: deleteTestCase
+      tags:
+      - Test Cases
+      responses:
+        '200':
+          description: Test case deleted successfully (or already deleted)
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Empty object
+                example: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Test case belongs to different organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Organization API key for authentication
+  schemas:
+    TestCaseResource:
+      type: object
+      description: Test case resource.
+      properties:
+        name:
+          type: string
+          description: Resource name in format `test-cases/{id}`
+          example: test-cases/abc123def456ghi789jklm
+        id:
+          type: string
+          description: Test case ID
+          minLength: 22
+          maxLength: 22
+          example: abc123def456ghi789jklm
+        test_set_id:
+          type: string
+          nullable: true
+          description: Test set ID (8-character ID)
+          minLength: 8
+          maxLength: 8
+          example: abc12345
+        input_str:
+          type: string
+          description: Input for the test case
+          example: What is the weather today?
+        expected_output_str:
+          type: string
+          nullable: true
+          description: Expected output string
+          example: The weather is sunny with a high of 75 degrees.
+        expected_output_json:
+          type: object
+          description: Expected output as JSON object
+          additionalProperties: true
+          example:
+            temperature: 75
+            condition: sunny
+        description:
+          type: string
+          nullable: true
+          description: Human-readable description of the test case
+          example: Test case for weather query with sunny conditions
+        input_type:
+          type: string
+          nullable: true
+          description: |
+            Type of input for the test case. Defaults to SCENARIO. When set
+            to SCRIPT, the simulation_metadata_input should contain a
+            script_turns field with ordered persona turn texts.
+          enum:
+          - SCENARIO
+          - TRANSCRIPT
+          - IVR
+          - AUDIO
+          - MANUAL
+          - SCRIPT
+          default: SCENARIO
+          example: SCENARIO
+        simulation_metadata_input:
+          type: object
+          description: |
+            Metadata for simulation execution. Contents vary by input_type.
+            When input_type is SCRIPT, this object should contain a
+            script_turns field (array of strings) with the ordered lines
+            for the persona to deliver.
+          additionalProperties: true
+          example:
+            script_turns:
+            - Hi, I'd like to check my account balance.
+            - Yes, my account number is 12345.
+            - Thank you, goodbye.
+        metric_input:
+          type: object
+          description: Input data for metric calculations
+          additionalProperties: true
+          example:
+            expected_entities:
+            - weather
+            - temperature
+        user_notes:
+          type: string
+          nullable: true
+          description: User-provided notes about the test case
+          example: Added for regression testing weather queries
+        create_time:
+          type: string
+          format: date-time
+          description: Timestamp when test case was created
+          example: '2025-10-14T12:00:00Z'
+        update_time:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when test case was last updated
+          example: '2025-10-15T14:30:00Z'
+    CreateTestCaseRequest:
+      type: object
+      description: Request body for creating a test case
+      required:
+      - input_str
+      - test_set_id
+      properties:
+        input_str:
+          type: string
+          minLength: 1
+          description: Input for the test case
+          example: What is the weather today?
+        test_set_id:
+          type: string
+          minLength: 8
+          maxLength: 8
+          description: Test set ID (REQUIRED in body, not URL)
+          example: abc12345
+        expected_behaviors:
+          type: array
+          items:
+            type: string
+          nullable: true
+          description: Expected behaviors (list of strings). This is the preferred field.
+          example: ["The weather is sunny."]
+        expected_output_str:
+          type: string
+          nullable: true
+          description: |
+            DEPRECATED: Use expected_behaviors instead.
+            If provided and expected_behaviors is not, this value will be wrapped
+            in a list and used as expected_behaviors.
+          example: The weather is sunny.
+        expected_output_json:
+          type: object
+          description: Expected output as JSON object
+          additionalProperties: true
+          default: {}
+        description:
+          type: string
+          nullable: true
+          description: Human-readable description
+          example: Test case for weather query
+        input_type:
+          type: string
+          nullable: true
+          description: |
+            Type of input for the test case. Defaults to SCENARIO. When set
+            to SCRIPT, the simulation_metadata_input should contain a
+            script_turns field with ordered persona turn texts.
+          enum:
+          - SCENARIO
+          - TRANSCRIPT
+          - IVR
+          - AUDIO
+          - MANUAL
+          - SCRIPT
+          default: SCENARIO
+          example: SCENARIO
+        simulation_metadata_input:
+          type: object
+          description: |
+            Metadata for simulation. Contents vary by input_type. When
+            input_type is SCRIPT, include a script_turns field (array of
+            strings) with the ordered lines for the persona to deliver.
+          additionalProperties: true
+          default: {}
+        metric_input:
+          type: object
+          description: Input for metrics
+          additionalProperties: true
+          default: {}
+        user_notes:
+          type: string
+          nullable: true
+          description: User notes
+          example: Created for regression testing
+    UpdateTestCaseRequest:
+      type: object
+      description: Update request. Only provided fields will be updated.
+      properties:
+        input_str:
+          type: string
+          minLength: 1
+          description: Input for the test case
+          example: What is the weather today?
+        test_set_id:
+          type: string
+          minLength: 8
+          maxLength: 8
+          description: Test set ID (can move to different test set)
+          example: newset12
+        expected_behaviors:
+          type: array
+          items:
+            type: string
+          nullable: true
+          description: Expected behaviors (list of strings). This is the preferred field.
+          example: ["The weather is sunny."]
+        expected_output_str:
+          type: string
+          nullable: true
+          description: |
+            DEPRECATED: Use expected_behaviors instead.
+            If provided and expected_behaviors is not, this value will be wrapped
+            in a list and used as expected_behaviors.
+          example: The weather is sunny.
+        expected_output_json:
+          type: object
+          description: Expected output as JSON object
+          additionalProperties: true
+        description:
+          type: string
+          nullable: true
+          description: Human-readable description
+          example: Updated description
+        input_type:
+          type: string
+          nullable: true
+          description: |
+            Type of input for the test case. When set to SCRIPT, the
+            simulation_metadata_input should contain a script_turns field
+            with ordered persona turn texts.
+          enum:
+          - SCENARIO
+          - TRANSCRIPT
+          - IVR
+          - AUDIO
+          - MANUAL
+          - SCRIPT
+          example: SCRIPT
+        simulation_metadata_input:
+          type: object
+          description: |
+            Metadata for simulation. Contents vary by input_type. When
+            input_type is SCRIPT, include a script_turns field (array of
+            strings) with the ordered lines for the persona to deliver.
+          additionalProperties: true
+        metric_input:
+          type: object
+          description: Input for metrics
+          additionalProperties: true
+        user_notes:
+          type: string
+          nullable: true
+          description: User notes
+          example: Updated notes
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameters
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    description: Field that caused the error
+                    example: test_set_id
+                  description:
+                    type: string
+                    description: Description of the error
+                    example: test_set_id is required
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request parameters
+              details:
+              - field: input_str
+                description: input_str is required and cannot be empty
+    Unauthorized:
+      description: Authentication failed or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    NotFound:
+      description: Resource not found or doesn't belong to organization
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Test case not found
+              details:
+              - field: test_case_id
+                description: Test case 'abc123def456ghi789jklm' not found
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred while processing the request
+tags:
+- name: Test Cases
+  description: Operations for managing test cases

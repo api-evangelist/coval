@@ -1,0 +1,81 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/*-openapi.yml (paths, id parameters, and $ref links)
+summary: >-
+  Entity-relationship graph for the Coval v1 API, derived from resource paths and id-reference
+  parameters across the 20 OpenAPI specs. Coval's model centers on Agents under test, Test Sets /
+  Test Cases that define scenarios, Personas that voice the simulated user, and Runs that execute a
+  simulation and produce Simulations, Conversations, and Metric outputs.
+entities:
+  - name: Agent
+    id_param: agent_id
+    versioned: true
+    operations: [listAgents, createAgent, getAgent, updateAgent, deleteAgent, duplicateAgent, listAgentVersions, revertAgentVersion]
+  - name: Mutation
+    id_param: mutation_id
+    belongs_to: Agent
+    note: Config variant of an agent tested side-by-side.
+  - name: Persona
+    id_param: persona_id
+    versioned: true
+    operations: [listPersonas, createPersona, getPersona, updatePersona, deletePersona, duplicatePersona, listPersonaVersions, revertPersonaVersion]
+  - name: BackgroundSound
+    id_param: background_sound_id
+    belongs_to: Persona
+  - name: TestSet
+    id_param: test_set_id
+    versioned: true
+    operations: [listTestSets, createTestSet, getTestSet, updateTestSet, deleteTestSet, duplicateTestSet, listTestSetAgents, addTestSetAgents, removeTestSetAgent]
+  - name: TestCase
+    id_param: test_set_id
+    belongs_to: TestSet
+  - name: RunTemplate
+    id_param: run_template_id
+  - name: Run
+    id_param: run_id
+    operations: [listRuns, launchRun, getRun, updateRun, deleteRun]
+  - name: ScheduledRun
+    id_param: scheduled_run_id
+  - name: Simulation
+    id_param: simulation_id
+    belongs_to: Run
+    operations: [listSimulations, getSimulation, updateSimulation, deleteSimulation, resimulateSimulation, rerunMetrics]
+  - name: Conversation
+    id_param: conversation_id
+    operations: [submitConversation, listConversations, getConversation, deleteConversation, patchConversation, listConversationMetrics]
+  - name: Metric
+    id_param: metric_id
+    versioned: true
+    children: [MetricThreshold, MetricBaseline]
+  - name: Monitor
+    id_param: monitor_id
+  - name: ReviewProject
+    id_param: project_id
+    children: [ReviewAnnotation]
+  - name: Report
+    id_param: report_id
+  - name: Dashboard
+    id_param: dashboard_id
+    children: [Widget]
+  - name: Tag
+    id_param: tag_id
+  - name: Webhook
+    id_param: webhook_id
+  - name: ApiKey
+    id_param: api_key_id
+  - name: Trace
+    ingest_only: true
+relationships:
+  - {from: Mutation, type: belongs_to, to: Agent, via: agent_id}
+  - {from: TestCase, type: belongs_to, to: TestSet, via: test_set_id}
+  - {from: TestSet, type: has_many, to: Agent, via: addTestSetAgents}
+  - {from: Run, type: belongs_to, to: TestSet, via: test_set_id}
+  - {from: Run, type: belongs_to, to: RunTemplate, via: run_template_id}
+  - {from: Run, type: has_many, to: Simulation, via: run_id}
+  - {from: Simulation, type: belongs_to, to: Persona, via: persona_id}
+  - {from: Simulation, type: has_many, to: MetricOutput, via: metric_output_id}
+  - {from: MetricThreshold, type: belongs_to, to: Metric, via: metric_id}
+  - {from: MetricBaseline, type: belongs_to, to: Metric, via: baseline_id}
+  - {from: ReviewAnnotation, type: belongs_to, to: ReviewProject, via: project_id}
+  - {from: Widget, type: belongs_to, to: Dashboard, via: dashboard_id}
+  - {from: ScheduledRun, type: has_many, to: Run, via: scheduled_run_id}

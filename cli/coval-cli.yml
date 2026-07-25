@@ -1,0 +1,40 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.coval.ai/cli/overview
+binary: coval
+install:
+  - method: homebrew
+    command: brew install coval-ai/tap/coval
+auth:
+  login: coval login
+  flags:
+    - --api-key
+    - --api-url
+global_flags:
+  - "--format json"
+  - "--api-key"
+  - "--api-url"
+  - "--help"
+commands:
+  - agents
+  - runs
+  - simulations
+  - conversations
+  - test-sets
+  - test-cases
+  - personas
+  - metrics
+  - mutations
+  - api-keys
+  - run-templates
+  - scheduled-runs
+  - dashboards
+key_flows:
+  - name: Launch and watch a run
+    steps:
+      - coval login
+      - coval runs launch (with agent, persona, and test-set IDs)
+      - coval runs watch <run_id>
+notes: >-
+  First-party CLI distributed via a Homebrew tap; wraps the same v1 REST surface for terminal
+  and CI use. Supports JSON output for scripting.

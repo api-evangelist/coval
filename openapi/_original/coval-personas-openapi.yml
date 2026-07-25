@@ -1,0 +1,1331 @@
+openapi: 3.0.3
+x-visibility: external  # external | internal — only `external` specs are published to the public API/docs
+info:
+  title: Coval Personas API
+  version: 1.0.0
+  description: |
+    Manage simulated personas used in voice and text evaluations.
+  contact:
+    name: Coval API Support
+    url: https://coval.dev
+    email: support@coval.dev
+servers:
+- url: https://api.coval.dev/v1
+  description: Production server
+security:
+- ApiKeyAuth: []
+tags:
+- name: Personas
+  description: Persona CRUD operations
+paths:
+  /personas:
+    get:
+      tags:
+      - Personas
+      summary: List personas
+      description: Retrieve a paginated list of simulated personas with optional filtering and sorting.
+      operationId: listPersonas
+      parameters:
+      - name: page_size
+        in: query
+        description: Maximum number of personas to return (1-100)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+      - name: page_token
+        in: query
+        description: Token for retrieving the next page of results
+        required: false
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: |
+          Filter expression syntax.
+
+          Values may be unquoted or double-quoted. Values containing spaces must be quoted.
+
+          Supported fields:
+          - `name`: Filter by persona name (e.g., `name=Customer` or `name="Customer Support"`)
+          - `create_time`: Filter by creation time (e.g., `create_time>"2025-01-01T00:00:00Z"`)
+          - `update_time`: Filter by update time
+
+          Examples:
+          - `name="Customer Support"` (quoted - contains space)
+          - `create_time>"2025-01-01T00:00:00Z"`
+        required: false
+        schema:
+          type: string
+      - name: order_by
+        in: query
+        description: |
+          Field to order results by.
+
+          Supported fields: `create_time`, `update_time`, `name`
+
+          Formats:
+          - Dash prefix: `-create_time` (descending)
+          - Space separated: `create_time desc` (descending)
+          - No prefix: `create_time` (ascending)
+        required: false
+        schema:
+          type: string
+          example: -create_time
+      - name: tag_filters
+        in: query
+        description: |
+          Filter personas by tags. A resource matches when it has ALL the listed tags (AND-semantics).
+
+          Repeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          maxItems: 20
+        example:
+        - voice
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPersonasResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags:
+      - Personas
+      summary: Create persona
+      description: Create a new simulated persona with specified voice characteristics and behavior configuration.
+      operationId: createPersona
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePersonaRequest'
+            examples:
+              full:
+                $ref: '#/components/examples/CreateVoicePersona'
+      responses:
+        '201':
+          description: Persona created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePersonaResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /personas/{persona_id}:
+    get:
+      tags:
+      - Personas
+      summary: Get persona
+      description: Retrieve a specific persona by its unique identifier.
+      operationId: getPersona
+      parameters:
+      - name: persona_id
+        in: path
+        description: Persona resource ID
+        required: true
+        schema:
+          type: string
+          example: 3zfmuDbVQsi4GaseDtiVcS
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPersonaResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    patch:
+      tags:
+      - Personas
+      summary: Update persona
+      description: Update specific fields of an existing persona configuration. All fields are optional.
+      operationId: updatePersona
+      parameters:
+      - name: persona_id
+        in: path
+        description: Persona resource ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePersonaRequest'
+            examples:
+              partial:
+                $ref: '#/components/examples/UpdateVoiceSettings'
+      responses:
+        '200':
+          description: Persona updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdatePersonaResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    delete:
+      tags:
+      - Personas
+      summary: Delete persona
+      description: Delete a persona
+      operationId: deletePersona
+      parameters:
+      - name: persona_id
+        in: path
+        description: Persona resource ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Persona deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /personas/{persona_id}/duplicate:
+    post:
+      operationId: duplicatePersona
+      summary: Duplicate a persona
+      description: Clone an existing persona into a new persona owned by your organization. Returns the new persona.
+      tags:
+      - Personas
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: persona_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ID of the persona to duplicate
+      responses:
+        '201':
+          description: Persona duplicated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePersonaResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /personas/{persona_id}/versions:
+    get:
+      tags:
+      - Personas
+      summary: List persona versions
+      description: >-
+        List the prior-state version history for a persona, newest first. The live persona is the
+        current version and is not included here. Only behavioral config is versioned;
+        display_name/avatar_url are not.
+      operationId: listPersonaVersions
+      parameters:
+      - name: persona_id
+        in: path
+        description: Persona resource ID
+        required: true
+        schema:
+          type: string
+        example: 3zfmuDbVQsi4GaseDtiVcS
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPersonaVersionsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /personas/{persona_id}/versions/{version_id}/revert:
+    post:
+      tags:
+      - Personas
+      summary: Revert persona version
+      description: >-
+        Re-apply a prior version's behavioral configuration to the live persona. A revert is
+        forward-only: it mints a new version (change_type=revert) and advances the persona, so the
+        response reflects the persona's new live config. Reverting to the version the persona already
+        points at is rejected with 400.
+      operationId: revertPersonaVersion
+      parameters:
+      - name: persona_id
+        in: path
+        description: Persona resource ID
+        required: true
+        schema:
+          type: string
+        example: 3zfmuDbVQsi4GaseDtiVcS
+      - name: version_id
+        in: path
+        description: ULID of the target version to re-apply
+        required: true
+        schema:
+          type: string
+          minLength: 26
+          maxLength: 26
+          pattern: ^[0-9A-HJKMNP-TV-Z]{26}$
+        example: 01KKWQYSF737ZN6X1Q1RYX8M22
+      responses:
+        '200':
+          description: Persona reverted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPersonaResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Insufficient permissions, or attempting to modify a global persona
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /personas/background-sounds:
+    get:
+      tags:
+      - Personas
+      summary: List background sounds
+      description: Returns built-in background sounds plus custom sounds owned by the authenticated organization.
+      operationId: listBackgroundSounds
+      parameters:
+      - name: include_archived
+        in: query
+        description: Include archived custom background sounds.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBackgroundSoundsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags:
+      - Personas
+      summary: Create background sound upload
+      description: Creates a pending custom background sound and returns a short-lived private S3 upload form.
+      operationId: createBackgroundSound
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBackgroundSoundRequest'
+      responses:
+        '201':
+          description: Upload created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBackgroundSoundResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /personas/background-sounds/{background_sound_id}/complete:
+    post:
+      tags:
+      - Personas
+      summary: Complete background sound upload
+      description: HEAD-validates the uploaded object and marks the custom background sound active.
+      operationId: completeBackgroundSound
+      parameters:
+      - name: background_sound_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Upload completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompleteBackgroundSoundResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /personas/background-sounds/{background_sound_id}:
+    patch:
+      tags:
+      - Personas
+      summary: Update background sound
+      description: Rename, set default volume, archive, or restore an organization-owned custom background sound.
+      operationId: updateBackgroundSound
+      parameters:
+      - name: background_sound_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBackgroundSoundRequest'
+      responses:
+        '200':
+          description: Background sound updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateBackgroundSoundResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /personas/phone-numbers:
+    get:
+      tags:
+      - Personas
+      summary: List phone number mappings
+      description: |
+        Returns available phone numbers for voice simulations with their index mappings.
+        Use these indices when configuring persona caller phone numbers.
+
+        - **Inbound**: Phone numbers Coval uses to call your agent
+        - **Outbound**: Phone numbers your agent can call to reach the simulated persona
+      operationId: listPersonasPhoneNumbers
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPhoneNumbersResponse'
+              example:
+                phone_numbers:
+                  inbound:
+                  - index: 1
+                    phone_number: "+16504471573"
+                  - index: 2
+                    phone_number: "+16506400392"
+                  outbound:
+                  - index: 1
+                    phone_number: "+14158734019"
+                  - index: 2
+                    phone_number: "+17199853850"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /personas/voices:
+    get:
+      tags:
+      - Personas
+      summary: List available voices
+      description: |
+        Returns available voices with their supported language codes.
+        Use this endpoint to discover which voice and language combinations
+        are valid when creating or updating personas.
+      operationId: listPersonasVoices
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVoicesResponse'
+              example:
+                voices:
+                - voice_name: aria
+                  supported_languages:
+                  - bg-BG
+                  - da-DK
+                  - en-AU
+                  - en-IN
+                  - en-GB
+                  - en-US
+                  - fr-FR
+                  - de-DE
+                  - hi-IN
+                  - lt-LT
+                  - cmn-CN
+                  - pl-PL
+                  - es-ES
+                  - es-US
+                - voice_name: raju
+                  supported_languages:
+                  - en
+                - voice_name: isabella
+                  supported_languages:
+                  - en
+                  - es
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key for authentication
+  schemas:
+    PersonaResource:
+      type: object
+      description: Persona resource representation returned by API responses.
+      required:
+      - resource_name
+      - id
+      - name
+      - create_time
+      properties:
+        resource_name:
+          type: string
+          description: Resource name in format "personas/{persona_id}"
+          example: personas/3zfmuDbVQsi4GaseDtiVcS
+        id:
+          type: string
+          description: Unique persona identifier
+          example: 3zfmuDbVQsi4GaseDtiVcS
+        name:
+          type: string
+          description: Human-readable persona name
+          example: Friendly Customer
+          minLength: 1
+          maxLength: 200
+        persona_prompt:
+          type: string
+          nullable: true
+          description: Instructions describing persona behavior and personality
+          example: You are a friendly customer calling for technical support...
+        voice_name:
+          type: string
+          nullable: true
+          description: |
+            Coval voice name. Use GET /personas/voices to discover available
+            voices and their supported language codes.
+          example: aria
+        language_code:
+          type: string
+          nullable: true
+          description: |
+            BCP-47 language code for voice synthesis. Must be supported by
+            the selected voice. Use GET /personas/voices to discover valid
+            voice and language combinations.
+          example: en-US
+        background_sound:
+          type: string
+          nullable: true
+          description: Built-in background sound id, or custom:<background_sound_id> for an active custom sound returned by GET /personas/background-sounds.
+          example: office
+          pattern: '^(off|office|lounge|crowd|airport|bus|playground|doorbell|train-arrival|portable-air-conditioner|skatepark|small-dog-bark|cafe|ferry-and-announcement|heavy-rain|moderate-wind|newborn-baby-crying|office-with-alarm|street-with-sirens|construction-work|backchanneling|custom:[A-Za-z0-9_-]+)$'
+        background_sound_volume:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          description: Volume level for background sound (>= 0.0, no upper limit). Default is provider-controlled when omitted.
+          example: 0.3
+        voice_volume:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          maximum: 2.0
+          description: Voice gain multiplier. 0.0 is silent, 1.0 is unchanged, and 2.0 is double volume.
+          example: 1.25
+        voice_speed:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.25
+          maximum: 2.0
+          description: Voice speed multiplier accepted and stored from 0.25 to 2.0. 1.0 is unchanged. The selected voice may enforce a narrower effective range or ignore speed changes.
+          example: 0.85
+        wait_seconds:
+          type: number
+          format: float
+          nullable: true
+          description: Response delay in seconds
+          example: 0.5
+          minimum: 0.1
+          maximum: 2.0
+        conversation_initiation:
+          type: string
+          nullable: true
+          description: Who initiates the conversation
+          example: speak_first
+          enum:
+          - speak_first
+          - wait_for_user
+        multi_language_stt:
+          type: boolean
+          nullable: true
+          description: |
+            Enable multilingual speech-to-text so callers speaking languages
+            other than the primary language_code are still transcribed accurately.
+            Useful for personas simulating callers in bilingual regions or
+            contact centers that serve diverse populations.
+          example: true
+        hold_music_timeout_seconds:
+          type: number
+          format: float
+          nullable: true
+          minimum: 5.0
+          maximum: 300.0
+          description: Disconnect after this many seconds of no speech (5-300). Used for hold music scenarios.
+          example: 15
+        situate_speaker:
+          type: string
+          nullable: true
+          description: |
+            Persona placement preset.
+            - speakerphone-easy: User speaking from a distance from the microphone
+            - speakerphone-hard: User speaking from a distance from the microphone in an acoustically challenging environment.
+          enum:
+          - speakerphone-easy
+          - speakerphone-hard
+          example: speakerphone-hard
+        tags:
+          type: array
+          description: Tags associated with this persona
+          items:
+            type: string
+          default: []
+          example:
+          - voice
+          - english
+        create_time:
+          type: string
+          format: date-time
+          description: Persona creation timestamp (ISO 8601)
+          example: '2025-01-24T10:00:00Z'
+        update_time:
+          type: string
+          format: date-time
+          nullable: true
+          description: Last update timestamp (ISO 8601)
+          example: '2025-01-24T12:30:00Z'
+    CreatePersonaRequest:
+      type: object
+      required:
+      - name
+      - voice_name
+      - language_code
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: Human-readable persona name
+          example: Friendly Customer
+        persona_prompt:
+          type: string
+          nullable: true
+          description: Instructions describing persona behavior and personality
+          example: You are a friendly customer calling for support...
+        voice_name:
+          type: string
+          description: |
+            Coval voice name. Use GET /personas/voices to discover available
+            voices and their supported language codes.
+          example: aria
+        language_code:
+          type: string
+          description: |
+            BCP-47 language code for voice synthesis. Must be supported by
+            the selected voice. Use GET /personas/voices to discover valid
+            voice and language combinations.
+          example: en-US
+        background_sound:
+          type: string
+          nullable: true
+          maxLength: 100
+          description: Built-in background sound id, or custom:<background_sound_id> for an active custom sound returned by GET /personas/background-sounds.
+          example: office
+          pattern: '^(off|office|lounge|crowd|airport|bus|playground|doorbell|train-arrival|portable-air-conditioner|skatepark|small-dog-bark|cafe|ferry-and-announcement|heavy-rain|moderate-wind|newborn-baby-crying|office-with-alarm|street-with-sirens|construction-work|backchanneling|custom:[A-Za-z0-9_-]+)$'
+        background_sound_volume:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          description: Volume level for background sound (>= 0.0, no upper limit). Default is provider-controlled when omitted.
+          example: 0.3
+        voice_volume:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          maximum: 2.0
+          description: Voice gain multiplier. 0.0 is silent, 1.0 is unchanged, and 2.0 is double volume.
+          example: 1.25
+        voice_speed:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.25
+          maximum: 2.0
+          description: Voice speed multiplier accepted and stored from 0.25 to 2.0. 1.0 is unchanged. The selected voice may enforce a narrower effective range or ignore speed changes.
+          example: 0.85
+        wait_seconds:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.1
+          maximum: 2.0
+          description: Response delay in seconds
+          example: 0.5
+        conversation_initiation:
+          type: string
+          nullable: true
+          enum:
+          - speak_first
+          - wait_for_user
+          description: Who initiates the conversation
+          example: speak_first
+        multi_language_stt:
+          type: boolean
+          nullable: true
+          description: |
+            Enable multilingual speech-to-text so callers speaking languages
+            other than the primary language_code are still transcribed accurately.
+          example: true
+        hold_music_timeout_seconds:
+          type: number
+          format: float
+          nullable: true
+          minimum: 5.0
+          maximum: 300.0
+          description: Disconnect after this many seconds of no speech (5-300)
+        situate_speaker:
+          type: string
+          nullable: true
+          description: |
+            Persona placement preset.
+            - speakerphone-easy: User speaking from a distance from the microphone
+            - speakerphone-hard: User speaking from a distance from the microphone in an acoustically challenging environment.
+          enum:
+          - speakerphone-easy
+          - speakerphone-hard
+        tags:
+          type: array
+          nullable: true
+          description: Tags to associate with this persona. Null or omitted creates the persona with no tags. Pass [] for an empty tag list.
+          items:
+            type: string
+          example:
+          - voice
+          - english
+    UpdatePersonaRequest:
+      type: object
+      description: All fields are optional. Only provided fields will be updated.
+      properties:
+        name:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 200
+          description: Human-readable persona name
+        persona_prompt:
+          type: string
+          nullable: true
+          description: Instructions describing persona behavior and personality
+        voice_name:
+          type: string
+          nullable: true
+          description: |
+            Coval voice name. Use GET /personas/voices to discover available
+            voices and their supported language codes.
+        language_code:
+          type: string
+          nullable: true
+          description: |
+            BCP-47 language code for voice synthesis. Must be supported by
+            the selected voice. Use GET /personas/voices to discover valid
+            voice and language combinations.
+        background_sound:
+          type: string
+          nullable: true
+          maxLength: 100
+          description: Built-in background sound id, or custom:<background_sound_id> for an active custom sound returned by GET /personas/background-sounds.
+          pattern: '^(off|office|lounge|crowd|airport|bus|playground|doorbell|train-arrival|portable-air-conditioner|skatepark|small-dog-bark|cafe|ferry-and-announcement|heavy-rain|moderate-wind|newborn-baby-crying|office-with-alarm|street-with-sirens|construction-work|backchanneling|custom:[A-Za-z0-9_-]+)$'
+        background_sound_volume:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          description: Volume level for background sound (>= 0.0, no upper limit).
+          example: 0.3
+        voice_volume:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.0
+          maximum: 2.0
+          description: Voice gain multiplier. Send null to clear an existing configured volume.
+          example: 1.25
+        voice_speed:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.25
+          maximum: 2.0
+          description: Voice speed multiplier accepted and stored from 0.25 to 2.0. Send null to clear an existing configured speed. The selected voice may enforce a narrower effective range or ignore speed changes.
+          example: 0.85
+        wait_seconds:
+          type: number
+          format: float
+          nullable: true
+          minimum: 0.1
+          maximum: 2.0
+          description: Response delay in seconds
+        conversation_initiation:
+          type: string
+          nullable: true
+          description: Who initiates the conversation
+          enum:
+          - speak_first
+          - wait_for_user
+        multi_language_stt:
+          type: boolean
+          nullable: true
+          description: Enable multilingual speech-to-text so callers speaking languages other than the primary language_code are still transcribed accurately.
+          example: true
+        hold_music_timeout_seconds:
+          type: number
+          format: float
+          nullable: true
+          minimum: 5.0
+          maximum: 300.0
+          description: Disconnect after this many seconds of no speech (5-300)
+        situate_speaker:
+          type: string
+          nullable: true
+          description: |
+            Persona placement preset.
+            - speakerphone-easy: User speaking from a distance from the microphone
+            - speakerphone-hard: User speaking from a distance from the microphone in an acoustically challenging environment.
+            Send null to clear an existing situate_speaker preset.
+          enum:
+          - speakerphone-easy
+          - speakerphone-hard
+        tags:
+          type: array
+          nullable: true
+          description: Tags to associate with this persona. Null or omitted leaves tags unchanged. Pass [] to clear all tags.
+          items:
+            type: string
+          example:
+          - voice
+    BackgroundSoundResource:
+      type: object
+      required:
+      - id
+      - value
+      - source
+      - display_name
+      - status
+      - default_volume
+      properties:
+        id:
+          type: string
+          description: Built-in sound id or custom asset id.
+          example: cafe
+        value:
+          type: string
+          description: Value to store in persona.background_sound. Custom sounds use custom:<background_sound_id>.
+          example: custom:3zfmuDbVQsi4GaseDtiVcS
+        source:
+          type: string
+          enum:
+          - built_in
+          - custom
+        display_name:
+          type: string
+          example: Cafe
+        status:
+          type: string
+          enum:
+          - pending_upload
+          - active
+          - archived
+        preview_url:
+          type: string
+          nullable: true
+          description: Short-lived URL for preview playback. Built-in previews may use public URLs.
+        preview_url_expires_at:
+          type: string
+          format: date-time
+          nullable: true
+        default_volume:
+          type: number
+          format: float
+          minimum: 0.0
+          example: 0.3
+        content_type:
+          type: string
+          nullable: true
+          example: audio/mpeg
+        original_filename:
+          type: string
+          nullable: true
+          example: cafe-noise.mp3
+        acoustic_source_type:
+          type: string
+          nullable: true
+          description: |
+            Acoustic rendering behavior for this sound.
+            - ambient: mixed like room ambience.
+            - point_source: rendered from a specific location when a situate_speaker preset is set; otherwise mixed like ambient.
+          enum:
+          - ambient
+          - point_source
+        metadata:
+          type: object
+          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
+          nullable: true
+        last_updated_at:
+          type: string
+          format: date-time
+          nullable: true
+    ListBackgroundSoundsResponse:
+      type: object
+      required:
+      - background_sounds
+      properties:
+        background_sounds:
+          type: array
+          items:
+            $ref: '#/components/schemas/BackgroundSoundResource'
+    CreateBackgroundSoundRequest:
+      type: object
+      required:
+      - display_name
+      - original_filename
+      - content_type
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          example: Lobby Noise
+        original_filename:
+          type: string
+          minLength: 1
+          maxLength: 255
+          example: lobby-noise.mp3
+        content_type:
+          type: string
+          description: WAV or MP3 content type.
+          enum:
+          - audio/mpeg
+          - audio/mp3
+          - audio/wav
+          - audio/x-wav
+          - audio/wave
+          - audio/vnd.wave
+        default_volume:
+          type: number
+          format: float
+          minimum: 0.0
+          default: 0.3
+        acoustic_source_type:
+          type: string
+          nullable: true
+          description: |
+            Acoustic rendering behavior for this sound.
+            - ambient: mixed like room ambience.
+            - point_source: rendered from a specific location when a situate_speaker preset is set; otherwise mixed like ambient.
+          enum:
+          - ambient
+          - point_source
+        metadata:
+          type: object
+          additionalProperties: true
+    CreateBackgroundSoundResponse:
+      type: object
+      required:
+      - background_sound
+      - upload_url
+      - upload_fields
+      - expires_at
+      - max_size_bytes
+      properties:
+        background_sound:
+          $ref: '#/components/schemas/BackgroundSoundResource'
+        upload_url:
+          type: string
+          description: Presigned S3 POST URL.
+        upload_fields:
+          type: object
+          description: Form fields to include in the multipart upload POST before the file field.
+          additionalProperties:
+            type: string
+        expires_at:
+          type: string
+          format: date-time
+        max_size_bytes:
+          type: integer
+          example: 52428800
+    CompleteBackgroundSoundResponse:
+      type: object
+      required:
+      - background_sound
+      properties:
+        background_sound:
+          $ref: '#/components/schemas/BackgroundSoundResource'
+    UpdateBackgroundSoundRequest:
+      type: object
+      description: All fields are optional. Send status=archived to archive or status=active to restore.
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        default_volume:
+          type: number
+          format: float
+          minimum: 0.0
+        acoustic_source_type:
+          type: string
+          nullable: true
+          description: |
+            Acoustic rendering behavior for this sound.
+            - ambient: mixed like room ambience.
+            - point_source: rendered from a specific location when a situate_speaker preset is set; otherwise mixed like ambient.
+          enum:
+          - ambient
+          - point_source
+        status:
+          type: string
+          enum:
+          - active
+          - archived
+    UpdateBackgroundSoundResponse:
+      type: object
+      required:
+      - background_sound
+      properties:
+        background_sound:
+          $ref: '#/components/schemas/BackgroundSoundResource'
+    ListPersonasResponse:
+      type: object
+      required:
+      - personas
+      properties:
+        personas:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonaResource'
+        next_page_token:
+          type: string
+          nullable: true
+          description: Token for next page (null if no more pages)
+          example: eyJvZmZzZXQiOjUwfQ==
+    GetPersonaResponse:
+      type: object
+      required:
+      - persona
+      properties:
+        persona:
+          $ref: '#/components/schemas/PersonaResource'
+    PersonaVersionResource:
+      type: object
+      description: A prior, displaced snapshot of a persona's behavioral config.
+      required:
+      - name
+      - ulid
+      - version_number
+      - change_type
+      - created_by
+      properties:
+        name:
+          type: string
+          description: Resource name
+          example: personas/3zfmuDbVQsi4GaseDtiVcS/versions/01KKWQYSF737ZN6X1Q1RYX8M2D
+        ulid:
+          type: string
+          description: Version identifier (26-char ULID)
+          example: 01KKWQYSF737ZN6X1Q1RYX8M2D
+        version_number:
+          type: integer
+          description: Per-persona monotonic version number, 1-based
+          example: 2
+        change_type:
+          type: string
+          description: How this version came about. A revert is a save whose new state mirrors an older version.
+          enum:
+          - save
+          - revert
+        label:
+          type: string
+          nullable: true
+          description: Optional user-supplied tag
+          example: v1.2 prod
+        persona_prompt:
+          type: string
+          nullable: true
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Verbatim behavioral-config snapshot
+        voice_name:
+          type: string
+          nullable: true
+        language_code:
+          type: string
+          nullable: true
+        created_by:
+          type: string
+          description: Who created this version (user ULID)
+        create_time:
+          type: string
+          format: date-time
+          nullable: true
+          description: When this version became current
+    ListPersonaVersionsResponse:
+      type: object
+      description: Response for GET /v1/personas/{persona_id}/versions (newest first)
+      required:
+      - versions
+      properties:
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonaVersionResource'
+    CreatePersonaResponse:
+      type: object
+      required:
+      - persona
+      properties:
+        persona:
+          $ref: '#/components/schemas/PersonaResource'
+    UpdatePersonaResponse:
+      type: object
+      required:
+      - persona
+      properties:
+        persona:
+          $ref: '#/components/schemas/PersonaResource'
+    VoiceResource:
+      type: object
+      description: A voice with its supported language codes.
+      required:
+      - voice_name
+      - supported_languages
+      properties:
+        voice_name:
+          type: string
+          description: Coval voice identifier
+          example: aria
+        supported_languages:
+          type: array
+          description: BCP-47 language codes supported by this voice
+          items:
+            type: string
+          example:
+          - bg-BG
+          - da-DK
+          - en-AU
+          - en-IN
+          - en-GB
+          - en-US
+    ListVoicesResponse:
+      type: object
+      description: Response containing available voices with supported languages.
+      required:
+      - voices
+      properties:
+        voices:
+          type: array
+          description: Available voices with their supported language codes
+          items:
+            $ref: '#/components/schemas/VoiceResource'
+    PhoneNumberMapping:
+      type: object
+      description: A phone number with its 1-based index for user reference.
+      required:
+      - index
+      - phone_number
+      properties:
+        index:
+          type: integer
+          minimum: 1
+          description: 1-based index for referencing this phone number
+          example: 1
+        phone_number:
+          type: string
+          description: E.164 formatted phone number
+          example: "+16504471573"
+    PhoneNumbersData:
+      type: object
+      description: Container for inbound and outbound phone number lists.
+      required:
+      - inbound
+      - outbound
+      properties:
+        inbound:
+          type: array
+          description: Phone numbers for inbound voice simulations (Coval calls your agent)
+          items:
+            $ref: '#/components/schemas/PhoneNumberMapping'
+        outbound:
+          type: array
+          description: Phone numbers for outbound voice simulations (your agent calls Coval)
+          items:
+            $ref: '#/components/schemas/PhoneNumberMapping'
+    ListPhoneNumbersResponse:
+      type: object
+      description: Response containing available phone number mappings.
+      required:
+      - phone_numbers
+      properties:
+        phone_numbers:
+          $ref: '#/components/schemas/PhoneNumbersData'
+    Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+              description: Error code
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid voice_name 'invalid'
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid language_code 'en-ZZ'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Missing or invalid API key
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Persona abc123 not found
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: INTERNAL
+              message: An unexpected error occurred
+  examples:
+    CreateVoicePersona:
+      summary: Create voice persona with full configuration
+      value:
+        name: Friendly Spanish Customer
+        persona_prompt: You are a friendly Spanish-speaking customer calling for technical support...
+        voice_name: marina
+        language_code: es-ES
+        background_sound: office
+        wait_seconds: 0.5
+        conversation_initiation: speak_first
+    UpdateVoiceSettings:
+      summary: Update voice settings
+      value:
+        voice_name: aria
+        language_code: en-US
+        wait_seconds: 0.8

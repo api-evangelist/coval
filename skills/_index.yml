@@ -1,0 +1,16 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/*-openapi.yml (operationIds verified)
+skills:
+  - file: coval-launch-simulation-run.md
+    name: Launch a Coval simulation run
+    api: openapi/coval-runs-openapi.yml
+    operations: [createAgent, createTestSet, createTestCase, launchRun, getRun, listSimulations]
+  - file: coval-create-metric-and-evaluate.md
+    name: Create a Coval metric and evaluate
+    api: openapi/coval-metrics-openapi.yml
+    operations: [createMetric, testMetric, createMetricThreshold, listMetricTemplateVariables, launchRun]
+  - file: coval-monitor-production.md
+    name: Monitor production conversations in Coval
+    api: openapi/coval-conversations-openapi.yml
+    operations: [submitConversation, listConversations, getConversation, listConversationMetrics, createMonitor]

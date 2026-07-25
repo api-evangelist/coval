@@ -1,0 +1,40 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/*-openapi.yml + https://www.coval.ai (compliance footer)
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: securitySchemes use apiKey (X-API-Key), not oauth2
+  - id: openid-connect
+    conforms: false
+  - id: api-key-auth
+    conforms: true
+    evidence: apiKey securityScheme in header X-API-Key applied across all specs
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: "error body is a Google-RPC envelope { error: { code, message, details } }, not application/problem+json"
+  - id: rest-json
+    conforms: true
+    evidence: JSON request/response bodies over HTTPS, resource-oriented paths
+  - id: keyset-pagination
+    conforms: true
+    evidence: page_size + page_token / cursor pagination on list endpoints
+  - id: webhooks
+    conforms: true
+    evidence: webhook subscription CRUD (createWebhook) with job_complete event delivery
+  - id: opentelemetry
+    conforms: true
+    evidence: trace ingestion endpoint (ingestTraces) and OpenTelemetry integration for production observability
+  - id: soc2-type-ii
+    conforms: true
+    evidence: SOC 2 Type II stated on coval.ai; trust center at trust.oneleet.com/coval
+  - id: gdpr
+    conforms: true
+    evidence: GDPR compliance stated on coval.ai
+  - id: hipaa
+    conforms: true
+    evidence: HIPAA compliance stated on coval.ai
+compliance_program:
+  published: true
+  trust_center: https://trust.oneleet.com/coval
+  certifications: [SOC 2 Type II, GDPR, HIPAA]

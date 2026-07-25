@@ -1,7 +1,15 @@
 aid: coval
 name: Coval
-description: Coval is a company surfaced as a portfolio company of general-catalyst and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Coval is the deployment-readiness platform for voice and chat AI agents. Teams simulate
+  thousands of realistic conversation scenarios before launch, monitor real production calls,
+  and improve reliability with metrics and human review. Coval supports inbound/outbound voice,
+  standard chat, chat over WebSocket, chat A2A (JSON-RPC), voice-to-voice models (OpenAI Realtime,
+  Gemini Live), SMS, Pipecat, and LiveKit agents. Its v1 REST API, TypeScript and Python SDKs,
+  Homebrew CLI, and hosted MCP server let developers connect agents, define personas and test sets,
+  launch simulation runs, ingest production conversations and OpenTelemetry traces, define
+  deterministic/statistical/ML/LLM-judge metrics, and route critical calls to human reviewers.
+  Coval is backed by General Catalyst and is SOC 2 Type II, GDPR, and HIPAA compliant.
 url: https://raw.githubusercontent.com/api-evangelist/coval/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,14 +17,356 @@ x-backed-by:
 - general-catalyst
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
+image: https://www.coval.ai/favicon.ico
 tags:
 - Company
-apis: []
+- AI Agents
+- Voice AI
+- Testing
+- Evaluation
+- Simulation
+- Observability
+- Conversational AI
+- LLM
+- Quality Assurance
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: coval:coval-agents-api
+  name: Coval Agents API
+  description: CRUD operations for AI agent configurations
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-agents-api-openapi.yml
+- aid: coval:coval-api-keys-api
+  name: Coval API Keys API
+  description: Manage API keys for your organization
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - API Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-api-keys-api-openapi.yml
+- aid: coval:coval-audio-api
+  name: Coval Audio API
+  description: Upload audio for evaluation and access conversation audio files
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Audio
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-audio-api-openapi.yml
+- aid: coval:coval-conversations-api
+  name: Coval Conversations API
+  description: Submit and manage real-world conversation monitoring evaluations
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Conversations
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-conversations-api-openapi.yml
+- aid: coval:coval-dashboards-api
+  name: Coval Dashboards API
+  description: Dashboard CRUD operations
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Dashboards
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-dashboards-api-openapi.yml
+- aid: coval:coval-metric-outputs-api
+  name: Coval Metric Outputs API
+  description: Retrieve metric computation results for simulations
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Metric Outputs
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-metric-outputs-api-openapi.yml
+- aid: coval:coval-metrics-api
+  name: Coval Metrics API
+  description: CRUD operations for custom evaluation metrics
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-metrics-api-openapi.yml
+- aid: coval:coval-monitor-events-api
+  name: Coval Monitor Events API
+  description: Monitor evaluation event history
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Monitor Events
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-monitor-events-api-openapi.yml
+- aid: coval:coval-monitors-api
+  name: Coval Monitors API
+  description: CRUD operations for monitor definitions
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Monitors
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-monitors-api-openapi.yml
+- aid: coval:coval-mutations-api
+  name: Coval Mutations API
+  description: CRUD operations for agent configuration mutations
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Mutations
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-mutations-api-openapi.yml
+- aid: coval:coval-organization-conversations-config-api
+  name: Coval Organization Conversations Config API
+  description: >-
+    Organization-level configuration for conversation metrics — the default and conditional metrics run
+    on conversations.
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Organization Conversations Config
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-organization-conversations-config-api-openapi.yml
+- aid: coval:coval-personas-api
+  name: Coval Personas API
+  description: Persona CRUD operations
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Personas
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-personas-api-openapi.yml
+- aid: coval:coval-reports-api
+  name: Coval Reports API
+  description: CRUD operations for saved multi-run reports
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-reports-api-openapi.yml
+- aid: coval:coval-review-annotations-api
+  name: Coval Review Annotations API
+  description: Annotation CRUD operations
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Review Annotations
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-review-annotations-api-openapi.yml
+- aid: coval:coval-review-projects-api
+  name: Coval Review Projects API
+  description: Project CRUD operations
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Review Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-review-projects-api-openapi.yml
+- aid: coval:coval-run-templates-api
+  name: Coval Run Templates API
+  description: CRUD operations for reusable run configurations
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Run Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-run-templates-api-openapi.yml
+- aid: coval:coval-runs-api
+  name: Coval Runs API
+  description: Launch and manage simulation runs
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-runs-api-openapi.yml
+- aid: coval:coval-scheduled-runs-api
+  name: Coval Scheduled Runs API
+  description: CRUD operations for scheduled evaluations
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Scheduled Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-scheduled-runs-api-openapi.yml
+- aid: coval:coval-simulations-api
+  name: Coval Simulations API
+  description: Launch and manage individual simulation executions
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Simulations
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-simulations-api-openapi.yml
+- aid: coval:coval-tags-api
+  name: Coval Tags API
+  description: CRUD operations for resource tags
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-tags-api-openapi.yml
+- aid: coval:coval-test-cases-api
+  name: Coval Test Cases API
+  description: Operations for managing test cases
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Test Cases
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-test-cases-api-openapi.yml
+- aid: coval:coval-test-sets-api
+  name: Coval Test Sets API
+  description: Operations for managing test sets
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Test Sets
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-test-sets-api-openapi.yml
+- aid: coval:coval-traces-api
+  name: Coval Traces API
+  description: OTLP trace ingestion for simulations and monitoring conversations.
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Traces
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-traces-api-openapi.yml
+- aid: coval:coval-webhooks-api
+  name: Coval Webhooks API
+  description: CRUD operations for event webhooks
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-webhooks-api-openapi.yml
+- aid: coval:coval-widgets-api
+  name: Coval Widgets API
+  description: Dashboard widget CRUD operations
+  humanURL: https://docs.coval.ai/api-reference/v1/introduction
+  baseURL: https://api.coval.dev/v1
+  tags:
+  - Widgets
+  properties:
+  - type: OpenAPI
+    url: openapi/coval-widgets-api-openapi.yml
+common:
+- type: DeveloperPortal
+  url: https://docs.coval.ai
+- type: Documentation
+  url: https://docs.coval.ai
+- type: APIReference
+  url: https://docs.coval.ai/api-reference/v1/introduction
+- type: GettingStarted
+  url: https://docs.coval.ai/cli/overview
+- type: Blog
+  url: https://www.coval.ai/blog
+- type: Pricing
+  url: https://www.coval.ai/pricing
+- type: SignUp
+  url: https://app.coval.dev/login
+- type: Login
+  url: https://app.coval.dev/login
+- type: TermsOfService
+  url: https://www.coval.ai/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.coval.ai/privacy-policy
+- type: Support
+  url: https://forms.gle/frTn8eCHkcTfw67p8
+- type: GitHubOrganization
+  url: https://github.com/coval-ai
+- type: StatusPage
+  url: https://status.coval.dev
+- type: ChangeLog
+  url: https://docs.coval.ai/changelog
+- type: TrustCenter
+  url: https://trust.oneleet.com/coval
+- type: Compliance
+  url: https://trust.oneleet.com/coval
+- type: Authentication
+  url: authentication/coval-authentication.yml
+- type: DomainSecurity
+  url: security/coval-domain-security.yml
+- type: Packages
+  url: packages/coval-packages.yml
+- type: SDKs
+  url: packages/coval-packages.yml
+- type: CLI
+  url: cli/coval-cli.yml
+- type: MCPServer
+  url: mcp/coval-mcp.yml
+- type: LLMsTxt
+  url: llms/coval-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/coval-agentic-access.yml
+- type: Conventions
+  url: conventions/coval-conventions.yml
+- type: ErrorCatalog
+  url: errors/coval-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/coval-lifecycle.yml
+- type: Conformance
+  url: conformance/coval-conformance.yml
+- type: DataModel
+  url: data-model/coval-data-model.yml
+- type: Webhooks
+  url: asyncapi/coval-webhooks.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

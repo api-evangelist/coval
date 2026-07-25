@@ -1,0 +1,31 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/coval-webhooks-openapi.yml
+spec_type: Webhooks
+note: >-
+  Coval publishes no AsyncAPI document. It exposes an outbound webhook surface managed via a
+  webhook subscription CRUD API (openapi/coval-webhooks-openapi.yml). Coval POSTs to a
+  subscriber URL when a subscribed event fires.
+transport: https-webhook
+delivery:
+  method: POST
+  target_field: url
+  auth: >-
+    Optional auth_token secret sent by Coval when calling the subscriber endpoint (write-only;
+    presence surfaced as has_auth_token). Verify it to authenticate the delivery.
+management_operations:
+  - listWebhooks
+  - createWebhook
+  - updateWebhook
+  - deleteWebhook
+events:
+  - type: job_complete
+    description: Fires when an evaluation run / job completes.
+subscription_fields:
+  - name
+  - id
+  - type
+  - url
+  - create_time
+  - last_triggered_at
+  - has_auth_token

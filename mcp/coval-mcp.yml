@@ -1,0 +1,38 @@
+generated: '2026-07-18'
+method: searched
+status: published
+source: https://docs.coval.ai/mcp/overview
+server:
+  name: coval
+  transport: http
+  url: https://mcp.coval.dev/mcp
+  auth:
+    type: apiKey
+    header: X-API-Key
+  local_option:
+    command: npx
+    args: ["-y", "mcp-remote", "https://mcp.coval.dev/mcp", "--header", "X-API-Key: ${COVAL_API_KEY}"]
+  requirements:
+    - Node.js 20+
+    - Coval API key
+    - MCP-compatible client (Claude Desktop, Cursor)
+tool_categories:
+  - category: Runs
+    count: 4
+    purpose: Launch and monitor evaluations
+  - category: Agents
+    count: 4
+    purpose: Manage agent configurations
+  - category: Test Sets
+    count: 3
+    purpose: Organize test cases
+  - category: Test Cases
+    count: 4
+    purpose: Manage individual test cases
+  - category: Metrics
+    count: 2
+    purpose: View evaluation metrics
+  - category: Personas
+    count: 2
+    purpose: Configure simulated users
+tool_count: 18

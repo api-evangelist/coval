@@ -1,0 +1,16 @@
+generated: '2026-07-18'
+method: searched
+source: https://www.coval.ai
+url: https://trust.oneleet.com/coval
+certifications:
+  - SOC 2 Type II
+  - GDPR
+  - HIPAA
+evidence:
+  - source: https://www.coval.ai
+    detail: "Compliance footer lists SOC 2 Type II, GDPR, HIPAA"
+  - source: https://trust.oneleet.com/coval
+    detail: "Oneleet-hosted Coval trust center (JS SPA)"
+notes: >-
+  Trust center is hosted by Oneleet at trust.oneleet.com/coval (third-party host, so the domain
+  probe did not detect it). Certifications transcribed from the coval.ai compliance footer.

@@ -1,0 +1,62 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.coval.ai/api-reference/v1/introduction
+summary: >-
+  Cross-cutting request/response semantics for the Coval v1 REST API, captured
+  from the docs and derived from the OpenAPI specs at https://api.coval.dev/v1/openapi.
+authentication:
+  style: api-key
+  header: X-API-Key
+  scope: organization
+  docs: https://docs.coval.ai/api-reference/v1/introduction
+  notes: An X-API-Key header is required with every request; keys are issued per organization from the dashboard.
+base_url: https://api.coval.dev/v1
+versioning:
+  scheme: uri-path
+  current: v1
+  notes: Version is pinned in the URL path (/v1).
+pagination:
+  style: page-token
+  params:
+    - page_size
+    - page_token
+    - cursor
+    - limit
+    - offset
+    - order_by
+  response_fields:
+    - next_cursor
+  notes: >-
+    Google AIP-style keyset pagination; list endpoints accept page_size + page_token
+    (some accept cursor/limit/offset) and return a next_cursor for the following page.
+idempotency:
+  key_header: false
+  semantic: true
+  notes: >-
+    Coval documents no Idempotency-Key header. Several mutating operations are documented
+    as semantically idempotent instead — e.g. addTestSetAgents / removeTestSetAgent (already-
+    associated agents are no-ops, returns 200 whether or not the association existed) and
+    audio attach (attachable only once per conversation). Retries of these are safe, but there
+    is no request-dedup key contract.
+error_envelope:
+  style: google-rpc
+  shape: "{ error: { code, message, details } }"
+  codes: [INVALID_ARGUMENT, UNAUTHENTICATED, PERMISSION_DENIED, NOT_FOUND, ALREADY_EXISTS, INTERNAL]
+  content_type: application/json
+  see: errors/coval-problem-types.yml
+request_tracing:
+  headers:
+    - X-Conversation-Id
+    - X-Simulation-Id
+  notes: Conversation/simulation correlation identifiers accepted on select ingestion endpoints.
+observability:
+  opentelemetry: true
+  notes: Production traces can be ingested via the traces API (ingestTraces) and OpenTelemetry.
+rate_limiting:
+  documented: false
+  notes: No published rate-limit headers/quotas found in the docs at capture time.
+cross_links:
+  authentication: authentication/coval-authentication.yml
+  errors: errors/coval-problem-types.yml
+  lifecycle: lifecycle/coval-lifecycle.yml
+  webhooks: asyncapi/coval-webhooks.yml

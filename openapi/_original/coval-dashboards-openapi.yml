@@ -1,0 +1,1118 @@
+openapi: 3.0.3
+x-visibility: external  # external | internal — only `external` specs are published to the public API/docs
+info:
+  title: Coval Dashboards API
+  version: 1.0.0
+  description: |
+    Create and manage dashboards and widgets for visualizing evaluation metrics.
+  contact:
+    name: Coval API Support
+    email: support@coval.dev
+    url: https://docs.coval.ai
+  license:
+    name: Proprietary
+    url: https://coval.dev/terms
+servers:
+  - url: https://api.coval.dev/v1
+    description: Production API
+tags:
+  - name: Dashboards
+    description: Dashboard CRUD operations
+  - name: Widgets
+    description: Dashboard widget CRUD operations
+security:
+  - ApiKeyAuth: []
+paths:
+  /dashboards:
+    post:
+      operationId: createDashboard
+      summary: Create dashboard
+      description: Create a new dashboard for your organization.
+      tags:
+        - Dashboards
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDashboardRequest"
+            examples:
+              basic:
+                summary: Create a dashboard
+                value:
+                  display_name: Production Metrics
+      responses:
+        "201":
+          description: Dashboard created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateDashboardResponse"
+              examples:
+                created:
+                  $ref: "#/components/examples/DashboardCreated"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+    get:
+      operationId: listDashboards
+      summary: List dashboards
+      description: List dashboards for your organization.
+      tags:
+        - Dashboards
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: page_size
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+          description: Maximum number of results per page
+        - name: page_token
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Opaque pagination token from previous response
+        - name: order_by
+          in: query
+          required: false
+          schema:
+            type: string
+            example: -create_time
+          description: Sort field and direction. Prefix with - for descending (e.g. -create_time).
+      responses:
+        "200":
+          description: Dashboards retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListDashboardsResponse"
+              examples:
+                success:
+                  $ref: "#/components/examples/ListDashboardsSuccess"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalError"
+  /dashboards/{dashboard_id}:
+    get:
+      operationId: getDashboard
+      summary: Get dashboard
+      description: Retrieve a specific dashboard by ID.
+      tags:
+        - Dashboards
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - $ref: "#/components/parameters/DashboardId"
+      responses:
+        "200":
+          description: Dashboard retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetDashboardResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+    patch:
+      operationId: updateDashboard
+      summary: Update dashboard
+      description: Update a dashboard.
+      tags:
+        - Dashboards
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - $ref: "#/components/parameters/DashboardId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateDashboardRequest"
+            examples:
+              rename:
+                summary: Rename a dashboard
+                value:
+                  display_name: Updated Dashboard Name
+      responses:
+        "200":
+          description: Dashboard updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateDashboardResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+    delete:
+      operationId: deleteDashboard
+      summary: Delete dashboard
+      description: Delete a dashboard.
+      tags:
+        - Dashboards
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - $ref: "#/components/parameters/DashboardId"
+      responses:
+        "200":
+          description: Dashboard deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Empty response body
+              example: {}
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+  /dashboards/{dashboard_id}/widgets:
+    post:
+      operationId: createWidget
+      summary: Create widget
+      description: Create a new widget on a dashboard.
+      tags:
+        - Widgets
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - $ref: "#/components/parameters/DashboardId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateWidgetRequest"
+            examples:
+              chartWidget:
+                $ref: "#/components/examples/CreateChartWidget"
+              tableWidget:
+                $ref: "#/components/examples/CreateTableWidget"
+              textWidget:
+                $ref: "#/components/examples/CreateTextWidget"
+      responses:
+        "201":
+          description: Widget created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateWidgetResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Parent dashboard not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          $ref: "#/components/responses/InternalError"
+    get:
+      operationId: listWidgets
+      summary: List widgets
+      description: List widgets for a dashboard.
+      tags:
+        - Widgets
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - $ref: "#/components/parameters/DashboardId"
+        - name: page_size
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+          description: Maximum number of results per page
+        - name: page_token
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Opaque pagination token from previous response
+      responses:
+        "200":
+          description: Widgets retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListWidgetsResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          description: Parent dashboard not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          $ref: "#/components/responses/InternalError"
+  /dashboards/{dashboard_id}/widgets/{widget_id}:
+    get:
+      operationId: getWidget
+      summary: Get widget
+      description: Retrieve a specific widget by ID.
+      tags:
+        - Widgets
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - $ref: "#/components/parameters/DashboardId"
+        - $ref: "#/components/parameters/WidgetId"
+      responses:
+        "200":
+          description: Widget retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetWidgetResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+    patch:
+      operationId: updateWidget
+      summary: Update widget
+      description: Update a widget.
+      tags:
+        - Widgets
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - $ref: "#/components/parameters/DashboardId"
+        - $ref: "#/components/parameters/WidgetId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateWidgetRequest"
+            examples:
+              rename:
+                summary: Rename a widget
+                value:
+                  display_name: Updated Widget Name
+              moveWidget:
+                summary: Reposition a widget on the grid
+                value:
+                  grid_x: 4
+                  grid_y: 2
+                  grid_w: 6
+                  grid_h: 4
+      responses:
+        "200":
+          description: Widget updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateWidgetResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+    delete:
+      operationId: deleteWidget
+      summary: Delete widget
+      description: Delete a widget.
+      tags:
+        - Widgets
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - $ref: "#/components/parameters/DashboardId"
+        - $ref: "#/components/parameters/WidgetId"
+      responses:
+        "200":
+          description: Widget deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Empty response body
+              example: {}
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key for authentication
+  parameters:
+    DashboardId:
+      name: dashboard_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Dashboard resource ID (22-character ShortUUID)
+      example: abc123def456ghi789jklm
+    WidgetId:
+      name: widget_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Widget resource ID (22-character ShortUUID)
+      example: wgt456xyz789abc012defg
+  schemas:
+    WidgetType:
+      type: string
+      description: |
+        Type of widget.
+
+        - **chart**: Visualization widget (line, bar, area, pie, histogram, statistic, top-list)
+        - **table**: Tabular data widget with multiple metrics
+        - **text**: Free-form text/markdown widget
+      enum:
+        - chart
+        - table
+        - text
+      example: chart
+    VisualizationType:
+      type: string
+      description: Chart visualization style
+      enum:
+        - line
+        - bar
+        - area
+        - statistic
+        - pie
+        - histogram
+        - top-list
+      example: line
+    AggregationType:
+      type: string
+      description: Aggregation function for metric data
+      enum:
+        - sum
+        - count
+        - avg
+        - max
+        - min
+        - success
+        - p90
+        - p95
+        - p99
+      example: avg
+    DataSourceType:
+      type: string
+      description: Data source for the widget
+      enum:
+        - Monitoring
+        - Simulations
+      example: Monitoring
+    MetricOutputType:
+      type: string
+      description: Output type of the metric values
+      enum:
+        - string
+        - float
+      example: float
+    GroupByType:
+      type: string
+      description: Field to group metric results by
+      enum:
+        - agent
+        - mutation
+        - persona
+        - template
+        - test_set
+      example: agent
+    MetricFilterOperator:
+      type: string
+      description: Comparison operator for metric filters
+      enum:
+        - ">"
+        - "<"
+        - ">="
+        - "<="
+        - "="
+        - "!="
+      example: ">="
+    MetricFilter:
+      type: object
+      description: Filter condition applied to metric values
+      required:
+        - metricId
+        - operator
+        - value
+        - metricOutputType
+      properties:
+        metricId:
+          type: string
+          description: ID of the metric to filter on
+        operator:
+          $ref: "#/components/schemas/MetricFilterOperator"
+        value:
+          oneOf:
+            - type: number
+            - type: string
+          description: Threshold value for the filter
+        metricOutputType:
+          $ref: "#/components/schemas/MetricOutputType"
+    FilterConfig:
+      type: object
+      description: Scope filters to narrow widget data
+      properties:
+        metricIds:
+          type: array
+          items:
+            type: string
+          description: Filter to specific metric IDs
+        agentIds:
+          type: array
+          items:
+            type: string
+          description: Filter to specific agent IDs
+        agentMutationIds:
+          type: array
+          items:
+            type: string
+          description: Filter to specific agent mutation IDs
+        personaIds:
+          type: array
+          items:
+            type: string
+          description: Filter to specific persona IDs
+        templateNames:
+          type: array
+          items:
+            type: string
+          description: Filter to specific template names
+        testSetIds:
+          type: array
+          items:
+            type: string
+          description: Filter to specific test set IDs
+        metadata:
+          type: array
+          items:
+            type: object
+          description: Metadata-based filters
+    ChartWidgetConfig:
+      type: object
+      description: Configuration for chart-type widgets
+      properties:
+        metricId:
+          type: string
+          description: ID of the metric to visualize
+        visualizationType:
+          $ref: "#/components/schemas/VisualizationType"
+        monitoring:
+          $ref: "#/components/schemas/DataSourceType"
+        aggregation:
+          $ref: "#/components/schemas/AggregationType"
+        metricOutputType:
+          $ref: "#/components/schemas/MetricOutputType"
+        bucketInterval:
+          type: string
+          description: Time bucket interval for aggregation
+          enum:
+            - 15 minutes
+            - 1 hour
+            - 4 hours
+            - 1 day
+        stacked:
+          type: boolean
+          description: Stack series in the chart
+        grouped:
+          type: boolean
+          description: Group series in the chart
+        showAsPercentage:
+          type: boolean
+          description: Display values as percentages
+        groupBy:
+          $ref: "#/components/schemas/GroupByType"
+        customColorMap:
+          type: object
+          additionalProperties:
+            type: string
+          description: Custom color assignments for series (max 200 entries)
+        xAxisLabel:
+          type: string
+          maxLength: 200
+          description: Custom X-axis label
+        yAxisLabel:
+          type: string
+          maxLength: 200
+          description: Custom Y-axis label
+        customSeriesNames:
+          type: object
+          additionalProperties:
+            type: string
+          description: Custom display names for series (max 200 entries)
+        hiddenSeries:
+          type: array
+          items:
+            type: string
+          description: Series to hide by default (max 200)
+        precision:
+          type: integer
+          minimum: 0
+          maximum: 3
+          description: Decimal precision for displayed values
+        units:
+          type: string
+          maxLength: 10
+          description: Unit label for values
+        showCount:
+          type: boolean
+          description: Show count alongside metric
+        showRange:
+          type: boolean
+          description: Show min/max range
+        showStdDev:
+          type: boolean
+          description: Show standard deviation
+        showBoxPlot:
+          type: boolean
+          description: Show box plot overlay
+        showTargetZone:
+          type: boolean
+          description: Show target zone overlay
+        filters:
+          $ref: "#/components/schemas/FilterConfig"
+        metricFilter:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetricFilter"
+          description: Metric value filters (max 50)
+    TableWidgetConfig:
+      type: object
+      description: Configuration for table-type widgets
+      properties:
+        metricIds:
+          type: array
+          items:
+            type: string
+          description: IDs of metrics to display (max 50)
+          maxItems: 50
+        monitoring:
+          $ref: "#/components/schemas/DataSourceType"
+        aggregation:
+          $ref: "#/components/schemas/AggregationType"
+        groupBy:
+          $ref: "#/components/schemas/GroupByType"
+        filters:
+          $ref: "#/components/schemas/FilterConfig"
+        metricFilter:
+          type: array
+          items:
+            $ref: "#/components/schemas/MetricFilter"
+          description: Metric value filters (max 50)
+    TextWidgetConfig:
+      type: object
+      description: Configuration for text-type widgets
+      properties:
+        text:
+          type: string
+          maxLength: 10000
+          description: Free-form text content
+    WidgetConfig:
+      anyOf:
+        - $ref: "#/components/schemas/ChartWidgetConfig"
+        - $ref: "#/components/schemas/TableWidgetConfig"
+        - $ref: "#/components/schemas/TextWidgetConfig"
+      description: Widget configuration, structure depends on widget type
+    DashboardResource:
+      type: object
+      description: Dashboard resource
+      required:
+        - name
+        - create_time
+        - update_time
+      properties:
+        name:
+          type: string
+          description: Resource name in format `dashboards/{id}`
+          example: dashboards/abc123def456ghi789jklm
+        display_name:
+          type: string
+          nullable: true
+          maxLength: 255
+          description: Human-readable dashboard name
+          example: Production Metrics
+        description:
+          type: string
+          nullable: true
+          description: Free-text dashboard description
+          example: Production monitoring metrics
+        is_default:
+          type: boolean
+          description: Whether this is the organization's default dashboard (the one shown when no dashboard is specified)
+          example: true
+        is_favorite:
+          type: boolean
+          description: Whether the dashboard is marked as a favorite
+          example: false
+        position:
+          type: integer
+          description: Ordering position within the organization's dashboards
+          example: 0
+        config:
+          type: object
+          nullable: true
+          additionalProperties: true
+          description: Free-form JSON config blob (e.g. saved date preferences)
+        create_time:
+          type: string
+          format: date-time
+          description: Creation timestamp (ISO 8601)
+          example: "2025-10-14T12:00:00Z"
+        update_time:
+          type: string
+          format: date-time
+          description: Last update timestamp (ISO 8601)
+          example: "2025-10-15T14:30:00Z"
+    WidgetResource:
+      type: object
+      description: Widget resource
+      required:
+        - name
+        - type
+        - create_time
+        - update_time
+      properties:
+        name:
+          type: string
+          description: Resource name in format `dashboards/{dashboard_id}/widgets/{id}`
+          example: dashboards/abc123def456ghi789jklm/widgets/wgt456xyz789abc012defg
+        display_name:
+          type: string
+          nullable: true
+          maxLength: 255
+          description: Human-readable widget name
+          example: Response Time Chart
+        type:
+          description: Widget type.
+          allOf:
+            - $ref: "#/components/schemas/WidgetType"
+        grid_x:
+          type: integer
+          nullable: true
+          description: Grid column position
+        grid_y:
+          type: integer
+          nullable: true
+          description: Grid row position
+        grid_w:
+          type: integer
+          nullable: true
+          description: Grid column span
+        grid_h:
+          type: integer
+          nullable: true
+          description: Grid row span
+        config:
+          $ref: "#/components/schemas/WidgetConfig"
+        create_time:
+          type: string
+          format: date-time
+          description: Creation timestamp (ISO 8601)
+          example: "2025-10-14T12:00:00Z"
+        update_time:
+          type: string
+          format: date-time
+          description: Last update timestamp (ISO 8601)
+          example: "2025-10-15T14:30:00Z"
+    CreateDashboardRequest:
+      type: object
+      required:
+        - display_name
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Human-readable dashboard name
+          example: Production Metrics
+        description:
+          type: string
+          maxLength: 1000
+          description: Optional free-text description
+        is_favorite:
+          type: boolean
+          default: false
+          description: Mark the dashboard as a favorite
+        is_default:
+          type: boolean
+          nullable: true
+          description: >-
+            Mark as the organization's default dashboard. Omit to auto-default the first dashboard in the
+            organization; set true to make this the default (any existing default is unset).
+        position:
+          type: integer
+          minimum: 0
+          description: Ordering position. Omit to append to the end.
+        config:
+          type: object
+          additionalProperties: true
+          description: Free-form JSON config blob (max 50000 bytes serialized)
+    UpdateDashboardRequest:
+      type: object
+      description: >-
+        All fields optional (PATCH semantics). Provided fields are updated; omitted or null fields are
+        left unchanged. Setting is_default=true unsets any other default dashboard in the organization.
+        config fully replaces the stored blob; to clear a value send an empty string (description) or an
+        empty object (config) rather than null.
+      properties:
+        display_name:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 255
+          description: Updated dashboard name
+        description:
+          type: string
+          nullable: true
+          maxLength: 1000
+          description: Updated free-text description (empty string clears it)
+        is_favorite:
+          type: boolean
+          nullable: true
+          description: Updated favorite flag
+        is_default:
+          type: boolean
+          nullable: true
+          description: Set true to make this the organization's default dashboard (unsets any other default)
+        position:
+          type: integer
+          nullable: true
+          minimum: 0
+          description: Updated ordering position
+        config:
+          type: object
+          nullable: true
+          additionalProperties: true
+          description: Replacement free-form JSON config blob (max 50000 bytes serialized)
+    CreateWidgetRequest:
+      type: object
+      required:
+        - display_name
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Human-readable widget name
+        type:
+          description: |
+            Widget type. Optional; defaults to `chart` when omitted.
+          allOf:
+            - $ref: "#/components/schemas/WidgetType"
+        grid_x:
+          type: integer
+          nullable: true
+          description: Grid column position
+        grid_y:
+          type: integer
+          nullable: true
+          description: Grid row position
+        grid_w:
+          type: integer
+          nullable: true
+          description: Grid column span
+        grid_h:
+          type: integer
+          nullable: true
+          description: Grid row span
+        config:
+          $ref: "#/components/schemas/WidgetConfig"
+    UpdateWidgetRequest:
+      type: object
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Updated widget name
+        type:
+          $ref: "#/components/schemas/WidgetType"
+        grid_x:
+          type: integer
+          nullable: true
+          description: Grid column position
+        grid_y:
+          type: integer
+          nullable: true
+          description: Grid row position
+        grid_w:
+          type: integer
+          nullable: true
+          description: Grid column span
+        grid_h:
+          type: integer
+          nullable: true
+          description: Grid row span
+        config:
+          $ref: "#/components/schemas/WidgetConfig"
+    ListDashboardsResponse:
+      type: object
+      required:
+        - dashboards
+      properties:
+        dashboards:
+          type: array
+          items:
+            $ref: "#/components/schemas/DashboardResource"
+        next_page_token:
+          type: string
+          nullable: true
+          description: Token for fetching next page (null if no more results)
+    GetDashboardResponse:
+      type: object
+      required:
+        - dashboard
+      properties:
+        dashboard:
+          $ref: "#/components/schemas/DashboardResource"
+    CreateDashboardResponse:
+      type: object
+      required:
+        - dashboard
+      properties:
+        dashboard:
+          $ref: "#/components/schemas/DashboardResource"
+    UpdateDashboardResponse:
+      type: object
+      required:
+        - dashboard
+      properties:
+        dashboard:
+          $ref: "#/components/schemas/DashboardResource"
+    ListWidgetsResponse:
+      type: object
+      required:
+        - widgets
+      properties:
+        widgets:
+          type: array
+          items:
+            $ref: "#/components/schemas/WidgetResource"
+        next_page_token:
+          type: string
+          nullable: true
+          description: Token for fetching next page (null if no more results)
+    GetWidgetResponse:
+      type: object
+      required:
+        - widget
+      properties:
+        widget:
+          $ref: "#/components/schemas/WidgetResource"
+    CreateWidgetResponse:
+      type: object
+      required:
+        - widget
+      properties:
+        widget:
+          $ref: "#/components/schemas/WidgetResource"
+    UpdateWidgetResponse:
+      type: object
+      required:
+        - widget
+      properties:
+        widget:
+          $ref: "#/components/schemas/WidgetResource"
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      required:
+        - error
+      properties:
+        error:
+          type: object
+          required:
+            - code
+            - message
+            - details
+          properties:
+            code:
+              type: string
+              description: Error code
+              enum:
+                - INVALID_ARGUMENT
+                - UNAUTHENTICATED
+                - NOT_FOUND
+                - INTERNAL
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameter
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    nullable: true
+                    description: Field that caused the error
+                  description:
+                    type: string
+                    description: Detailed error description
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+                - field: display_name
+                  description: display_name must be between 1 and 255 characters
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+                - field: X-API-Key
+                  description: Invalid or missing API key
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            error:
+              code: NOT_FOUND
+              message: Resource not found
+              details:
+                - field: dashboard_id
+                  description: Dashboard not found or not accessible by your organization
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+                - description: An unexpected error occurred
+  examples:
+    DashboardCreated:
+      summary: Dashboard created
+      value:
+        dashboard:
+          name: dashboards/abc123def456ghi789jklm
+          display_name: Production Metrics
+          create_time: "2025-10-14T12:00:00Z"
+          update_time: "2025-10-14T12:00:00Z"
+    ListDashboardsSuccess:
+      summary: Successful list response
+      value:
+        dashboards:
+          - name: dashboards/abc123def456ghi789jklm
+            display_name: Production Metrics
+            create_time: "2025-10-14T12:00:00Z"
+            update_time: "2025-10-15T14:30:00Z"
+          - name: dashboards/xyz789abc012def345ghij
+            display_name: Voice Agent Quality
+            create_time: "2025-10-13T08:00:00Z"
+            update_time: "2025-10-13T08:00:00Z"
+        next_page_token: null
+    CreateChartWidget:
+      summary: Create a chart widget
+      value:
+        display_name: Response Time Trend
+        type: chart
+        grid_x: 0
+        grid_y: 0
+        grid_w: 6
+        grid_h: 4
+        config:
+          metricId: metric_response_time
+          visualizationType: line
+          monitoring: Monitoring
+          aggregation: avg
+          metricOutputType: float
+          bucketInterval: 1 hour
+          yAxisLabel: Seconds
+          units: s
+          precision: 2
+    CreateTableWidget:
+      summary: Create a table widget
+      value:
+        display_name: Metric Summary
+        type: table
+        grid_x: 6
+        grid_y: 0
+        grid_w: 6
+        grid_h: 4
+        config:
+          metricIds:
+            - metric_accuracy
+            - metric_latency
+            - metric_satisfaction
+          monitoring: Simulations
+          aggregation: avg
+    CreateTextWidget:
+      summary: Create a text widget
+      value:
+        display_name: Dashboard Notes
+        type: text
+        grid_x: 0
+        grid_y: 4
+        grid_w: 12
+        grid_h: 2
+        config:
+          text: "## Overview
+
+            This dashboard tracks key voice agent metrics across production."

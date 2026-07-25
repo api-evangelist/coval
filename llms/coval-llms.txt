@@ -1,0 +1,140 @@
+# Coval
+
+> Coval is the deployment-readiness platform for voice and chat AI agents: simulate conversations before launch, monitor real production calls, and improve reliability with metrics and human review. Supports inbound/outbound voice, standard chat, chat WebSocket, chat A2A, voice-to-voice (OpenAI Realtime, Gemini Live), SMS, WebSocket, Pipecat, and LiveKit agents.
+
+## Covi
+
+- [Covi](https://docs.coval.ai/covi/overview): Use Coval's in-app agent to investigate results, improve evaluation coverage, and take action
+- [Using Covi](https://docs.coval.ai/covi/using-covi): Open Covi, ask grounded questions, and turn evaluation findings into action
+
+## Simulate
+
+- [Welcome](https://docs.coval.ai/welcome): What Coval does and who it's built for
+- [Simulations](https://docs.coval.ai/concepts/simulations/overview): What a simulation is and what you need to set one up
+- [Reports](https://docs.coval.ai/concepts/simulations/reports): Combine multiple runs into one view to compare across agents, personas, and other dimensions
+- [Agents](https://docs.coval.ai/concepts/agents/overview): Connect your voice and chat agents to Coval to launch simulated conversations
+- [Agent Mutations](https://docs.coval.ai/concepts/agents/mutations): Test agent configuration variants side-by-side in a single evaluation
+- [Personas](https://docs.coval.ai/concepts/personas/overview): Define who the simulated user is and how they sound
+- [Test Sets](https://docs.coval.ai/concepts/test-sets/overview): Define the scenarios you want to evaluate your agent against
+- [Create a Test Set](https://docs.coval.ai/concepts/test-sets/create): Generate test cases with AI, build them manually, or upload a CSV/Excel file
+- [Input Types](https://docs.coval.ai/concepts/test-sets/input-types): Scenario, transcript, or script — how tightly the simulated user follows your input
+- [Expected Behavior & Attributes](https://docs.coval.ai/concepts/test-sets/evaluation): Define how the agent should respond and attach per-test-case data for evaluation
+- [Templates](https://docs.coval.ai/concepts/templates/overview): Save an evaluation configuration so you can re-launch or schedule it
+- [Runs & Schedules](https://docs.coval.ai/concepts/runs/overview): Tag your evaluations and run them on a recurring schedule
+- [Attributes](https://docs.coval.ai/concepts/attributes/overview): Use dynamic attributes from agents, test cases, and simulations in metric prompts and scenarios
+- [Versioning](https://docs.coval.ai/concepts/versioning/overview): How Coval keeps a version history for metrics, test sets, personas, and agents
+- [Benchmarks](https://docs.coval.ai/concepts/benchmarks/overview): Compare speech-to-text and text-to-speech providers on your own audio and text
+
+## Agent Connection Types
+
+- [Inbound Voice](https://docs.coval.ai/concepts/agents/connections/inbound-voice): Configure agents that receive incoming phone calls and simulate inbound calls
+- [Outbound Voice](https://docs.coval.ai/concepts/agents/connections/outbound-voice): Configure agents that initiate phone calls to users
+- [Standard Chat](https://docs.coval.ai/concepts/agents/connections/chat): Connect a chat agent over a standard HTTP endpoint and simulate text conversations
+- [Chat WebSocket](https://docs.coval.ai/concepts/agents/connections/chat-websocket): Connect to text chat agents over a persistent WebSocket connection
+- [Chat A2A (JSON-RPC)](https://docs.coval.ai/concepts/agents/connections/chat-a2a): Connect to text chat agents that speak the A2A v2 JSON-RPC protocol
+- [OpenAI Realtime](https://docs.coval.ai/concepts/agents/connections/openai-realtime): Evaluate an OpenAI Realtime voice-to-voice agent without hosting your own endpoint
+- [Gemini Live](https://docs.coval.ai/concepts/agents/connections/gemini-live): Evaluate a Google Gemini Live voice-to-voice agent without hosting your own endpoint
+- [SMS Simulations](https://docs.coval.ai/guides/simulations/sms): Simulate SMS conversations with your agent
+- [WebSocket (Voice)](https://docs.coval.ai/concepts/agents/connections/websocket): Connect a real-time voice agent over WebSocket using configurable audio messages
+- [Pipecat Cloud](https://docs.coval.ai/concepts/agents/connections/pipecat): Connect your Pipecat Cloud agent to run voice AI simulations
+- [LiveKit](https://docs.coval.ai/concepts/agents/connections/livekit): Connect to LiveKit for advanced audio/video agents
+
+## Evaluate
+
+- [Metrics](https://docs.coval.ai/concepts/metrics/overview): Turn a conversation into a measurable signal — what metrics are and where to go next
+- [Add your first metric](https://docs.coval.ai/concepts/metrics/quickstart): Create a metric and attach it to a run, end to end
+- [Choose a metric](https://docs.coval.ai/concepts/metrics/choose-a-metric): Find the right metric by what you want to measure
+- [Write judge prompts](https://docs.coval.ai/concepts/metrics/writing-judge-prompts): Prompt structure, examples, and techniques for reliable LLM-judge metrics
+- [Configure metrics](https://docs.coval.ai/concepts/metrics/configuring-metrics): Template variables, transcript scope, and trace context for custom metrics
+- [Metric Chaining](https://docs.coval.ai/concepts/metrics/metric-chaining): Combine metrics into custom logic flows for more efficient, accurate evaluations
+- [Chaining vs. Workflow Verification](https://docs.coval.ai/concepts/metrics/chaining-vs-workflow): Choosing the right evaluation approach for conditional agent logic
+- [Deterministic Metrics](https://docs.coval.ai/concepts/metrics/types/deterministic): Rule-based metrics — regex, field matching, and pattern checks
+- [Statistical Metrics](https://docs.coval.ai/concepts/metrics/types/statistical): Timing, signal, and acoustic measurements computed directly from a call
+- [ML Model Metrics](https://docs.coval.ai/concepts/metrics/types/ml-model): Purpose-built ML models — sentiment, voice consistency, and transcription accuracy
+- [LLM Judge Metrics](https://docs.coval.ai/concepts/metrics/types/llm-judge): Use an LLM to evaluate a transcript or recording against your own question
+- [Trace Metrics](https://docs.coval.ai/concepts/metrics/types/trace): Metrics derived from OpenTelemetry spans — latency, token usage, tool calls, transcription accuracy
+
+## Observe
+
+- [Live Conversations](https://docs.coval.ai/concepts/conversations/overview): Evaluate real production calls in Coval — the production counterpart to simulations
+- [Uploading Conversations](https://docs.coval.ai/concepts/conversations/uploading): Transcript and audio formats for uploading conversations for evaluation
+- [Dashboards](https://docs.coval.ai/concepts/dashboard/overview): Track agent metrics over time across simulations and live conversations
+- [Attach Audio After a Call](https://docs.coval.ai/concepts/conversations/async-audio-attach): Submit transcripts at call end and attach audio when the recording URL finalizes
+- [Traces](https://docs.coval.ai/concepts/simulations/traces/overview): Send your agent's traces to Coval to evaluate what it did, not just what it said
+- [Tracing Wizard](https://docs.coval.ai/concepts/simulations/traces/wizard): Automatically add Coval OTel tracing to your Python voice agent with one command
+- [Tracing Skills](https://docs.coval.ai/concepts/simulations/traces/tracing-skills): Instrument, validate, optimize, and debug agent traces with an AI-assisted workflow
+- [OpenTelemetry Traces](https://docs.coval.ai/concepts/simulations/traces/opentelemetry): Send traces from your agent using the OpenTelemetry SDK
+- [Import Traces from a Platform](https://docs.coval.ai/concepts/simulations/traces/imports): Import traces automatically from Langfuse, Arize Phoenix, or LangSmith
+- [Twilio ConversationRelay + OTel Traces](https://docs.coval.ai/guides/simulations/twilio-conversationrelay): Add OTel tracing to a Twilio Programmable Voice agent and correlate spans with simulations
+- [Viewing Traces](https://docs.coval.ai/concepts/simulations/traces/viewing): Inspect a call's spans and find where runs fail with Transition Hotspots
+- [Trace Search](https://docs.coval.ai/concepts/conversations/trace-search): Search all traced calls with natural language queries, structured filters, and Transition Hotspots
+
+## Review
+
+- [Human Review Projects](https://docs.coval.ai/concepts/metrics/human-review/human-review): Organize human labeling of conversations to validate metrics and triage production calls
+- [How to Review a Conversation](https://docs.coval.ai/concepts/metrics/human-review/how-to-review): For reviewers — open assignments, label each metric, apply triage labels
+- [Human Review via API](https://docs.coval.ai/guides/human-review-api): Create review projects and submit ground-truth annotations programmatically
+- [Improving Metrics with Human Review](https://docs.coval.ai/guides/improving-metrics-with-human-review): Use human labels to measure how much you can trust each metric
+
+## Cookbooks
+
+- [Handling User Authentication](https://docs.coval.ai/guides/handling-authentication): Make your simulated caller authenticate as a real user before the agent helps them
+- [Testing IVR](https://docs.coval.ai/guides/testing-ivr): Check whether your voice agent routes callers correctly through your phone menu
+- [Testing Across Audio Qualities](https://docs.coval.ai/guides/testing-across-audio-qualities): Compare performance across voices, styles, volume, interruptions, and background noise
+- [Testing Across Accents](https://docs.coval.ai/guides/testing-across-accents): Compare how a voice agent performs with callers across different accents
+- [Adversarial & Red-Team Testing](https://docs.coval.ai/guides/adversarial-red-team-testing): Test whether an agent stays safe and in-policy against prompt injection, jailbreaks, and social engineering
+- [Evaluating Tool Calls](https://docs.coval.ai/use-cases/evaluating-tool-calls): Use OpenTelemetry traces to validate what your agent's tools actually did
+
+## Reference
+
+- [API Keys](https://docs.coval.ai/guides/api-keys): Create and manage API keys to authenticate with the Coval API
+- [Keyboard Navigation](https://docs.coval.ai/guides/keyboard-navigation): Use Coval efficiently with the keyboard across lists, detail views, and the command palette
+- [GitHub Actions](https://docs.coval.ai/getting-started/github-actions-tutorial): Launch Coval evaluation runs from GitHub Actions
+
+## CLI
+
+- [CLI](https://docs.coval.ai/cli/overview): Command-line interface for the Coval AI evaluation platform
+- [Installation & Configuration](https://docs.coval.ai/cli/installation): Install the Coval CLI and configure authentication
+- [Agent Mode](https://docs.coval.ai/cli/agent-mode): Run the CLI from autonomous agents with structured I/O, discovery, and next actions
+- [Agents](https://docs.coval.ai/cli/agents): Manage AI agent configurations
+- [Runs](https://docs.coval.ai/cli/runs): Launch and manage evaluation runs
+- [Simulations](https://docs.coval.ai/cli/simulations): View simulation results and download audio
+- [Conversations](https://docs.coval.ai/cli/conversations): Inspect monitored conversations, audio, and metric results
+- [Test Sets](https://docs.coval.ai/cli/test-sets): Manage test set collections
+- [Test Cases](https://docs.coval.ai/cli/test-cases): Manage individual test cases
+- [Personas](https://docs.coval.ai/cli/personas): Manage simulated personas
+- [Metrics](https://docs.coval.ai/cli/metrics): Manage evaluation metrics
+- [Mutations](https://docs.coval.ai/cli/mutations): Test agent variations with config overrides
+- [API Keys](https://docs.coval.ai/cli/api-keys): Manage API keys for programmatic access
+- [Human Review](https://docs.coval.ai/cli/human-review): Manage human review projects and annotations
+- [Run Templates](https://docs.coval.ai/cli/run-templates): Create reusable evaluation configurations
+- [Scheduled Runs](https://docs.coval.ai/cli/scheduled-runs): Schedule recurring evaluation runs
+- [Dashboards](https://docs.coval.ai/cli/dashboards): Create and manage dashboards and widgets
+
+## SDKs
+
+- [SDKs](https://docs.coval.ai/sdks/overview): Typed TypeScript and Python clients generated from the public OpenAPI specs
+
+## AI Agents
+
+- [Evaluations for Agents](https://docs.coval.ai/agents/overview): Give AI coding agents the tools and knowledge to evaluate AI quality via Skills, MCP, CLI, or API
+- [Guided Onboarding](https://docs.coval.ai/agents/onboarding): Run /onboard to set up a complete evaluation interactively
+- [Agent Skills](https://docs.coval.ai/agents/skills): Install evaluation expertise into your AI coding agent with one command
+- [Context7](https://docs.coval.ai/agents/context7): Access up-to-date Coval documentation directly inside AI coding agents via Context7
+
+## MCP Server
+
+- [MCP Server](https://docs.coval.ai/mcp/overview): Use Coval directly from Claude Desktop, Cursor, and other MCP-compatible clients
+- [Installation](https://docs.coval.ai/mcp/installation): Configure the Coval MCP server for your AI assistant
+- [Tools Reference](https://docs.coval.ai/mcp/tools): Complete reference for all MCP server tools
+- [MCP Guide](https://docs.coval.ai/mcp/beginners-guide): A practical guide for Coval UI users who want to work faster using Claude and the MCP server
+- [Troubleshooting](https://docs.coval.ai/mcp/troubleshooting): Common issues and solutions for the Coval MCP server
+
+## API Reference
+
+- [API Reference](https://docs.coval.ai/api-reference/v1/introduction): Authentication, base URL, pagination, filtering, and error codes
+- [OpenAPI Specs](https://api.coval.dev/v1/openapi): Machine-readable API specifications
+
+## Optional
+
+- [Changelog](https://docs.coval.ai/changelog): Product updates and release notes

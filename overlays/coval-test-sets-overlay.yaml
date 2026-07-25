@@ -1,0 +1,16 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Test Sets API
+  version: 1.0.0
+extends: openapi/coval-test-sets-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-18'
+    x-apievangelist-provider: coval
+    x-api-evangelist: https://apievangelist.com
+    x-agent-ready: true
+- target: $.info
+  update:
+    x-authentication: api-key header X-API-Key
+    x-error-envelope: google-style {error:{code,message,details}}

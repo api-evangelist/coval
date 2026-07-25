@@ -1,0 +1,35 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.coval.ai/changelog
+scheme: date-based
+current_version: null
+notes: Coval publishes a dated product changelog rather than semantic versions.
+entries:
+  - date: '2026-07-06'
+    highlights:
+      - Soft delete with restore for test sets, personas, and agents
+      - Human Review reports can filter to human-labeled simulations only
+      - Metric rules support multiple AND conditions
+      - Agent creation type picker (voice, text, advanced)
+      - Covi generates charts and visualizations in responses
+      - Tags can be added to metrics from the metric page
+  - date: '2026-06-29'
+    highlights:
+      - Caller phone numbers shown in simulation results
+      - Scatter plots gain outlier exclusion and legend controls
+      - Test set edit timestamps update accurately via API
+      - Deleted simulations and runs removed from report rows
+  - date: '2026-06-22'
+    highlights:
+      - Covi in-app agent for test setup, metric creation, and result exploration
+      - Chat agents resolve template variables in headers and payloads
+      - Metrics skip with clear reasons; LLM judges retry on truncated responses
+  - date: '2026-06-15'
+    highlights:
+      - Metrics maintain version history with change tracking
+      - Standardized LLM judge templates at metric creation
+      - AI-generated run summaries (beta)
+      - Human Review projects get scoped overview and assignment pages
+      - Connection validation for Pipecat, LiveKit, and WebSocket agents
+      - Custom background sound uploads
+      - Reliable MP3 telephony recording uploads

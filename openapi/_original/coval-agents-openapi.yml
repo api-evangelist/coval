@@ -1,0 +1,1818 @@
+openapi: 3.0.3
+x-visibility: external  # external | internal — only `external` specs are published to the public API/docs
+info:
+  title: Coval Agents API
+  version: 1.0.0
+  description: |
+
+    Manage configurations for simulations and evaluations.
+
+  contact:
+    name: Coval API Support
+    email: support@coval.dev
+    url: https://docs.coval.ai
+  license:
+    name: Proprietary
+    url: https://coval.dev/terms
+servers:
+- url: https://api.coval.dev/v1
+  description: Production API
+tags:
+- name: Agents
+  description: CRUD operations for AI agent configurations
+security:
+- ApiKeyAuth: []
+paths:
+  /agents:
+    get:
+      operationId: listAgents
+      summary: List agents
+      description: Retrieve a paginated list of agent configurations with optional filtering and sorting.
+      tags:
+      - Agents
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: |
+          Filter expression syntax.
+
+          **Supported fields:** `model_type`, `display_name`, `create_time`, `update_time`
+
+          **Operators:** `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`
+
+          Values may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `display_name="Support Agent"`).
+
+          **Date format:** ISO 8601 (e.g., `2025-10-01T00:00:00Z`)
+        examples:
+          byModelType:
+            value: model_type=MODEL_TYPE_VOICE
+            summary: Filter by model type
+          byDisplayName:
+            value: display_name="Support Agent"
+            summary: Filter by display name (quoted - contains space)
+          combined:
+            value: model_type=MODEL_TYPE_VOICE AND display_name="Support Agent"
+            summary: Combined filters
+          dateRange:
+            value: create_time>="2025-10-01T00:00:00Z" AND create_time<="2025-10-31T23:59:59Z"
+            summary: Date range filter
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+        description: Maximum number of results per page
+        example: 50
+      - name: page_token
+        in: query
+        required: false
+        schema:
+          type: string
+        description: 'Opaque pagination token from previous response.
+
+
+          Do not decode or modify this token.
+
+          '
+        example: eyJvZmZzZXQiOjUwfQ==
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          type: string
+          default: -create_time
+        description: |
+          Sort order specification.
+
+          **Formats:**
+          1. Dash-prefix: `-create_time` (descending), `display_name` (ascending)
+          2. Space-separated: `create_time desc`, `display_name asc`
+
+          **Sortable fields:** `create_time`, `update_time`, `display_name`, `model_type`
+        examples:
+          descending:
+            value: -create_time
+            summary: Newest first (default)
+          ascending:
+            value: display_name
+            summary: Alphabetical by name
+          spaceSeparated:
+            value: create_time desc
+            summary: Space-separated format
+      - name: tag_filters
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          maxItems: 20
+        description: |
+          Filter agents by tags. A resource matches when it has ALL the listed tags (AND-semantics).
+
+          Repeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).
+        example:
+        - production
+      responses:
+        '200':
+          description: Agents retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentsResponse'
+              examples:
+                success:
+                  $ref: '#/components/examples/ListAgentsSuccess'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalidFilter:
+                  $ref: '#/components/examples/InvalidFilterError'
+                invalidPageSize:
+                  $ref: '#/components/examples/InvalidPageSizeError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      operationId: createAgent
+      summary: Connect an agent
+      description: Connect an agent to coval by providing the agent's configuration.
+      tags:
+      - Agents
+      security:
+      - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAgentRequest'
+            examples:
+              voiceAgent:
+                $ref: '#/components/examples/CreateVoiceAgent'
+              voiceAgentSip:
+                $ref: '#/components/examples/CreateVoiceAgentSip'
+              outboundVoiceAgent:
+                $ref: '#/components/examples/CreateOutboundVoiceAgent'
+              textAgentBasic:
+                $ref: '#/components/examples/CreateTextAgentBasic'
+              smsAgent:
+                $ref: '#/components/examples/CreateSmsAgent'
+              websocketAgent:
+                $ref: '#/components/examples/CreateWebsocketAgent'
+              websocketJsonAudioAgent:
+                $ref: '#/components/examples/CreateWebsocketJsonAudioAgent'
+              websocketAgentWithAuth:
+                $ref: '#/components/examples/CreateWebsocketAgentWithAuth'
+              minimalVoiceAgent:
+                $ref: '#/components/examples/CreateMinimalVoiceAgent'
+              minimalTextAgent:
+                $ref: '#/components/examples/CreateMinimalTextAgent'
+              textAgentWithInit:
+                $ref: '#/components/examples/CreateTextAgentWithInit'
+              textAgentAdvanced:
+                $ref: '#/components/examples/CreateTextAgentAdvanced'
+              textAgentCustomAPI:
+                $ref: '#/components/examples/CreateTextAgentCustomAPI'
+              textAgentComplete:
+                $ref: '#/components/examples/CreateTextAgentComplete'
+      responses:
+        '201':
+          description: Agent created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAgentResponse'
+              examples:
+                created:
+                  $ref: '#/components/examples/AgentCreated'
+        '400':
+          description: Invalid request body or validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missingField:
+                  $ref: '#/components/examples/MissingFieldError'
+                invalidModelType:
+                  $ref: '#/components/examples/InvalidModelTypeError'
+                missingChatEndpoint:
+                  $ref: '#/components/examples/MissingChatEndpointError'
+                missingWebsocketEndpoint:
+                  $ref: '#/components/examples/MissingWebsocketEndpointError'
+                invalidWebsocketUrl:
+                  $ref: '#/components/examples/InvalidWebsocketUrlError'
+                invalidUrl:
+                  $ref: '#/components/examples/InvalidUrlError'
+                payloadTooLarge:
+                  $ref: '#/components/examples/PayloadTooLargeError'
+                invalidJson:
+                  $ref: '#/components/examples/InvalidJsonError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /agents/{agent_id}:
+    get:
+      operationId: getAgent
+      summary: Get agent
+      description: Retrieve a specific agent configuration by its unique identifier.
+      tags:
+      - Agents
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: ^[A-Za-z0-9]{22}$
+        description: Agent resource ID 
+        example: abc123def456ghi789jklm
+      responses:
+        '200':
+          description: Agent retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAgentResponse'
+              examples:
+                success:
+                  $ref: '#/components/examples/GetAgentSuccess'
+        '400':
+          description: Missing or invalid agent_id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Agent not found, inactive, or belongs to different organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notFound:
+                  $ref: '#/components/examples/AgentNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    patch:
+      operationId: updateAgent
+      summary: Update agent
+      description: Update specific fields of an existing agent configuration.
+      tags:
+      - Agents
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: ^[A-Za-z0-9]{22}$
+        description: Agent resource ID 
+        example: abc123def456ghi789jklm
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAgentRequest'
+            examples:
+              partialUpdate:
+                $ref: '#/components/examples/UpdateAgentPartial'
+              clearFields:
+                $ref: '#/components/examples/UpdateAgentClearFields'
+      responses:
+        '200':
+          description: Agent updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateAgentResponse'
+              examples:
+                updated:
+                  $ref: '#/components/examples/AgentUpdated'
+        '400':
+          description: Invalid request body or validation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Agent not found, inactive, or belongs to different organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notFound:
+                  $ref: '#/components/examples/AgentNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    delete:
+      operationId: deleteAgent
+      summary: Delete agent
+      description: Soft-delete an agent configuration, marking it as inactive while preserving the record.
+      tags:
+      - Agents
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: ^[A-Za-z0-9]{22}$
+        description: Agent resource ID 
+        example: abc123def456ghi789jklm
+      responses:
+        '200':
+          description: Agent deleted successfully (or already deleted)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              example: {}
+        '400':
+          description: Missing agent_id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Agent not found or belongs to different organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notFound:
+                  $ref: '#/components/examples/AgentNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /agents/{agent_id}/duplicate:
+    post:
+      operationId: duplicateAgent
+      summary: Duplicate an agent
+      description: |
+        Clone an existing agent into a new agent owned by your organization.
+        By default only the agent config is copied; set `include_associations`
+        to also copy its metric and test-set associations. Returns the new
+        agent in the same shape as create.
+      tags:
+      - Agents
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: ^[A-Za-z0-9]{22}$
+        description: ID of the agent to duplicate
+        example: abc123def456ghi789jklm
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                include_associations:
+                  type: boolean
+                  default: false
+                  description: Also copy the source agent's metric and test-set associations.
+              example:
+                include_associations: true
+      responses:
+        '201':
+          description: Agent duplicated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAgentResponse'
+        '400':
+          description: Missing agent_id or invalid body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Source agent not found or belongs to different organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notFound:
+                  $ref: '#/components/examples/AgentNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /agents/{agent_id}/versions:
+    get:
+      operationId: listAgentVersions
+      summary: List agent versions
+      description: >-
+        List the version history for an agent, newest first. The newest entry is the agent's current
+        live config; earlier entries are prior states displaced by later saves. Only behavioral
+        config is versioned; identity and cosmetic fields are not.
+      tags:
+      - Agents
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: ^[A-Za-z0-9]{22}$
+        description: Agent resource ID
+        example: abc123def456ghi789jklm
+      responses:
+        '200':
+          description: Agent version history retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAgentVersionsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Agent not found, inactive, or belongs to different organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notFound:
+                  $ref: '#/components/examples/AgentNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /agents/{agent_id}/versions/{version_id}/revert:
+    post:
+      operationId: revertAgentVersion
+      summary: Revert agent version
+      description: >-
+        Re-apply a prior version's configuration to the live agent. A revert is forward-only: it
+        mints a new version (change_type=revert) and advances the agent, so the response reflects the
+        agent's new live config. Reverting to the version the agent already points at is rejected
+        with 400.
+      tags:
+      - Agents
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        schema:
+          type: string
+          pattern: ^[A-Za-z0-9]{22}$
+        description: Agent resource ID
+        example: abc123def456ghi789jklm
+      - name: version_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 26
+          maxLength: 26
+          pattern: ^[0-9A-HJKMNP-TV-Z]{26}$
+        description: ULID of the target version to re-apply
+        example: 01KKWQYSF737ZN6X1Q1RYX8M22
+      responses:
+        '200':
+          description: Agent reverted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAgentResponse'
+        '400':
+          description: Invalid request (e.g. the target version is already the current version)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Agent or version not found, inactive, or belongs to different organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notFound:
+                  $ref: '#/components/examples/AgentNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: API key for authentication
+  schemas:
+    SimulatorType:
+      type: string
+      description: |
+        Agent type. Active types that can be created via the v1 API:
+
+        - **MODEL_TYPE_VOICE**: Inbound voice calls (requires phone_number in E.164 format or SIP address)
+        - **MODEL_TYPE_OUTBOUND_VOICE**: Outbound voice calls (requires endpoint webhook URL)
+        - **MODEL_TYPE_CHAT**: Text-based chat agents (requires metadata.chat_endpoint)
+        - **MODEL_TYPE_CHAT_A2A**: A2A JSON-RPC chat agents (requires metadata.chat_endpoint)
+        - **MODEL_TYPE_CHAT_WEBSOCKET**: Text chat over WebSocket (requires metadata.endpoint in direct mode)
+        - **MODEL_TYPE_SMS**: SMS messaging agents (requires phone_number in E.164 format)
+        - **MODEL_TYPE_WEBSOCKET**: WebSocket voice agents (requires metadata.endpoint wss:// URL in direct mode; metadata.initialization_json is optional)
+        - **MODEL_TYPE_OPENAI_REALTIME**: OpenAI Realtime voice-to-voice agents
+        - **MODEL_TYPE_GEMINI_REALTIME**: Gemini Live voice-to-voice agents
+        - **MODEL_TYPE_GROK_REALTIME**: Grok (xAI) Voice Agent voice-to-voice agents
+      enum:
+      - MODEL_TYPE_VOICE
+      - MODEL_TYPE_OUTBOUND_VOICE
+      - MODEL_TYPE_CHAT
+      - MODEL_TYPE_CHAT_A2A
+      - MODEL_TYPE_CHAT_WEBSOCKET
+      - MODEL_TYPE_SMS
+      - MODEL_TYPE_WEBSOCKET
+      - MODEL_TYPE_OPENAI_REALTIME
+      - MODEL_TYPE_GEMINI_REALTIME
+      - MODEL_TYPE_GROK_REALTIME
+      example: MODEL_TYPE_VOICE
+    AgentResource:
+      type: object
+      description: |
+        Agent configuration resource.
+
+        Note: The `active` field (soft delete status) is managed internally and not exposed in API responses.
+      required:
+      - customer_agent_id
+      properties:
+        id:
+          type: string
+          description: Agent resource ID
+          pattern: ^[A-Za-z0-9]{22}$
+          example: abc123def456ghi789jklm
+        customer_agent_id:
+          type: string
+          description: Customer-supplied external id for the agent. Defaults to `id` when not set at creation.
+          example: my-support-agent
+        display_name:
+          type: string
+          description: Human-readable agent name
+          minLength: 1
+          maxLength: 200
+          example: Customer Support Agent
+        model_type:
+          $ref: '#/components/schemas/SimulatorType'
+        phone_number:
+          type: string
+          nullable: true
+          description: Phone number in E.164 format or SIP address for voice/SMS agents
+          maxLength: 200
+          example: '+1234567890'
+        endpoint:
+          type: string
+          nullable: true
+          description: Custom API endpoint URL
+          maxLength: 200
+          example: https://api.example.com/agent
+        prompt:
+          type: string
+          nullable: true
+          description: Agent instructions/system prompt
+          example: You are a helpful customer support agent...
+        language:
+          type: string
+          nullable: true
+          description: Primary language for the agent
+          example: en
+        attributes:
+          type: object
+          nullable: true
+          description: Free-form agent attributes; referenceable in metric prompts as `{{agent.<key>}}`.
+          additionalProperties: true
+          example:
+            company_name: Acme Corp
+            tier: enterprise
+        metadata:
+          type: object
+          description: Simulator-specific configuration (JSONB)
+          additionalProperties: true
+          example:
+            voice: alloy
+            model: gpt-realtime-2
+        workflows:
+          type: object
+          description: Workflow configuration (JSONB)
+          additionalProperties: true
+          example: {}
+        metric_ids:
+          type: array
+          description: Associated metric IDs
+          items:
+            type: string
+          example:
+          - abc123def456ghi789jklm
+          - def456ghi789jklmabc123
+        test_set_ids:
+          type: array
+          description: Associated test set IDs
+          items:
+            type: string
+          example:
+          - gT5wq2Hn
+        knowledge_base_ids:
+          type: array
+          description: Associated knowledge base entry IDs (read-only, derived from reverse FK)
+          readOnly: true
+          items:
+            type: string
+          example: []
+        tags:
+          type: array
+          description: Tags associated with this agent
+          items:
+            type: string
+          default: []
+          example:
+          - production
+          - voice
+        create_time:
+          type: string
+          format: date-time
+          description: Creation timestamp (ISO 8601)
+          example: '2025-10-14T12:00:00Z'
+        update_time:
+          type: string
+          format: date-time
+          nullable: true
+          description: Last update timestamp (ISO 8601)
+          example: '2025-10-15T14:30:00Z'
+    ListAgentsResponse:
+      type: object
+      required:
+      - agents
+      properties:
+        agents:
+          type: array
+          description: List of agent resources
+          items:
+            $ref: '#/components/schemas/AgentResource'
+        next_page_token:
+          type: string
+          nullable: true
+          description: Token for fetching next page (null if no more results)
+          example: eyJvZmZzZXQiOjUwfQ==
+    GetAgentResponse:
+      type: object
+      required:
+      - agent
+      properties:
+        agent:
+          $ref: '#/components/schemas/AgentResource'
+    AgentVersionResource:
+      type: object
+      description: A single snapshot of an agent's behavioral config from its version history.
+      required:
+      - name
+      - ulid
+      - version_number
+      - change_type
+      - model_type
+      - created_by
+      properties:
+        name:
+          type: string
+          description: Resource name
+          example: agents/abc123def456ghi789jklm/versions/01KKWQYSF737ZN6X1Q1RYX8M2D
+        ulid:
+          type: string
+          description: Version identifier (26-char ULID)
+          example: 01KKWQYSF737ZN6X1Q1RYX8M2D
+        version_number:
+          type: integer
+          description: Per-agent monotonic version number, 1-based
+          example: 2
+        change_type:
+          type: string
+          description: How this version came about. A revert is a save whose new state mirrors an older version.
+          enum:
+          - save
+          - revert
+        label:
+          type: string
+          nullable: true
+          description: Optional user-supplied tag
+          example: v1.2 prod
+        model_type:
+          type: string
+          description: Agent model type at snapshot time
+        phone_number:
+          type: string
+          nullable: true
+        endpoint:
+          type: string
+          nullable: true
+        metadata:
+          type: object
+          additionalProperties: true
+          nullable: true
+        attributes:
+          type: object
+          additionalProperties: true
+          nullable: true
+        workflows:
+          type: object
+          additionalProperties: true
+          description: Verbatim workflow-config snapshot
+        prompt:
+          type: string
+          nullable: true
+        language:
+          type: string
+          nullable: true
+        test_set_ids:
+          type: array
+          nullable: true
+          items:
+            type: string
+        metric_ids:
+          type: array
+          nullable: true
+          items:
+            type: string
+        created_by:
+          type: string
+          description: Who created this version (user ULID)
+        create_time:
+          type: string
+          format: date-time
+          nullable: true
+          description: When this version became current
+    ListAgentVersionsResponse:
+      type: object
+      description: Response for GET /v1/agents/{agent_id}/versions (newest first)
+      required:
+      - versions
+      properties:
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentVersionResource'
+    CreateAgentRequest:
+      type: object
+      required:
+      - display_name
+      - model_type
+      properties:
+        display_name:
+          type: string
+          description: Human-readable agent name
+          minLength: 1
+          maxLength: 200
+          example: Customer Support Agent
+        model_type:
+          $ref: '#/components/schemas/SimulatorType'
+        phone_number:
+          type: string
+          nullable: true
+          maxLength: 200
+          description: |
+            Phone number in E.164 format (e.g., +12345678901) or SIP address (e.g., sip:user@domain.com).
+
+            **Required for:**
+            - MODEL_TYPE_VOICE agents (E.164 or SIP)
+            - MODEL_TYPE_SMS agents (E.164 only)
+
+            Optional for other agent types.
+          example: '+12345678901'
+        endpoint:
+          type: string
+          nullable: true
+          maxLength: 200
+          description: |
+            Webhook endpoint URL that Coval will POST to.
+
+            **Required for MODEL_TYPE_OUTBOUND_VOICE agents.**
+            Must be a valid HTTP/HTTPS URL.
+          example: https://api.yourcompany.com/triggers/voice-simulation
+        prompt:
+          type: string
+          nullable: true
+          maxLength: 50000
+          description: Agent instructions/system prompt
+          example: You are a helpful customer support agent...
+        customer_agent_id:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 200
+          description: Your own external id for this agent. Defaults to the generated agent id when omitted.
+          example: my-support-agent
+        language:
+          type: string
+          nullable: true
+          maxLength: 200
+          description: Primary language for the agent
+          example: en
+        attributes:
+          type: object
+          nullable: true
+          description: Free-form agent attributes; referenceable in metric prompts as `{{agent.<key>}}`.
+          additionalProperties: true
+          example:
+            company_name: Acme Corp
+        metadata:
+          type: object
+          description: |
+            Simulator-specific configuration (JSONB, max 10MB).
+
+            **For CHAT agents:**
+
+            *Required:*
+            - `chat_endpoint` - Chat endpoint URL (validated, no private IPs/localhost)
+
+            *Authentication:*
+            - `authorization_header` - Auth header (Bearer, X-API-Key, etc.)
+
+            *Initialization:*
+            - `initialization_endpoint` - Init endpoint called before chat (validated URL)
+            - `initialization_payload` - JSON payload for init request (max 16KB)
+
+            *Custom Data:*
+            - `custom_data` - Organization/agent-level data (max 32KB JSON string)
+            - `custom_persona_data` - Persona-specific data (max 16KB JSON string)
+
+            *Headers & Format:*
+            - `custom_headers` - Additional headers with template variables, as a JSON object or JSON-encoded object string (max 16KB when encoded)
+            - `response_format` - "chat_completions" (default) or "responses"
+
+            *Request/Response Processing:*
+            - `input_template` - Custom JSON template for requests (validated JSON)
+            - `payload_wrapper` - Wrapper field name (e.g., "data", "request")
+            - `response_message_path` - Dot notation path to extract message
+            - `strip_message_timestamps` - Remove timestamp fields (boolean, default: false)
+
+            *Tool Calls:*
+            - `tool_call_extraction_config` - Configuration for extracting tool calls from custom responses
+
+            *Dynamic Configuration:*
+            - `persona_id` - Reference persona for parameter substitution (22-char ShortUUID)
+
+            *Template Variables:* `{{sessionId}}`, `{{simulation_output_id}}`, `{{init_response.path}}`, `{{persona.field}}`, `{{messages}}`, `{{latest_message}}`, `{{custom_data.field}}`
+
+            **For OUTBOUND_VOICE agents:**
+            - `trigger_call_headers` - JSON string with HTTP headers
+            - `trigger_call_payload` - JSON string with base payload
+            - `phone_number_key` - Field name for phone number (default: "phone_number")
+
+            **For WEBSOCKET agents:**
+
+            *Required:*
+            - `endpoint` - WebSocket endpoint URL (must be wss://, validated). Required in `direct` connection mode.
+
+            *Connection mode:*
+            - `connection_mode` - `direct` (default) or `http_first`. In `http_first` mode Coval issues an HTTP request first and dials the WebSocket URL returned in the response.
+            - `http_url`, `http_method`, `http_request_body`, `http_headers`, `websocket_url_response_path` - HTTP-first setup fields when `connection_mode=http_first`.
+
+            *Authentication (optional):*
+            - `authorization_header` - Auth header sent during the WebSocket handshake. Supports:
+              - `"Bearer <token>"` → sent as `Authorization: Bearer <token>`
+              - `"Basic <base64-credentials>"` → sent as `Authorization: Basic <base64-credentials>`
+              - `"X-API-Key <key>"` → sent as `X-API-Key: <key>`
+            - `custom_headers` - JSON object or JSON-encoded object string of additional HTTP headers for the WebSocket handshake.
+
+            *Initialization & handshake (optional):*
+            - `initialization_json` - JSON object or JSON string payload sent after the WebSocket upgrade and before any ready-message wait.
+            - `handshake_ready_message_type` - Message type to wait for before streaming audio (default `session_ready` in direct mode and empty in `http_first`; empty string skips the ready-message wait).
+            - `handshake_requires_session_id` - Whether the ready message must include `session_id` (default `true` in direct mode and `false` in `http_first`).
+            - `handshake_timeout_seconds` - Seconds Coval waits for the ready message (default `30`).
+
+            *Audio format (optional):*
+            - `send_audio_template` - JSON template for outbound audio. Must contain `{{audio_data}}`. Setting it exactly to `{{audio_data}}` sends raw PCM bytes (default `{"type":"audio_chunk","data":"{{audio_data}}"}`).
+            - `message_type_path` - Dot-notation path to the field naming the inbound message kind (default `type`).
+            - `audio_message_type_value` - Value identifying an audio frame; use `*` to treat every JSON message as audio (default `audio_chunk`).
+            - `audio_data_path` - Dot-notation path to the inbound base64 audio payload (default `data`).
+            - `audio_encoding` - Inbound JSON audio payload encoding: `pcm` (default) or `mp3`.
+            - `receive_audio_channels` - `1` for mono inbound JSON PCM or `2` for legacy stereo-to-mono averaging (default `2`).
+            - `send_sample_rate_hertz` - Outbound sample rate. One of 8000, 16000, 24000, 48000 (default 16000).
+            - `receive_sample_rate_hertz` - Inbound sample rate. One of 8000, 16000, 24000, 48000 (default 48000).
+            - `pipeline_sample_rate_hertz` - Pipeline-internal rate; must remain 16000.
+            - `pace_inbound_binary_audio` - Boolean, paces inbound binary PCM at real-time. Defaults on when outbound audio is configured for raw PCM bytes, off for JSON templates.
+            - `send_media_template` - Outbound template for image attachments. Must contain `{{media_data}}`; may also include `{{media_name}}` and `{{mime_type}}`. Set exactly to `{{media_data}}` to send raw bytes, otherwise Coval base64-encodes the image into the JSON template.
+
+            *Non-audio event capture (optional):*
+            - `non_audio_event_message_types` - List of message-type values to emit as `WebsocketEventFrame`s instead of dropping. Each match carries the message type, optional `event` name, and original payload. Useful for cart updates, transcript fragments, or session telemetry.
+
+            *Compatibility profile (optional):*
+            - `websocket_compat_profile` - One of `generic` or `json_audio`. Forces the simulator routing decision. Use `json_audio` for the JSON audio preset shape.
+          additionalProperties: true
+          default: {}
+          example:
+            chat_endpoint: https://api.example.com/v1/chat
+            authorization_header: Bearer sk-xxx
+        workflows:
+          type: object
+          description: Workflow configuration (JSONB, max 10MB)
+          additionalProperties: true
+          default: {}
+          example: {}
+        metric_ids:
+          type: array
+          description: Associated metric IDs (22-char IDs)
+          items:
+            type: string
+            pattern: ^[A-Za-z0-9]{22}$
+          default: []
+          example:
+          - abc123def456ghi789jklm
+        test_set_ids:
+          type: array
+          description: Associated test set IDs (8-char IDs)
+          items:
+            type: string
+            pattern: ^[A-Za-z0-9]{8}$
+          default: []
+          example:
+          - gT5wq2Hn
+        tags:
+          type: array
+          nullable: true
+          description: Tags to associate with this agent. Null or omitted creates the agent with no tags. Pass [] for an empty tag list.
+          items:
+            type: string
+          example:
+          - production
+          - voice
+    CreateAgentResponse:
+      type: object
+      required:
+      - agent
+      properties:
+        agent:
+          $ref: '#/components/schemas/AgentResource'
+    UpdateAgentRequest:
+      type: object
+      description: Partial update request (PATCH semantics - only provided fields are updated)
+      properties:
+        display_name:
+          type: string
+          description: Human-readable agent name
+          minLength: 1
+          maxLength: 200
+          example: Updated Agent Name
+        model_type:
+          $ref: '#/components/schemas/SimulatorType'
+        phone_number:
+          type: string
+          nullable: true
+          description: Phone number in E.164 format or SIP address for voice/SMS agents
+          maxLength: 200
+          example: '+9876543210'
+        endpoint:
+          type: string
+          nullable: true
+          description: Custom API endpoint URL
+          maxLength: 200
+          example: https://api.newexample.com/agent
+        prompt:
+          type: string
+          nullable: true
+          description: Agent instructions/system prompt
+          example: Updated instructions...
+        customer_agent_id:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 200
+          description: New external id for the agent
+          example: my-support-agent
+        language:
+          type: string
+          nullable: true
+          maxLength: 200
+          description: Primary language for the agent
+          example: en
+        attributes:
+          type: object
+          nullable: true
+          description: Free-form agent attributes. None means don't update; {} clears them.
+          additionalProperties: true
+          example:
+            company_name: Acme Corp
+        metadata:
+          type: object
+          nullable: true
+          description: Simulator-specific configuration (null = no change, {} = clear)
+          additionalProperties: true
+          example:
+            key: value
+        workflows:
+          type: object
+          nullable: true
+          description: Workflow configuration (null = no change, {} = clear)
+          additionalProperties: true
+          example:
+            workflow: config
+        metric_ids:
+          type: array
+          nullable: true
+          description: Associated metric IDs (null = no change, [] = clear)
+          items:
+            type: string
+          example:
+          - abc123def456ghi789jklm
+        test_set_ids:
+          type: array
+          nullable: true
+          description: Associated test set IDs (null = no change, [] = clear)
+          items:
+            type: string
+          example:
+          - gT5wq2Hn
+        tags:
+          type: array
+          nullable: true
+          description: Tags to associate with this agent. Null or omitted leaves tags unchanged. Pass [] to clear all tags.
+          items:
+            type: string
+          example:
+          - production
+    UpdateAgentResponse:
+      type: object
+      required:
+      - agent
+      properties:
+        agent:
+          $ref: '#/components/schemas/AgentResource'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              description: Error code enum
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - NOT_FOUND
+              - ALREADY_EXISTS
+              - INTERNAL
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameter
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    nullable: true
+                    description: Field name that caused the error
+                    example: page_size
+                  description:
+                    type: string
+                    description: Detailed error description
+                    example: page_size must be between 1 and 100
+  responses:
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: x-api-key
+                description: Invalid or missing API key
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
+  examples:
+    ListAgentsSuccess:
+      summary: Successful list response
+      value:
+        agents:
+        - id: abc123def456ghi789jklm
+          customer_agent_id: abc123def456ghi789jklm
+          display_name: Customer Support Agent
+          model_type: MODEL_TYPE_VOICE
+          phone_number: '+1234567890'
+          endpoint: https://api.example.com/agent
+          prompt: You are a helpful customer support agent...
+          metadata:
+            voice: alloy
+            model: gpt-realtime-2
+          workflows: {}
+          metric_ids:
+          - abc123def456ghi789jklm
+          test_set_ids:
+          - gT5wq2Hn
+          knowledge_base_ids: []
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: '2025-10-15T14:30:00Z'
+        next_page_token: eyJvZmZzZXQiOjUwfQ==
+    GetAgentSuccess:
+      summary: Successful get response
+      value:
+        agent:
+          id: abc123def456ghi789jklm
+          customer_agent_id: abc123def456ghi789jklm
+          display_name: Customer Support Agent
+          model_type: MODEL_TYPE_VOICE
+          phone_number: '+1234567890'
+          endpoint: https://api.example.com/agent
+          prompt: You are a helpful customer support agent...
+          metadata:
+            voice: alloy
+            model: gpt-realtime-2
+          workflows: {}
+          metric_ids:
+          - abc123def456ghi789jklm
+          test_set_ids:
+          - gT5wq2Hn
+          knowledge_base_ids: []
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: '2025-10-15T14:30:00Z'
+    CreateVoiceAgent:
+      summary: Create inbound voice agent with workflow
+      description: VOICE agents require phone_number in E.164 format or SIP address. This example demonstrates a simple call handling workflow.
+      value:
+        display_name: Customer Support Voice Agent
+        model_type: MODEL_TYPE_VOICE
+        phone_number: '+12345678901'
+        prompt: You are a helpful customer support agent...
+        metadata:
+          voice: alloy
+          model: gpt-realtime-2
+        workflows:
+          edges:
+          - id: edge-1
+            source: start
+            target: process-1
+          - id: edge-2
+            source: process-1
+            target: end
+          nodes:
+          - id: start
+            data:
+              label: Start
+              description: Agent is ready to handle a new call
+            type: start
+            position:
+              x: 250
+              y: 0
+          - id: process-1
+            data:
+              label: Handle Call
+              description: Answer, greet, and assist the customer.
+            type: process
+            position:
+              x: 250
+              y: 150
+          - id: end
+            data:
+              label: End
+              description: Conclude the call politely.
+            type: end
+            position:
+              x: 250
+              y: 300
+        metric_ids:
+        - abc123def456ghi789jklm
+        test_set_ids: []
+    CreateOutboundVoiceAgent:
+      summary: Create outbound voice agent
+      description: OUTBOUND_VOICE agents require endpoint webhook URL
+      value:
+        display_name: Sales Outbound Agent
+        model_type: MODEL_TYPE_OUTBOUND_VOICE
+        endpoint: https://api.yourcompany.com/triggers/voice-simulation
+        prompt: You are a sales agent calling to schedule appointments...
+        metadata:
+          trigger_call_headers: '{"Authorization": "Bearer sk-xxx", "Content-Type": "application/json"}'
+          trigger_call_payload: '{"campaign_id": "summer-2025", "priority": "high"}'
+          phone_number_key: to_number
+        workflows: {}
+        test_set_ids:
+        - gT5wq2Hn
+        metric_ids:
+        - abc123def456ghi789jklm
+    CreateVoiceAgentSip:
+      summary: Create inbound voice agent with SIP address
+      description: VOICE agents can use a SIP address instead of an E.164 phone number for providers that support SIP connectivity (e.g., Telnyx).
+      value:
+        display_name: SIP Voice Agent
+        model_type: MODEL_TYPE_VOICE
+        phone_number: sip:agent@assistant-example.sip.telnyx.com
+        prompt: You are a helpful customer support agent...
+        metadata:
+          voice: alloy
+          model: gpt-realtime-2
+        workflows: {}
+        metric_ids: []
+        test_set_ids: []
+    CreateMinimalVoiceAgent:
+      summary: Create minimal VOICE agent (required fields only)
+      value:
+        display_name: Basic Support Agent
+        model_type: MODEL_TYPE_VOICE
+        phone_number: '+15551234567'
+    CreateMinimalTextAgent:
+      summary: Create minimal CHAT agent (required fields only)
+      value:
+        display_name: Chat Support Agent
+        model_type: MODEL_TYPE_CHAT
+        metadata:
+          chat_endpoint: https://api.example.com/v1/chat
+    CreateTextAgentBasic:
+      summary: Create basic CHAT agent with auth
+      description: |
+        Simple CHAT agent with chat endpoint and authorization.
+
+        **Required fields:**
+        - `chat_endpoint`: URL endpoint for chat messages
+        - `authorization_header`: Auth header (Bearer, X-API-Key, etc.)
+
+        **Optional fields:**
+        - `response_format`: Expected response format (default: chat_completions)
+      value:
+        display_name: Customer Support Chatbot
+        model_type: MODEL_TYPE_CHAT
+        prompt: You are a helpful customer support chatbot...
+        metadata:
+          chat_endpoint: https://api.example.com/v1/chat
+          authorization_header: Bearer sk-xxx
+          response_format: chat_completions
+        workflows: {}
+        metric_ids:
+        - abc123def456ghi789jklm
+        test_set_ids: []
+    CreateTextAgentWithInit:
+      summary: Create CHAT agent with initialization endpoint
+      description: |
+        CHAT agent with session initialization and custom headers.
+
+        **Initialization flow:**
+        1. Calls `initialization_endpoint` with `initialization_payload`
+        2. Stores response in `init_response` for use in templates
+        3. Uses custom headers with template variables in subsequent chat requests
+
+        **Template variables available:**
+        - `{{sessionId}}` - Auto-generated session ID
+        - `{{simulation_output_id}}` - Unique simulation ID
+        - `{{init_response.path}}` - Any field from init response (e.g., {{init_response.session_id}})
+        - `{{persona.field}}` - Persona initialization parameters if persona_id is set
+
+        **Additional options:**
+        - `strip_message_timestamps: true` - Removes timestamp fields from messages before sending
+      value:
+        display_name: Advanced Chat Agent
+        model_type: MODEL_TYPE_CHAT
+        prompt: You are an advanced AI assistant...
+        metadata:
+          chat_endpoint: https://api.example.com/api/chat
+          initialization_endpoint: https://api.example.com/api/chat/init
+          initialization_payload: '{"body": {"consumer": {"email": "test@example.com"}}}'
+          authorization_header: Bearer coval_api_key_xxx
+          custom_headers: '{"X-Session-ID": "{{init_response.session_id}}", "X-Simulation-ID": "{{simulation_output_id}}"}'
+          response_message_path: messages.0.content
+          strip_message_timestamps: true
+        workflows: {}
+        metric_ids:
+        - abc123def456ghi789jklm
+        test_set_ids: []
+    CreateTextAgentAdvanced:
+      summary: Create CHAT agent with advanced template configuration
+      description: |
+        CHAT agent with custom input template, payload wrapper, and persona-specific data.
+
+        **Advanced features:**
+        - `input_template`: Custom JSON template for API requests with variable substitution
+        - `payload_wrapper`: Wraps entire payload in specified field (e.g., "data", "request", "body")
+        - `custom_data`: Organization/agent-level data included in all requests (max 32KB)
+        - `custom_persona_data`: Persona-specific data for dynamic configuration (max 16KB)
+        - `response_message_path`: Dot notation path to extract message from response
+
+        **Template variables in input_template:**
+        - `{{messages}}` - Full conversation history
+        - `{{latest_message}}` - Most recent user message
+        - `{{sessionId}}` - Session ID from initialization
+        - `{{custom_data.field}}` - Access custom_data fields
+        - `{{init_response.path}}` - Any field from init response
+      value:
+        display_name: Enterprise Chat Agent
+        model_type: MODEL_TYPE_CHAT
+        prompt: You are an enterprise support agent...
+        metadata:
+          chat_endpoint: https://api.enterprise.com/chat
+          authorization_header: Bearer enterprise_key_xxx
+          input_template: '{"sessionId": "{{sessionId}}", "customData": {"agentId": "agent-123", "environment": "prod"}, "messages": {{messages}}}'
+          response_message_path: data.message.content
+          payload_wrapper: data
+          custom_data: '{"org_id": "org-123", "app_version": "v2.0", "region": "us-east-1"}'
+          custom_persona_data: '{"persona_type": "professional", "tone": "formal", "expertise_level": "expert"}'
+          response_format: chat_completions
+        workflows: {}
+        metric_ids:
+        - abc123def456ghi789jklm
+        - def456ghi789jklmabc123
+        test_set_ids: []
+    CreateTextAgentCustomAPI:
+      summary: Create CHAT agent for custom API format
+      description: CHAT agent with tool call extraction and custom response parsing
+      value:
+        display_name: Custom API Agent
+        model_type: MODEL_TYPE_CHAT
+        prompt: You are a specialized agent for custom API...
+        metadata:
+          chat_endpoint: https://custom-api.example.com/message
+          authorization_header: ''
+          custom_headers: '{"x-api-version": "v1", "x-session-id": "{{sessionId}}"}'
+          input_template: '{"text": "{{latest_message}}", "conversation": {{messages}}, "user_id": "{{custom_data.user_id}}"}'
+          response_message_path: reply.text
+          payload_wrapper: request
+          tool_call_extraction: '{"enabled": true, "tool_calls_path": "steps[].toolCalls[]", "tool_call_filter_field": "type",
+            "tool_call_filter_value": "tool-call", "tool_call_mappings": {"id": "payload.toolCallId", "name": "payload.toolName",
+            "arguments": "payload.args"}}'
+          custom_data: '{"user_id": "user-123", "source": "evaluation"}'
+        workflows: {}
+        metric_ids:
+        - abc123def456ghi789jklm
+        test_set_ids: []
+    CreateTextAgentComplete:
+      summary: Complete CHAT agent configuration reference
+      description: |
+
+        This example demonstrates every configuration option available for MODEL_TYPE_CHAT agents.
+        Use this as a reference to understand all possibilities - most agents only need a subset of these fields.
+
+        ## Field Categories
+
+        ### Required
+        - `chat_endpoint` - URL endpoint for chat messages (validated, no private IPs)
+
+        ### Authentication
+        - `authorization_header` - Auth header (Bearer, X-API-Key, custom format)
+
+        ### Initialization
+        - `initialization_endpoint` - Optional init endpoint called before chat (validated, no private IPs)
+        - `initialization_payload` - JSON payload for init request (max 16KB)
+
+        ### Custom Data
+        - `custom_data` - Organization/agent-level data in all requests (max 32KB JSON string)
+        - `custom_persona_data` - Persona-specific configuration data (max 16KB JSON string)
+
+        ### Headers & Format
+        - `custom_headers` - Additional headers with template variables, as a JSON object or JSON-encoded object string (max 16KB when encoded)
+        - `response_format` - Response format: "chat_completions" (default) or "responses"
+
+        ### Request/Response Processing
+        - `input_template` - Custom JSON template for request payloads (validated JSON structure)
+        - `payload_wrapper` - Wrapper field name for entire payload (e.g., "data", "request")
+        - `response_message_path` - Dot notation path to extract message (e.g., "data.message.content")
+        - `strip_message_timestamps` - Remove timestamp fields before sending (boolean, default: false)
+
+        ### Tool Calls
+        - `tool_call_extraction_config` - Configuration for extracting tool/function calls from custom responses
+
+        ### Dynamic Configuration
+        - `persona_id` - Reference persona for dynamic parameter substitution
+
+        ## Template Variables
+        Available in: `initialization_payload`, `custom_headers`, `input_template`
+
+        - `{{sessionId}}` - Auto-generated session ID
+        - `{{simulation_output_id}}` - Unique simulation ID
+        - `{{init_response.path}}` - Any field from init response (e.g., {{init_response.user.id}})
+        - `{{persona.field}}` - Persona initialization parameters (when persona_id is set)
+        - `{{messages}}` - Full conversation history (input_template only)
+        - `{{latest_message}}` - Most recent user message (input_template only)
+        - `{{custom_data.field}}` - Access custom_data fields (input_template only)
+
+        ## Validation Rules
+        - URLs must be valid HTTP/HTTPS, no private IPs, localhost, or link-local addresses
+        - JSON fields must be valid JSON strings
+        - Size limits: initialization_payload (16KB), custom_data (32KB), custom_persona_data (16KB), custom_headers (16KB)
+      value:
+        display_name: Complete Configuration Reference Agent
+        model_type: MODEL_TYPE_CHAT
+        prompt: |
+          You are a comprehensive reference agent demonstrating all available configuration options.
+          This prompt field can contain detailed instructions for your agent's behavior.
+        metadata:
+          # ===== REQUIRED =====
+          chat_endpoint: https://api.example.com/v1/chat/completions
+
+          # ===== AUTHENTICATION =====
+          authorization_header: Bearer sk-proj-example_api_key_here
+
+          # ===== INITIALIZATION =====
+          initialization_endpoint: https://api.example.com/v1/sessions/init
+          initialization_payload: |
+            {
+              "session_config": {
+                "max_tokens": 2000,
+                "temperature": 0.7
+              },
+              "user_context": {
+                "simulation_id": "{{simulation_output_id}}",
+                "source": "coval_evaluation"
+              },
+              "persona_params": {
+                "user_type": "{{persona.user_type}}",
+                "experience_level": "{{persona.experience_level}}"
+              }
+            }
+
+          # ===== CUSTOM DATA =====
+          custom_data: |
+            {
+              "organization": {
+                "id": "org-12345",
+                "name": "Acme Corp",
+                "tier": "enterprise"
+              },
+              "environment": "production",
+              "app_version": "v2.5.0",
+              "feature_flags": {
+                "enable_tool_calls": true,
+                "enable_streaming": false
+              }
+            }
+
+          custom_persona_data: |
+            {
+              "persona_type": "customer_support",
+              "tone": "professional_friendly",
+              "expertise_level": "expert",
+              "languages": ["en", "es"],
+              "specialization": "technical_support"
+            }
+
+          # ===== HEADERS & FORMAT =====
+          custom_headers: |
+            {
+              "X-Session-ID": "{{init_response.session.id}}",
+              "X-Simulation-ID": "{{simulation_output_id}}",
+              "X-Organization-ID": "{{custom_data.organization.id}}",
+              "X-API-Version": "v2",
+              "X-Request-Source": "coval-evaluation"
+            }
+
+          response_format: chat_completions
+
+          # ===== REQUEST/RESPONSE PROCESSING =====
+          input_template: |
+            {
+              "session_id": "{{init_response.session.id}}",
+              "messages": {{messages}},
+              "config": {
+                "temperature": 0.7,
+                "max_tokens": 1500
+              },
+              "context": {
+                "organization_id": "{{custom_data.organization.id}}",
+                "user_tier": "{{custom_data.organization.tier}}",
+                "simulation_id": "{{simulation_output_id}}"
+              },
+              "metadata": {
+                "source": "evaluation",
+                "timestamp": "{{timestamp}}"
+              }
+            }
+
+          payload_wrapper: request
+
+          response_message_path: response.data.message.content
+
+          strip_message_timestamps: true
+
+          # ===== TOOL CALLS =====
+          tool_call_extraction_config: |
+            {
+              "enabled": true,
+              "tool_calls_path": "response.actions[].tool_calls[]",
+              "tool_call_filter_field": "action_type",
+              "tool_call_filter_value": "function_call",
+              "tool_call_mappings": {
+                "id": "call_metadata.call_id",
+                "name": "function.name",
+                "arguments": "function.parameters"
+              }
+            }
+
+          # ===== DYNAMIC CONFIGURATION =====
+          persona_id: abc123def456ghi789jklm
+
+        # ===== AGENT-LEVEL CONFIG =====
+        workflows: {}
+        metric_ids:
+        - abc123def456ghi789jklm
+        - def456ghi789jklmabc123
+        - ghi789jklmabc123def456
+        - jklmabc123def456ghi789
+        test_set_ids:
+        - gT5wq2Hn
+    CreateSmsAgent:
+      summary: Create SMS messaging agent
+      description: SMS agents require phone_number in E.164 format
+      value:
+        display_name: Appointment Reminder SMS Bot
+        model_type: MODEL_TYPE_SMS
+        phone_number: '+18005551234'
+        prompt: You are an appointment reminder SMS bot...
+        metadata: {}
+        workflows: {}
+        metric_ids:
+        - abc123def456ghi789jklm
+        test_set_ids: []
+    CreateWebsocketAgent:
+      summary: Create WebSocket voice agent
+      description: |
+        WebSocket agents connect to voice endpoints over WebSocket.
+
+        **Required fields:**
+        - `metadata.endpoint` - WebSocket URL (must use wss:// protocol)
+
+        **Optional initialization and authentication:**
+        - `metadata.initialization_json` - JSON payload sent after connection, if the agent expects one
+        - `metadata.authorization_header` - Auth header for secured endpoints
+        - `metadata.custom_headers` - Additional HTTP headers (JSON object or JSON-encoded object string)
+
+        When provided, the initialization JSON is sent immediately after WebSocket
+        connection and typically contains session configuration like voice,
+        language, and audio settings.
+      value:
+        display_name: WebSocket Voice Agent
+        model_type: MODEL_TYPE_WEBSOCKET
+        metadata:
+          endpoint: wss://api.example.com/voice/connect
+          initialization_json: '{"type": "session_init", "config": {"voice": "cedar", "language": "en", "input_sample_rate": 16000}}'
+        workflows: {}
+        metric_ids: []
+        test_set_ids: []
+    CreateWebsocketAgentWithAuth:
+      summary: Create WebSocket agent with authentication
+      description: |
+        WebSocket agent with authorization headers for secured endpoints.
+
+        Headers are sent during the WebSocket handshake (HTTP upgrade request).
+        The `authorization_header` field supports these common formats:
+        - `"Bearer <token>"` - Sent as `Authorization: Bearer <token>`
+        - `"Basic <base64-credentials>"` - Sent as `Authorization: Basic <base64-credentials>`
+        - `"X-API-Key <key>"` - Sent as `X-API-Key: <key>`
+      value:
+        display_name: Secured WebSocket Voice Agent
+        model_type: MODEL_TYPE_WEBSOCKET
+        metadata:
+          endpoint: wss://secured.example.com/voice/connect
+          initialization_json: '{"type": "session_init", "config": {"voice": "cedar", "language": "en", "client_source": "coval_evaluation"}}'
+          authorization_header: Bearer sk-secret-api-token
+          custom_headers: '{"X-Session-ID": "{{sessionId}}", "X-Request-Source": "coval"}'
+        workflows: {}
+        metric_ids:
+        - abc123def456ghi789jklm
+        test_set_ids: []
+    CreateWebsocketJsonAudioAgent:
+      summary: Create JSON audio WebSocket voice agent
+      description: |
+        WebSocket voice agent using the JSON audio preset shape exposed in the Coval UI.
+
+        This configuration uses direct WebSocket mode, no initialization payload,
+        no ready-message wait, JSON `audio_message` frames keyed by `action`,
+        base64 PCM in `audio_bytes`, mono 16 kHz inbound audio, and
+        `system_notify` non-audio event capture.
+      value:
+        display_name: JSON Audio WebSocket Voice Agent
+        model_type: MODEL_TYPE_WEBSOCKET
+        metadata:
+          endpoint: wss://api.example.com/ws
+          connection_mode: direct
+          websocket_compat_profile: json_audio
+          initialization_json: ''
+          handshake_ready_message_type: ''
+          handshake_requires_session_id: false
+          send_sample_rate_hertz: 16000
+          receive_sample_rate_hertz: 16000
+          send_audio_template: '{"action":"audio_message","payload":{},"audio_bytes":"{{audio_data}}","sender":"USER"}'
+          message_type_path: action
+          audio_message_type_value: audio_message
+          audio_data_path: audio_bytes
+          audio_encoding: pcm
+          receive_audio_channels: 1
+          non_audio_event_message_types:
+          - system_notify
+          authorization_header: Bearer sk-secret-api-token
+        workflows: {}
+        metric_ids: []
+        test_set_ids: []
+    AgentCreated:
+      summary: Agent created successfully
+      value:
+        agent:
+          id: abc123def456ghi789jklm
+          customer_agent_id: abc123def456ghi789jklm
+          display_name: Customer Support Agent
+          model_type: MODEL_TYPE_VOICE
+          phone_number: '+1234567890'
+          endpoint: null
+          prompt: You are a helpful customer support agent...
+          metadata:
+            voice: alloy
+            model: gpt-realtime-2
+          workflows: {}
+          metric_ids:
+          - abc123def456ghi789jklm
+          test_set_ids: []
+          knowledge_base_ids: []
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: null
+    UpdateAgentPartial:
+      summary: Partial update (only some fields)
+      value:
+        display_name: Updated Agent Name
+        prompt: Updated instructions...
+        metadata:
+          updated: true
+    UpdateAgentClearFields:
+      summary: Clear optional fields
+      value:
+        metadata: {}
+        metric_ids: []
+        workflows: {}
+    AgentUpdated:
+      summary: Agent updated successfully
+      value:
+        agent:
+          id: abc123def456ghi789jklm
+          customer_agent_id: abc123def456ghi789jklm
+          display_name: Updated Agent Name
+          model_type: MODEL_TYPE_VOICE
+          phone_number: '+1234567890'
+          endpoint: https://api.example.com/agent
+          prompt: Updated instructions...
+          metadata:
+            updated: true
+          workflows: {}
+          metric_ids: []
+          test_set_ids: []
+          knowledge_base_ids: []
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: '2025-10-23T16:45:00Z'
+    InvalidFilterError:
+      summary: Invalid filter expression
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid filter expression
+          details:
+          - field: filter
+            description: 'Unknown field ''invalid_field''. Valid fields: model_type, display_name, create_time, update_time'
+    InvalidPageSizeError:
+      summary: Invalid page size
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid page_size
+          details:
+          - field: page_size
+            description: page_size must be between 1 and 100
+    MissingFieldError:
+      summary: Missing required field
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - description: "1 validation error for CreateAgentRequest\ndisplay_name\n  Field required [type=missing]"
+    InvalidModelTypeError:
+      summary: Invalid model type
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - description: Input should be 'MODEL_TYPE_VOICE', 'MODEL_TYPE_OUTBOUND_VOICE', 'MODEL_TYPE_SMS', ...
+    AgentNotFoundError:
+      summary: Agent not found
+      value:
+        error:
+          code: NOT_FOUND
+          message: Agent not found
+          details:
+          - field: agent_id
+            description: Agent not found or not accessible by your organization
+    MissingChatEndpointError:
+      summary: CHAT agent missing required chat_endpoint
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: metadata.chat_endpoint
+            description: chat_endpoint is required for MODEL_TYPE_CHAT agents
+    InvalidUrlError:
+      summary: Invalid URL in CHAT agent metadata
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: metadata.chat_endpoint
+            description: 'Invalid URL format or private IP address. URLs must be valid HTTP/HTTPS and cannot use private IPs, localhost, or link-local addresses'
+    PayloadTooLargeError:
+      summary: CHAT agent metadata field exceeds size limit
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: metadata.custom_data
+            description: 'custom_data must be less than 32KB. Received: 35840 bytes'
+    InvalidJsonError:
+      summary: Invalid JSON in CHAT agent metadata field
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: metadata.custom_headers
+            description: 'metadata.custom_headers must be a JSON object or a valid JSON-encoded object string. Parse error: Expecting property name enclosed in double quotes at line 2 column 3'
+    MissingWebsocketEndpointError:
+      summary: WEBSOCKET agent missing required metadata.endpoint
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: metadata.endpoint
+            description: metadata.endpoint is required for MODEL_TYPE_WEBSOCKET agents. Must be a valid wss:// WebSocket URL
+    InvalidWebsocketUrlError:
+      summary: WEBSOCKET agent with invalid endpoint URL
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: metadata.endpoint
+            description: 'metadata.endpoint must use wss:// protocol for secure WebSocket connections'

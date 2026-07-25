@@ -1,0 +1,18 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.coval.ai
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://docs.coval.ai/api-reference/v1/introduction
+  notes: API version pinned in the URL path (/v1). OpenAPI info.version is 1.0.0 across all specs.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No formal deprecation/sunset policy published at capture time.
+status_page: https://status.coval.dev
+changelog: https://docs.coval.ai/changelog
+sla:
+  url: null
+  uptime_target: null
+deprecated_operations: []

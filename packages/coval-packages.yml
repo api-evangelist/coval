@@ -1,0 +1,31 @@
+generated: '2026-07-18'
+method: searched
+source: https://docs.coval.ai/sdks/overview
+note: >-
+  Both SDKs are generated from the public OpenAPI specs at
+  https://api.coval.dev/v1/openapi and live in the coval-ai/coval-examples repo (MIT).
+packages:
+  - language: typescript
+    registry: npm
+    name: "@coval/sdk"
+    version: 0.3.1
+    url: https://www.npmjs.com/package/@coval/sdk
+    install: npm install @coval/sdk
+    repository: https://github.com/coval-ai/coval-examples
+    license: MIT
+    official: true
+  - language: python
+    registry: pypi
+    name: coval-sdk
+    version: 0.3.1
+    url: https://pypi.org/project/coval-sdk/
+    install: pip install coval-sdk
+    repository: https://github.com/coval-ai/coval-examples
+    license: MIT
+    official: true
+  - language: cli
+    registry: homebrew
+    name: coval-ai/tap/coval
+    url: https://docs.coval.ai/cli/overview
+    install: brew install coval-ai/tap/coval
+    official: true

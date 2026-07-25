@@ -1,0 +1,49 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/*-openapi.yml (ErrorResponse schema + 4xx/5xx responses)
+format: google-rpc
+envelope:
+  shape: "{ error: { code, message, details } }"
+  fields:
+    code: Machine-readable error code enum
+    message: Human-readable error message
+    details: Structured error details (array/object)
+  content_type: application/json
+error_codes:
+  - code: INVALID_ARGUMENT
+    http_status: 400
+    meaning: Request payload or parameters failed validation.
+  - code: UNAUTHENTICATED
+    http_status: 401
+    meaning: Missing or invalid X-API-Key.
+  - code: PERMISSION_DENIED
+    http_status: 403
+    meaning: Authenticated key lacks permission for the resource/action.
+  - code: NOT_FOUND
+    http_status: 404
+    meaning: Referenced resource does not exist (or is not visible to this organization).
+  - code: ALREADY_EXISTS
+    http_status: 409
+    meaning: A conflicting resource already exists.
+  - code: INTERNAL
+    http_status: 500
+    meaning: Unexpected server-side error.
+http_statuses_observed:
+  "200": 120
+  "201": 23
+  "202": 2
+  "204": 6
+  "207": 1
+  "400": 83
+  "401": 151
+  "403": 37
+  "404": 109
+  "409": 10
+  "412": 1
+  "413": 1
+  "500": 151
+  "503": 18
+notes: >-
+  Every operation across the 20 specs declares 401 and 500; most declare 400/404. 503 appears
+  on long-running/evaluation endpoints. 412 (precondition) and 413 (payload too large) appear on
+  audio/upload paths. The error body is a Google-RPC-style envelope, not RFC 9457 problem+json.

@@ -1,0 +1,914 @@
+openapi: 3.0.3
+x-visibility: external  # external | internal — only `external` specs are published to the public API/docs
+info:
+  title: Coval Runs API
+  version: 1.0.0
+  description: |
+
+    Launch and manage simulation runs for AI agent testing.
+    
+  contact:
+    name: Coval API Support
+    email: support@coval.dev
+    url: https://docs.coval.ai
+  license:
+    name: Proprietary
+    url: https://coval.dev/terms
+servers:
+- url: https://api.coval.dev/v1
+  description: Production API
+tags:
+- name: Runs
+  description: Launch and manage simulation runs
+security:
+- ApiKeyAuth: []
+paths:
+  /runs:
+    get:
+      operationId: listRuns
+      summary: List runs
+      description: |
+        Retrieve a paginated list of simulation runs with optional filtering and sorting.
+
+      tags:
+      - Runs
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: filter
+        in: query
+        required: false
+        schema:
+          type: string
+        description: |
+          Filter expression syntax.
+
+          Supported fields: `status`, `agent_id`, `persona_id`, `test_set_id`, `create_time`, `update_time`, `created_by`, `tag`
+
+          Operators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`
+
+          Values may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status="IN PROGRESS"`).
+        examples:
+          byStatus:
+            value: status="COMPLETED" AND agent_id=gk3jK9mPq2xRt5vW8yZaBc
+            summary: Filter by status and agent
+          byTag:
+            value: tag="regression"
+            summary: Filter by tag
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 50
+        description: Maximum number of results per page
+        example: 50
+      - name: page_token
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Opaque pagination token from previous response
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          type: string
+          default: -create_time
+        description: |
+          Sort order specification.
+
+          Format: `field` or `-field` (descending)
+
+          Supported fields: `create_time`, `update_time`, `status`, `agent_id`, `persona_id`, `test_set_id`
+        example: -create_time
+      responses:
+        '200':
+          description: List of runs
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - runs
+                properties:
+                  runs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Run'
+                  next_page_token:
+                    type: string
+                    description: Token for fetching the next page of results
+                    example: eyJvZmZzZXQiOiA1MH0=
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      operationId: launchRun
+      summary: Launch run
+      description: |
+        Launch a new simulation run to evaluate an agent against test cases using a persona.
+        
+      tags:
+      - Runs
+      security:
+      - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LaunchRunRequest'
+            examples:
+              minimal:
+                summary: Minimal request (uses agent defaults)
+                value:
+                  agent_id: gk3jK9mPq2xRt5vW8yZaBc
+                  persona_id: hL4kL0nQr3ySt6vX9zAcDd
+                  test_set_id: aB1cD2eF
+              full:
+                summary: Full request with all options
+                value:
+                  agent_id: gk3jK9mPq2xRt5vW8yZaBc
+                  persona_id: hL4kL0nQr3ySt6vX9zAcDd
+                  test_set_id: aB1cD2eF
+                  metric_ids:
+                  - iM5lM1oRs4zTu7wY0aBdEe
+                  - jN6mN2pSt5aUv8xZ1bCeFf
+                  options:
+                    iteration_count: 3
+                    concurrency: 2
+                  metadata:
+                    display_name: Q4 Voice Agent Regression Test
+                    customer:
+                      campaign_id: q4_2025
+                    created_by: automated_pipeline
+                    tags:
+                    - regression
+                    - v2.1
+              singleMutation:
+                summary: Run with single mutation (A/B test)
+                description: Runs base agent + one mutation variant
+                value:
+                  agent_id: gk3jK9mPq2xRt5vW8yZaBc
+                  persona_id: hL4kL0nQr3ySt6vX9zAcDd
+                  test_set_id: aB1cD2eF
+                  mutation_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+                  options:
+                    iteration_count: 3
+                    concurrency: 5
+                  metadata:
+                    display_name: GPT-4 Fast VAD A/B Test
+              multiMutation:
+                summary: Run with multiple mutations (multi-variant test)
+                description: |
+                  Runs base agent + multiple mutations.
+                  Total simulations = test_cases × iterations × (1 + mutations)
+                value:
+                  agent_id: gk3jK9mPq2xRt5vW8yZaBc
+                  persona_id: hL4kL0nQr3ySt6vX9zAcDd
+                  test_set_id: aB1cD2eF
+                  mutation_ids:
+                  - 01ARZ3NDEKTSV4RRFFQ69G5FAV
+                  - 01ARZ3NDEKTSV4RRFFQ69G5FAW
+                  - 01ARZ3NDEKTSV4RRFFQ69G5FAX
+                  options:
+                    iteration_count: 2
+                    concurrency: 10
+                  metadata:
+                    display_name: Multi-Model Comparison Test
+                    customer:
+                      experiment_id: exp_2025_model_compare
+              selectedTestCases:
+                summary: Run a specific subset of test cases
+                description: |
+                  Restrict execution to a hand-picked list of test case IDs from
+                  the test set. Useful for re-running failures or smoke-testing
+                  a known-good slice. All IDs must belong to the specified
+                  test_set_id and be active. Limit: 1–100 IDs.
+                value:
+                  agent_id: gk3jK9mPq2xRt5vW8yZaBc
+                  persona_id: hL4kL0nQr3ySt6vX9zAcDd
+                  test_set_id: aB1cD2eF
+                  options:
+                    test_case_ids:
+                    - kP7mN3qStUvWxYzAbCdEfG
+                    - lQ8nO4rTuVwXyZaBcDeFgH
+                    - mR9oP5sUvWxYzAbCdEfGhI
+                  metadata:
+                    display_name: Re-run failed cases from nightly
+      responses:
+        '200':
+          description: Run launched successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LaunchRunResponse'
+              examples:
+                pending:
+                  summary: Newly launched run
+                  value:
+                    run:
+                      name: runs/3zfmuDbVQsi4GaseDtiVcS
+                      run_id: 3zfmuDbVQsi4GaseDtiVcS
+                      status: PENDING
+                      create_time: '2025-10-14T12:00:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /runs/{run_id}:
+    get:
+      operationId: getRun
+      summary: Get run
+      description: |
+        Retrieve detailed information about a specific simulation run.
+      tags:
+      - Runs
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 22
+          maxLength: 22
+        description: Unique identifier for the run
+        example: 4AgpnEcWRtj5HbtfEujWdT
+      responses:
+        '200':
+          description: Run details
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - run
+                properties:
+                  run:
+                    $ref: '#/components/schemas/Run'
+              examples:
+                completed:
+                  summary: Completed run with results
+                  value:
+                    run:
+                      name: runs/5BhqoFdXSuk6IcugFvkXeU
+                      run_id: 5BhqoFdXSuk6IcugFvkXeU
+                      status: COMPLETED
+                      create_time: '2025-10-14T12:00:00Z'
+                      update_time: '2025-10-14T12:15:00Z'
+                      agent_id: gk3jK9mPq2xRt5vW8yZaBc
+                      persona_id: hL4kL0nQr3ySt6vX9zAcDd
+                      test_set_id: aB1cD2eF
+                      tags:
+                      - regression
+                      - v2.1
+                      progress:
+                        total_test_cases: 10
+                        completed_test_cases: 10
+                        failed_test_cases: 0
+                        in_progress_test_cases: 0
+                      results:
+                        output_ids:
+                        - sim_output_1
+                        - sim_output_2
+                        metrics:
+                          availability:
+                            mean: 0.95
+                            min: 0.85
+                            max: 1.0
+                      metadata:
+                        campaign_id: q4_2025
+                in_progress:
+                  summary: Run in progress
+                  value:
+                    run:
+                      name: runs/6CirpGeYTvl7JdvhGwlYfV
+                      run_id: 6CirpGeYTvl7JdvhGwlYfV
+                      status: IN PROGRESS
+                      create_time: '2025-10-14T12:00:00Z'
+                      update_time: '2025-10-14T12:05:00Z'
+                      agent_id: gk3jK9mPq2xRt5vW8yZaBc
+                      persona_id: hL4kL0nQr3ySt6vX9zAcDd
+                      test_set_id: aB1cD2eF
+                      progress:
+                        total_test_cases: 10
+                        completed_test_cases: 5
+                        failed_test_cases: 0
+                        in_progress_test_cases: 1
+                      metadata: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    delete:
+      operationId: deleteRun
+      summary: Delete run
+      description: |
+        Delete or cancel a simulation run based on its current status.
+
+      tags:
+      - Runs
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 22
+          maxLength: 22
+        description: Unique identifier for the run
+        example: 7DjsqHfZUwm8KewjHxmZgW
+      responses:
+        '200':
+          description: Run deleted or cancelled successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Empty response on success
+                example: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    patch:
+      operationId: updateRun
+      summary: Update run
+      description: |
+        Replace the tag set for an existing simulation run.
+        Provide an empty list to clear all tags.
+
+      tags:
+      - Runs
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 22
+          maxLength: 22
+        description: Unique identifier for the run
+        example: 7DjsqHfZUwm8KewjHxmZgW
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRunRequest'
+            examples:
+              markBaseline:
+                summary: Mark a run as a baseline
+                value:
+                  tags:
+                  - baseline
+                  - production
+              clearTags:
+                summary: Clear all run tags
+                value:
+                  tags: []
+      responses:
+        '200':
+          description: Run updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - run
+                properties:
+                  run:
+                    $ref: '#/components/schemas/Run'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key for authentication
+  schemas:
+    LaunchRunRequest:
+      type: object
+      required:
+      - agent_id
+      - persona_id
+      - test_set_id
+      properties:
+        agent_id:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: The agent to test. Must be owned by the authenticated organization.
+          example: gk3jK9mPq2xRt5vW8yZaBc
+        persona_id:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: The simulated persona to use for testing.
+          example: hL4kL0nQr3ySt6vX9zAcDd
+        test_set_id:
+          type: string
+          minLength: 8
+          maxLength: 8
+          description: The test set containing test cases to run.
+          example: aB1cD2eF
+        metric_ids:
+          type: array
+          items:
+            type: string
+            minLength: 22
+            maxLength: 22
+          description: Optional list of metric IDs to evaluate. If not provided, uses agent's default metrics.
+          example:
+          - iM5lM1oRs4zTu7wY0aBdEe
+          - jN6mN2pSt5aUv8xZ1bCeFf
+        mutation_id:
+          type: string
+          minLength: 26
+          maxLength: 26
+          nullable: true
+          description: |
+            Single mutation ID to run in addition to the base agent.
+            Mutually exclusive with `mutation_ids`. The base agent always runs.
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+        mutation_ids:
+          type: array
+          items:
+            type: string
+            minLength: 26
+            maxLength: 26
+          maxItems: 100
+          description: |
+            List of mutation IDs to run in addition to the base agent.
+            Mutually exclusive with `mutation_id`. Max 100 mutations.
+            The base agent always runs alongside all mutations.
+
+            **Total simulations** = test_cases × iterations × (1 + len(mutation_ids))
+          example:
+          - 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          - 01ARZ3NDEKTSV4RRFFQ69G5FAW
+        persona_metrics:
+          type: array
+          items:
+            type: string
+          description: |
+            List of metric names that should evaluate the persona instead of the agent.
+            Each entry should be the base metric name (e.g., 'latency', not 'persona:latency').
+          example:
+          - latency
+          - interruption_rate
+        options:
+          $ref: '#/components/schemas/LaunchOptions'
+        metadata:
+          $ref: '#/components/schemas/LaunchMetadata'
+    LaunchOptions:
+      type: object
+      description: Execution options for launching simulations.
+      properties:
+        iteration_count:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 1
+          description: Number of times to run each test case.
+          example: 3
+        concurrency:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 1
+          description: Number of simulations to run concurrently.
+          example: 5
+        sub_sample_size:
+          type: integer
+          minimum: 0
+          default: 0
+          description: |
+            Number of test cases to randomly sample from the test set.
+            Set to 0 (default) to use all test cases. When set to a positive value,
+            a random subset of that size will be selected for the run.
+          example: 10
+        sub_sample_seed:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+          nullable: true
+          default: null
+          description: |
+            Random seed for reproducible sub-sampling. Providing the same seed
+            with the same sub_sample_size will select the same test cases.
+            Only used when sub_sample_size > 0. If null, a random seed is used.
+            Valid range: 0 to 2,147,483,647 (2^31 - 1).
+          example: 847293
+        test_case_ids:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 100
+          nullable: true
+          default: null
+          description: |
+            Specific test case IDs to run. When provided, only these test cases
+            will be executed. All IDs must belong to the specified test set and
+            be active. Mutually exclusive with `sub_sample_size`.
+          example:
+          - kP7mN3qStUvWxYzAbCdEfG
+          - lQ8nO4rTuVwXyZaBcDeFgH
+          - mR9oP5sUvWxYzAbCdEfGhI
+    LaunchMetadata:
+      type: object
+      description: Metadata for tracking and organization purposes.
+      properties:
+        customer:
+          type: object
+          additionalProperties: true
+          description: Custom customer metadata for tracking and organization
+          example:
+            campaign_id: summer_2025
+            environment: production
+        created_by:
+          type: string
+          description: Identifier for who/what created this simulation
+          example: user@example.com
+        display_name:
+          type: string
+          maxLength: 200
+          description: |
+            Human-readable name for the run. If not provided, a timestamp-based
+            name is auto-generated (e.g., "Simulation Run 2025-10-14 12:00").
+          example: Q4 Voice Agent Regression Test
+        tags:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          maxItems: 20
+          nullable: true
+          description: |
+            Tags for categorizing and filtering runs. Each tag max 200 characters,
+            max 20 tags. Duplicate tags are automatically removed. Leading/trailing
+            whitespace is stripped.
+          example:
+          - regression
+          - v2.1
+          - nightly
+    LaunchRunResponse:
+      type: object
+      required:
+      - run
+      properties:
+        run:
+          $ref: '#/components/schemas/Run'
+    UpdateRunRequest:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          maxItems: 20
+          description: |
+            Full replacement list of run tags. Duplicate tags are automatically
+            removed. Leading/trailing whitespace is stripped. Provide an empty
+            list to clear all tags.
+          example:
+          - baseline
+          - production
+    Run:
+      type: object
+      required:
+      - name
+      - run_id
+      - status
+      - create_time
+      properties:
+        name:
+          type: string
+          description: Resource name in format "runs/{run_id}"
+          example: runs/abc123xyz789
+        run_id:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: Unique identifier for this simulation run
+          example: 8EktrIgaVxn9LfxkIynagX
+        display_name:
+          type: string
+          nullable: true
+          description: Human-readable name for the run, set via `metadata.display_name` at launch.
+          example: Nightly regression – checkout flow
+        status:
+          type: string
+          enum:
+          - PENDING
+          - IN QUEUE
+          - IN PROGRESS
+          - COMPLETED
+          - FAILED
+          - CANCELLED
+          - DELETED
+          description: Current status of the simulation run
+          example: COMPLETED
+        create_time:
+          type: string
+          format: date-time
+          description: Timestamp when the run was created (ISO 8601)
+          example: '2025-10-14T12:00:00Z'
+        update_time:
+          type: string
+          format: date-time
+          description: Timestamp when the run was last updated (ISO 8601)
+          example: '2025-10-14T12:15:00Z'
+        agent_id:
+          type: string
+          nullable: true
+          description: ID of the agent being tested
+          example: gk3jK9mPq2xRt5vW8yZaBc
+        persona_id:
+          type: string
+          nullable: true
+          description: ID of the simulated persona used
+          example: hL4kL0nQr3ySt6vX9zAcDd
+        test_set_id:
+          type: string
+          nullable: true
+          description: ID of the test set containing test cases
+          example: aB1cD2eF
+        tags:
+          type: array
+          items:
+            type: string
+            maxLength: 200
+          maxItems: 20
+          description: Tags for categorizing and filtering runs
+          example:
+          - regression
+          - v2.1
+        progress:
+          $ref: '#/components/schemas/Progress'
+        results:
+          $ref: '#/components/schemas/Results'
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Custom metadata provided during launch
+          example:
+            campaign_id: q4_2025
+            environment: production
+        error:
+          type: string
+          nullable: true
+          description: Error message if status is FAILED
+          example: Agent connection timeout
+    Progress:
+      type: object
+      description: Progress information for the run
+      required:
+      - total_test_cases
+      - completed_test_cases
+      - failed_test_cases
+      - in_progress_test_cases
+      properties:
+        total_test_cases:
+          type: integer
+          description: Total number of test cases
+          example: 10
+        completed_test_cases:
+          type: integer
+          description: Number of completed test cases
+          example: 8
+        failed_test_cases:
+          type: integer
+          description: Number of failed test cases
+          example: 1
+        in_progress_test_cases:
+          type: integer
+          description: Number of test cases currently running
+          example: 1
+    Results:
+      type: object
+      nullable: true
+      description: Results summary (only for COMPLETED runs)
+      required:
+      - output_ids
+      - metrics
+      properties:
+        output_ids:
+          type: array
+          items:
+            type: string
+          description: IDs of simulation outputs (test case results)
+          example:
+          - sim_output_abc123
+          - sim_output_def456
+        metrics:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MetricSummary'
+          description: Aggregated metric results
+          example:
+            availability:
+              mean: 0.95
+              min: 0.85
+              max: 1.0
+    MetricSummary:
+      type: object
+      description: Aggregated metric statistics
+      required:
+      - mean
+      properties:
+        mean:
+          type: number
+          format: float
+          description: Mean value across all test cases
+          example: 0.95
+        min:
+          type: number
+          format: float
+          description: Minimum value
+          example: 0.85
+        max:
+          type: number
+          format: float
+          description: Maximum value
+          example: 1.0
+    Error:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          enum:
+          - INVALID_ARGUMENT
+          - UNAUTHENTICATED
+          - PERMISSION_DENIED
+          - NOT_FOUND
+          - INTERNAL
+          description: Machine-readable error code
+          example: INVALID_ARGUMENT
+        message:
+          type: string
+          description: Human-readable error message
+          example: 'Invalid agent_id: Agent not found'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type: string
+          description: The field that caused the error (if applicable)
+          example: agent_id
+        description:
+          type: string
+          description: Human-readable description of the error
+          example: Agent 'gk3jK9mPq2xRt5vW8yZaBc' does not exist or is not accessible by your organization
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Request validation failed
+              details:
+              - field: iteration_count
+                description: Value must be between 1 and 10
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Invalid or missing API key
+              details:
+              - field: X-API-Key
+                description: API key is required in the X-API-Key header
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Access denied
+              details:
+              - description: Your organization does not have access to this resource
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Run not found
+              details:
+              - field: run_id
+                description: Run 'abc123xyz789' does not exist or is not accessible by your organization
+    InternalError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred. Please contact support.
+    ServiceUnavailable:
+      description: Service temporarily unavailable
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: INTERNAL
+              message: Service temporarily unavailable
+              details:
+              - description: Database routing is temporarily unavailable. Please retry.

@@ -1,0 +1,30 @@
+generated: '2026-07-18'
+method: searched
+note: >-
+  No /.well-known/ discovery documents were served. api.coval.dev returns 403 (WAF) for all
+  probed paths; www/docs/app hosts return 404. No security.txt, OIDC, oauth-authorization-server,
+  api-catalog, or ai-plugin.json present. Recorded as an honest negative result — no WellKnown
+  or SecurityTxt pointer emitted.
+probes:
+  - host: api.coval.dev
+    documents:
+      - {path: /.well-known/security.txt, status: 403}
+      - {path: /.well-known/openid-configuration, status: 403}
+      - {path: /.well-known/oauth-authorization-server, status: 403}
+      - {path: /.well-known/api-catalog, status: 403}
+      - {path: /.well-known/ai-plugin.json, status: 403}
+  - host: www.coval.ai
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: docs.coval.ai
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+  - host: app.coval.dev
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
