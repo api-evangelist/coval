@@ -1,0 +1,566 @@
+{
+  "info": {
+    "_postman_id": "e9e6b553-3610-4786-b69a-6b083db31338",
+    "name": "Coval Agents Traces API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:27:31.000Z",
+    "updatedAt": "2026-07-28T01:27:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e9e6b553-3610-4786-b69a-6b083db31338"
+  },
+  "item": [
+    {
+      "name": "traces",
+      "item": [
+        {
+          "name": "Ingest OTLP traces",
+          "id": "98d0c7d2-0a62-4bb1-8406-092aa18f1020",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                "key": "X-Simulation-Id",
+                "value": "<string>"
+              },
+              {
+                "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                "key": "X-Conversation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/traces",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "traces"
+              ]
+            },
+            "description": "Ingest OpenTelemetry trace data and associate it with a simulation\noutput or a monitoring conversation.\n\nThe request body must be a standard OTLP `ExportTraceServiceRequest`,\nin protobuf binary (`application/x-protobuf`, the default for stock\nOTLP HTTP exporters) or JSON (`application/json`) format. See the\n[OTLP/HTTP specification](https://opentelemetry.io/docs/specs/otlp/#otlphttp)\nand [opentelemetry-proto](https://github.com/open-telemetry/opentelemetry-proto)\nfor the wire format.\n\nIdentify the target by providing exactly one of `X-Simulation-Id` or\n`X-Conversation-Id` (not both).\n"
+          },
+          "response": [
+            {
+              "id": "ba9d03ba-4041-4e0f-ab4c-6d913255ff2b",
+              "name": "Spans accepted and queued for ingestion.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/traces",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "traces"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"<string>\",\n  \"simulation_output_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:27:31.000Z",
+              "updatedAt": "2026-07-28T01:27:31.000Z",
+              "uid": "35240-ba9d03ba-4041-4e0f-ab4c-6d913255ff2b"
+            },
+            {
+              "id": "6775c365-be70-4201-ad47-f312349be9c4",
+              "name": "Invalid request body, missing identification header, or both\n`X-Simulation-Id` and `X-Conversation-Id` provided.\n",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/traces",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "traces"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:31.000Z",
+              "updatedAt": "2026-07-28T01:27:31.000Z",
+              "uid": "35240-6775c365-be70-4201-ad47-f312349be9c4"
+            },
+            {
+              "id": "491188a8-effc-4704-8681-bcbaa1fe3b61",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/traces",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "traces"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:31.000Z",
+              "updatedAt": "2026-07-28T01:27:31.000Z",
+              "uid": "35240-491188a8-effc-4704-8681-bcbaa1fe3b61"
+            },
+            {
+              "id": "3f5a6852-c117-47d7-a1a7-c48e042a8bc4",
+              "name": "API key lacks the `traces:write` scope.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/traces",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "traces"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:31.000Z",
+              "updatedAt": "2026-07-28T01:27:31.000Z",
+              "uid": "35240-3f5a6852-c117-47d7-a1a7-c48e042a8bc4"
+            },
+            {
+              "id": "78b3498f-7e45-4d3d-92e5-8744606c8539",
+              "name": "The simulation output or conversation does not exist, or it does\nnot belong to your organization.\n",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/traces",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "traces"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:31.000Z",
+              "updatedAt": "2026-07-28T01:27:31.000Z",
+              "uid": "35240-78b3498f-7e45-4d3d-92e5-8744606c8539"
+            },
+            {
+              "id": "6e7d2b70-7264-4b09-95b5-a07fff806f3a",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/traces",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "traces"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:31.000Z",
+              "updatedAt": "2026-07-28T01:27:31.000Z",
+              "uid": "35240-6e7d2b70-7264-4b09-95b5-a07fff806f3a"
+            },
+            {
+              "id": "53f2ad55-04fd-47d6-a7f7-c90e76cdf1c9",
+              "name": "Service temporarily unavailable, typically because per-organization\ndatabase routing has not yet activated. Retry after a brief delay.\n",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/traces",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "traces"
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:31.000Z",
+              "updatedAt": "2026-07-28T01:27:31.000Z",
+              "uid": "35240-53f2ad55-04fd-47d6-a7f7-c90e76cdf1c9"
+            }
+          ],
+          "createdAt": "2026-07-28T01:27:31.000Z",
+          "updatedAt": "2026-07-28T01:27:31.000Z",
+          "uid": "35240-98d0c7d2-0a62-4bb1-8406-092aa18f1020"
+        }
+      ],
+      "id": "a181aece-1f04-4185-ac7b-b81fcaeb1ffb",
+      "createdAt": "2026-07-28T01:27:31.000Z",
+      "updatedAt": "2026-07-28T01:27:31.000Z",
+      "uid": "35240-a181aece-1f04-4185-ac7b-b81fcaeb1ffb"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

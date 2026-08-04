@@ -1,0 +1,1539 @@
+{
+  "info": {
+    "_postman_id": "441de8d8-283f-473f-b47f-2a6424b07e22",
+    "name": "Coval Agents Dashboards API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:26:31.000Z",
+    "updatedAt": "2026-07-28T01:26:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-441de8d8-283f-473f-b47f-2a6424b07e22"
+  },
+  "item": [
+    {
+      "name": "dashboards",
+      "item": [
+        {
+          "name": "{dashboard_id}",
+          "item": [
+            {
+              "name": "Get dashboard",
+              "id": "7e958d54-830f-451d-a122-fda86b2dcf81",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "70bc2b0f-7b19-4daf-beaf-cb53732b9e6e",
+                      "key": "dashboard_id",
+                      "value": "<string>",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "description": "Retrieve a specific dashboard by ID."
+              },
+              "response": [
+                {
+                  "id": "c39b4d39-cbee-4c52-92e2-39ffca074282",
+                  "name": "Dashboard retrieved successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "dashboard_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"dashboard\": {\n    \"name\": \"<string>\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\",\n    \"display_name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"is_default\": \"<boolean>\",\n    \"is_favorite\": \"<boolean>\",\n    \"position\": \"<integer>\",\n    \"config\": {\n      \"amet_2\": false,\n      \"pariatur_e8f\": false,\n      \"anim_9\": 10056243\n    }\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:32.000Z",
+                  "updatedAt": "2026-07-28T01:26:32.000Z",
+                  "uid": "35240-c39b4d39-cbee-4c52-92e2-39ffca074282"
+                },
+                {
+                  "id": "432adf83-ac4e-4d8d-9d74-4cbb6919d406",
+                  "name": "Authentication failed",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "dashboard_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:32.000Z",
+                  "updatedAt": "2026-07-28T01:26:32.000Z",
+                  "uid": "35240-432adf83-ac4e-4d8d-9d74-4cbb6919d406"
+                },
+                {
+                  "id": "220509f2-7125-4f1c-a30c-5739a094f121",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "dashboard_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:32.000Z",
+                  "updatedAt": "2026-07-28T01:26:32.000Z",
+                  "uid": "35240-220509f2-7125-4f1c-a30c-5739a094f121"
+                },
+                {
+                  "id": "bad7828f-5040-4091-850e-2935a2826bda",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "dashboard_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:32.000Z",
+                  "updatedAt": "2026-07-28T01:26:32.000Z",
+                  "uid": "35240-bad7828f-5040-4091-850e-2935a2826bda"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:32.000Z",
+              "updatedAt": "2026-07-28T01:26:32.000Z",
+              "uid": "35240-7e958d54-830f-451d-a122-fda86b2dcf81"
+            },
+            {
+              "name": "Update dashboard",
+              "id": "9b47734d-232e-4f1d-8bf7-e5b6c7eef222",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"is_favorite\": \"<boolean>\",\n  \"is_default\": \"<boolean>\",\n  \"position\": \"<integer>\",\n  \"config\": {\n    \"tempor1\": 5892755.061615512,\n    \"ada\": \"tempor sunt ut dolore\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "50e66540-a77d-428f-a184-59a822b71b60",
+                      "key": "dashboard_id",
+                      "value": "<string>",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "description": "Update a dashboard."
+              },
+              "response": [
+                {
+                  "id": "321ef007-61e2-417b-a57b-dec9252528b4",
+                  "name": "Dashboard updated successfully",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"is_favorite\": \"<boolean>\",\n  \"is_default\": \"<boolean>\",\n  \"position\": \"<integer>\",\n  \"config\": {\n    \"tempor1\": 5892755.061615512,\n    \"ada\": \"tempor sunt ut dolore\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "dashboard_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"dashboard\": {\n    \"name\": \"<string>\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\",\n    \"display_name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"is_default\": \"<boolean>\",\n    \"is_favorite\": \"<boolean>\",\n    \"position\": \"<integer>\",\n    \"config\": {\n      \"amet_2\": false,\n      \"pariatur_e8f\": false,\n      \"anim_9\": 10056243\n    }\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:32.000Z",
+                  "updatedAt": "2026-07-28T01:26:32.000Z",
+                  "uid": "35240-321ef007-61e2-417b-a57b-dec9252528b4"
+                },
+                {
+                  "id": "716e62ed-642e-4b39-8613-5f3ef565ff7d",
+                  "name": "Invalid request",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"is_favorite\": \"<boolean>\",\n  \"is_default\": \"<boolean>\",\n  \"position\": \"<integer>\",\n  \"config\": {\n    \"tempor1\": 5892755.061615512,\n    \"ada\": \"tempor sunt ut dolore\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "dashboard_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:32.000Z",
+                  "updatedAt": "2026-07-28T01:26:32.000Z",
+                  "uid": "35240-716e62ed-642e-4b39-8613-5f3ef565ff7d"
+                },
+                {
+                  "id": "194f3353-1933-4d18-907d-42f17d239841",
+                  "name": "Authentication failed",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"is_favorite\": \"<boolean>\",\n  \"is_default\": \"<boolean>\",\n  \"position\": \"<integer>\",\n  \"config\": {\n    \"tempor1\": 5892755.061615512,\n    \"ada\": \"tempor sunt ut dolore\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "dashboard_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:32.000Z",
+                  "updatedAt": "2026-07-28T01:26:32.000Z",
+                  "uid": "35240-194f3353-1933-4d18-907d-42f17d239841"
+                },
+                {
+                  "id": "79f59bdf-c51a-4130-949a-4fd9c04ec4a0",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"is_favorite\": \"<boolean>\",\n  \"is_default\": \"<boolean>\",\n  \"position\": \"<integer>\",\n  \"config\": {\n    \"tempor1\": 5892755.061615512,\n    \"ada\": \"tempor sunt ut dolore\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "dashboard_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:32.000Z",
+                  "updatedAt": "2026-07-28T01:26:32.000Z",
+                  "uid": "35240-79f59bdf-c51a-4130-949a-4fd9c04ec4a0"
+                },
+                {
+                  "id": "b6e6420b-c7f1-4a0c-b5dd-776f2decd227",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"is_favorite\": \"<boolean>\",\n  \"is_default\": \"<boolean>\",\n  \"position\": \"<integer>\",\n  \"config\": {\n    \"tempor1\": 5892755.061615512,\n    \"ada\": \"tempor sunt ut dolore\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "dashboard_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:32.000Z",
+                  "updatedAt": "2026-07-28T01:26:32.000Z",
+                  "uid": "35240-b6e6420b-c7f1-4a0c-b5dd-776f2decd227"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:32.000Z",
+              "updatedAt": "2026-07-28T01:26:32.000Z",
+              "uid": "35240-9b47734d-232e-4f1d-8bf7-e5b6c7eef222"
+            },
+            {
+              "name": "Delete dashboard",
+              "id": "9adc0d5a-890b-47bc-95b3-4f5319fceaf7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "83968da9-20aa-4d16-848b-7ea583367065",
+                      "key": "dashboard_id",
+                      "value": "<string>",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "description": "Delete a dashboard."
+              },
+              "response": [
+                {
+                  "id": "443a0d19-a9ba-48be-862b-4650966798dd",
+                  "name": "Dashboard deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "dashboard_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T01:26:32.000Z",
+                  "updatedAt": "2026-07-28T01:26:32.000Z",
+                  "uid": "35240-443a0d19-a9ba-48be-862b-4650966798dd"
+                },
+                {
+                  "id": "c8ec246f-1cad-4a25-9645-3e1daf7f74a7",
+                  "name": "Authentication failed",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "dashboard_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:32.000Z",
+                  "updatedAt": "2026-07-28T01:26:32.000Z",
+                  "uid": "35240-c8ec246f-1cad-4a25-9645-3e1daf7f74a7"
+                },
+                {
+                  "id": "c395b618-1ea0-460c-b7c2-df58862916c7",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "dashboard_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:32.000Z",
+                  "updatedAt": "2026-07-28T01:26:32.000Z",
+                  "uid": "35240-c395b618-1ea0-460c-b7c2-df58862916c7"
+                },
+                {
+                  "id": "441c719f-edec-4256-a9c8-0f25f959d969",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "dashboard_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:32.000Z",
+                  "updatedAt": "2026-07-28T01:26:32.000Z",
+                  "uid": "35240-441c719f-edec-4256-a9c8-0f25f959d969"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:32.000Z",
+              "updatedAt": "2026-07-28T01:26:32.000Z",
+              "uid": "35240-9adc0d5a-890b-47bc-95b3-4f5319fceaf7"
+            }
+          ],
+          "id": "8f0d109c-beda-4e84-99a1-c78d21be015e",
+          "createdAt": "2026-07-28T01:26:32.000Z",
+          "updatedAt": "2026-07-28T01:26:32.000Z",
+          "uid": "35240-8f0d109c-beda-4e84-99a1-c78d21be015e"
+        },
+        {
+          "name": "Create dashboard",
+          "id": "22753376-62c6-43d7-af55-85ba7efa13fa",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"is_favorite\": false,\n  \"is_default\": \"<boolean>\",\n  \"position\": \"<integer>\",\n  \"config\": {\n    \"esse__0\": -47521313.176474325\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/dashboards",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboards"
+              ]
+            },
+            "description": "Create a new dashboard for your organization."
+          },
+          "response": [
+            {
+              "id": "6f939c10-4198-4f5b-a2ca-8fa7bc3425e9",
+              "name": "Dashboard created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"is_favorite\": false,\n  \"is_default\": \"<boolean>\",\n  \"position\": \"<integer>\",\n  \"config\": {\n    \"esse__0\": -47521313.176474325\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dashboards",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboards"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"dashboard\": {\n    \"name\": \"<string>\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\",\n    \"display_name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"is_default\": \"<boolean>\",\n    \"is_favorite\": \"<boolean>\",\n    \"position\": \"<integer>\",\n    \"config\": {\n      \"amet_2\": false,\n      \"pariatur_e8f\": false,\n      \"anim_9\": 10056243\n    }\n  }\n}",
+              "createdAt": "2026-07-28T01:26:32.000Z",
+              "updatedAt": "2026-07-28T01:26:32.000Z",
+              "uid": "35240-6f939c10-4198-4f5b-a2ca-8fa7bc3425e9"
+            },
+            {
+              "id": "ecf0af21-6e32-4539-8cff-7d3b71517bed",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"is_favorite\": false,\n  \"is_default\": \"<boolean>\",\n  \"position\": \"<integer>\",\n  \"config\": {\n    \"esse__0\": -47521313.176474325\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dashboards",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboards"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:32.000Z",
+              "updatedAt": "2026-07-28T01:26:32.000Z",
+              "uid": "35240-ecf0af21-6e32-4539-8cff-7d3b71517bed"
+            },
+            {
+              "id": "b67557c4-0c71-418d-97db-a7857605490b",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"is_favorite\": false,\n  \"is_default\": \"<boolean>\",\n  \"position\": \"<integer>\",\n  \"config\": {\n    \"esse__0\": -47521313.176474325\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dashboards",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboards"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:32.000Z",
+              "updatedAt": "2026-07-28T01:26:32.000Z",
+              "uid": "35240-b67557c4-0c71-418d-97db-a7857605490b"
+            },
+            {
+              "id": "e4fcc3f1-d9ee-4917-9e43-b01321f4a058",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"is_favorite\": false,\n  \"is_default\": \"<boolean>\",\n  \"position\": \"<integer>\",\n  \"config\": {\n    \"esse__0\": -47521313.176474325\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/dashboards",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboards"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:32.000Z",
+              "updatedAt": "2026-07-28T01:26:32.000Z",
+              "uid": "35240-e4fcc3f1-d9ee-4917-9e43-b01321f4a058"
+            }
+          ],
+          "createdAt": "2026-07-28T01:26:32.000Z",
+          "updatedAt": "2026-07-28T01:26:32.000Z",
+          "uid": "35240-22753376-62c6-43d7-af55-85ba7efa13fa"
+        },
+        {
+          "name": "List dashboards",
+          "id": "f1b3c174-de8e-4471-a590-ac16a82080a5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboards?page_size=50&page_token=<string>&order_by=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboards"
+              ],
+              "query": [
+                {
+                  "description": "Maximum number of results per page",
+                  "key": "page_size",
+                  "value": "50"
+                },
+                {
+                  "description": "Opaque pagination token from previous response",
+                  "key": "page_token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Sort field and direction. Prefix with - for descending (e.g. -create_time).",
+                  "key": "order_by",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "List dashboards for your organization."
+          },
+          "response": [
+            {
+              "id": "5fb2da75-e48b-40b3-8d61-34333e363c4c",
+              "name": "Dashboards retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dashboards?page_size=50&page_token=<string>&order_by=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboards"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort field and direction. Prefix with - for descending (e.g. -create_time).",
+                      "key": "order_by",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"dashboards\": [\n    {\n      \"name\": \"<string>\",\n      \"create_time\": \"<dateTime>\",\n      \"update_time\": \"<dateTime>\",\n      \"display_name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"is_default\": \"<boolean>\",\n      \"is_favorite\": \"<boolean>\",\n      \"position\": \"<integer>\",\n      \"config\": {\n        \"dolorefc1\": -13933702,\n        \"dolore_2\": -11794330.734159872,\n        \"ea_4a4\": \"laboris\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"create_time\": \"<dateTime>\",\n      \"update_time\": \"<dateTime>\",\n      \"display_name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"is_default\": \"<boolean>\",\n      \"is_favorite\": \"<boolean>\",\n      \"position\": \"<integer>\",\n      \"config\": {\n        \"cillum_72\": -67823639.52290824,\n        \"ut1b\": \"exercitation dolore ex\",\n        \"irure_7d\": -20368515.075392723\n      }\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:26:32.000Z",
+              "updatedAt": "2026-07-28T01:26:32.000Z",
+              "uid": "35240-5fb2da75-e48b-40b3-8d61-34333e363c4c"
+            },
+            {
+              "id": "c01ce655-66a4-4f87-ac82-a9a9effaaf43",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dashboards?page_size=50&page_token=<string>&order_by=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboards"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort field and direction. Prefix with - for descending (e.g. -create_time).",
+                      "key": "order_by",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:32.000Z",
+              "updatedAt": "2026-07-28T01:26:32.000Z",
+              "uid": "35240-c01ce655-66a4-4f87-ac82-a9a9effaaf43"
+            },
+            {
+              "id": "72ba3ed8-25ad-46a7-bd58-baa93118048c",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dashboards?page_size=50&page_token=<string>&order_by=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboards"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort field and direction. Prefix with - for descending (e.g. -create_time).",
+                      "key": "order_by",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:32.000Z",
+              "updatedAt": "2026-07-28T01:26:32.000Z",
+              "uid": "35240-72ba3ed8-25ad-46a7-bd58-baa93118048c"
+            },
+            {
+              "id": "3a8c0191-8783-4048-89d3-1d3dbaca30e8",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dashboards?page_size=50&page_token=<string>&order_by=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboards"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort field and direction. Prefix with - for descending (e.g. -create_time).",
+                      "key": "order_by",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:32.000Z",
+              "updatedAt": "2026-07-28T01:26:32.000Z",
+              "uid": "35240-3a8c0191-8783-4048-89d3-1d3dbaca30e8"
+            }
+          ],
+          "createdAt": "2026-07-28T01:26:32.000Z",
+          "updatedAt": "2026-07-28T01:26:32.000Z",
+          "uid": "35240-f1b3c174-de8e-4471-a590-ac16a82080a5"
+        }
+      ],
+      "id": "30296b10-cbff-4def-af97-d7cb1978f601",
+      "createdAt": "2026-07-28T01:26:32.000Z",
+      "updatedAt": "2026-07-28T01:26:32.000Z",
+      "uid": "35240-30296b10-cbff-4def-af97-d7cb1978f601"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

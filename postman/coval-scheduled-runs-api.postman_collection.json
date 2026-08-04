@@ -1,0 +1,2022 @@
+{
+  "info": {
+    "_postman_id": "080e267a-6b80-46fe-b3c4-961b65fa20f1",
+    "name": "Coval Agents Scheduled Runs API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:27:25.000Z",
+    "updatedAt": "2026-07-28T01:27:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-080e267a-6b80-46fe-b3c4-961b65fa20f1"
+  },
+  "item": [
+    {
+      "name": "scheduled-runs",
+      "item": [
+        {
+          "name": "{scheduled_run_id}",
+          "item": [
+            {
+              "name": "runs",
+              "item": [
+                {
+                  "name": "List a scheduled run's produced runs",
+                  "id": "cd215fdc-10c4-4616-9983-b4bfdeb529f3",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id/runs",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id",
+                        "runs"
+                      ],
+                      "variable": [
+                        {
+                          "id": "17c6df83-83a3-4870-bbce-79e6ee8c06cb",
+                          "key": "scheduled_run_id",
+                          "value": "z47rzTTf4J5Y4QpCrIQgTw",
+                          "description": "(Required) Scheduled run resource ID"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve the runs a scheduled run has produced, most recent first\n(capped at the 500 most recent). Useful for programmatically checking\nwhat a schedule created via `POST /scheduled-runs`.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "cdf5d3f1-ed3e-4c1c-830e-b7e301198100",
+                      "name": "Scheduled run history retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id/runs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "scheduled-runs",
+                            ":scheduled_run_id",
+                            "runs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "scheduled_run_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"runs\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"status\": \"<string>\",\n      \"test_set_name\": \"<string>\",\n      \"model_type\": \"<string>\",\n      \"is_public\": \"<boolean>\",\n      \"create_time\": \"<dateTime>\",\n      \"display_name\": \"<string>\",\n      \"test_set_id\": \"<string>\",\n      \"agent_id\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"status\": \"<string>\",\n      \"test_set_name\": \"<string>\",\n      \"model_type\": \"<string>\",\n      \"is_public\": \"<boolean>\",\n      \"create_time\": \"<dateTime>\",\n      \"display_name\": \"<string>\",\n      \"test_set_id\": \"<string>\",\n      \"agent_id\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:27:26.000Z",
+                      "updatedAt": "2026-07-28T01:27:26.000Z",
+                      "uid": "35240-cdf5d3f1-ed3e-4c1c-830e-b7e301198100"
+                    },
+                    {
+                      "id": "b1bd551f-5b35-4da9-9160-2a1a32a7159d",
+                      "name": "Missing scheduled_run_id in path",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id/runs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "scheduled-runs",
+                            ":scheduled_run_id",
+                            "runs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "scheduled_run_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:26.000Z",
+                      "updatedAt": "2026-07-28T01:27:26.000Z",
+                      "uid": "35240-b1bd551f-5b35-4da9-9160-2a1a32a7159d"
+                    },
+                    {
+                      "id": "c68ef764-54b5-4bbe-8598-f8ddad383106",
+                      "name": "Authentication failed",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id/runs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "scheduled-runs",
+                            ":scheduled_run_id",
+                            "runs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "scheduled_run_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:26.000Z",
+                      "updatedAt": "2026-07-28T01:27:26.000Z",
+                      "uid": "35240-c68ef764-54b5-4bbe-8598-f8ddad383106"
+                    },
+                    {
+                      "id": "b73d1384-380a-470f-a3ef-40ed97dc84ea",
+                      "name": "Scheduled run not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id/runs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "scheduled-runs",
+                            ":scheduled_run_id",
+                            "runs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "scheduled_run_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:26.000Z",
+                      "updatedAt": "2026-07-28T01:27:26.000Z",
+                      "uid": "35240-b73d1384-380a-470f-a3ef-40ed97dc84ea"
+                    },
+                    {
+                      "id": "f5a595f7-6b36-47c0-af2c-3707a27c7dd9",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id/runs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "scheduled-runs",
+                            ":scheduled_run_id",
+                            "runs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "scheduled_run_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:26.000Z",
+                      "updatedAt": "2026-07-28T01:27:26.000Z",
+                      "uid": "35240-f5a595f7-6b36-47c0-af2c-3707a27c7dd9"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-cd215fdc-10c4-4616-9983-b4bfdeb529f3"
+                }
+              ],
+              "id": "3eac9eca-5408-4fe0-9910-0d8647b16ee4",
+              "createdAt": "2026-07-28T01:27:26.000Z",
+              "updatedAt": "2026-07-28T01:27:26.000Z",
+              "uid": "35240-3eac9eca-5408-4fe0-9910-0d8647b16ee4"
+            },
+            {
+              "name": "Get scheduled run",
+              "id": "8f70e269-0166-4f8a-a909-6623c88c43bf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "b53a18bf-11ee-49fc-a9ef-040cae59c1ed",
+                      "key": "scheduled_run_id",
+                      "value": "z47rzTTf4J5Y4QpCrIQgTw",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "description": "Retrieve a specific scheduled run by ID."
+              },
+              "response": [
+                {
+                  "id": "d12582e8-6b57-4706-a4f4-a1be2042f6d7",
+                  "name": "Scheduled run retrieved successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"scheduled_run\": {\n    \"name\": \"<string>\",\n    \"id\": \"ozaNd0F5Z4Y02oXytdPbNb\",\n    \"display_name\": \"<string>\",\n    \"run_template_id\": \"NX6RAtj6tuAIMjsUeOZHL5\",\n    \"schedule_expression\": \"<string>\",\n    \"enabled\": true,\n    \"create_time\": \"<dateTime>\",\n    \"schedule_timezone\": \"UTC\",\n    \"last_run_at\": \"<dateTime>\",\n    \"last_run_id\": \"<string>\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-d12582e8-6b57-4706-a4f4-a1be2042f6d7"
+                },
+                {
+                  "id": "5f6f70d1-b2ef-43e6-9da8-2b6ee5c04a03",
+                  "name": "Missing or invalid scheduled_run_id",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-5f6f70d1-b2ef-43e6-9da8-2b6ee5c04a03"
+                },
+                {
+                  "id": "7c7d2f73-3ecf-4e65-9e0c-9be897b20c35",
+                  "name": "Authentication failed",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-7c7d2f73-3ecf-4e65-9e0c-9be897b20c35"
+                },
+                {
+                  "id": "b0ca9274-5e0e-41e5-9619-7506fdef6b5b",
+                  "name": "Scheduled run not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-b0ca9274-5e0e-41e5-9619-7506fdef6b5b"
+                },
+                {
+                  "id": "ffd1ef7c-5583-408c-9344-0b3ec5c54447",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-ffd1ef7c-5583-408c-9344-0b3ec5c54447"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:26.000Z",
+              "updatedAt": "2026-07-28T01:27:26.000Z",
+              "uid": "35240-8f70e269-0166-4f8a-a909-6623c88c43bf"
+            },
+            {
+              "name": "Update scheduled run",
+              "id": "360a80e7-ca04-434d-9edb-b37084f42928",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"yrUDIaxfRctXLKpPWWcisf\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"<string>\",\n  \"enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "01fdf69f-0bbc-4d84-98fc-ae2686c2241b",
+                      "key": "scheduled_run_id",
+                      "value": "z47rzTTf4J5Y4QpCrIQgTw",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "description": "Update specific fields of an existing scheduled run.\n\nCommon use cases:\n- Enable/disable a schedule: `{\"enabled\": false}`\n- Change the schedule frequency: `{\"schedule_expression\": \"rate(1 hour)\"}`\n- Update the run template: `{\"run_template_id\": \"new_template_id\"}`\n"
+              },
+              "response": [
+                {
+                  "id": "62d79f20-fd64-41bf-99a4-9e5545d3f582",
+                  "name": "Scheduled run updated successfully",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"yrUDIaxfRctXLKpPWWcisf\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"<string>\",\n  \"enabled\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"scheduled_run\": {\n    \"name\": \"<string>\",\n    \"id\": \"ozaNd0F5Z4Y02oXytdPbNb\",\n    \"display_name\": \"<string>\",\n    \"run_template_id\": \"NX6RAtj6tuAIMjsUeOZHL5\",\n    \"schedule_expression\": \"<string>\",\n    \"enabled\": true,\n    \"create_time\": \"<dateTime>\",\n    \"schedule_timezone\": \"UTC\",\n    \"last_run_at\": \"<dateTime>\",\n    \"last_run_id\": \"<string>\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-62d79f20-fd64-41bf-99a4-9e5545d3f582"
+                },
+                {
+                  "id": "868cfa49-90f5-4d2c-a4ca-3968d279b9d5",
+                  "name": "Invalid request body or validation failed",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"yrUDIaxfRctXLKpPWWcisf\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"<string>\",\n  \"enabled\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-868cfa49-90f5-4d2c-a4ca-3968d279b9d5"
+                },
+                {
+                  "id": "b65fc1f5-f7b0-454e-8ada-b91d90256a61",
+                  "name": "Authentication failed",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"yrUDIaxfRctXLKpPWWcisf\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"<string>\",\n  \"enabled\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-b65fc1f5-f7b0-454e-8ada-b91d90256a61"
+                },
+                {
+                  "id": "f8517ae7-d5c1-4642-9ecd-bbb27f267f36",
+                  "name": "Scheduled run not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"yrUDIaxfRctXLKpPWWcisf\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"<string>\",\n  \"enabled\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-f8517ae7-d5c1-4642-9ecd-bbb27f267f36"
+                },
+                {
+                  "id": "a87d0eb2-8c3c-4ab1-be36-c9cbf8e685b7",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"yrUDIaxfRctXLKpPWWcisf\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"<string>\",\n  \"enabled\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-a87d0eb2-8c3c-4ab1-be36-c9cbf8e685b7"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:26.000Z",
+              "updatedAt": "2026-07-28T01:27:26.000Z",
+              "uid": "35240-360a80e7-ca04-434d-9edb-b37084f42928"
+            },
+            {
+              "name": "Delete scheduled run",
+              "id": "1ee31db5-9803-453b-87d4-0c1453bbece2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "41fbf8a9-1748-4147-885d-99214a70820d",
+                      "key": "scheduled_run_id",
+                      "value": "z47rzTTf4J5Y4QpCrIQgTw",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "description": "Delete a scheduled run and remove its associated schedule."
+              },
+              "response": [
+                {
+                  "id": "a0ea039a-2c02-4c1b-8159-dcc28037e359",
+                  "name": "Scheduled run deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-a0ea039a-2c02-4c1b-8159-dcc28037e359"
+                },
+                {
+                  "id": "58ba6a07-e74d-43ad-8ae4-0ae878c5eb20",
+                  "name": "Missing scheduled_run_id",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-58ba6a07-e74d-43ad-8ae4-0ae878c5eb20"
+                },
+                {
+                  "id": "bb33b90f-a372-48bd-af79-e74c911f5dd8",
+                  "name": "Authentication failed",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-bb33b90f-a372-48bd-af79-e74c911f5dd8"
+                },
+                {
+                  "id": "797337bf-91d3-46fc-a21f-45c3ab2a9b4e",
+                  "name": "Scheduled run not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-797337bf-91d3-46fc-a21f-45c3ab2a9b4e"
+                },
+                {
+                  "id": "53774856-9e41-4ad1-922a-f2a238e65e67",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/scheduled-runs/:scheduled_run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "scheduled-runs",
+                        ":scheduled_run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "scheduled_run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:26.000Z",
+                  "updatedAt": "2026-07-28T01:27:26.000Z",
+                  "uid": "35240-53774856-9e41-4ad1-922a-f2a238e65e67"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:26.000Z",
+              "updatedAt": "2026-07-28T01:27:26.000Z",
+              "uid": "35240-1ee31db5-9803-453b-87d4-0c1453bbece2"
+            }
+          ],
+          "id": "3065af27-ca9c-4d33-ba12-92801581098a",
+          "createdAt": "2026-07-28T01:27:26.000Z",
+          "updatedAt": "2026-07-28T01:27:26.000Z",
+          "uid": "35240-3065af27-ca9c-4d33-ba12-92801581098a"
+        },
+        {
+          "name": "List scheduled runs",
+          "id": "d5b8321a-fca7-4042-8c5d-dc891d7ffd78",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/scheduled-runs?page_size=50&page_token=<string>&enabled=<boolean>&template_id=z47rzTTf4J5Y4QpCrIQgTw",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "scheduled-runs"
+              ],
+              "query": [
+                {
+                  "description": "Maximum number of results per page",
+                  "key": "page_size",
+                  "value": "50"
+                },
+                {
+                  "description": "Opaque pagination token from previous response",
+                  "key": "page_token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by enabled state (true = active schedules, false = paused)",
+                  "key": "enabled",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Filter by run template ID",
+                  "key": "template_id",
+                  "value": "z47rzTTf4J5Y4QpCrIQgTw"
+                }
+              ]
+            },
+            "description": "Retrieve a paginated list of scheduled runs with optional filtering."
+          },
+          "response": [
+            {
+              "id": "c4881f1f-270e-44dd-acc2-10f37c6bd418",
+              "name": "Scheduled runs retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/scheduled-runs?page_size=50&page_token=<string>&enabled=<boolean>&template_id=z47rzTTf4J5Y4QpCrIQgTw",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduled-runs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by enabled state (true = active schedules, false = paused)",
+                      "key": "enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter by run template ID",
+                      "key": "template_id",
+                      "value": "z47rzTTf4J5Y4QpCrIQgTw"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"scheduled_runs\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"CGxJ3DanI3EHjjLOF4B32H\",\n      \"display_name\": \"<string>\",\n      \"run_template_id\": \"UkJY5WKJEOao5XC73qdTrX\",\n      \"schedule_expression\": \"<string>\",\n      \"enabled\": true,\n      \"create_time\": \"<dateTime>\",\n      \"schedule_timezone\": \"UTC\",\n      \"last_run_at\": \"<dateTime>\",\n      \"last_run_id\": \"<string>\",\n      \"update_time\": \"<dateTime>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"PipyIrZYRBWyIVllV7fcdX\",\n      \"display_name\": \"<string>\",\n      \"run_template_id\": \"TKF1OnnLab6OgosVUleM2I\",\n      \"schedule_expression\": \"<string>\",\n      \"enabled\": true,\n      \"create_time\": \"<dateTime>\",\n      \"schedule_timezone\": \"UTC\",\n      \"last_run_at\": \"<dateTime>\",\n      \"last_run_id\": \"<string>\",\n      \"update_time\": \"<dateTime>\"\n    }\n  ],\n  \"next_page_token\": \"<string>\",\n  \"total_count\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T01:27:26.000Z",
+              "updatedAt": "2026-07-28T01:27:26.000Z",
+              "uid": "35240-c4881f1f-270e-44dd-acc2-10f37c6bd418"
+            },
+            {
+              "id": "88b9f827-b17a-4dc8-bb13-5c1f83ac8c5f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/scheduled-runs?page_size=50&page_token=<string>&enabled=<boolean>&template_id=z47rzTTf4J5Y4QpCrIQgTw",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduled-runs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by enabled state (true = active schedules, false = paused)",
+                      "key": "enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter by run template ID",
+                      "key": "template_id",
+                      "value": "z47rzTTf4J5Y4QpCrIQgTw"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:26.000Z",
+              "updatedAt": "2026-07-28T01:27:26.000Z",
+              "uid": "35240-88b9f827-b17a-4dc8-bb13-5c1f83ac8c5f"
+            },
+            {
+              "id": "111ad86a-15f9-455a-a47f-08eb06f4a273",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/scheduled-runs?page_size=50&page_token=<string>&enabled=<boolean>&template_id=z47rzTTf4J5Y4QpCrIQgTw",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduled-runs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by enabled state (true = active schedules, false = paused)",
+                      "key": "enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter by run template ID",
+                      "key": "template_id",
+                      "value": "z47rzTTf4J5Y4QpCrIQgTw"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:26.000Z",
+              "updatedAt": "2026-07-28T01:27:26.000Z",
+              "uid": "35240-111ad86a-15f9-455a-a47f-08eb06f4a273"
+            },
+            {
+              "id": "a3cd19c2-2146-4930-9515-0fb97ba8770c",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/scheduled-runs?page_size=50&page_token=<string>&enabled=<boolean>&template_id=z47rzTTf4J5Y4QpCrIQgTw",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduled-runs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by enabled state (true = active schedules, false = paused)",
+                      "key": "enabled",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter by run template ID",
+                      "key": "template_id",
+                      "value": "z47rzTTf4J5Y4QpCrIQgTw"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:26.000Z",
+              "updatedAt": "2026-07-28T01:27:26.000Z",
+              "uid": "35240-a3cd19c2-2146-4930-9515-0fb97ba8770c"
+            }
+          ],
+          "createdAt": "2026-07-28T01:27:26.000Z",
+          "updatedAt": "2026-07-28T01:27:26.000Z",
+          "uid": "35240-d5b8321a-fca7-4042-8c5d-dc891d7ffd78"
+        },
+        {
+          "name": "Create scheduled run",
+          "id": "f9a79a20-ec9a-481c-bd38-d0e8f0477861",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"DhyLbdtajjSD4WT5q25tmY\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"UTC\",\n  \"enabled\": true\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/scheduled-runs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "scheduled-runs"
+              ]
+            },
+            "description": "Create a new scheduled run that will trigger evaluations on a recurring schedule.\n\nThe schedule is defined using either:\n- **Rate expressions**: `rate(15 minutes)`, `rate(1 hour)`, `rate(1 day)`\n- **Cron expressions**: `cron(0 9 ? * MON-FRI *)` (9am weekdays)\n\nSchedules are created in an enabled state by default and will begin triggering\nat the next scheduled time.\n"
+          },
+          "response": [
+            {
+              "id": "79819cdc-b610-4ce7-b327-b3e12f8d313c",
+              "name": "Scheduled run created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"DhyLbdtajjSD4WT5q25tmY\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"UTC\",\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/scheduled-runs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduled-runs"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"scheduled_run\": {\n    \"name\": \"<string>\",\n    \"id\": \"ozaNd0F5Z4Y02oXytdPbNb\",\n    \"display_name\": \"<string>\",\n    \"run_template_id\": \"NX6RAtj6tuAIMjsUeOZHL5\",\n    \"schedule_expression\": \"<string>\",\n    \"enabled\": true,\n    \"create_time\": \"<dateTime>\",\n    \"schedule_timezone\": \"UTC\",\n    \"last_run_at\": \"<dateTime>\",\n    \"last_run_id\": \"<string>\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:27:26.000Z",
+              "updatedAt": "2026-07-28T01:27:26.000Z",
+              "uid": "35240-79819cdc-b610-4ce7-b327-b3e12f8d313c"
+            },
+            {
+              "id": "41200ad2-4357-486a-a475-d54d2af6a8d2",
+              "name": "Invalid request body or validation failed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"DhyLbdtajjSD4WT5q25tmY\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"UTC\",\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/scheduled-runs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduled-runs"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:26.000Z",
+              "updatedAt": "2026-07-28T01:27:26.000Z",
+              "uid": "35240-41200ad2-4357-486a-a475-d54d2af6a8d2"
+            },
+            {
+              "id": "bbe507d7-7310-43dc-a999-7a5b0a5c002d",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"DhyLbdtajjSD4WT5q25tmY\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"UTC\",\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/scheduled-runs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduled-runs"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:26.000Z",
+              "updatedAt": "2026-07-28T01:27:26.000Z",
+              "uid": "35240-bbe507d7-7310-43dc-a999-7a5b0a5c002d"
+            },
+            {
+              "id": "9596cbfb-b08b-43f7-9f70-519ca391afb5",
+              "name": "Referenced run template not found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"DhyLbdtajjSD4WT5q25tmY\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"UTC\",\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/scheduled-runs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduled-runs"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:26.000Z",
+              "updatedAt": "2026-07-28T01:27:26.000Z",
+              "uid": "35240-9596cbfb-b08b-43f7-9f70-519ca391afb5"
+            },
+            {
+              "id": "8c73e4c9-1608-4815-b3ab-b4dc871054a0",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"DhyLbdtajjSD4WT5q25tmY\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"UTC\",\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/scheduled-runs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "scheduled-runs"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:26.000Z",
+              "updatedAt": "2026-07-28T01:27:26.000Z",
+              "uid": "35240-8c73e4c9-1608-4815-b3ab-b4dc871054a0"
+            }
+          ],
+          "createdAt": "2026-07-28T01:27:26.000Z",
+          "updatedAt": "2026-07-28T01:27:26.000Z",
+          "uid": "35240-f9a79a20-ec9a-481c-bd38-d0e8f0477861"
+        }
+      ],
+      "id": "4f3bfb6e-b82b-458f-8024-c01574268c57",
+      "createdAt": "2026-07-28T01:27:26.000Z",
+      "updatedAt": "2026-07-28T01:27:26.000Z",
+      "uid": "35240-4f3bfb6e-b82b-458f-8024-c01574268c57"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

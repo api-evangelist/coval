@@ -1,0 +1,3940 @@
+{
+  "info": {
+    "_postman_id": "ce127c62-c41f-4507-8dd6-3302ccc0c782",
+    "name": "Coval Agents Personas API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:26:40.000Z",
+    "updatedAt": "2026-07-28T01:26:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ce127c62-c41f-4507-8dd6-3302ccc0c782"
+  },
+  "item": [
+    {
+      "name": "personas",
+      "item": [
+        {
+          "name": "{persona_id}",
+          "item": [
+            {
+              "name": "duplicate",
+              "item": [
+                {
+                  "name": "Duplicate a persona",
+                  "id": "ea24e041-a86e-4935-842c-73de11d095a9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id/duplicate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id",
+                        "duplicate"
+                      ],
+                      "variable": [
+                        {
+                          "id": "cabbe558-ef92-4a15-9696-dc23c5261f32",
+                          "key": "persona_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the persona to duplicate"
+                        }
+                      ]
+                    },
+                    "description": "Clone an existing persona into a new persona owned by your organization. Returns the new persona."
+                  },
+                  "response": [
+                    {
+                      "id": "c441953b-fe41-48b0-87f0-ee7491e44a32",
+                      "name": "Persona duplicated successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/:persona_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            ":persona_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "persona_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"persona\": {\n    \"resource_name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"create_time\": \"<dateTime>\",\n    \"persona_prompt\": \"<string>\",\n    \"voice_name\": \"<string>\",\n    \"language_code\": \"<string>\",\n    \"background_sound\": \"small-dog-bark\",\n    \"background_sound_volume\": \"<float>\",\n    \"voice_volume\": \"<float>\",\n    \"voice_speed\": \"<float>\",\n    \"wait_seconds\": \"<float>\",\n    \"conversation_initiation\": \"speak_first\",\n    \"multi_language_stt\": \"<boolean>\",\n    \"hold_music_timeout_seconds\": \"<float>\",\n    \"situate_speaker\": \"speakerphone-easy\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-c441953b-fe41-48b0-87f0-ee7491e44a32"
+                    },
+                    {
+                      "id": "38e8d73c-3d65-43f2-ae4d-c992f9c1ef5b",
+                      "name": "Invalid request parameters",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/:persona_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            ":persona_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "persona_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-38e8d73c-3d65-43f2-ae4d-c992f9c1ef5b"
+                    },
+                    {
+                      "id": "abeb5727-057f-409e-adce-d5ab57280914",
+                      "name": "Missing or invalid API key",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/:persona_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            ":persona_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "persona_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-abeb5727-057f-409e-adce-d5ab57280914"
+                    },
+                    {
+                      "id": "8b8fdbec-49f9-4287-8755-8fecdbeef2fc",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/:persona_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            ":persona_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "persona_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-8b8fdbec-49f9-4287-8755-8fecdbeef2fc"
+                    },
+                    {
+                      "id": "5c10c1c6-a1ff-48d2-a004-d56058fc0ddb",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/:persona_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            ":persona_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "persona_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-5c10c1c6-a1ff-48d2-a004-d56058fc0ddb"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-ea24e041-a86e-4935-842c-73de11d095a9"
+                }
+              ],
+              "id": "a865d6ca-8a97-4207-bc73-32d3a435e028",
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-a865d6ca-8a97-4207-bc73-32d3a435e028"
+            },
+            {
+              "name": "versions",
+              "item": [
+                {
+                  "name": "{version_id}",
+                  "item": [
+                    {
+                      "name": "revert",
+                      "item": [
+                        {
+                          "name": "Revert persona version",
+                          "id": "5f74ac61-7bfb-4140-a9d5-a403e507708e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/personas/:persona_id/versions/:version_id/revert",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "personas",
+                                ":persona_id",
+                                "versions",
+                                ":version_id",
+                                "revert"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "9cfcaaca-e1c0-45e3-820c-63a7c85e28c0",
+                                  "key": "persona_id",
+                                  "value": "<string>",
+                                  "description": "(Required) Persona resource ID"
+                                },
+                                {
+                                  "id": "fdabb1ae-efdd-4853-86bb-7de1bc7716c6",
+                                  "key": "version_id",
+                                  "value": "MVPGPCFJTCG7EHNYA5K4ETRZKW",
+                                  "description": "(Required) ULID of the target version to re-apply"
+                                }
+                              ]
+                            },
+                            "description": "Re-apply a prior version's behavioral configuration to the live persona. A revert is forward-only: it mints a new version (change_type=revert) and advances the persona, so the response reflects the persona's new live config. Reverting to the version the persona already points at is rejected with 400."
+                          },
+                          "response": [
+                            {
+                              "id": "293da48c-5c33-4cd7-80cb-7c6204c82aa0",
+                              "name": "Persona reverted successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/personas/:persona_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "personas",
+                                    ":persona_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "persona_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"persona\": {\n    \"resource_name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"create_time\": \"<dateTime>\",\n    \"persona_prompt\": \"<string>\",\n    \"voice_name\": \"<string>\",\n    \"language_code\": \"<string>\",\n    \"background_sound\": \"small-dog-bark\",\n    \"background_sound_volume\": \"<float>\",\n    \"voice_volume\": \"<float>\",\n    \"voice_speed\": \"<float>\",\n    \"wait_seconds\": \"<float>\",\n    \"conversation_initiation\": \"speak_first\",\n    \"multi_language_stt\": \"<boolean>\",\n    \"hold_music_timeout_seconds\": \"<float>\",\n    \"situate_speaker\": \"speakerphone-easy\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:26:41.000Z",
+                              "updatedAt": "2026-07-28T01:26:41.000Z",
+                              "uid": "35240-293da48c-5c33-4cd7-80cb-7c6204c82aa0"
+                            },
+                            {
+                              "id": "9ca7068f-c02c-467a-8f5c-b9c790581ab1",
+                              "name": "Invalid request parameters",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/personas/:persona_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "personas",
+                                    ":persona_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "persona_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:26:41.000Z",
+                              "updatedAt": "2026-07-28T01:26:41.000Z",
+                              "uid": "35240-9ca7068f-c02c-467a-8f5c-b9c790581ab1"
+                            },
+                            {
+                              "id": "22224d0c-6968-4193-9c84-1d7110d7ed26",
+                              "name": "Missing or invalid API key",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/personas/:persona_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "personas",
+                                    ":persona_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "persona_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:26:41.000Z",
+                              "updatedAt": "2026-07-28T01:26:41.000Z",
+                              "uid": "35240-22224d0c-6968-4193-9c84-1d7110d7ed26"
+                            },
+                            {
+                              "id": "6eb7ffa1-801a-474e-b1ee-a6d6df129a94",
+                              "name": "Insufficient permissions, or attempting to modify a global persona",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/personas/:persona_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "personas",
+                                    ":persona_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "persona_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:26:41.000Z",
+                              "updatedAt": "2026-07-28T01:26:41.000Z",
+                              "uid": "35240-6eb7ffa1-801a-474e-b1ee-a6d6df129a94"
+                            },
+                            {
+                              "id": "94cca4af-cece-4376-b6fa-1d795dbfc1ba",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/personas/:persona_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "personas",
+                                    ":persona_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "persona_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:26:41.000Z",
+                              "updatedAt": "2026-07-28T01:26:41.000Z",
+                              "uid": "35240-94cca4af-cece-4376-b6fa-1d795dbfc1ba"
+                            },
+                            {
+                              "id": "5a4419c8-0e7f-4824-9a35-5915ae326936",
+                              "name": "Internal server error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/personas/:persona_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "personas",
+                                    ":persona_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "persona_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:26:41.000Z",
+                              "updatedAt": "2026-07-28T01:26:41.000Z",
+                              "uid": "35240-5a4419c8-0e7f-4824-9a35-5915ae326936"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:26:41.000Z",
+                          "updatedAt": "2026-07-28T01:26:41.000Z",
+                          "uid": "35240-5f74ac61-7bfb-4140-a9d5-a403e507708e"
+                        }
+                      ],
+                      "id": "7b9a0d2b-3af6-44c5-a0a9-ad0bb3f13f9a",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-7b9a0d2b-3af6-44c5-a0a9-ad0bb3f13f9a"
+                    }
+                  ],
+                  "id": "3c3e2405-0ec1-441d-be05-4b6a7c72de11",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-3c3e2405-0ec1-441d-be05-4b6a7c72de11"
+                },
+                {
+                  "name": "List persona versions",
+                  "id": "d554f22c-2df4-4154-af89-ad9fdef49f69",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id/versions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id",
+                        "versions"
+                      ],
+                      "variable": [
+                        {
+                          "id": "8d775026-cdb4-4d1a-a4bd-15adf4553349",
+                          "key": "persona_id",
+                          "value": "<string>",
+                          "description": "(Required) Persona resource ID"
+                        }
+                      ]
+                    },
+                    "description": "List the prior-state version history for a persona, newest first. The live persona is the current version and is not included here. Only behavioral config is versioned; display_name/avatar_url are not."
+                  },
+                  "response": [
+                    {
+                      "id": "139fa75b-3d5c-47e1-a015-e4f90bf20dd9",
+                      "name": "Successful response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/:persona_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            ":persona_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "persona_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"versions\": [\n    {\n      \"name\": \"<string>\",\n      \"ulid\": \"<string>\",\n      \"version_number\": \"<integer>\",\n      \"change_type\": \"save\",\n      \"created_by\": \"<string>\",\n      \"label\": \"<string>\",\n      \"persona_prompt\": \"<string>\",\n      \"metadata\": {\n        \"proident44\": \"quis velit cillum labore\"\n      },\n      \"voice_name\": \"<string>\",\n      \"language_code\": \"<string>\",\n      \"create_time\": \"<dateTime>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"ulid\": \"<string>\",\n      \"version_number\": \"<integer>\",\n      \"change_type\": \"save\",\n      \"created_by\": \"<string>\",\n      \"label\": \"<string>\",\n      \"persona_prompt\": \"<string>\",\n      \"metadata\": {\n        \"enim_1\": 38719813.197681576,\n        \"laborum121\": false,\n        \"eu35d\": false\n      },\n      \"voice_name\": \"<string>\",\n      \"language_code\": \"<string>\",\n      \"create_time\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-139fa75b-3d5c-47e1-a015-e4f90bf20dd9"
+                    },
+                    {
+                      "id": "470e1738-41f8-432f-b2ab-613cc9ac55d6",
+                      "name": "Missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/:persona_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            ":persona_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "persona_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-470e1738-41f8-432f-b2ab-613cc9ac55d6"
+                    },
+                    {
+                      "id": "2a9ec566-c617-4d22-a8d2-55b586b70f55",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/:persona_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            ":persona_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "persona_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-2a9ec566-c617-4d22-a8d2-55b586b70f55"
+                    },
+                    {
+                      "id": "39004bbe-9293-4824-b073-0644adc3ba6e",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/:persona_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            ":persona_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "persona_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-39004bbe-9293-4824-b073-0644adc3ba6e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-d554f22c-2df4-4154-af89-ad9fdef49f69"
+                }
+              ],
+              "id": "45e6219c-743d-476c-8159-2b6c565cf4bf",
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-45e6219c-743d-476c-8159-2b6c565cf4bf"
+            },
+            {
+              "name": "Get persona",
+              "id": "6d54c3c1-e7bc-421f-b27b-f9b5bb58f2a2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/personas/:persona_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas",
+                    ":persona_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "56a5d11e-5837-41a9-bd3e-ed8324c31d49",
+                      "key": "persona_id",
+                      "value": "<string>",
+                      "description": "(Required) Persona resource ID"
+                    }
+                  ]
+                },
+                "description": "Retrieve a specific persona by its unique identifier."
+              },
+              "response": [
+                {
+                  "id": "c5dd67ea-4870-4017-b322-a450ae11b0d1",
+                  "name": "Successful response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "persona_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"persona\": {\n    \"resource_name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"create_time\": \"<dateTime>\",\n    \"persona_prompt\": \"<string>\",\n    \"voice_name\": \"<string>\",\n    \"language_code\": \"<string>\",\n    \"background_sound\": \"small-dog-bark\",\n    \"background_sound_volume\": \"<float>\",\n    \"voice_volume\": \"<float>\",\n    \"voice_speed\": \"<float>\",\n    \"wait_seconds\": \"<float>\",\n    \"conversation_initiation\": \"speak_first\",\n    \"multi_language_stt\": \"<boolean>\",\n    \"hold_music_timeout_seconds\": \"<float>\",\n    \"situate_speaker\": \"speakerphone-easy\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-c5dd67ea-4870-4017-b322-a450ae11b0d1"
+                },
+                {
+                  "id": "65372cc3-11da-4e38-8ebb-7489c9f5a883",
+                  "name": "Missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "persona_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-65372cc3-11da-4e38-8ebb-7489c9f5a883"
+                },
+                {
+                  "id": "2818ca88-8307-4e08-9a29-2c1428d8b5d4",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "persona_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-2818ca88-8307-4e08-9a29-2c1428d8b5d4"
+                },
+                {
+                  "id": "70e428bc-3096-415d-88be-ee27df2c27da",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "persona_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-70e428bc-3096-415d-88be-ee27df2c27da"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-6d54c3c1-e7bc-421f-b27b-f9b5bb58f2a2"
+            },
+            {
+              "name": "Update persona",
+              "id": "4ed55399-61b6-47b1-a5d0-38ab9fdc8f9b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"persona_prompt\": \"<string>\",\n  \"voice_name\": \"<string>\",\n  \"language_code\": \"<string>\",\n  \"background_sound\": \"newborn-baby-crying\",\n  \"background_sound_volume\": \"<float>\",\n  \"voice_volume\": \"<float>\",\n  \"voice_speed\": \"<float>\",\n  \"wait_seconds\": \"<float>\",\n  \"conversation_initiation\": \"wait_for_user\",\n  \"multi_language_stt\": \"<boolean>\",\n  \"hold_music_timeout_seconds\": \"<float>\",\n  \"situate_speaker\": \"speakerphone-easy\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/personas/:persona_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas",
+                    ":persona_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "df8632f2-b454-4d2b-937c-70d51b9133df",
+                      "key": "persona_id",
+                      "value": "<string>",
+                      "description": "(Required) Persona resource ID"
+                    }
+                  ]
+                },
+                "description": "Update specific fields of an existing persona configuration. All fields are optional."
+              },
+              "response": [
+                {
+                  "id": "8e06a77c-178c-42dd-91f8-7e0c9ae7566a",
+                  "name": "Persona updated successfully",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"persona_prompt\": \"<string>\",\n  \"voice_name\": \"<string>\",\n  \"language_code\": \"<string>\",\n  \"background_sound\": \"newborn-baby-crying\",\n  \"background_sound_volume\": \"<float>\",\n  \"voice_volume\": \"<float>\",\n  \"voice_speed\": \"<float>\",\n  \"wait_seconds\": \"<float>\",\n  \"conversation_initiation\": \"wait_for_user\",\n  \"multi_language_stt\": \"<boolean>\",\n  \"hold_music_timeout_seconds\": \"<float>\",\n  \"situate_speaker\": \"speakerphone-easy\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "persona_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"persona\": {\n    \"resource_name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"create_time\": \"<dateTime>\",\n    \"persona_prompt\": \"<string>\",\n    \"voice_name\": \"<string>\",\n    \"language_code\": \"<string>\",\n    \"background_sound\": \"small-dog-bark\",\n    \"background_sound_volume\": \"<float>\",\n    \"voice_volume\": \"<float>\",\n    \"voice_speed\": \"<float>\",\n    \"wait_seconds\": \"<float>\",\n    \"conversation_initiation\": \"speak_first\",\n    \"multi_language_stt\": \"<boolean>\",\n    \"hold_music_timeout_seconds\": \"<float>\",\n    \"situate_speaker\": \"speakerphone-easy\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-8e06a77c-178c-42dd-91f8-7e0c9ae7566a"
+                },
+                {
+                  "id": "55cb4a5a-6af1-4f50-94df-b6aac1164436",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"persona_prompt\": \"<string>\",\n  \"voice_name\": \"<string>\",\n  \"language_code\": \"<string>\",\n  \"background_sound\": \"newborn-baby-crying\",\n  \"background_sound_volume\": \"<float>\",\n  \"voice_volume\": \"<float>\",\n  \"voice_speed\": \"<float>\",\n  \"wait_seconds\": \"<float>\",\n  \"conversation_initiation\": \"wait_for_user\",\n  \"multi_language_stt\": \"<boolean>\",\n  \"hold_music_timeout_seconds\": \"<float>\",\n  \"situate_speaker\": \"speakerphone-easy\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "persona_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-55cb4a5a-6af1-4f50-94df-b6aac1164436"
+                },
+                {
+                  "id": "6faf52c5-9291-4456-89bc-f61c8873d9e5",
+                  "name": "Missing or invalid API key",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"persona_prompt\": \"<string>\",\n  \"voice_name\": \"<string>\",\n  \"language_code\": \"<string>\",\n  \"background_sound\": \"newborn-baby-crying\",\n  \"background_sound_volume\": \"<float>\",\n  \"voice_volume\": \"<float>\",\n  \"voice_speed\": \"<float>\",\n  \"wait_seconds\": \"<float>\",\n  \"conversation_initiation\": \"wait_for_user\",\n  \"multi_language_stt\": \"<boolean>\",\n  \"hold_music_timeout_seconds\": \"<float>\",\n  \"situate_speaker\": \"speakerphone-easy\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "persona_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-6faf52c5-9291-4456-89bc-f61c8873d9e5"
+                },
+                {
+                  "id": "d171aadf-bbaf-4e07-b73d-5cd908a12a9d",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"persona_prompt\": \"<string>\",\n  \"voice_name\": \"<string>\",\n  \"language_code\": \"<string>\",\n  \"background_sound\": \"newborn-baby-crying\",\n  \"background_sound_volume\": \"<float>\",\n  \"voice_volume\": \"<float>\",\n  \"voice_speed\": \"<float>\",\n  \"wait_seconds\": \"<float>\",\n  \"conversation_initiation\": \"wait_for_user\",\n  \"multi_language_stt\": \"<boolean>\",\n  \"hold_music_timeout_seconds\": \"<float>\",\n  \"situate_speaker\": \"speakerphone-easy\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "persona_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-d171aadf-bbaf-4e07-b73d-5cd908a12a9d"
+                },
+                {
+                  "id": "47ca807f-fa25-4fa9-b899-c216d19e1330",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"persona_prompt\": \"<string>\",\n  \"voice_name\": \"<string>\",\n  \"language_code\": \"<string>\",\n  \"background_sound\": \"newborn-baby-crying\",\n  \"background_sound_volume\": \"<float>\",\n  \"voice_volume\": \"<float>\",\n  \"voice_speed\": \"<float>\",\n  \"wait_seconds\": \"<float>\",\n  \"conversation_initiation\": \"wait_for_user\",\n  \"multi_language_stt\": \"<boolean>\",\n  \"hold_music_timeout_seconds\": \"<float>\",\n  \"situate_speaker\": \"speakerphone-easy\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "persona_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-47ca807f-fa25-4fa9-b899-c216d19e1330"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-4ed55399-61b6-47b1-a5d0-38ab9fdc8f9b"
+            },
+            {
+              "name": "Delete persona",
+              "id": "a9cbf824-f7b6-4b69-b9fd-952e42c338bc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/personas/:persona_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas",
+                    ":persona_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "54ad8fef-cca9-4063-b888-535350e83efa",
+                      "key": "persona_id",
+                      "value": "<string>",
+                      "description": "(Required) Persona resource ID"
+                    }
+                  ]
+                },
+                "description": "Delete a persona"
+              },
+              "response": [
+                {
+                  "id": "5b159d76-20ec-4c95-832a-34867f12405d",
+                  "name": "Persona deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "persona_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-5b159d76-20ec-4c95-832a-34867f12405d"
+                },
+                {
+                  "id": "88d2b954-0069-4781-857e-702098dd161b",
+                  "name": "Missing or invalid API key",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "persona_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-88d2b954-0069-4781-857e-702098dd161b"
+                },
+                {
+                  "id": "12f73af2-4476-4ac9-aabe-e96372f5a3ad",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/:persona_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        ":persona_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "persona_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-12f73af2-4476-4ac9-aabe-e96372f5a3ad"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-a9cbf824-f7b6-4b69-b9fd-952e42c338bc"
+            }
+          ],
+          "id": "b12b11b6-2d5b-4a68-beba-8139762d19a0",
+          "createdAt": "2026-07-28T01:26:41.000Z",
+          "updatedAt": "2026-07-28T01:26:41.000Z",
+          "uid": "35240-b12b11b6-2d5b-4a68-beba-8139762d19a0"
+        },
+        {
+          "name": "background-sounds",
+          "item": [
+            {
+              "name": "{background_sound_id}",
+              "item": [
+                {
+                  "name": "complete",
+                  "item": [
+                    {
+                      "name": "Complete background sound upload",
+                      "id": "8d741bbe-edf0-49ec-b6d6-81a59d9f52d2",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/background-sounds/:background_sound_id/complete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            "background-sounds",
+                            ":background_sound_id",
+                            "complete"
+                          ],
+                          "variable": [
+                            {
+                              "id": "54c662f7-78b4-4cde-8b9e-0985bc173a28",
+                              "key": "background_sound_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "HEAD-validates the uploaded object and marks the custom background sound active."
+                      },
+                      "response": [
+                        {
+                          "id": "345ed4bd-b9ce-448a-a4e2-4c78c4a97c5b",
+                          "name": "Upload completed successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/personas/background-sounds/:background_sound_id/complete",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "personas",
+                                "background-sounds",
+                                ":background_sound_id",
+                                "complete"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "background_sound_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"background_sound\": {\n    \"id\": \"<string>\",\n    \"value\": \"<string>\",\n    \"source\": \"built_in\",\n    \"display_name\": \"<string>\",\n    \"status\": \"active\",\n    \"default_volume\": \"<float>\",\n    \"preview_url\": \"<string>\",\n    \"preview_url_expires_at\": \"<dateTime>\",\n    \"content_type\": \"<string>\",\n    \"original_filename\": \"<string>\",\n    \"acoustic_source_type\": \"ambient\",\n    \"metadata\": {\n      \"sint9\": true\n    },\n    \"created_at\": \"<dateTime>\",\n    \"last_updated_at\": \"<dateTime>\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:41.000Z",
+                          "updatedAt": "2026-07-28T01:26:41.000Z",
+                          "uid": "35240-345ed4bd-b9ce-448a-a4e2-4c78c4a97c5b"
+                        },
+                        {
+                          "id": "2892a522-e31e-4d99-9f7d-989bf1a0c007",
+                          "name": "Invalid request parameters",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/personas/background-sounds/:background_sound_id/complete",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "personas",
+                                "background-sounds",
+                                ":background_sound_id",
+                                "complete"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "background_sound_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:41.000Z",
+                          "updatedAt": "2026-07-28T01:26:41.000Z",
+                          "uid": "35240-2892a522-e31e-4d99-9f7d-989bf1a0c007"
+                        },
+                        {
+                          "id": "b46daaab-26ef-4204-95f6-9d662b6f6d2c",
+                          "name": "Missing or invalid API key",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/personas/background-sounds/:background_sound_id/complete",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "personas",
+                                "background-sounds",
+                                ":background_sound_id",
+                                "complete"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "background_sound_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:41.000Z",
+                          "updatedAt": "2026-07-28T01:26:41.000Z",
+                          "uid": "35240-b46daaab-26ef-4204-95f6-9d662b6f6d2c"
+                        },
+                        {
+                          "id": "859f1d0f-afb2-4307-98ca-d513274484fb",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/personas/background-sounds/:background_sound_id/complete",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "personas",
+                                "background-sounds",
+                                ":background_sound_id",
+                                "complete"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "background_sound_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:41.000Z",
+                          "updatedAt": "2026-07-28T01:26:41.000Z",
+                          "uid": "35240-859f1d0f-afb2-4307-98ca-d513274484fb"
+                        },
+                        {
+                          "id": "abd579e3-a6f5-4c79-a162-8a6c25d37883",
+                          "name": "Internal server error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/personas/background-sounds/:background_sound_id/complete",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "personas",
+                                "background-sounds",
+                                ":background_sound_id",
+                                "complete"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "background_sound_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:41.000Z",
+                          "updatedAt": "2026-07-28T01:26:41.000Z",
+                          "uid": "35240-abd579e3-a6f5-4c79-a162-8a6c25d37883"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-8d741bbe-edf0-49ec-b6d6-81a59d9f52d2"
+                    }
+                  ],
+                  "id": "02729ffc-a404-4c8e-b0f9-73d96780f935",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-02729ffc-a404-4c8e-b0f9-73d96780f935"
+                },
+                {
+                  "name": "Update background sound",
+                  "id": "7cf9a833-825c-4f07-9988-db3248b73e38",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"default_volume\": \"<float>\",\n  \"acoustic_source_type\": \"point_source\",\n  \"status\": \"active\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/background-sounds/:background_sound_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "background-sounds",
+                        ":background_sound_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "3e3c05c0-55db-4944-bde1-dbc5830e2e5a",
+                          "key": "background_sound_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Rename, set default volume, archive, or restore an organization-owned custom background sound."
+                  },
+                  "response": [
+                    {
+                      "id": "6a319aef-63ee-4016-afb5-37f37835bc00",
+                      "name": "Background sound updated successfully",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"default_volume\": \"<float>\",\n  \"acoustic_source_type\": \"point_source\",\n  \"status\": \"active\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/background-sounds/:background_sound_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            "background-sounds",
+                            ":background_sound_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "background_sound_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"background_sound\": {\n    \"id\": \"<string>\",\n    \"value\": \"<string>\",\n    \"source\": \"built_in\",\n    \"display_name\": \"<string>\",\n    \"status\": \"active\",\n    \"default_volume\": \"<float>\",\n    \"preview_url\": \"<string>\",\n    \"preview_url_expires_at\": \"<dateTime>\",\n    \"content_type\": \"<string>\",\n    \"original_filename\": \"<string>\",\n    \"acoustic_source_type\": \"ambient\",\n    \"metadata\": {\n      \"sint9\": true\n    },\n    \"created_at\": \"<dateTime>\",\n    \"last_updated_at\": \"<dateTime>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-6a319aef-63ee-4016-afb5-37f37835bc00"
+                    },
+                    {
+                      "id": "59f5aae2-5e93-4e3f-ab62-a926005e0991",
+                      "name": "Invalid request parameters",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"default_volume\": \"<float>\",\n  \"acoustic_source_type\": \"point_source\",\n  \"status\": \"active\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/background-sounds/:background_sound_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            "background-sounds",
+                            ":background_sound_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "background_sound_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-59f5aae2-5e93-4e3f-ab62-a926005e0991"
+                    },
+                    {
+                      "id": "504b59b5-4954-4868-b2a7-ca96aacffa17",
+                      "name": "Missing or invalid API key",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"default_volume\": \"<float>\",\n  \"acoustic_source_type\": \"point_source\",\n  \"status\": \"active\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/background-sounds/:background_sound_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            "background-sounds",
+                            ":background_sound_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "background_sound_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-504b59b5-4954-4868-b2a7-ca96aacffa17"
+                    },
+                    {
+                      "id": "b11ada3e-dab6-425d-821b-1b25d81be96a",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"default_volume\": \"<float>\",\n  \"acoustic_source_type\": \"point_source\",\n  \"status\": \"active\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/background-sounds/:background_sound_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            "background-sounds",
+                            ":background_sound_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "background_sound_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-b11ada3e-dab6-425d-821b-1b25d81be96a"
+                    },
+                    {
+                      "id": "cc0bd033-7261-4bc6-9d77-a1838018f468",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"default_volume\": \"<float>\",\n  \"acoustic_source_type\": \"point_source\",\n  \"status\": \"active\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/personas/background-sounds/:background_sound_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "personas",
+                            "background-sounds",
+                            ":background_sound_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "background_sound_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:41.000Z",
+                      "updatedAt": "2026-07-28T01:26:41.000Z",
+                      "uid": "35240-cc0bd033-7261-4bc6-9d77-a1838018f468"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-7cf9a833-825c-4f07-9988-db3248b73e38"
+                }
+              ],
+              "id": "6f3248f7-94da-4eae-802f-002481ac7114",
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-6f3248f7-94da-4eae-802f-002481ac7114"
+            },
+            {
+              "name": "List background sounds",
+              "id": "56003fea-9718-4dd5-853e-8d523583995b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/personas/background-sounds?include_archived=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas",
+                    "background-sounds"
+                  ],
+                  "query": [
+                    {
+                      "description": "Include archived custom background sounds.",
+                      "key": "include_archived",
+                      "value": "false"
+                    }
+                  ]
+                },
+                "description": "Returns built-in background sounds plus custom sounds owned by the authenticated organization."
+              },
+              "response": [
+                {
+                  "id": "0536bf52-dbcf-42c1-9e1a-e4abab9aaab2",
+                  "name": "Successful response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/background-sounds?include_archived=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "background-sounds"
+                      ],
+                      "query": [
+                        {
+                          "description": "Include archived custom background sounds.",
+                          "key": "include_archived",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"background_sounds\": [\n    {\n      \"id\": \"<string>\",\n      \"value\": \"<string>\",\n      \"source\": \"custom\",\n      \"display_name\": \"<string>\",\n      \"status\": \"pending_upload\",\n      \"default_volume\": \"<float>\",\n      \"preview_url\": \"<string>\",\n      \"preview_url_expires_at\": \"<dateTime>\",\n      \"content_type\": \"<string>\",\n      \"original_filename\": \"<string>\",\n      \"acoustic_source_type\": \"point_source\",\n      \"metadata\": {\n        \"ut_5b2\": 26046492.47273451,\n        \"nisi_\": -23408928.925834298,\n        \"tempor0\": -34746965.823263355\n      },\n      \"created_at\": \"<dateTime>\",\n      \"last_updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"value\": \"<string>\",\n      \"source\": \"built_in\",\n      \"display_name\": \"<string>\",\n      \"status\": \"active\",\n      \"default_volume\": \"<float>\",\n      \"preview_url\": \"<string>\",\n      \"preview_url_expires_at\": \"<dateTime>\",\n      \"content_type\": \"<string>\",\n      \"original_filename\": \"<string>\",\n      \"acoustic_source_type\": \"point_source\",\n      \"metadata\": {\n        \"adcbd\": \"laboris nisi\",\n        \"ullamco_cee\": \"ut magna cillum ut tempor\",\n        \"dolor_23e\": true,\n        \"sed_fe1\": 92476332.66155875\n      },\n      \"created_at\": \"<dateTime>\",\n      \"last_updated_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-0536bf52-dbcf-42c1-9e1a-e4abab9aaab2"
+                },
+                {
+                  "id": "894e0df5-7e3e-4463-a5e6-5f421fc9b479",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/background-sounds?include_archived=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "background-sounds"
+                      ],
+                      "query": [
+                        {
+                          "description": "Include archived custom background sounds.",
+                          "key": "include_archived",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-894e0df5-7e3e-4463-a5e6-5f421fc9b479"
+                },
+                {
+                  "id": "486f2441-d52d-4dee-88a4-83c2140c4d3b",
+                  "name": "Missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/background-sounds?include_archived=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "background-sounds"
+                      ],
+                      "query": [
+                        {
+                          "description": "Include archived custom background sounds.",
+                          "key": "include_archived",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-486f2441-d52d-4dee-88a4-83c2140c4d3b"
+                },
+                {
+                  "id": "6639b992-64fb-485b-911d-436acbcfce07",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/background-sounds?include_archived=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "background-sounds"
+                      ],
+                      "query": [
+                        {
+                          "description": "Include archived custom background sounds.",
+                          "key": "include_archived",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-6639b992-64fb-485b-911d-436acbcfce07"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-56003fea-9718-4dd5-853e-8d523583995b"
+            },
+            {
+              "name": "Create background sound upload",
+              "id": "cfbf1ef7-3e3d-46ee-a774-ea555d6e229f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"original_filename\": \"<string>\",\n  \"content_type\": \"audio/wave\",\n  \"default_volume\": 0.3,\n  \"acoustic_source_type\": \"point_source\",\n  \"metadata\": {\n    \"anim_f\": -59020129.677716814,\n    \"qui_2f1\": \"eiusmod mollit eu irure dolore\",\n    \"id3\": \"ipsum Duis reprehenderit\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/personas/background-sounds",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas",
+                    "background-sounds"
+                  ]
+                },
+                "description": "Creates a pending custom background sound and returns a short-lived private S3 upload form."
+              },
+              "response": [
+                {
+                  "id": "44e7b37f-7147-462e-ad09-74045ae5e634",
+                  "name": "Upload created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"original_filename\": \"<string>\",\n  \"content_type\": \"audio/wave\",\n  \"default_volume\": 0.3,\n  \"acoustic_source_type\": \"point_source\",\n  \"metadata\": {\n    \"anim_f\": -59020129.677716814,\n    \"qui_2f1\": \"eiusmod mollit eu irure dolore\",\n    \"id3\": \"ipsum Duis reprehenderit\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/background-sounds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "background-sounds"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"background_sound\": {\n    \"id\": \"<string>\",\n    \"value\": \"<string>\",\n    \"source\": \"custom\",\n    \"display_name\": \"<string>\",\n    \"status\": \"active\",\n    \"default_volume\": \"<float>\",\n    \"preview_url\": \"<string>\",\n    \"preview_url_expires_at\": \"<dateTime>\",\n    \"content_type\": \"<string>\",\n    \"original_filename\": \"<string>\",\n    \"acoustic_source_type\": \"ambient\",\n    \"metadata\": {\n      \"dolore0e4\": false,\n      \"reprehenderite1\": -25739385\n    },\n    \"created_at\": \"<dateTime>\",\n    \"last_updated_at\": \"<dateTime>\"\n  },\n  \"upload_url\": \"<string>\",\n  \"upload_fields\": {\n    \"officia_d\": \"<string>\",\n    \"officia_90f\": \"<string>\"\n  },\n  \"expires_at\": \"<dateTime>\",\n  \"max_size_bytes\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-44e7b37f-7147-462e-ad09-74045ae5e634"
+                },
+                {
+                  "id": "79932a7b-afdd-4a4b-9afc-da2a2f206fba",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"original_filename\": \"<string>\",\n  \"content_type\": \"audio/wave\",\n  \"default_volume\": 0.3,\n  \"acoustic_source_type\": \"point_source\",\n  \"metadata\": {\n    \"anim_f\": -59020129.677716814,\n    \"qui_2f1\": \"eiusmod mollit eu irure dolore\",\n    \"id3\": \"ipsum Duis reprehenderit\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/background-sounds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "background-sounds"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-79932a7b-afdd-4a4b-9afc-da2a2f206fba"
+                },
+                {
+                  "id": "34c5e928-cc1a-4f50-ab58-0ed0212ddcd7",
+                  "name": "Missing or invalid API key",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"original_filename\": \"<string>\",\n  \"content_type\": \"audio/wave\",\n  \"default_volume\": 0.3,\n  \"acoustic_source_type\": \"point_source\",\n  \"metadata\": {\n    \"anim_f\": -59020129.677716814,\n    \"qui_2f1\": \"eiusmod mollit eu irure dolore\",\n    \"id3\": \"ipsum Duis reprehenderit\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/background-sounds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "background-sounds"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-34c5e928-cc1a-4f50-ab58-0ed0212ddcd7"
+                },
+                {
+                  "id": "dc18ec6b-ad3e-4a42-a1b6-78faecabbea8",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"original_filename\": \"<string>\",\n  \"content_type\": \"audio/wave\",\n  \"default_volume\": 0.3,\n  \"acoustic_source_type\": \"point_source\",\n  \"metadata\": {\n    \"anim_f\": -59020129.677716814,\n    \"qui_2f1\": \"eiusmod mollit eu irure dolore\",\n    \"id3\": \"ipsum Duis reprehenderit\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/background-sounds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "background-sounds"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-dc18ec6b-ad3e-4a42-a1b6-78faecabbea8"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-cfbf1ef7-3e3d-46ee-a774-ea555d6e229f"
+            }
+          ],
+          "id": "67a8f1ef-133e-4ac8-b231-7a96fa223848",
+          "createdAt": "2026-07-28T01:26:41.000Z",
+          "updatedAt": "2026-07-28T01:26:41.000Z",
+          "uid": "35240-67a8f1ef-133e-4ac8-b231-7a96fa223848"
+        },
+        {
+          "name": "phone-numbers",
+          "item": [
+            {
+              "name": "List phone number mappings",
+              "id": "d0091377-a802-4248-8c91-dc0216ae8b4a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/personas/phone-numbers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas",
+                    "phone-numbers"
+                  ]
+                },
+                "description": "Returns available phone numbers for voice simulations with their index mappings.\nUse these indices when configuring persona caller phone numbers.\n\n- **Inbound**: Phone numbers Coval uses to call your agent\n- **Outbound**: Phone numbers your agent can call to reach the simulated persona\n"
+              },
+              "response": [
+                {
+                  "id": "b88042d1-0619-44dc-a4d0-9d4ddd5bdf7c",
+                  "name": "Successful response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/phone-numbers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "phone-numbers"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"phone_numbers\": {\n    \"inbound\": [\n      {\n        \"index\": \"<integer>\",\n        \"phone_number\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"phone_number\": \"<string>\"\n      }\n    ],\n    \"outbound\": [\n      {\n        \"index\": \"<integer>\",\n        \"phone_number\": \"<string>\"\n      },\n      {\n        \"index\": \"<integer>\",\n        \"phone_number\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-b88042d1-0619-44dc-a4d0-9d4ddd5bdf7c"
+                },
+                {
+                  "id": "d88f0819-2b46-495f-9ada-566dde007a84",
+                  "name": "Missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/phone-numbers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "phone-numbers"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-d88f0819-2b46-495f-9ada-566dde007a84"
+                },
+                {
+                  "id": "6b2a5fe6-bf6c-45b5-969b-9a02c9abbb78",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/phone-numbers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "phone-numbers"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-6b2a5fe6-bf6c-45b5-969b-9a02c9abbb78"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-d0091377-a802-4248-8c91-dc0216ae8b4a"
+            }
+          ],
+          "id": "f1181ebc-da80-4953-9ac7-4c87669f5878",
+          "createdAt": "2026-07-28T01:26:41.000Z",
+          "updatedAt": "2026-07-28T01:26:41.000Z",
+          "uid": "35240-f1181ebc-da80-4953-9ac7-4c87669f5878"
+        },
+        {
+          "name": "voices",
+          "item": [
+            {
+              "name": "List available voices",
+              "id": "388d86bf-080a-4496-a21c-3137e3302bc7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/personas/voices",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas",
+                    "voices"
+                  ]
+                },
+                "description": "Returns available voices with their supported language codes.\nUse this endpoint to discover which voice and language combinations\nare valid when creating or updating personas.\n"
+              },
+              "response": [
+                {
+                  "id": "7f59bfd3-ecfd-4e7b-bc28-c8bb87cc7896",
+                  "name": "Successful response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/voices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "voices"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"voices\": [\n    {\n      \"voice_name\": \"<string>\",\n      \"supported_languages\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"voice_name\": \"<string>\",\n      \"supported_languages\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-7f59bfd3-ecfd-4e7b-bc28-c8bb87cc7896"
+                },
+                {
+                  "id": "731095e3-664f-4832-ab1d-040097b8e72f",
+                  "name": "Missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/voices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "voices"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-731095e3-664f-4832-ab1d-040097b8e72f"
+                },
+                {
+                  "id": "61e6dbee-956c-4dca-8bb2-5effabbc73ec",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/personas/voices",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "personas",
+                        "voices"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:41.000Z",
+                  "updatedAt": "2026-07-28T01:26:41.000Z",
+                  "uid": "35240-61e6dbee-956c-4dca-8bb2-5effabbc73ec"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-388d86bf-080a-4496-a21c-3137e3302bc7"
+            }
+          ],
+          "id": "01524347-e811-4036-b8a1-75acf9dff67c",
+          "createdAt": "2026-07-28T01:26:41.000Z",
+          "updatedAt": "2026-07-28T01:26:41.000Z",
+          "uid": "35240-01524347-e811-4036-b8a1-75acf9dff67c"
+        },
+        {
+          "name": "List personas",
+          "id": "434dadb5-0259-47b0-b8e4-834f08daec50",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/personas?page_size=50&page_token=<string>&filter=<string>&order_by=<string>&tag_filters=<string>&tag_filters=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "personas"
+              ],
+              "query": [
+                {
+                  "description": "Maximum number of personas to return (1-100)",
+                  "key": "page_size",
+                  "value": "50"
+                },
+                {
+                  "description": "Token for retrieving the next page of results",
+                  "key": "page_token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter expression syntax.\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\n\nSupported fields:\n- `name`: Filter by persona name (e.g., `name=Customer` or `name=\"Customer Support\"`)\n- `create_time`: Filter by creation time (e.g., `create_time>\"2025-01-01T00:00:00Z\"`)\n- `update_time`: Filter by update time\n\nExamples:\n- `name=\"Customer Support\"` (quoted - contains space)\n- `create_time>\"2025-01-01T00:00:00Z\"`\n",
+                  "key": "filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Field to order results by.\n\nSupported fields: `create_time`, `update_time`, `name`\n\nFormats:\n- Dash prefix: `-create_time` (descending)\n- Space separated: `create_time desc` (descending)\n- No prefix: `create_time` (ascending)\n",
+                  "key": "order_by",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter personas by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n",
+                  "key": "tag_filters",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter personas by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n",
+                  "key": "tag_filters",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve a paginated list of simulated personas with optional filtering and sorting."
+          },
+          "response": [
+            {
+              "id": "b65010a3-8fb4-4656-a280-ec5912ce4779",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/personas?page_size=50&page_token=<string>&filter=<string>&order_by=<string>&tag_filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of personas to return (1-100)",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Token for retrieving the next page of results",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter expression syntax.\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\n\nSupported fields:\n- `name`: Filter by persona name (e.g., `name=Customer` or `name=\"Customer Support\"`)\n- `create_time`: Filter by creation time (e.g., `create_time>\"2025-01-01T00:00:00Z\"`)\n- `update_time`: Filter by update time\n\nExamples:\n- `name=\"Customer Support\"` (quoted - contains space)\n- `create_time>\"2025-01-01T00:00:00Z\"`\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Field to order results by.\n\nSupported fields: `create_time`, `update_time`, `name`\n\nFormats:\n- Dash prefix: `-create_time` (descending)\n- Space separated: `create_time desc` (descending)\n- No prefix: `create_time` (ascending)\n",
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter personas by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n",
+                      "key": "tag_filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"personas\": [\n    {\n      \"resource_name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"create_time\": \"<dateTime>\",\n      \"persona_prompt\": \"<string>\",\n      \"voice_name\": \"<string>\",\n      \"language_code\": \"<string>\",\n      \"background_sound\": \"small-dog-bark\",\n      \"background_sound_volume\": \"<float>\",\n      \"voice_volume\": \"<float>\",\n      \"voice_speed\": \"<float>\",\n      \"wait_seconds\": \"<float>\",\n      \"conversation_initiation\": \"wait_for_user\",\n      \"multi_language_stt\": \"<boolean>\",\n      \"hold_music_timeout_seconds\": \"<float>\",\n      \"situate_speaker\": \"speakerphone-hard\",\n      \"update_time\": \"<dateTime>\"\n    },\n    {\n      \"resource_name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"create_time\": \"<dateTime>\",\n      \"persona_prompt\": \"<string>\",\n      \"voice_name\": \"<string>\",\n      \"language_code\": \"<string>\",\n      \"background_sound\": \"portable-air-conditioner\",\n      \"background_sound_volume\": \"<float>\",\n      \"voice_volume\": \"<float>\",\n      \"voice_speed\": \"<float>\",\n      \"wait_seconds\": \"<float>\",\n      \"conversation_initiation\": \"speak_first\",\n      \"multi_language_stt\": \"<boolean>\",\n      \"hold_music_timeout_seconds\": \"<float>\",\n      \"situate_speaker\": \"speakerphone-hard\",\n      \"update_time\": \"<dateTime>\"\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-b65010a3-8fb4-4656-a280-ec5912ce4779"
+            },
+            {
+              "id": "63444c50-82a3-431c-aefc-61b56527397d",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/personas?page_size=50&page_token=<string>&filter=<string>&order_by=<string>&tag_filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of personas to return (1-100)",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Token for retrieving the next page of results",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter expression syntax.\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\n\nSupported fields:\n- `name`: Filter by persona name (e.g., `name=Customer` or `name=\"Customer Support\"`)\n- `create_time`: Filter by creation time (e.g., `create_time>\"2025-01-01T00:00:00Z\"`)\n- `update_time`: Filter by update time\n\nExamples:\n- `name=\"Customer Support\"` (quoted - contains space)\n- `create_time>\"2025-01-01T00:00:00Z\"`\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Field to order results by.\n\nSupported fields: `create_time`, `update_time`, `name`\n\nFormats:\n- Dash prefix: `-create_time` (descending)\n- Space separated: `create_time desc` (descending)\n- No prefix: `create_time` (ascending)\n",
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter personas by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n",
+                      "key": "tag_filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-63444c50-82a3-431c-aefc-61b56527397d"
+            },
+            {
+              "id": "8ee8a93d-251a-44ae-82a9-4f1a3aebf816",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/personas?page_size=50&page_token=<string>&filter=<string>&order_by=<string>&tag_filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of personas to return (1-100)",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Token for retrieving the next page of results",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter expression syntax.\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\n\nSupported fields:\n- `name`: Filter by persona name (e.g., `name=Customer` or `name=\"Customer Support\"`)\n- `create_time`: Filter by creation time (e.g., `create_time>\"2025-01-01T00:00:00Z\"`)\n- `update_time`: Filter by update time\n\nExamples:\n- `name=\"Customer Support\"` (quoted - contains space)\n- `create_time>\"2025-01-01T00:00:00Z\"`\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Field to order results by.\n\nSupported fields: `create_time`, `update_time`, `name`\n\nFormats:\n- Dash prefix: `-create_time` (descending)\n- Space separated: `create_time desc` (descending)\n- No prefix: `create_time` (ascending)\n",
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter personas by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n",
+                      "key": "tag_filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-8ee8a93d-251a-44ae-82a9-4f1a3aebf816"
+            },
+            {
+              "id": "baab3d9f-29bb-4bad-983e-33ab6e243d89",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/personas?page_size=50&page_token=<string>&filter=<string>&order_by=<string>&tag_filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of personas to return (1-100)",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Token for retrieving the next page of results",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter expression syntax.\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\n\nSupported fields:\n- `name`: Filter by persona name (e.g., `name=Customer` or `name=\"Customer Support\"`)\n- `create_time`: Filter by creation time (e.g., `create_time>\"2025-01-01T00:00:00Z\"`)\n- `update_time`: Filter by update time\n\nExamples:\n- `name=\"Customer Support\"` (quoted - contains space)\n- `create_time>\"2025-01-01T00:00:00Z\"`\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Field to order results by.\n\nSupported fields: `create_time`, `update_time`, `name`\n\nFormats:\n- Dash prefix: `-create_time` (descending)\n- Space separated: `create_time desc` (descending)\n- No prefix: `create_time` (ascending)\n",
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter personas by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n",
+                      "key": "tag_filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-baab3d9f-29bb-4bad-983e-33ab6e243d89"
+            }
+          ],
+          "createdAt": "2026-07-28T01:26:41.000Z",
+          "updatedAt": "2026-07-28T01:26:41.000Z",
+          "uid": "35240-434dadb5-0259-47b0-b8e4-834f08daec50"
+        },
+        {
+          "name": "Create persona",
+          "id": "7419282d-b983-4362-8d1c-8c3adbe24f9c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"voice_name\": \"<string>\",\n  \"language_code\": \"<string>\",\n  \"persona_prompt\": \"<string>\",\n  \"background_sound\": \"moderate-wind\",\n  \"background_sound_volume\": \"<float>\",\n  \"voice_volume\": \"<float>\",\n  \"voice_speed\": \"<float>\",\n  \"wait_seconds\": \"<float>\",\n  \"conversation_initiation\": \"wait_for_user\",\n  \"multi_language_stt\": \"<boolean>\",\n  \"hold_music_timeout_seconds\": \"<float>\",\n  \"situate_speaker\": \"speakerphone-easy\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/personas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "personas"
+              ]
+            },
+            "description": "Create a new simulated persona with specified voice characteristics and behavior configuration."
+          },
+          "response": [
+            {
+              "id": "87e15b62-72c2-4d15-b8ca-05c5f1769595",
+              "name": "Persona created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"voice_name\": \"<string>\",\n  \"language_code\": \"<string>\",\n  \"persona_prompt\": \"<string>\",\n  \"background_sound\": \"moderate-wind\",\n  \"background_sound_volume\": \"<float>\",\n  \"voice_volume\": \"<float>\",\n  \"voice_speed\": \"<float>\",\n  \"wait_seconds\": \"<float>\",\n  \"conversation_initiation\": \"wait_for_user\",\n  \"multi_language_stt\": \"<boolean>\",\n  \"hold_music_timeout_seconds\": \"<float>\",\n  \"situate_speaker\": \"speakerphone-easy\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/personas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"persona\": {\n    \"resource_name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"create_time\": \"<dateTime>\",\n    \"persona_prompt\": \"<string>\",\n    \"voice_name\": \"<string>\",\n    \"language_code\": \"<string>\",\n    \"background_sound\": \"small-dog-bark\",\n    \"background_sound_volume\": \"<float>\",\n    \"voice_volume\": \"<float>\",\n    \"voice_speed\": \"<float>\",\n    \"wait_seconds\": \"<float>\",\n    \"conversation_initiation\": \"speak_first\",\n    \"multi_language_stt\": \"<boolean>\",\n    \"hold_music_timeout_seconds\": \"<float>\",\n    \"situate_speaker\": \"speakerphone-easy\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-87e15b62-72c2-4d15-b8ca-05c5f1769595"
+            },
+            {
+              "id": "6582b07b-20b3-4c96-ac23-cfbb2486f6a8",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"voice_name\": \"<string>\",\n  \"language_code\": \"<string>\",\n  \"persona_prompt\": \"<string>\",\n  \"background_sound\": \"moderate-wind\",\n  \"background_sound_volume\": \"<float>\",\n  \"voice_volume\": \"<float>\",\n  \"voice_speed\": \"<float>\",\n  \"wait_seconds\": \"<float>\",\n  \"conversation_initiation\": \"wait_for_user\",\n  \"multi_language_stt\": \"<boolean>\",\n  \"hold_music_timeout_seconds\": \"<float>\",\n  \"situate_speaker\": \"speakerphone-easy\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/personas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-6582b07b-20b3-4c96-ac23-cfbb2486f6a8"
+            },
+            {
+              "id": "effbbdae-c96f-4579-83f5-8139881d733c",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"voice_name\": \"<string>\",\n  \"language_code\": \"<string>\",\n  \"persona_prompt\": \"<string>\",\n  \"background_sound\": \"moderate-wind\",\n  \"background_sound_volume\": \"<float>\",\n  \"voice_volume\": \"<float>\",\n  \"voice_speed\": \"<float>\",\n  \"wait_seconds\": \"<float>\",\n  \"conversation_initiation\": \"wait_for_user\",\n  \"multi_language_stt\": \"<boolean>\",\n  \"hold_music_timeout_seconds\": \"<float>\",\n  \"situate_speaker\": \"speakerphone-easy\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/personas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-effbbdae-c96f-4579-83f5-8139881d733c"
+            },
+            {
+              "id": "b505cfe5-158b-4332-b39d-cd8bcab4b43c",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"voice_name\": \"<string>\",\n  \"language_code\": \"<string>\",\n  \"persona_prompt\": \"<string>\",\n  \"background_sound\": \"moderate-wind\",\n  \"background_sound_volume\": \"<float>\",\n  \"voice_volume\": \"<float>\",\n  \"voice_speed\": \"<float>\",\n  \"wait_seconds\": \"<float>\",\n  \"conversation_initiation\": \"wait_for_user\",\n  \"multi_language_stt\": \"<boolean>\",\n  \"hold_music_timeout_seconds\": \"<float>\",\n  \"situate_speaker\": \"speakerphone-easy\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/personas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "personas"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:26:41.000Z",
+              "updatedAt": "2026-07-28T01:26:41.000Z",
+              "uid": "35240-b505cfe5-158b-4332-b39d-cd8bcab4b43c"
+            }
+          ],
+          "createdAt": "2026-07-28T01:26:41.000Z",
+          "updatedAt": "2026-07-28T01:26:41.000Z",
+          "uid": "35240-7419282d-b983-4362-8d1c-8c3adbe24f9c"
+        }
+      ],
+      "id": "2f2c6c6b-c92d-4ed9-9a9f-23c414b8901b",
+      "createdAt": "2026-07-28T01:26:41.000Z",
+      "updatedAt": "2026-07-28T01:26:41.000Z",
+      "uid": "35240-2f2c6c6b-c92d-4ed9-9a9f-23c414b8901b"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

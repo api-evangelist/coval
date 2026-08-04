@@ -1,0 +1,2531 @@
+{
+  "info": {
+    "_postman_id": "b6cbc28f-f2d1-4e54-81c8-58cafda5c519",
+    "name": "Coval Agents Simulations API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:27:26.000Z",
+    "updatedAt": "2026-07-28T01:27:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b6cbc28f-f2d1-4e54-81c8-58cafda5c519"
+  },
+  "item": [
+    {
+      "name": "simulations",
+      "item": [
+        {
+          "name": "{simulation_id}",
+          "item": [
+            {
+              "name": "resimulate",
+              "item": [
+                {
+                  "name": "Rerun a simulation",
+                  "id": "f0314bfd-4701-41a2-9a7e-cae40b4414f4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id/resimulate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id",
+                        "resimulate"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b5d27e60-225f-4cc6-a53e-b3d82894a839",
+                          "key": "simulation_id",
+                          "value": "<string>",
+                          "description": "(Required) The simulation ID to rerun"
+                        }
+                      ]
+                    },
+                    "description": "Requeue a single existing simulation to run again in place.\nThe currently visible result for this simulation will be overwritten when the rerun completes.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "c74a18d9-a25f-4ce6-8896-f72bd0edcf73",
+                      "name": "Simulation rerun was accepted and queued",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/resimulate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "resimulate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"simulation_id\": \"<string>\",\n  \"run_id\": \"<string>\",\n  \"queued\": \"<boolean>\",\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:27:27.000Z",
+                      "updatedAt": "2026-07-28T01:27:27.000Z",
+                      "uid": "35240-c74a18d9-a25f-4ce6-8896-f72bd0edcf73"
+                    },
+                    {
+                      "id": "7fd9d674-dcc6-4f12-8533-ee2f03c81e6b",
+                      "name": "Missing or invalid API key",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/resimulate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "resimulate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:27.000Z",
+                      "updatedAt": "2026-07-28T01:27:27.000Z",
+                      "uid": "35240-7fd9d674-dcc6-4f12-8533-ee2f03c81e6b"
+                    },
+                    {
+                      "id": "28798301-8b43-4469-a656-ccf4c768a869",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/resimulate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "resimulate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:27.000Z",
+                      "updatedAt": "2026-07-28T01:27:27.000Z",
+                      "uid": "35240-28798301-8b43-4469-a656-ccf4c768a869"
+                    },
+                    {
+                      "id": "2f4cfb92-7f49-4a07-a356-0de5f4fff6fa",
+                      "name": "Request is valid but the simulation cannot currently be rerun",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/resimulate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "resimulate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Precondition Failed",
+                      "code": 412,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:27.000Z",
+                      "updatedAt": "2026-07-28T01:27:27.000Z",
+                      "uid": "35240-2f4cfb92-7f49-4a07-a356-0de5f4fff6fa"
+                    },
+                    {
+                      "id": "43808b17-d06b-4c7a-b6dc-27a769fde18b",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/resimulate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "resimulate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:27.000Z",
+                      "updatedAt": "2026-07-28T01:27:27.000Z",
+                      "uid": "35240-43808b17-d06b-4c7a-b6dc-27a769fde18b"
+                    },
+                    {
+                      "id": "bc53a861-c5ef-46f7-b6db-f4a521707543",
+                      "name": "Service temporarily unavailable",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/resimulate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "resimulate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:27.000Z",
+                      "updatedAt": "2026-07-28T01:27:27.000Z",
+                      "uid": "35240-bc53a861-c5ef-46f7-b6db-f4a521707543"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-f0314bfd-4701-41a2-9a7e-cae40b4414f4"
+                }
+              ],
+              "id": "d26c96fe-3add-4477-be4a-eb23f6a9fbf1",
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-d26c96fe-3add-4477-be4a-eb23f6a9fbf1"
+            },
+            {
+              "name": "audio",
+              "item": [
+                {
+                  "name": "Get audio file URL",
+                  "id": "cc1a5d76-f6a0-42c2-9bf5-9955292d4628",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id/audio",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id",
+                        "audio"
+                      ],
+                      "variable": [
+                        {
+                          "id": "fa400556-826b-4715-b5af-508a1ddf8eb1",
+                          "key": "simulation_id",
+                          "value": "<string>",
+                          "description": "(Required) The simulation ID"
+                        }
+                      ]
+                    },
+                    "description": "Get a download URL for the simulation audio recording."
+                  },
+                  "response": [
+                    {
+                      "id": "691fafb1-3dac-41fe-88ba-211f23e53216",
+                      "name": "Presigned audio URL",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/audio",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "audio"
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"audio_url\": \"<uri>\",\n  \"simulation_id\": \"<string>\",\n  \"url_expires_in_seconds\": \"<integer>\",\n  \"peaks_url\": \"<uri>\"\n}",
+                      "createdAt": "2026-07-28T01:27:27.000Z",
+                      "updatedAt": "2026-07-28T01:27:27.000Z",
+                      "uid": "35240-691fafb1-3dac-41fe-88ba-211f23e53216"
+                    },
+                    {
+                      "id": "dd6807ba-285c-49f7-8d91-53fc2feaf679",
+                      "name": "Missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/audio",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "audio"
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:27.000Z",
+                      "updatedAt": "2026-07-28T01:27:27.000Z",
+                      "uid": "35240-dd6807ba-285c-49f7-8d91-53fc2feaf679"
+                    },
+                    {
+                      "id": "1496b623-b301-4a4f-8232-e665186de5b7",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/audio",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "audio"
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:27.000Z",
+                      "updatedAt": "2026-07-28T01:27:27.000Z",
+                      "uid": "35240-1496b623-b301-4a4f-8232-e665186de5b7"
+                    },
+                    {
+                      "id": "eaaebe1e-20b5-4bb8-b9d7-15fdc2e25449",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/audio",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "audio"
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:27.000Z",
+                      "updatedAt": "2026-07-28T01:27:27.000Z",
+                      "uid": "35240-eaaebe1e-20b5-4bb8-b9d7-15fdc2e25449"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-cc1a5d76-f6a0-42c2-9bf5-9955292d4628"
+                }
+              ],
+              "id": "f9edf783-e680-45e2-9fc2-448fb136de33",
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-f9edf783-e680-45e2-9fc2-448fb136de33"
+            },
+            {
+              "name": "Get simulation",
+              "id": "a786101a-f9b7-46b7-9932-b38029fc9e48",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/simulations/:simulation_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations",
+                    ":simulation_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "d84d468f-8301-4dc1-89c9-069e8a02a47f",
+                      "key": "simulation_id",
+                      "value": "<string>",
+                      "description": "(Required) The simulation ID"
+                    }
+                  ]
+                },
+                "description": "Get a simulation by ID."
+              },
+              "response": [
+                {
+                  "id": "c58cdb60-716e-4ed5-a3f6-781835598423",
+                  "name": "Simulation resource",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"simulation\": {\n    \"name\": \"<string>\",\n    \"simulation_id\": \"<string>\",\n    \"run_id\": \"<string>\",\n    \"status\": \"IN QUEUE\",\n    \"create_time\": \"<dateTime>\",\n    \"has_audio\": \"<boolean>\",\n    \"agent_id\": \"<string>\",\n    \"persona_id\": \"<string>\",\n    \"test_set_id\": \"<string>\",\n    \"test_case_id\": \"<string>\",\n    \"source\": {\n      \"type\": \"phone\",\n      \"value\": \"<string>\"\n    },\n    \"destination\": {\n      \"type\": \"phone\",\n      \"value\": \"<string>\"\n    },\n    \"error_message\": \"<string>\",\n    \"mutation_id\": \"<string>\",\n    \"mutation_name\": \"<string>\",\n    \"notes\": \"<string>\",\n    \"is_public\": \"<boolean>\",\n    \"transcript\": [\n      {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\",\n        \"start_timestamp\": \"<string>\",\n        \"end_timestamp\": \"<string>\",\n        \"start_offset\": \"<integer>\",\n        \"end_offset\": \"<integer>\"\n      },\n      {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\",\n        \"start_timestamp\": \"<string>\",\n        \"end_timestamp\": \"<string>\",\n        \"start_offset\": \"<integer>\",\n        \"end_offset\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-c58cdb60-716e-4ed5-a3f6-781835598423"
+                },
+                {
+                  "id": "baac4fde-2492-4ca4-a6ac-24c9b9cdc45e",
+                  "name": "Missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-baac4fde-2492-4ca4-a6ac-24c9b9cdc45e"
+                },
+                {
+                  "id": "0d5e0163-d840-4004-a689-ce219a3b038b",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-0d5e0163-d840-4004-a689-ce219a3b038b"
+                },
+                {
+                  "id": "c1402ba2-acf2-4f5a-b18c-3e50a59c2138",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-c1402ba2-acf2-4f5a-b18c-3e50a59c2138"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-a786101a-f9b7-46b7-9932-b38029fc9e48"
+            },
+            {
+              "name": "Update simulation",
+              "id": "34807e3b-51c7-4837-ad88-7a818217ea98",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"is_public\": \"<boolean>\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/simulations/:simulation_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations",
+                    ":simulation_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "3e1e89c2-bf3d-4c3d-bff1-4930a45f3344",
+                      "key": "simulation_id",
+                      "value": "<string>",
+                      "description": "(Required) The simulation ID"
+                    }
+                  ]
+                },
+                "description": "Update specific fields of a simulation.\nAll fields are optional (PATCH semantics). Only provided fields will be updated.\n"
+              },
+              "response": [
+                {
+                  "id": "67f60b61-b6d3-467f-8592-d987a3c0d135",
+                  "name": "Simulation updated successfully",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"is_public\": \"<boolean>\",\n  \"notes\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"simulation\": {\n    \"name\": \"<string>\",\n    \"simulation_id\": \"<string>\",\n    \"run_id\": \"<string>\",\n    \"status\": \"IN QUEUE\",\n    \"create_time\": \"<dateTime>\",\n    \"has_audio\": \"<boolean>\",\n    \"agent_id\": \"<string>\",\n    \"persona_id\": \"<string>\",\n    \"test_set_id\": \"<string>\",\n    \"test_case_id\": \"<string>\",\n    \"source\": {\n      \"type\": \"phone\",\n      \"value\": \"<string>\"\n    },\n    \"destination\": {\n      \"type\": \"phone\",\n      \"value\": \"<string>\"\n    },\n    \"error_message\": \"<string>\",\n    \"mutation_id\": \"<string>\",\n    \"mutation_name\": \"<string>\",\n    \"notes\": \"<string>\",\n    \"is_public\": \"<boolean>\",\n    \"transcript\": [\n      {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\",\n        \"start_timestamp\": \"<string>\",\n        \"end_timestamp\": \"<string>\",\n        \"start_offset\": \"<integer>\",\n        \"end_offset\": \"<integer>\"\n      },\n      {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\",\n        \"start_timestamp\": \"<string>\",\n        \"end_timestamp\": \"<string>\",\n        \"start_offset\": \"<integer>\",\n        \"end_offset\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-67f60b61-b6d3-467f-8592-d987a3c0d135"
+                },
+                {
+                  "id": "7b700398-e4c0-4cda-a7af-a49f1fbcf54e",
+                  "name": "Request validation failed",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"is_public\": \"<boolean>\",\n  \"notes\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-7b700398-e4c0-4cda-a7af-a49f1fbcf54e"
+                },
+                {
+                  "id": "57b24f9d-05e2-410d-a7a4-e76db43abfc6",
+                  "name": "Missing or invalid API key",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"is_public\": \"<boolean>\",\n  \"notes\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-57b24f9d-05e2-410d-a7a4-e76db43abfc6"
+                },
+                {
+                  "id": "4e1bd202-ca98-4050-aec5-165316ac6a84",
+                  "name": "Insufficient permissions",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"is_public\": \"<boolean>\",\n  \"notes\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-4e1bd202-ca98-4050-aec5-165316ac6a84"
+                },
+                {
+                  "id": "7af10907-113a-4b08-aa1f-0221edfa053b",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"is_public\": \"<boolean>\",\n  \"notes\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-7af10907-113a-4b08-aa1f-0221edfa053b"
+                },
+                {
+                  "id": "d99c6219-ed0c-44fe-94e0-d016d9ea7271",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"is_public\": \"<boolean>\",\n  \"notes\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-d99c6219-ed0c-44fe-94e0-d016d9ea7271"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-34807e3b-51c7-4837-ad88-7a818217ea98"
+            },
+            {
+              "name": "Delete or cancel simulation",
+              "id": "58487655-e46f-4063-bd6e-b9eab0d44301",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/simulations/:simulation_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations",
+                    ":simulation_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "23da182b-dad2-45cb-afdf-0bc59695b558",
+                      "key": "simulation_id",
+                      "value": "<string>",
+                      "description": "(Required) The simulation ID to delete/cancel"
+                    }
+                  ]
+                },
+                "description": "Cancel or delete a simulation."
+              },
+              "response": [
+                {
+                  "id": "2053195d-2a52-44d7-9aba-81f1bee892a0",
+                  "name": "Simulation deleted or cancelled successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-2053195d-2a52-44d7-9aba-81f1bee892a0"
+                },
+                {
+                  "id": "8e57d9da-d4c4-4e7a-bda2-0094bc62c3dd",
+                  "name": "Missing or invalid API key",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-8e57d9da-d4c4-4e7a-bda2-0094bc62c3dd"
+                },
+                {
+                  "id": "9fb9ff6a-1a82-4373-abfb-3ee895c9f13a",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-9fb9ff6a-1a82-4373-abfb-3ee895c9f13a"
+                },
+                {
+                  "id": "1b225c82-21d5-48ea-bd05-c86a2c07ab83",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "simulation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:27.000Z",
+                  "updatedAt": "2026-07-28T01:27:27.000Z",
+                  "uid": "35240-1b225c82-21d5-48ea-bd05-c86a2c07ab83"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-58487655-e46f-4063-bd6e-b9eab0d44301"
+            }
+          ],
+          "id": "285a9605-4e04-4710-a62f-fbc29e909411",
+          "createdAt": "2026-07-28T01:27:27.000Z",
+          "updatedAt": "2026-07-28T01:27:27.000Z",
+          "uid": "35240-285a9605-4e04-4710-a62f-fbc29e909411"
+        },
+        {
+          "name": "List simulations",
+          "id": "c7f7212f-c795-487b-8d68-3fedbf15560c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/simulations?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "simulations"
+              ],
+              "query": [
+                {
+                  "description": "Filter expression syntax.\n\nSupported fields: `status`, `agent_id`, `persona_id`, `test_set_id`, `test_case_id`, `run_id`, `external_conversation_id`, `mutation_id`, `mutation_name`, `create_time`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n\nThe `external_conversation_id` field is your system's conversation ID for cross-system lookup.\n\n**Mutation Filtering:** Use `mutation_id` or `mutation_name` to filter simulations by agent mutation variant.\nBase agent simulations have both `mutation_id` and `mutation_name` = null.\nTo get only base agent results, filter for simulations where `mutation_id` is not set.\n",
+                  "key": "filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Maximum number of results per page",
+                  "key": "page_size",
+                  "value": "50"
+                },
+                {
+                  "description": "Opaque pagination token from previous response",
+                  "key": "page_token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `create_time`, `status`\n",
+                  "key": "order_by",
+                  "value": "-create_time"
+                }
+              ]
+            },
+            "description": "List simulations with optional filtering and sorting."
+          },
+          "response": [
+            {
+              "id": "0866b19b-bb2c-41ab-8dc8-624e9e9cca43",
+              "name": "List of simulations",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/simulations?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\n\nSupported fields: `status`, `agent_id`, `persona_id`, `test_set_id`, `test_case_id`, `run_id`, `external_conversation_id`, `mutation_id`, `mutation_name`, `create_time`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n\nThe `external_conversation_id` field is your system's conversation ID for cross-system lookup.\n\n**Mutation Filtering:** Use `mutation_id` or `mutation_name` to filter simulations by agent mutation variant.\nBase agent simulations have both `mutation_id` and `mutation_name` = null.\nTo get only base agent results, filter for simulations where `mutation_id` is not set.\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `create_time`, `status`\n",
+                      "key": "order_by",
+                      "value": "-create_time"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"simulations\": [\n    {\n      \"name\": \"<string>\",\n      \"simulation_id\": \"<string>\",\n      \"run_id\": \"<string>\",\n      \"status\": \"IN PROGRESS\",\n      \"create_time\": \"<dateTime>\",\n      \"has_audio\": \"<boolean>\",\n      \"agent_id\": \"<string>\",\n      \"persona_id\": \"<string>\",\n      \"test_set_id\": \"<string>\",\n      \"test_case_id\": \"<string>\",\n      \"source\": {\n        \"type\": \"phone\",\n        \"value\": \"<string>\"\n      },\n      \"destination\": {\n        \"type\": \"phone\",\n        \"value\": \"<string>\"\n      },\n      \"error_message\": \"<string>\",\n      \"mutation_id\": \"<string>\",\n      \"mutation_name\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"is_public\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"simulation_id\": \"<string>\",\n      \"run_id\": \"<string>\",\n      \"status\": \"IN PROGRESS\",\n      \"create_time\": \"<dateTime>\",\n      \"has_audio\": \"<boolean>\",\n      \"agent_id\": \"<string>\",\n      \"persona_id\": \"<string>\",\n      \"test_set_id\": \"<string>\",\n      \"test_case_id\": \"<string>\",\n      \"source\": {\n        \"type\": \"phone\",\n        \"value\": \"<string>\"\n      },\n      \"destination\": {\n        \"type\": \"phone\",\n        \"value\": \"<string>\"\n      },\n      \"error_message\": \"<string>\",\n      \"mutation_id\": \"<string>\",\n      \"mutation_name\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"is_public\": \"<boolean>\"\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-0866b19b-bb2c-41ab-8dc8-624e9e9cca43"
+            },
+            {
+              "id": "7ec3131d-6b8b-4645-a17c-9023463b703e",
+              "name": "Request validation failed",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/simulations?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\n\nSupported fields: `status`, `agent_id`, `persona_id`, `test_set_id`, `test_case_id`, `run_id`, `external_conversation_id`, `mutation_id`, `mutation_name`, `create_time`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n\nThe `external_conversation_id` field is your system's conversation ID for cross-system lookup.\n\n**Mutation Filtering:** Use `mutation_id` or `mutation_name` to filter simulations by agent mutation variant.\nBase agent simulations have both `mutation_id` and `mutation_name` = null.\nTo get only base agent results, filter for simulations where `mutation_id` is not set.\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `create_time`, `status`\n",
+                      "key": "order_by",
+                      "value": "-create_time"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-7ec3131d-6b8b-4645-a17c-9023463b703e"
+            },
+            {
+              "id": "31b8c543-71ef-42e1-9f08-4876bf375272",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/simulations?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\n\nSupported fields: `status`, `agent_id`, `persona_id`, `test_set_id`, `test_case_id`, `run_id`, `external_conversation_id`, `mutation_id`, `mutation_name`, `create_time`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n\nThe `external_conversation_id` field is your system's conversation ID for cross-system lookup.\n\n**Mutation Filtering:** Use `mutation_id` or `mutation_name` to filter simulations by agent mutation variant.\nBase agent simulations have both `mutation_id` and `mutation_name` = null.\nTo get only base agent results, filter for simulations where `mutation_id` is not set.\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `create_time`, `status`\n",
+                      "key": "order_by",
+                      "value": "-create_time"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-31b8c543-71ef-42e1-9f08-4876bf375272"
+            },
+            {
+              "id": "a353d6bb-d03e-4697-a105-ef3ef5a98615",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/simulations?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\n\nSupported fields: `status`, `agent_id`, `persona_id`, `test_set_id`, `test_case_id`, `run_id`, `external_conversation_id`, `mutation_id`, `mutation_name`, `create_time`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n\nThe `external_conversation_id` field is your system's conversation ID for cross-system lookup.\n\n**Mutation Filtering:** Use `mutation_id` or `mutation_name` to filter simulations by agent mutation variant.\nBase agent simulations have both `mutation_id` and `mutation_name` = null.\nTo get only base agent results, filter for simulations where `mutation_id` is not set.\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `create_time`, `status`\n",
+                      "key": "order_by",
+                      "value": "-create_time"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-a353d6bb-d03e-4697-a105-ef3ef5a98615"
+            }
+          ],
+          "createdAt": "2026-07-28T01:27:27.000Z",
+          "updatedAt": "2026-07-28T01:27:27.000Z",
+          "uid": "35240-c7f7212f-c795-487b-8d68-3fedbf15560c"
+        }
+      ],
+      "id": "53d3e82e-80da-40dc-82c9-a07e4ecb620a",
+      "createdAt": "2026-07-28T01:27:27.000Z",
+      "updatedAt": "2026-07-28T01:27:27.000Z",
+      "uid": "35240-53d3e82e-80da-40dc-82c9-a07e4ecb620a"
+    },
+    {
+      "name": "simulations:rerunMetrics",
+      "item": [
+        {
+          "name": "Batch rerun metrics",
+          "id": "a7563b27-289d-4eea-806c-b3da5a03bb7a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"simulation_ids\": [\n    \"<string>\"\n  ],\n  \"metric_ids\": [\n    \"<string>\"\n  ],\n  \"dev_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/simulations:rerunMetrics",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "simulations:rerunMetrics"
+              ]
+            },
+            "description": "Re-score a set of metrics against a set of existing simulations without re-running the\nsimulations. The same metrics are applied to every simulation (metrics x simulations).\nLimits: up to 100 simulations, up to 500 metrics, and at most 500 total reruns\n(simulation_ids x metric_ids) per call. Best-effort per simulation: valid simulations are\nqueued and a per-simulation status is returned. Existing metric results are overwritten\nwhen each rerun completes.\n"
+          },
+          "response": [
+            {
+              "id": "a288eeb9-fe36-4c03-a2c9-150dc7ead4cc",
+              "name": "All simulations were queued",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simulation_ids\": [\n    \"<string>\"\n  ],\n  \"metric_ids\": [\n    \"<string>\"\n  ],\n  \"dev_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/simulations:rerunMetrics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations:rerunMetrics"
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"results\": [\n    {\n      \"simulation_id\": \"<string>\",\n      \"status\": \"NOT_FOUND\",\n      \"error\": \"<string>\"\n    },\n    {\n      \"simulation_id\": \"<string>\",\n      \"status\": \"ENQUEUE_FAILED\",\n      \"error\": \"<string>\"\n    }\n  ],\n  \"queued_count\": \"<integer>\",\n  \"failed_count\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-a288eeb9-fe36-4c03-a2c9-150dc7ead4cc"
+            },
+            {
+              "id": "77b16fae-aed1-45d8-b442-8d319490f771",
+              "name": "Some simulations could not be queued; see per-simulation statuses",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simulation_ids\": [\n    \"<string>\"\n  ],\n  \"metric_ids\": [\n    \"<string>\"\n  ],\n  \"dev_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/simulations:rerunMetrics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations:rerunMetrics"
+                  ]
+                }
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"results\": [\n    {\n      \"simulation_id\": \"<string>\",\n      \"status\": \"NOT_FOUND\",\n      \"error\": \"<string>\"\n    },\n    {\n      \"simulation_id\": \"<string>\",\n      \"status\": \"ENQUEUE_FAILED\",\n      \"error\": \"<string>\"\n    }\n  ],\n  \"queued_count\": \"<integer>\",\n  \"failed_count\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-77b16fae-aed1-45d8-b442-8d319490f771"
+            },
+            {
+              "id": "7588e618-8808-4192-bc72-a29c475bddd5",
+              "name": "Request validation failed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simulation_ids\": [\n    \"<string>\"\n  ],\n  \"metric_ids\": [\n    \"<string>\"\n  ],\n  \"dev_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/simulations:rerunMetrics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations:rerunMetrics"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-7588e618-8808-4192-bc72-a29c475bddd5"
+            },
+            {
+              "id": "e2f9de1d-84f0-4ba0-88a8-a6ac2b9f4fdc",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simulation_ids\": [\n    \"<string>\"\n  ],\n  \"metric_ids\": [\n    \"<string>\"\n  ],\n  \"dev_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/simulations:rerunMetrics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations:rerunMetrics"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-e2f9de1d-84f0-4ba0-88a8-a6ac2b9f4fdc"
+            },
+            {
+              "id": "e4049630-e238-4a49-a2f0-2d78a10afea8",
+              "name": "Resource not found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simulation_ids\": [\n    \"<string>\"\n  ],\n  \"metric_ids\": [\n    \"<string>\"\n  ],\n  \"dev_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/simulations:rerunMetrics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations:rerunMetrics"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-e4049630-e238-4a49-a2f0-2d78a10afea8"
+            },
+            {
+              "id": "c9ff49ef-7849-4b46-ad10-e05f3ab4e1e1",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simulation_ids\": [\n    \"<string>\"\n  ],\n  \"metric_ids\": [\n    \"<string>\"\n  ],\n  \"dev_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/simulations:rerunMetrics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations:rerunMetrics"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-c9ff49ef-7849-4b46-ad10-e05f3ab4e1e1"
+            },
+            {
+              "id": "0467376b-8f15-482c-8b68-7801d9ff836f",
+              "name": "Service temporarily unavailable",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simulation_ids\": [\n    \"<string>\"\n  ],\n  \"metric_ids\": [\n    \"<string>\"\n  ],\n  \"dev_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/simulations:rerunMetrics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "simulations:rerunMetrics"
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:27.000Z",
+              "updatedAt": "2026-07-28T01:27:27.000Z",
+              "uid": "35240-0467376b-8f15-482c-8b68-7801d9ff836f"
+            }
+          ],
+          "createdAt": "2026-07-28T01:27:27.000Z",
+          "updatedAt": "2026-07-28T01:27:27.000Z",
+          "uid": "35240-a7563b27-289d-4eea-806c-b3da5a03bb7a"
+        }
+      ],
+      "id": "aa166348-773e-4ed8-ae46-13bde7fa0772",
+      "createdAt": "2026-07-28T01:27:27.000Z",
+      "updatedAt": "2026-07-28T01:27:27.000Z",
+      "uid": "35240-aa166348-773e-4ed8-ae46-13bde7fa0772"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

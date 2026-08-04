@@ -1,0 +1,2712 @@
+{
+  "info": {
+    "_postman_id": "1b52f5bd-6fda-454f-b6b9-dd538b7e51c7",
+    "name": "Coval Agents API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:26:25.000Z",
+    "updatedAt": "2026-07-28T01:26:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1b52f5bd-6fda-454f-b6b9-dd538b7e51c7"
+  },
+  "item": [
+    {
+      "name": "agents",
+      "item": [
+        {
+          "name": "{agent_id}",
+          "item": [
+            {
+              "name": "duplicate",
+              "item": [
+                {
+                  "name": "Duplicate an agent",
+                  "id": "eba372c6-cf0f-46f5-b2a2-f8db0c620c51",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"include_associations\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id/duplicate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id",
+                        "duplicate"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a7a83533-1aab-470f-ba0c-ba2597586b75",
+                          "key": "agent_id",
+                          "value": "XOe6UoDx3uGlhfrFRZsSJL",
+                          "description": "(Required) ID of the agent to duplicate"
+                        }
+                      ]
+                    },
+                    "description": "Clone an existing agent into a new agent owned by your organization.\nBy default only the agent config is copied; set `include_associations`\nto also copy its metric and test-set associations. Returns the new\nagent in the same shape as create.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "a87d1b0c-160b-450c-8b55-c2fb9ba706f7",
+                      "name": "Agent duplicated successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"include_associations\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"agent\": {\n    \"customer_agent_id\": \"<string>\",\n    \"id\": \"Re3EqtPZytdGagEOaIvHxQ\",\n    \"display_name\": \"<string>\",\n    \"model_type\": \"MODEL_TYPE_OUTBOUND_VOICE\",\n    \"phone_number\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"prompt\": \"<string>\",\n    \"language\": \"<string>\",\n    \"attributes\": {\n      \"incididuntd\": \"nulla qui\",\n      \"commodoa1\": \"non commodo nostrud eiusmod\"\n    },\n    \"metadata\": {\n      \"ea27\": \"eiusmod\"\n    },\n    \"workflows\": {\n      \"in_6\": true\n    },\n    \"metric_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"test_set_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"knowledge_base_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:26.000Z",
+                      "updatedAt": "2026-07-28T01:26:26.000Z",
+                      "uid": "35240-a87d1b0c-160b-450c-8b55-c2fb9ba706f7"
+                    },
+                    {
+                      "id": "b137ea93-1d70-4ff9-925f-9ad5940d3681",
+                      "name": "Missing agent_id or invalid body",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"include_associations\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:26.000Z",
+                      "updatedAt": "2026-07-28T01:26:26.000Z",
+                      "uid": "35240-b137ea93-1d70-4ff9-925f-9ad5940d3681"
+                    },
+                    {
+                      "id": "8b3896e9-c7fd-4212-8b76-f74370571bcd",
+                      "name": "Authentication failed",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"include_associations\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:26.000Z",
+                      "updatedAt": "2026-07-28T01:26:26.000Z",
+                      "uid": "35240-8b3896e9-c7fd-4212-8b76-f74370571bcd"
+                    },
+                    {
+                      "id": "3e26a109-4504-4f43-887e-fbe57a402ce0",
+                      "name": "Source agent not found or belongs to different organization",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"include_associations\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:26.000Z",
+                      "updatedAt": "2026-07-28T01:26:26.000Z",
+                      "uid": "35240-3e26a109-4504-4f43-887e-fbe57a402ce0"
+                    },
+                    {
+                      "id": "70efbec1-c742-4e06-97f7-48f81495b932",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"include_associations\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:26.000Z",
+                      "updatedAt": "2026-07-28T01:26:26.000Z",
+                      "uid": "35240-70efbec1-c742-4e06-97f7-48f81495b932"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-eba372c6-cf0f-46f5-b2a2-f8db0c620c51"
+                }
+              ],
+              "id": "f3901d28-f649-4fee-93b9-476375fb5446",
+              "createdAt": "2026-07-28T01:26:26.000Z",
+              "updatedAt": "2026-07-28T01:26:26.000Z",
+              "uid": "35240-f3901d28-f649-4fee-93b9-476375fb5446"
+            },
+            {
+              "name": "versions",
+              "item": [
+                {
+                  "name": "{version_id}",
+                  "item": [
+                    {
+                      "name": "revert",
+                      "item": [
+                        {
+                          "name": "Revert agent version",
+                          "id": "be3dab66-d19f-49dc-ab21-fa92f72e168d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "apikey",
+                              "apikey": [
+                                {
+                                  "key": "key",
+                                  "value": "x-api-key",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "value",
+                                  "value": "{{apiKey}}",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "in",
+                                  "value": "header",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/versions/:version_id/revert",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "versions",
+                                ":version_id",
+                                "revert"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b93c9c25-6c22-4cdc-8b5c-c02db2927cd8",
+                                  "key": "agent_id",
+                                  "value": "XOe6UoDx3uGlhfrFRZsSJL",
+                                  "description": "(Required) Agent resource ID"
+                                },
+                                {
+                                  "id": "b0bd5ba3-fc03-4817-b858-3dcb688ff8c9",
+                                  "key": "version_id",
+                                  "value": "BZETYZ8DKBJZMMD6KJCFYFEMNV",
+                                  "description": "(Required) ULID of the target version to re-apply"
+                                }
+                              ]
+                            },
+                            "description": "Re-apply a prior version's configuration to the live agent. A revert is forward-only: it mints a new version (change_type=revert) and advances the agent, so the response reflects the agent's new live config. Reverting to the version the agent already points at is rejected with 400."
+                          },
+                          "response": [
+                            {
+                              "id": "83c20438-91c8-4dfe-8178-602804a43321",
+                              "name": "Agent reverted successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/agents/:agent_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "agents",
+                                    ":agent_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "agent_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"agent\": {\n    \"customer_agent_id\": \"<string>\",\n    \"id\": \"Re3EqtPZytdGagEOaIvHxQ\",\n    \"display_name\": \"<string>\",\n    \"model_type\": \"MODEL_TYPE_OUTBOUND_VOICE\",\n    \"phone_number\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"prompt\": \"<string>\",\n    \"language\": \"<string>\",\n    \"attributes\": {\n      \"incididuntd\": \"nulla qui\",\n      \"commodoa1\": \"non commodo nostrud eiusmod\"\n    },\n    \"metadata\": {\n      \"ea27\": \"eiusmod\"\n    },\n    \"workflows\": {\n      \"in_6\": true\n    },\n    \"metric_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"test_set_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"knowledge_base_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:26:26.000Z",
+                              "updatedAt": "2026-07-28T01:26:26.000Z",
+                              "uid": "35240-83c20438-91c8-4dfe-8178-602804a43321"
+                            },
+                            {
+                              "id": "a6ddadca-41d5-43f0-b459-197426ad2048",
+                              "name": "Invalid request (e.g. the target version is already the current version)",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/agents/:agent_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "agents",
+                                    ":agent_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "agent_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T01:26:26.000Z",
+                              "updatedAt": "2026-07-28T01:26:26.000Z",
+                              "uid": "35240-a6ddadca-41d5-43f0-b459-197426ad2048"
+                            },
+                            {
+                              "id": "0295d062-0124-4e43-8aab-28487bbf943d",
+                              "name": "Authentication failed",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/agents/:agent_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "agents",
+                                    ":agent_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "agent_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T01:26:26.000Z",
+                              "updatedAt": "2026-07-28T01:26:26.000Z",
+                              "uid": "35240-0295d062-0124-4e43-8aab-28487bbf943d"
+                            },
+                            {
+                              "id": "ba6687a8-68ab-48a7-a570-076ba4edd5d7",
+                              "name": "Agent or version not found, inactive, or belongs to different organization",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/agents/:agent_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "agents",
+                                    ":agent_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "agent_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T01:26:26.000Z",
+                              "updatedAt": "2026-07-28T01:26:26.000Z",
+                              "uid": "35240-ba6687a8-68ab-48a7-a570-076ba4edd5d7"
+                            },
+                            {
+                              "id": "0d9ab2bc-b69b-4eec-8794-124abe5dae09",
+                              "name": "Internal server error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/agents/:agent_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "agents",
+                                    ":agent_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "agent_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T01:26:26.000Z",
+                              "updatedAt": "2026-07-28T01:26:26.000Z",
+                              "uid": "35240-0d9ab2bc-b69b-4eec-8794-124abe5dae09"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:26:26.000Z",
+                          "updatedAt": "2026-07-28T01:26:26.000Z",
+                          "uid": "35240-be3dab66-d19f-49dc-ab21-fa92f72e168d"
+                        }
+                      ],
+                      "id": "01b1605b-eb4f-4d55-ab6e-120ac6e2a2b6",
+                      "createdAt": "2026-07-28T01:26:26.000Z",
+                      "updatedAt": "2026-07-28T01:26:26.000Z",
+                      "uid": "35240-01b1605b-eb4f-4d55-ab6e-120ac6e2a2b6"
+                    }
+                  ],
+                  "id": "03a6092d-9184-42dc-995a-53f77b6c3b79",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-03a6092d-9184-42dc-995a-53f77b6c3b79"
+                },
+                {
+                  "name": "List agent versions",
+                  "id": "5aa966b3-3ab1-46ea-aa6e-a790f35ff084",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id/versions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id",
+                        "versions"
+                      ],
+                      "variable": [
+                        {
+                          "id": "eb88db81-4928-4c83-8268-f884013a8d61",
+                          "key": "agent_id",
+                          "value": "XOe6UoDx3uGlhfrFRZsSJL",
+                          "description": "(Required) Agent resource ID"
+                        }
+                      ]
+                    },
+                    "description": "List the version history for an agent, newest first. The newest entry is the agent's current live config; earlier entries are prior states displaced by later saves. Only behavioral config is versioned; identity and cosmetic fields are not."
+                  },
+                  "response": [
+                    {
+                      "id": "c7d97455-9a98-4aa5-ae22-50d5f60a49f3",
+                      "name": "Agent version history retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"versions\": [\n    {\n      \"name\": \"<string>\",\n      \"ulid\": \"<string>\",\n      \"version_number\": \"<integer>\",\n      \"change_type\": \"revert\",\n      \"model_type\": \"<string>\",\n      \"created_by\": \"<string>\",\n      \"label\": \"<string>\",\n      \"phone_number\": \"<string>\",\n      \"endpoint\": \"<string>\",\n      \"metadata\": {\n        \"suntc\": true,\n        \"ullamco_934\": \"exercitation fugiat reprehenderit\"\n      },\n      \"attributes\": {\n        \"ex_0f6\": -65410070,\n        \"proident4\": -7950405.563613877\n      },\n      \"workflows\": {\n        \"eu01b\": 47626998\n      },\n      \"prompt\": \"<string>\",\n      \"language\": \"<string>\",\n      \"test_set_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"metric_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"create_time\": \"<dateTime>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"ulid\": \"<string>\",\n      \"version_number\": \"<integer>\",\n      \"change_type\": \"save\",\n      \"model_type\": \"<string>\",\n      \"created_by\": \"<string>\",\n      \"label\": \"<string>\",\n      \"phone_number\": \"<string>\",\n      \"endpoint\": \"<string>\",\n      \"metadata\": {\n        \"dolore6\": -15720182.067505687,\n        \"suntd\": 41120524\n      },\n      \"attributes\": {\n        \"nulla239\": \"in\"\n      },\n      \"workflows\": {\n        \"amet_9\": 39520998,\n        \"mollit_6_\": 86797494,\n        \"anim3\": 40006301\n      },\n      \"prompt\": \"<string>\",\n      \"language\": \"<string>\",\n      \"test_set_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"metric_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"create_time\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:26:26.000Z",
+                      "updatedAt": "2026-07-28T01:26:26.000Z",
+                      "uid": "35240-c7d97455-9a98-4aa5-ae22-50d5f60a49f3"
+                    },
+                    {
+                      "id": "a1accff1-f9e7-41d4-83b3-ea11c549e83e",
+                      "name": "Authentication failed",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:26.000Z",
+                      "updatedAt": "2026-07-28T01:26:26.000Z",
+                      "uid": "35240-a1accff1-f9e7-41d4-83b3-ea11c549e83e"
+                    },
+                    {
+                      "id": "7fd6ab1a-80b5-46c9-87d4-34629486438f",
+                      "name": "Agent not found, inactive, or belongs to different organization",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:26.000Z",
+                      "updatedAt": "2026-07-28T01:26:26.000Z",
+                      "uid": "35240-7fd6ab1a-80b5-46c9-87d4-34629486438f"
+                    },
+                    {
+                      "id": "b3831424-eeaa-4477-b544-ce407a1fdb1d",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:26.000Z",
+                      "updatedAt": "2026-07-28T01:26:26.000Z",
+                      "uid": "35240-b3831424-eeaa-4477-b544-ce407a1fdb1d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-5aa966b3-3ab1-46ea-aa6e-a790f35ff084"
+                }
+              ],
+              "id": "dd2d5731-33bf-4646-801b-839d0be660c8",
+              "createdAt": "2026-07-28T01:26:26.000Z",
+              "updatedAt": "2026-07-28T01:26:26.000Z",
+              "uid": "35240-dd2d5731-33bf-4646-801b-839d0be660c8"
+            },
+            {
+              "name": "Get agent",
+              "id": "43a63476-7c5a-4e18-a9da-1d54cb4943fa",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/agents/:agent_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "b48663ef-a609-455b-a36b-9607c3248efc",
+                      "key": "agent_id",
+                      "value": "XOe6UoDx3uGlhfrFRZsSJL",
+                      "description": "(Required) Agent resource ID"
+                    }
+                  ]
+                },
+                "description": "Retrieve a specific agent configuration by its unique identifier."
+              },
+              "response": [
+                {
+                  "id": "6fba6a86-f14c-4181-bd57-499dd2f6ee9e",
+                  "name": "Agent retrieved successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"agent\": {\n    \"customer_agent_id\": \"<string>\",\n    \"id\": \"Re3EqtPZytdGagEOaIvHxQ\",\n    \"display_name\": \"<string>\",\n    \"model_type\": \"MODEL_TYPE_OUTBOUND_VOICE\",\n    \"phone_number\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"prompt\": \"<string>\",\n    \"language\": \"<string>\",\n    \"attributes\": {\n      \"incididuntd\": \"nulla qui\",\n      \"commodoa1\": \"non commodo nostrud eiusmod\"\n    },\n    \"metadata\": {\n      \"ea27\": \"eiusmod\"\n    },\n    \"workflows\": {\n      \"in_6\": true\n    },\n    \"metric_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"test_set_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"knowledge_base_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-6fba6a86-f14c-4181-bd57-499dd2f6ee9e"
+                },
+                {
+                  "id": "f85deffb-335b-44ba-a268-0546dd5723ea",
+                  "name": "Missing or invalid agent_id",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-f85deffb-335b-44ba-a268-0546dd5723ea"
+                },
+                {
+                  "id": "90b7a31c-2d6d-4c7f-aae5-1c719796407d",
+                  "name": "Authentication failed",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-90b7a31c-2d6d-4c7f-aae5-1c719796407d"
+                },
+                {
+                  "id": "d0225c43-66a9-4150-bf05-3f750880a02c",
+                  "name": "Agent not found, inactive, or belongs to different organization",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-d0225c43-66a9-4150-bf05-3f750880a02c"
+                },
+                {
+                  "id": "35fe904e-d394-4bbf-baaf-085948da087d",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-35fe904e-d394-4bbf-baaf-085948da087d"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:26.000Z",
+              "updatedAt": "2026-07-28T01:26:26.000Z",
+              "uid": "35240-43a63476-7c5a-4e18-a9da-1d54cb4943fa"
+            },
+            {
+              "name": "Update agent",
+              "id": "1936e96c-72a2-4d8d-b6ea-fcab2ca3fd76",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"model_type\": \"MODEL_TYPE_WEBSOCKET\",\n  \"phone_number\": \"<string>\",\n  \"endpoint\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"customer_agent_id\": \"<string>\",\n  \"language\": \"<string>\",\n  \"attributes\": {\n    \"id733\": -88081669,\n    \"officia4fb\": -52173417.924507245\n  },\n  \"metadata\": {\n    \"Ut_74\": \"id amet ex\"\n  },\n  \"workflows\": {\n    \"sit3\": -82673532\n  },\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"test_set_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/agents/:agent_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "0a11587e-1b18-496b-b0dc-d0aa2922f05d",
+                      "key": "agent_id",
+                      "value": "XOe6UoDx3uGlhfrFRZsSJL",
+                      "description": "(Required) Agent resource ID"
+                    }
+                  ]
+                },
+                "description": "Update specific fields of an existing agent configuration."
+              },
+              "response": [
+                {
+                  "id": "63b60ee0-6eb1-4e52-8491-04bc2467aa2a",
+                  "name": "Agent updated successfully",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"model_type\": \"MODEL_TYPE_WEBSOCKET\",\n  \"phone_number\": \"<string>\",\n  \"endpoint\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"customer_agent_id\": \"<string>\",\n  \"language\": \"<string>\",\n  \"attributes\": {\n    \"id733\": -88081669,\n    \"officia4fb\": -52173417.924507245\n  },\n  \"metadata\": {\n    \"Ut_74\": \"id amet ex\"\n  },\n  \"workflows\": {\n    \"sit3\": -82673532\n  },\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"test_set_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"agent\": {\n    \"customer_agent_id\": \"<string>\",\n    \"id\": \"Re3EqtPZytdGagEOaIvHxQ\",\n    \"display_name\": \"<string>\",\n    \"model_type\": \"MODEL_TYPE_OUTBOUND_VOICE\",\n    \"phone_number\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"prompt\": \"<string>\",\n    \"language\": \"<string>\",\n    \"attributes\": {\n      \"incididuntd\": \"nulla qui\",\n      \"commodoa1\": \"non commodo nostrud eiusmod\"\n    },\n    \"metadata\": {\n      \"ea27\": \"eiusmod\"\n    },\n    \"workflows\": {\n      \"in_6\": true\n    },\n    \"metric_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"test_set_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"knowledge_base_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-63b60ee0-6eb1-4e52-8491-04bc2467aa2a"
+                },
+                {
+                  "id": "a19f3129-2c26-4a38-a3e4-26d46a09ff8a",
+                  "name": "Invalid request body or validation failed",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"model_type\": \"MODEL_TYPE_WEBSOCKET\",\n  \"phone_number\": \"<string>\",\n  \"endpoint\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"customer_agent_id\": \"<string>\",\n  \"language\": \"<string>\",\n  \"attributes\": {\n    \"id733\": -88081669,\n    \"officia4fb\": -52173417.924507245\n  },\n  \"metadata\": {\n    \"Ut_74\": \"id amet ex\"\n  },\n  \"workflows\": {\n    \"sit3\": -82673532\n  },\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"test_set_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-a19f3129-2c26-4a38-a3e4-26d46a09ff8a"
+                },
+                {
+                  "id": "f5373e32-6c4b-4464-b6bc-b7aa08d0be68",
+                  "name": "Authentication failed",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"model_type\": \"MODEL_TYPE_WEBSOCKET\",\n  \"phone_number\": \"<string>\",\n  \"endpoint\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"customer_agent_id\": \"<string>\",\n  \"language\": \"<string>\",\n  \"attributes\": {\n    \"id733\": -88081669,\n    \"officia4fb\": -52173417.924507245\n  },\n  \"metadata\": {\n    \"Ut_74\": \"id amet ex\"\n  },\n  \"workflows\": {\n    \"sit3\": -82673532\n  },\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"test_set_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-f5373e32-6c4b-4464-b6bc-b7aa08d0be68"
+                },
+                {
+                  "id": "b40ad316-0bf6-466b-a861-1bebf420570b",
+                  "name": "Agent not found, inactive, or belongs to different organization",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"model_type\": \"MODEL_TYPE_WEBSOCKET\",\n  \"phone_number\": \"<string>\",\n  \"endpoint\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"customer_agent_id\": \"<string>\",\n  \"language\": \"<string>\",\n  \"attributes\": {\n    \"id733\": -88081669,\n    \"officia4fb\": -52173417.924507245\n  },\n  \"metadata\": {\n    \"Ut_74\": \"id amet ex\"\n  },\n  \"workflows\": {\n    \"sit3\": -82673532\n  },\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"test_set_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-b40ad316-0bf6-466b-a861-1bebf420570b"
+                },
+                {
+                  "id": "9d1c3032-4186-4e37-92a7-d7c8a478bdb3",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"model_type\": \"MODEL_TYPE_WEBSOCKET\",\n  \"phone_number\": \"<string>\",\n  \"endpoint\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"customer_agent_id\": \"<string>\",\n  \"language\": \"<string>\",\n  \"attributes\": {\n    \"id733\": -88081669,\n    \"officia4fb\": -52173417.924507245\n  },\n  \"metadata\": {\n    \"Ut_74\": \"id amet ex\"\n  },\n  \"workflows\": {\n    \"sit3\": -82673532\n  },\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"test_set_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-9d1c3032-4186-4e37-92a7-d7c8a478bdb3"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:26.000Z",
+              "updatedAt": "2026-07-28T01:26:26.000Z",
+              "uid": "35240-1936e96c-72a2-4d8d-b6ea-fcab2ca3fd76"
+            },
+            {
+              "name": "Delete agent",
+              "id": "a71b0a1b-5975-47f1-b87d-6e3d2f5f29cb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/agents/:agent_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "3d590e74-37bb-4415-a106-157ecb9e91b0",
+                      "key": "agent_id",
+                      "value": "XOe6UoDx3uGlhfrFRZsSJL",
+                      "description": "(Required) Agent resource ID"
+                    }
+                  ]
+                },
+                "description": "Soft-delete an agent configuration, marking it as inactive while preserving the record."
+              },
+              "response": [
+                {
+                  "id": "9c3949f2-8117-449e-a2ed-834254189d8b",
+                  "name": "Agent deleted successfully (or already deleted)",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-9c3949f2-8117-449e-a2ed-834254189d8b"
+                },
+                {
+                  "id": "6c8f4e63-17c3-44cd-ab10-27ac1d242cff",
+                  "name": "Missing agent_id",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-6c8f4e63-17c3-44cd-ab10-27ac1d242cff"
+                },
+                {
+                  "id": "7d31d737-de99-43e0-8cbd-64f77dc3bb23",
+                  "name": "Authentication failed",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-7d31d737-de99-43e0-8cbd-64f77dc3bb23"
+                },
+                {
+                  "id": "44d222f3-3289-4de7-aff2-67bd49de12c0",
+                  "name": "Agent not found or belongs to different organization",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-44d222f3-3289-4de7-aff2-67bd49de12c0"
+                },
+                {
+                  "id": "6b591acb-85fc-427d-85ad-4def956a6ead",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "agent_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:26.000Z",
+                  "updatedAt": "2026-07-28T01:26:26.000Z",
+                  "uid": "35240-6b591acb-85fc-427d-85ad-4def956a6ead"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:26.000Z",
+              "updatedAt": "2026-07-28T01:26:26.000Z",
+              "uid": "35240-a71b0a1b-5975-47f1-b87d-6e3d2f5f29cb"
+            }
+          ],
+          "id": "3db4f02f-55c2-4d5a-91e0-ffd3b0d5df29",
+          "createdAt": "2026-07-28T01:26:26.000Z",
+          "updatedAt": "2026-07-28T01:26:26.000Z",
+          "uid": "35240-3db4f02f-55c2-4d5a-91e0-ffd3b0d5df29"
+        },
+        {
+          "name": "List agents",
+          "id": "94d63d4e-8b0f-415e-a9ca-a397e72900b2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/agents?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time&tag_filters=<string>&tag_filters=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agents"
+              ],
+              "query": [
+                {
+                  "description": "Filter expression syntax.\n\n**Supported fields:** `model_type`, `display_name`, `create_time`, `update_time`\n\n**Operators:** `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `display_name=\"Support Agent\"`).\n\n**Date format:** ISO 8601 (e.g., `2025-10-01T00:00:00Z`)\n",
+                  "key": "filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Maximum number of results per page",
+                  "key": "page_size",
+                  "value": "50"
+                },
+                {
+                  "description": "Opaque pagination token from previous response.\n\nDo not decode or modify this token.\n",
+                  "key": "page_token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Sort order specification.\n\n**Formats:**\n1. Dash-prefix: `-create_time` (descending), `display_name` (ascending)\n2. Space-separated: `create_time desc`, `display_name asc`\n\n**Sortable fields:** `create_time`, `update_time`, `display_name`, `model_type`\n",
+                  "key": "order_by",
+                  "value": "-create_time"
+                },
+                {
+                  "description": "Filter agents by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n",
+                  "key": "tag_filters",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter agents by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n",
+                  "key": "tag_filters",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Retrieve a paginated list of agent configurations with optional filtering and sorting."
+          },
+          "response": [
+            {
+              "id": "a69b9aba-9209-4a83-9704-d904dce0e50e",
+              "name": "Agents retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/agents?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time&tag_filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "agents"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\n\n**Supported fields:** `model_type`, `display_name`, `create_time`, `update_time`\n\n**Operators:** `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `display_name=\"Support Agent\"`).\n\n**Date format:** ISO 8601 (e.g., `2025-10-01T00:00:00Z`)\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response.\n\nDo not decode or modify this token.\n",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order specification.\n\n**Formats:**\n1. Dash-prefix: `-create_time` (descending), `display_name` (ascending)\n2. Space-separated: `create_time desc`, `display_name asc`\n\n**Sortable fields:** `create_time`, `update_time`, `display_name`, `model_type`\n",
+                      "key": "order_by",
+                      "value": "-create_time"
+                    },
+                    {
+                      "description": "Filter agents by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n",
+                      "key": "tag_filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"agents\": [\n    {\n      \"customer_agent_id\": \"<string>\",\n      \"id\": \"2yrEkDGaIcaSUdl0Bae3Iq\",\n      \"display_name\": \"<string>\",\n      \"model_type\": \"MODEL_TYPE_GROK_REALTIME\",\n      \"phone_number\": \"<string>\",\n      \"endpoint\": \"<string>\",\n      \"prompt\": \"<string>\",\n      \"language\": \"<string>\",\n      \"attributes\": {\n        \"essea0\": -74772070,\n        \"velit83\": true\n      },\n      \"metadata\": {\n        \"in_9fd\": \"aliqua labore\",\n        \"laboris7e\": true\n      },\n      \"workflows\": {\n        \"ut_35e\": 30475188\n      },\n      \"metric_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"test_set_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"knowledge_base_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"create_time\": \"<dateTime>\",\n      \"update_time\": \"<dateTime>\"\n    },\n    {\n      \"customer_agent_id\": \"<string>\",\n      \"id\": \"EEB39rLkWGAnzcFbvGqsU7\",\n      \"display_name\": \"<string>\",\n      \"model_type\": \"MODEL_TYPE_WEBSOCKET\",\n      \"phone_number\": \"<string>\",\n      \"endpoint\": \"<string>\",\n      \"prompt\": \"<string>\",\n      \"language\": \"<string>\",\n      \"attributes\": {\n        \"in_2f\": 1723939\n      },\n      \"metadata\": {\n        \"incididunt_f\": \"in ex\",\n        \"aute_8f1\": -91232450\n      },\n      \"workflows\": {\n        \"incididunt__9_\": 78225400.33227617\n      },\n      \"metric_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"test_set_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"knowledge_base_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"create_time\": \"<dateTime>\",\n      \"update_time\": \"<dateTime>\"\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:26:26.000Z",
+              "updatedAt": "2026-07-28T01:26:26.000Z",
+              "uid": "35240-a69b9aba-9209-4a83-9704-d904dce0e50e"
+            },
+            {
+              "id": "d0bc61de-eccf-433c-b17b-c24e5363a2bf",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/agents?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time&tag_filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "agents"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\n\n**Supported fields:** `model_type`, `display_name`, `create_time`, `update_time`\n\n**Operators:** `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `display_name=\"Support Agent\"`).\n\n**Date format:** ISO 8601 (e.g., `2025-10-01T00:00:00Z`)\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response.\n\nDo not decode or modify this token.\n",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order specification.\n\n**Formats:**\n1. Dash-prefix: `-create_time` (descending), `display_name` (ascending)\n2. Space-separated: `create_time desc`, `display_name asc`\n\n**Sortable fields:** `create_time`, `update_time`, `display_name`, `model_type`\n",
+                      "key": "order_by",
+                      "value": "-create_time"
+                    },
+                    {
+                      "description": "Filter agents by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n",
+                      "key": "tag_filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:26.000Z",
+              "updatedAt": "2026-07-28T01:26:26.000Z",
+              "uid": "35240-d0bc61de-eccf-433c-b17b-c24e5363a2bf"
+            },
+            {
+              "id": "f5bc7e35-977b-4fef-aef5-644d4f5b5092",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/agents?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time&tag_filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "agents"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\n\n**Supported fields:** `model_type`, `display_name`, `create_time`, `update_time`\n\n**Operators:** `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `display_name=\"Support Agent\"`).\n\n**Date format:** ISO 8601 (e.g., `2025-10-01T00:00:00Z`)\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response.\n\nDo not decode or modify this token.\n",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order specification.\n\n**Formats:**\n1. Dash-prefix: `-create_time` (descending), `display_name` (ascending)\n2. Space-separated: `create_time desc`, `display_name asc`\n\n**Sortable fields:** `create_time`, `update_time`, `display_name`, `model_type`\n",
+                      "key": "order_by",
+                      "value": "-create_time"
+                    },
+                    {
+                      "description": "Filter agents by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n",
+                      "key": "tag_filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:26.000Z",
+              "updatedAt": "2026-07-28T01:26:26.000Z",
+              "uid": "35240-f5bc7e35-977b-4fef-aef5-644d4f5b5092"
+            },
+            {
+              "id": "e3cd606a-ce6a-4762-b968-47d14c51d935",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/agents?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time&tag_filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "agents"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\n\n**Supported fields:** `model_type`, `display_name`, `create_time`, `update_time`\n\n**Operators:** `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `display_name=\"Support Agent\"`).\n\n**Date format:** ISO 8601 (e.g., `2025-10-01T00:00:00Z`)\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response.\n\nDo not decode or modify this token.\n",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order specification.\n\n**Formats:**\n1. Dash-prefix: `-create_time` (descending), `display_name` (ascending)\n2. Space-separated: `create_time desc`, `display_name asc`\n\n**Sortable fields:** `create_time`, `update_time`, `display_name`, `model_type`\n",
+                      "key": "order_by",
+                      "value": "-create_time"
+                    },
+                    {
+                      "description": "Filter agents by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n",
+                      "key": "tag_filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:26.000Z",
+              "updatedAt": "2026-07-28T01:26:26.000Z",
+              "uid": "35240-e3cd606a-ce6a-4762-b968-47d14c51d935"
+            }
+          ],
+          "createdAt": "2026-07-28T01:26:26.000Z",
+          "updatedAt": "2026-07-28T01:26:26.000Z",
+          "uid": "35240-94d63d4e-8b0f-415e-a9ca-a397e72900b2"
+        },
+        {
+          "name": "Connect an agent",
+          "id": "bb8b234d-3494-4be3-9a37-6cd7e76175dd",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display_name\": \"<string>\",\n  \"model_type\": \"MODEL_TYPE_SMS\",\n  \"phone_number\": \"<string>\",\n  \"endpoint\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"customer_agent_id\": \"<string>\",\n  \"language\": \"<string>\",\n  \"attributes\": {\n    \"velit_f\": -4672891.688416228,\n    \"officiabc_\": 38206470\n  },\n  \"metadata\": {},\n  \"workflows\": {},\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/agents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "agents"
+              ]
+            },
+            "description": "Connect an agent to coval by providing the agent's configuration."
+          },
+          "response": [
+            {
+              "id": "8a6ed976-9716-47c5-b023-ed035623c9e9",
+              "name": "Agent created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"model_type\": \"MODEL_TYPE_SMS\",\n  \"phone_number\": \"<string>\",\n  \"endpoint\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"customer_agent_id\": \"<string>\",\n  \"language\": \"<string>\",\n  \"attributes\": {\n    \"velit_f\": -4672891.688416228,\n    \"officiabc_\": 38206470\n  },\n  \"metadata\": {},\n  \"workflows\": {},\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/agents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "agents"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"agent\": {\n    \"customer_agent_id\": \"<string>\",\n    \"id\": \"Re3EqtPZytdGagEOaIvHxQ\",\n    \"display_name\": \"<string>\",\n    \"model_type\": \"MODEL_TYPE_OUTBOUND_VOICE\",\n    \"phone_number\": \"<string>\",\n    \"endpoint\": \"<string>\",\n    \"prompt\": \"<string>\",\n    \"language\": \"<string>\",\n    \"attributes\": {\n      \"incididuntd\": \"nulla qui\",\n      \"commodoa1\": \"non commodo nostrud eiusmod\"\n    },\n    \"metadata\": {\n      \"ea27\": \"eiusmod\"\n    },\n    \"workflows\": {\n      \"in_6\": true\n    },\n    \"metric_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"test_set_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"knowledge_base_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:26:26.000Z",
+              "updatedAt": "2026-07-28T01:26:26.000Z",
+              "uid": "35240-8a6ed976-9716-47c5-b023-ed035623c9e9"
+            },
+            {
+              "id": "669166c5-c43c-47ac-8248-debea7a7879a",
+              "name": "Invalid request body or validation failed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"model_type\": \"MODEL_TYPE_SMS\",\n  \"phone_number\": \"<string>\",\n  \"endpoint\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"customer_agent_id\": \"<string>\",\n  \"language\": \"<string>\",\n  \"attributes\": {\n    \"velit_f\": -4672891.688416228,\n    \"officiabc_\": 38206470\n  },\n  \"metadata\": {},\n  \"workflows\": {},\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/agents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "agents"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:26.000Z",
+              "updatedAt": "2026-07-28T01:26:26.000Z",
+              "uid": "35240-669166c5-c43c-47ac-8248-debea7a7879a"
+            },
+            {
+              "id": "3f7a0bf7-01ed-434d-b5bd-f7705cf0aed8",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"model_type\": \"MODEL_TYPE_SMS\",\n  \"phone_number\": \"<string>\",\n  \"endpoint\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"customer_agent_id\": \"<string>\",\n  \"language\": \"<string>\",\n  \"attributes\": {\n    \"velit_f\": -4672891.688416228,\n    \"officiabc_\": 38206470\n  },\n  \"metadata\": {},\n  \"workflows\": {},\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/agents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "agents"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:26.000Z",
+              "updatedAt": "2026-07-28T01:26:26.000Z",
+              "uid": "35240-3f7a0bf7-01ed-434d-b5bd-f7705cf0aed8"
+            },
+            {
+              "id": "808a3e12-92eb-4d49-bd69-53b96d8af121",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"model_type\": \"MODEL_TYPE_SMS\",\n  \"phone_number\": \"<string>\",\n  \"endpoint\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"customer_agent_id\": \"<string>\",\n  \"language\": \"<string>\",\n  \"attributes\": {\n    \"velit_f\": -4672891.688416228,\n    \"officiabc_\": 38206470\n  },\n  \"metadata\": {},\n  \"workflows\": {},\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/agents",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "agents"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:26.000Z",
+              "updatedAt": "2026-07-28T01:26:26.000Z",
+              "uid": "35240-808a3e12-92eb-4d49-bd69-53b96d8af121"
+            }
+          ],
+          "createdAt": "2026-07-28T01:26:26.000Z",
+          "updatedAt": "2026-07-28T01:26:26.000Z",
+          "uid": "35240-bb8b234d-3494-4be3-9a37-6cd7e76175dd"
+        }
+      ],
+      "id": "7153cc43-b547-43d8-8102-a80c5e8ba4bb",
+      "createdAt": "2026-07-28T01:26:26.000Z",
+      "updatedAt": "2026-07-28T01:26:26.000Z",
+      "uid": "35240-7153cc43-b547-43d8-8102-a80c5e8ba4bb"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

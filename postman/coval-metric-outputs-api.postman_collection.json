@@ -1,0 +1,794 @@
+{
+  "info": {
+    "_postman_id": "a295e2d5-f80f-410f-a7ab-52c6de48666b",
+    "name": "Coval Agents Metric Outputs API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:26:32.000Z",
+    "updatedAt": "2026-07-28T01:26:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a295e2d5-f80f-410f-a7ab-52c6de48666b"
+  },
+  "item": [
+    {
+      "name": "simulations",
+      "item": [
+        {
+          "name": "{simulation_id}",
+          "item": [
+            {
+              "name": "metrics",
+              "item": [
+                {
+                  "name": "{metric_output_id}",
+                  "item": [
+                    {
+                      "name": "Get simulation metric output(s)",
+                      "id": "9dc471f5-d763-454d-a91a-c230dd431030",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "x-api-key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/metrics/:metric_output_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "metrics",
+                            ":metric_output_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "362800eb-4885-4b34-ac7b-660c93e007f4",
+                              "key": "simulation_id",
+                              "value": "<string>",
+                              "description": "(Required) The simulation ID"
+                            },
+                            {
+                              "id": "a2ce183a-c2d5-4bf3-ac5d-ebdb2f548c17",
+                              "key": "metric_output_id",
+                              "value": "<string>",
+                              "description": "(Required) Either a 26-char MetricOutput ULID or a 22-char Metric definition ID.\nSee endpoint description for response shape per ID type.\n"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve metric output(s) for a simulation by ID. The path segment\naccepts two ID types and returns different response shapes:\n\n- **26-char MetricOutput ULID**: returns a single metric output as\n  `{ \"metric\": {...} }`.\n- **22-char Metric definition ID**: returns every output for that\n  metric on the simulation as `{ \"metric_outputs\": [...] }`.\n\nClients should branch on the input ID length they passed.\n\n**Retrieving test-metric results:** after calling\n`POST /v1/metrics/{metric_id}/test`, poll this endpoint using the same\nsimulation output ID you tested against as `simulation_id`, plus the\nreturned 26-char `metric_output_ulid`. The response includes a `status`\nfield (`IN QUEUE`, `IN PROGRESS`, `COMPLETED`, `FAILED`) \u2014 poll until it\nis terminal. Test-metric outputs belong to the simulation they ran\nagainst, so they are retrieved here, not via the conversations endpoint.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "dd0bd70c-b93f-40fe-8072-9d99f93f2db6",
+                          "name": "Metric output details. Single object when called with a 26-char\nULID, collection object when called with a 22-char metric_id.\n",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/simulations/:simulation_id/metrics/:metric_output_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "simulations",
+                                ":simulation_id",
+                                "metrics",
+                                ":metric_output_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "simulation_id"
+                                },
+                                {
+                                  "key": "metric_output_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"metric\": {\n    \"metric_output_id\": \"<string>\",\n    \"metric_id\": \"<string>\",\n    \"status\": \"IN PROGRESS\",\n    \"metric_version_ulid\": \"<string>\",\n    \"value\": \"<number>\",\n    \"explanation\": \"<string>\",\n    \"subvalues_by_timestamp\": [\n      {\n        \"start_offset\": \"<number>\",\n        \"end_offset\": \"<number>\",\n        \"output_type\": \"string\",\n        \"float_value\": 0,\n        \"string_value\": \"\",\n        \"role\": \"<string>\",\n        \"message_index\": \"<integer>\"\n      },\n      {\n        \"start_offset\": \"<number>\",\n        \"end_offset\": \"<number>\",\n        \"output_type\": \"float\",\n        \"float_value\": 0,\n        \"string_value\": \"\",\n        \"role\": \"<string>\",\n        \"message_index\": \"<integer>\"\n      }\n    ],\n    \"result\": {\n      \"anim2\": 61213745,\n      \"reprehenderit_9\": 70375029,\n      \"dolore0\": false\n    },\n    \"runtime_metadata\": {\n      \"cupidatat_c\": false,\n      \"cillum7b0\": \"eiusmod in Ut cillum deserunt\"\n    }\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:33.000Z",
+                          "updatedAt": "2026-07-28T01:26:33.000Z",
+                          "uid": "35240-dd0bd70c-b93f-40fe-8072-9d99f93f2db6"
+                        },
+                        {
+                          "id": "6c8a7c4f-903e-4849-b986-abe63ef94e45",
+                          "name": "Missing or invalid API key",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/simulations/:simulation_id/metrics/:metric_output_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "simulations",
+                                ":simulation_id",
+                                "metrics",
+                                ":metric_output_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "simulation_id"
+                                },
+                                {
+                                  "key": "metric_output_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:33.000Z",
+                          "updatedAt": "2026-07-28T01:26:33.000Z",
+                          "uid": "35240-6c8a7c4f-903e-4849-b986-abe63ef94e45"
+                        },
+                        {
+                          "id": "07eeeaf9-2f6b-4559-b0f0-b00a7fdbad65",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/simulations/:simulation_id/metrics/:metric_output_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "simulations",
+                                ":simulation_id",
+                                "metrics",
+                                ":metric_output_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "simulation_id"
+                                },
+                                {
+                                  "key": "metric_output_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:33.000Z",
+                          "updatedAt": "2026-07-28T01:26:33.000Z",
+                          "uid": "35240-07eeeaf9-2f6b-4559-b0f0-b00a7fdbad65"
+                        },
+                        {
+                          "id": "0b5dd703-d3b0-4f8c-802e-7708614e832c",
+                          "name": "Internal server error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/simulations/:simulation_id/metrics/:metric_output_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "simulations",
+                                ":simulation_id",
+                                "metrics",
+                                ":metric_output_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "simulation_id"
+                                },
+                                {
+                                  "key": "metric_output_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:33.000Z",
+                          "updatedAt": "2026-07-28T01:26:33.000Z",
+                          "uid": "35240-0b5dd703-d3b0-4f8c-802e-7708614e832c"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:26:33.000Z",
+                      "updatedAt": "2026-07-28T01:26:33.000Z",
+                      "uid": "35240-9dc471f5-d763-454d-a91a-c230dd431030"
+                    }
+                  ],
+                  "id": "f6ff9c7d-9c8b-4fef-914a-da906c6c2a14",
+                  "createdAt": "2026-07-28T01:26:33.000Z",
+                  "updatedAt": "2026-07-28T01:26:33.000Z",
+                  "uid": "35240-f6ff9c7d-9c8b-4fef-914a-da906c6c2a14"
+                },
+                {
+                  "name": "List metrics",
+                  "id": "bec4eaf7-979a-4fb5-9392-3efe702de4c5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/simulations/:simulation_id/metrics?filter=<string>&page_size=50&page_token=<string>&order_by=metric_name",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "simulations",
+                        ":simulation_id",
+                        "metrics"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter expression syntax.\n\nSupported fields: `status`, `metric_id`, `metric_name`, `value`, `create_time`, `start_time`, `end_time`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of results per page",
+                          "key": "page_size",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Opaque pagination token from previous response",
+                          "key": "page_token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `metric_name`, `create_time`, `value`, `start_time`, `end_time`\n",
+                          "key": "order_by",
+                          "value": "metric_name"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "6a0a5078-c2f3-4cb9-b9e6-fbe51838f3ad",
+                          "key": "simulation_id",
+                          "value": "<string>",
+                          "description": "(Required) The simulation ID"
+                        }
+                      ]
+                    },
+                    "description": "List metric results for a simulation."
+                  },
+                  "response": [
+                    {
+                      "id": "53185df9-6f36-4ddd-b468-ce7afd9715e4",
+                      "name": "List of metric outputs",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/metrics?filter=<string>&page_size=50&page_token=<string>&order_by=metric_name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "metrics"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter expression syntax.\n\nSupported fields: `status`, `metric_id`, `metric_name`, `value`, `create_time`, `start_time`, `end_time`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n",
+                              "key": "filter",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Maximum number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Opaque pagination token from previous response",
+                              "key": "page_token",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `metric_name`, `create_time`, `value`, `start_time`, `end_time`\n",
+                              "key": "order_by",
+                              "value": "metric_name"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"metrics\": [\n    {\n      \"metric_output_id\": \"<string>\",\n      \"metric_id\": \"<string>\",\n      \"status\": \"FAILED\",\n      \"metric_version_ulid\": \"<string>\",\n      \"value\": \"<number>\",\n      \"explanation\": \"<string>\",\n      \"subvalues_by_timestamp\": [\n        {\n          \"start_offset\": \"<number>\",\n          \"end_offset\": \"<number>\",\n          \"output_type\": \"string\",\n          \"float_value\": 0,\n          \"string_value\": \"\",\n          \"role\": \"<string>\",\n          \"message_index\": \"<integer>\"\n        },\n        {\n          \"start_offset\": \"<number>\",\n          \"end_offset\": \"<number>\",\n          \"output_type\": \"float\",\n          \"float_value\": 0,\n          \"string_value\": \"\",\n          \"role\": \"<string>\",\n          \"message_index\": \"<integer>\"\n        }\n      ],\n      \"result\": {\n        \"proident_2\": \"cupidatat ullamco laboris\",\n        \"eaa_\": true,\n        \"fugiat_43b\": false\n      },\n      \"runtime_metadata\": {\n        \"dolor9\": \"nulla velit\",\n        \"tempor_a71\": 35891179.95243457\n      }\n    },\n    {\n      \"metric_output_id\": \"<string>\",\n      \"metric_id\": \"<string>\",\n      \"status\": \"COMPLETED\",\n      \"metric_version_ulid\": \"<string>\",\n      \"value\": \"<number>\",\n      \"explanation\": \"<string>\",\n      \"subvalues_by_timestamp\": [\n        {\n          \"start_offset\": \"<number>\",\n          \"end_offset\": \"<number>\",\n          \"output_type\": \"set\",\n          \"float_value\": 0,\n          \"string_value\": \"\",\n          \"role\": \"<string>\",\n          \"message_index\": \"<integer>\"\n        },\n        {\n          \"start_offset\": \"<number>\",\n          \"end_offset\": \"<number>\",\n          \"output_type\": \"string\",\n          \"float_value\": 0,\n          \"string_value\": \"\",\n          \"role\": \"<string>\",\n          \"message_index\": \"<integer>\"\n        }\n      ],\n      \"result\": {\n        \"exercitation_c0\": \"qui voluptate occaecat\",\n        \"est_3b9\": 16401444.71445173\n      },\n      \"runtime_metadata\": {\n        \"id9\": -36646882.98877485,\n        \"amet_75\": false,\n        \"in__0\": -37614267\n      }\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:26:33.000Z",
+                      "updatedAt": "2026-07-28T01:26:33.000Z",
+                      "uid": "35240-53185df9-6f36-4ddd-b468-ce7afd9715e4"
+                    },
+                    {
+                      "id": "c2f92349-8d60-4170-ac03-bddde960f618",
+                      "name": "Request validation failed",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/metrics?filter=<string>&page_size=50&page_token=<string>&order_by=metric_name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "metrics"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter expression syntax.\n\nSupported fields: `status`, `metric_id`, `metric_name`, `value`, `create_time`, `start_time`, `end_time`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n",
+                              "key": "filter",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Maximum number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Opaque pagination token from previous response",
+                              "key": "page_token",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `metric_name`, `create_time`, `value`, `start_time`, `end_time`\n",
+                              "key": "order_by",
+                              "value": "metric_name"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:33.000Z",
+                      "updatedAt": "2026-07-28T01:26:33.000Z",
+                      "uid": "35240-c2f92349-8d60-4170-ac03-bddde960f618"
+                    },
+                    {
+                      "id": "d47cef8f-f6e1-4c9a-aaca-9c888ebbeab7",
+                      "name": "Missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/metrics?filter=<string>&page_size=50&page_token=<string>&order_by=metric_name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "metrics"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter expression syntax.\n\nSupported fields: `status`, `metric_id`, `metric_name`, `value`, `create_time`, `start_time`, `end_time`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n",
+                              "key": "filter",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Maximum number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Opaque pagination token from previous response",
+                              "key": "page_token",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `metric_name`, `create_time`, `value`, `start_time`, `end_time`\n",
+                              "key": "order_by",
+                              "value": "metric_name"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:33.000Z",
+                      "updatedAt": "2026-07-28T01:26:33.000Z",
+                      "uid": "35240-d47cef8f-f6e1-4c9a-aaca-9c888ebbeab7"
+                    },
+                    {
+                      "id": "71d1f010-7340-4ec0-89b3-fa29a9a257dd",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/metrics?filter=<string>&page_size=50&page_token=<string>&order_by=metric_name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "metrics"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter expression syntax.\n\nSupported fields: `status`, `metric_id`, `metric_name`, `value`, `create_time`, `start_time`, `end_time`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n",
+                              "key": "filter",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Maximum number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Opaque pagination token from previous response",
+                              "key": "page_token",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `metric_name`, `create_time`, `value`, `start_time`, `end_time`\n",
+                              "key": "order_by",
+                              "value": "metric_name"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:33.000Z",
+                      "updatedAt": "2026-07-28T01:26:33.000Z",
+                      "uid": "35240-71d1f010-7340-4ec0-89b3-fa29a9a257dd"
+                    },
+                    {
+                      "id": "c43607fe-3dfd-4892-9b25-f9b986ecf62d",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/simulations/:simulation_id/metrics?filter=<string>&page_size=50&page_token=<string>&order_by=metric_name",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "simulations",
+                            ":simulation_id",
+                            "metrics"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter expression syntax.\n\nSupported fields: `status`, `metric_id`, `metric_name`, `value`, `create_time`, `start_time`, `end_time`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n",
+                              "key": "filter",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Maximum number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Opaque pagination token from previous response",
+                              "key": "page_token",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `metric_name`, `create_time`, `value`, `start_time`, `end_time`\n",
+                              "key": "order_by",
+                              "value": "metric_name"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "simulation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      },\n      {\n        \"description\": \"<string>\",\n        \"field\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:33.000Z",
+                      "updatedAt": "2026-07-28T01:26:33.000Z",
+                      "uid": "35240-c43607fe-3dfd-4892-9b25-f9b986ecf62d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:26:33.000Z",
+                  "updatedAt": "2026-07-28T01:26:33.000Z",
+                  "uid": "35240-bec4eaf7-979a-4fb5-9392-3efe702de4c5"
+                }
+              ],
+              "id": "0acd5142-bebb-4b0e-972f-086516b06f24",
+              "createdAt": "2026-07-28T01:26:33.000Z",
+              "updatedAt": "2026-07-28T01:26:33.000Z",
+              "uid": "35240-0acd5142-bebb-4b0e-972f-086516b06f24"
+            }
+          ],
+          "id": "4c494b1b-ee58-41b7-bae7-3f756333d06c",
+          "createdAt": "2026-07-28T01:26:33.000Z",
+          "updatedAt": "2026-07-28T01:26:33.000Z",
+          "uid": "35240-4c494b1b-ee58-41b7-bae7-3f756333d06c"
+        }
+      ],
+      "id": "0ac7b69f-c210-4cea-b3dd-395bb0145535",
+      "createdAt": "2026-07-28T01:26:33.000Z",
+      "updatedAt": "2026-07-28T01:26:33.000Z",
+      "uid": "35240-0ac7b69f-c210-4cea-b3dd-395bb0145535"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

@@ -1,0 +1,455 @@
+{
+  "info": {
+    "_postman_id": "a923da59-59c9-48c3-94dd-b5a92d23fb7f",
+    "name": "Coval Agents Monitor Events API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:26:35.000Z",
+    "updatedAt": "2026-07-28T01:26:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a923da59-59c9-48c3-94dd-b5a92d23fb7f"
+  },
+  "item": [
+    {
+      "name": "monitors",
+      "item": [
+        {
+          "name": "{monitor_id}",
+          "item": [
+            {
+              "name": "events",
+              "item": [
+                {
+                  "name": "List monitor events",
+                  "id": "679063d1-8ca0-47cf-a9b8-3b42fb644691",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/monitors/:monitor_id/events?outcome=SUPPRESSED&page_size=50&page_token=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "monitors",
+                        ":monitor_id",
+                        "events"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter events by outcome",
+                          "key": "outcome",
+                          "value": "SUPPRESSED"
+                        },
+                        {
+                          "description": "Number of results per page",
+                          "key": "page_size",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Token for fetching the next page of results",
+                          "key": "page_token",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "01622775-dd05-421f-81e1-871e5c6741e9",
+                          "key": "monitor_id",
+                          "value": "9SXFEYQF8AFXDND64IZ1T5K04M",
+                          "description": "(Required) Monitor ULID"
+                        }
+                      ]
+                    },
+                    "description": "Returns evaluation events for a monitor, ordered by most recent first.\n\nEvery run completion that evaluates this monitor produces an event,\nregardless of outcome (TRIGGERED, NOT_MET, SUPPRESSED, ERROR).\n"
+                  },
+                  "response": [
+                    {
+                      "id": "6f9c21fa-569d-42eb-9f03-93e55d31e7ac",
+                      "name": "List of monitor events",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/monitors/:monitor_id/events?outcome=SUPPRESSED&page_size=50&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "monitors",
+                            ":monitor_id",
+                            "events"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter events by outcome",
+                              "key": "outcome",
+                              "value": "SUPPRESSED"
+                            },
+                            {
+                              "description": "Number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Token for fetching the next page of results",
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "monitor_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"events\": [\n    {\n      \"ulid\": \"HPIZOM6LI4SZSK2LQXR6FABVCJ\",\n      \"monitor_ulid\": \"<string>\",\n      \"run_id\": \"<string>\",\n      \"outcome\": \"SUPPRESSED\",\n      \"created_at\": \"<dateTime>\",\n      \"condition_results\": [\n        {\n          \"metric_id\": \"<string>\",\n          \"metric_display_name\": \"<string>\",\n          \"aggregation\": \"<string>\",\n          \"computed_value\": \"<number>\",\n          \"threshold\": \"<number>\",\n          \"operator\": \"<string>\",\n          \"met\": \"<boolean>\"\n        },\n        {\n          \"metric_id\": \"<string>\",\n          \"metric_display_name\": \"<string>\",\n          \"aggregation\": \"<string>\",\n          \"computed_value\": \"<number>\",\n          \"threshold\": \"<number>\",\n          \"operator\": \"<string>\",\n          \"met\": \"<boolean>\"\n        }\n      ],\n      \"dispatched_channels\": [\n        {\n          \"channel_type\": \"<string>\",\n          \"channel_summary\": \"<string>\",\n          \"success\": \"<boolean>\",\n          \"error\": \"<string>\"\n        },\n        {\n          \"channel_type\": \"<string>\",\n          \"channel_summary\": \"<string>\",\n          \"success\": \"<boolean>\",\n          \"error\": \"<string>\"\n        }\n      ],\n      \"message_sent\": \"<string>\"\n    },\n    {\n      \"ulid\": \"9CNRKJJUA1AW7S76L6AJLPNGFZ\",\n      \"monitor_ulid\": \"<string>\",\n      \"run_id\": \"<string>\",\n      \"outcome\": \"SUPPRESSED\",\n      \"created_at\": \"<dateTime>\",\n      \"condition_results\": [\n        {\n          \"metric_id\": \"<string>\",\n          \"metric_display_name\": \"<string>\",\n          \"aggregation\": \"<string>\",\n          \"computed_value\": \"<number>\",\n          \"threshold\": \"<number>\",\n          \"operator\": \"<string>\",\n          \"met\": \"<boolean>\"\n        },\n        {\n          \"metric_id\": \"<string>\",\n          \"metric_display_name\": \"<string>\",\n          \"aggregation\": \"<string>\",\n          \"computed_value\": \"<number>\",\n          \"threshold\": \"<number>\",\n          \"operator\": \"<string>\",\n          \"met\": \"<boolean>\"\n        }\n      ],\n      \"dispatched_channels\": [\n        {\n          \"channel_type\": \"<string>\",\n          \"channel_summary\": \"<string>\",\n          \"success\": \"<boolean>\",\n          \"error\": \"<string>\"\n        },\n        {\n          \"channel_type\": \"<string>\",\n          \"channel_summary\": \"<string>\",\n          \"success\": \"<boolean>\",\n          \"error\": \"<string>\"\n        }\n      ],\n      \"message_sent\": \"<string>\"\n    }\n  ],\n  \"total_count\": \"<integer>\",\n  \"next_page_token\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:26:35.000Z",
+                      "updatedAt": "2026-07-28T01:26:35.000Z",
+                      "uid": "35240-6f9c21fa-569d-42eb-9f03-93e55d31e7ac"
+                    },
+                    {
+                      "id": "f682ad72-ee78-43f0-9298-0fcc4d8db7b5",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/monitors/:monitor_id/events?outcome=SUPPRESSED&page_size=50&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "monitors",
+                            ":monitor_id",
+                            "events"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter events by outcome",
+                              "key": "outcome",
+                              "value": "SUPPRESSED"
+                            },
+                            {
+                              "description": "Number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Token for fetching the next page of results",
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "monitor_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:35.000Z",
+                      "updatedAt": "2026-07-28T01:26:35.000Z",
+                      "uid": "35240-f682ad72-ee78-43f0-9298-0fcc4d8db7b5"
+                    },
+                    {
+                      "id": "0b221fc8-2be1-4ab4-bc50-526aba2eeba7",
+                      "name": "Permission Denied",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/monitors/:monitor_id/events?outcome=SUPPRESSED&page_size=50&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "monitors",
+                            ":monitor_id",
+                            "events"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter events by outcome",
+                              "key": "outcome",
+                              "value": "SUPPRESSED"
+                            },
+                            {
+                              "description": "Number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Token for fetching the next page of results",
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "monitor_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:35.000Z",
+                      "updatedAt": "2026-07-28T01:26:35.000Z",
+                      "uid": "35240-0b221fc8-2be1-4ab4-bc50-526aba2eeba7"
+                    },
+                    {
+                      "id": "17f2afee-7bf0-46d5-82d2-734861c6fb76",
+                      "name": "Not Found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/monitors/:monitor_id/events?outcome=SUPPRESSED&page_size=50&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "monitors",
+                            ":monitor_id",
+                            "events"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter events by outcome",
+                              "key": "outcome",
+                              "value": "SUPPRESSED"
+                            },
+                            {
+                              "description": "Number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Token for fetching the next page of results",
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "monitor_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:35.000Z",
+                      "updatedAt": "2026-07-28T01:26:35.000Z",
+                      "uid": "35240-17f2afee-7bf0-46d5-82d2-734861c6fb76"
+                    },
+                    {
+                      "id": "1396c6bf-5fda-4ea2-b58e-01aecc0b0e33",
+                      "name": "Internal Server Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/monitors/:monitor_id/events?outcome=SUPPRESSED&page_size=50&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "monitors",
+                            ":monitor_id",
+                            "events"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter events by outcome",
+                              "key": "outcome",
+                              "value": "SUPPRESSED"
+                            },
+                            {
+                              "description": "Number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Token for fetching the next page of results",
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "monitor_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:35.000Z",
+                      "updatedAt": "2026-07-28T01:26:35.000Z",
+                      "uid": "35240-1396c6bf-5fda-4ea2-b58e-01aecc0b0e33"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:26:35.000Z",
+                  "updatedAt": "2026-07-28T01:26:35.000Z",
+                  "uid": "35240-679063d1-8ca0-47cf-a9b8-3b42fb644691"
+                }
+              ],
+              "id": "bf76e988-4ca2-462a-ae92-ee85cadffb3b",
+              "createdAt": "2026-07-28T01:26:35.000Z",
+              "updatedAt": "2026-07-28T01:26:35.000Z",
+              "uid": "35240-bf76e988-4ca2-462a-ae92-ee85cadffb3b"
+            }
+          ],
+          "id": "ded33d5e-756f-41d9-9fb6-9f00bcfdd758",
+          "createdAt": "2026-07-28T01:26:35.000Z",
+          "updatedAt": "2026-07-28T01:26:35.000Z",
+          "uid": "35240-ded33d5e-756f-41d9-9fb6-9f00bcfdd758"
+        }
+      ],
+      "id": "89d2a701-9280-4ab2-9ff6-e12335283797",
+      "createdAt": "2026-07-28T01:26:35.000Z",
+      "updatedAt": "2026-07-28T01:26:35.000Z",
+      "uid": "35240-89d2a701-9280-4ab2-9ff6-e12335283797"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

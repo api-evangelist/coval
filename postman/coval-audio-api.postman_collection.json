@@ -1,0 +1,582 @@
+{
+  "info": {
+    "_postman_id": "92af6c9d-f645-4c30-8ebe-5818e7326dcc",
+    "name": "Coval Agents Audio API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:26:28.000Z",
+    "updatedAt": "2026-07-28T01:26:28.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-92af6c9d-f645-4c30-8ebe-5818e7326dcc"
+  },
+  "item": [
+    {
+      "name": "audio:upload",
+      "item": [
+        {
+          "name": "Upload audio",
+          "id": "ba9c9ed0-a2cd-4c3e-8aec-3d57a1a104ca",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content_type\": \"audio/wav\",\n  \"expected_size_bytes\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/audio:upload",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "audio:upload"
+              ]
+            },
+            "description": "Issue an opaque `upload_id` and a short-lived presigned PUT URL for direct audio upload.\n"
+          },
+          "response": [
+            {
+              "id": "8dfcd432-d55f-4d9b-a99c-eba7550f6970",
+              "name": "Presigned upload URL issued",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content_type\": \"audio/wav\",\n  \"expected_size_bytes\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/audio:upload",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "audio:upload"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"upload_id\": \"upl_38E5DVY8XX7G10RQWWP0SV3P45\",\n  \"upload_url\": \"<uri>\",\n  \"expires_at\": \"<dateTime>\",\n  \"max_size_bytes\": \"<integer>\",\n  \"content_type\": \"audio/mp3\"\n}",
+              "createdAt": "2026-07-28T01:26:29.000Z",
+              "updatedAt": "2026-07-28T01:26:29.000Z",
+              "uid": "35240-8dfcd432-d55f-4d9b-a99c-eba7550f6970"
+            },
+            {
+              "id": "8b297be8-6367-4821-8dbf-1981c5099781",
+              "name": "Invalid request arguments",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content_type\": \"audio/wav\",\n  \"expected_size_bytes\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/audio:upload",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "audio:upload"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:26:29.000Z",
+              "updatedAt": "2026-07-28T01:26:29.000Z",
+              "uid": "35240-8b297be8-6367-4821-8dbf-1981c5099781"
+            },
+            {
+              "id": "48ed2b27-9fdf-4867-a5b7-03d8043c23a4",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content_type\": \"audio/wav\",\n  \"expected_size_bytes\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/audio:upload",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "audio:upload"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:26:29.000Z",
+              "updatedAt": "2026-07-28T01:26:29.000Z",
+              "uid": "35240-48ed2b27-9fdf-4867-a5b7-03d8043c23a4"
+            },
+            {
+              "id": "b262aee4-935b-46f1-b930-8b5038bd2321",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content_type\": \"audio/wav\",\n  \"expected_size_bytes\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/audio:upload",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "audio:upload"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:26:29.000Z",
+              "updatedAt": "2026-07-28T01:26:29.000Z",
+              "uid": "35240-b262aee4-935b-46f1-b930-8b5038bd2321"
+            }
+          ],
+          "createdAt": "2026-07-28T01:26:29.000Z",
+          "updatedAt": "2026-07-28T01:26:29.000Z",
+          "uid": "35240-ba9c9ed0-a2cd-4c3e-8aec-3d57a1a104ca"
+        }
+      ],
+      "id": "4a1bcf9d-2ba4-4865-b823-026a321064b9",
+      "createdAt": "2026-07-28T01:26:29.000Z",
+      "updatedAt": "2026-07-28T01:26:29.000Z",
+      "uid": "35240-4a1bcf9d-2ba4-4865-b823-026a321064b9"
+    },
+    {
+      "name": "conversations",
+      "item": [
+        {
+          "name": "{conversation_id}",
+          "item": [
+            {
+              "name": "audio",
+              "item": [
+                {
+                  "name": "Get conversation audio",
+                  "id": "8781faee-c704-4a6a-8c7b-be44c0328814",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/conversations/:conversation_id/audio",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "conversations",
+                        ":conversation_id",
+                        "audio"
+                      ],
+                      "variable": [
+                        {
+                          "id": "960f2f5a-a036-4664-9f8b-402ce3a02ae6",
+                          "key": "conversation_id",
+                          "value": "<string>",
+                          "description": "(Required) Unique conversation identifier"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve a presigned URL for downloading conversation audio.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "c1453531-259f-49cf-9875-4353ee6ea0fd",
+                      "name": "Presigned audio URL",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/conversations/:conversation_id/audio",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "conversations",
+                            ":conversation_id",
+                            "audio"
+                          ],
+                          "variable": [
+                            {
+                              "key": "conversation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"audio_url\": \"<uri>\",\n  \"conversation_id\": \"<string>\",\n  \"url_expires_in_seconds\": \"<integer>\",\n  \"peaks_url\": \"<uri>\"\n}",
+                      "createdAt": "2026-07-28T01:26:29.000Z",
+                      "updatedAt": "2026-07-28T01:26:29.000Z",
+                      "uid": "35240-c1453531-259f-49cf-9875-4353ee6ea0fd"
+                    },
+                    {
+                      "id": "63a55bb3-8f1b-4dc6-8294-3b9df2802105",
+                      "name": "Missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/conversations/:conversation_id/audio",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "conversations",
+                            ":conversation_id",
+                            "audio"
+                          ],
+                          "variable": [
+                            {
+                              "key": "conversation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:29.000Z",
+                      "updatedAt": "2026-07-28T01:26:29.000Z",
+                      "uid": "35240-63a55bb3-8f1b-4dc6-8294-3b9df2802105"
+                    },
+                    {
+                      "id": "7e62431d-058f-465e-854e-7f61d85479bc",
+                      "name": "Conversation not found or has no audio",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/conversations/:conversation_id/audio",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "conversations",
+                            ":conversation_id",
+                            "audio"
+                          ],
+                          "variable": [
+                            {
+                              "key": "conversation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:29.000Z",
+                      "updatedAt": "2026-07-28T01:26:29.000Z",
+                      "uid": "35240-7e62431d-058f-465e-854e-7f61d85479bc"
+                    },
+                    {
+                      "id": "24697d33-be80-4939-b365-f501fdba8386",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/conversations/:conversation_id/audio",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "conversations",
+                            ":conversation_id",
+                            "audio"
+                          ],
+                          "variable": [
+                            {
+                              "key": "conversation_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:29.000Z",
+                      "updatedAt": "2026-07-28T01:26:29.000Z",
+                      "uid": "35240-24697d33-be80-4939-b365-f501fdba8386"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:26:29.000Z",
+                  "updatedAt": "2026-07-28T01:26:29.000Z",
+                  "uid": "35240-8781faee-c704-4a6a-8c7b-be44c0328814"
+                }
+              ],
+              "id": "ec1d9801-8558-49e7-91b4-1c5640fd3bd9",
+              "createdAt": "2026-07-28T01:26:29.000Z",
+              "updatedAt": "2026-07-28T01:26:29.000Z",
+              "uid": "35240-ec1d9801-8558-49e7-91b4-1c5640fd3bd9"
+            }
+          ],
+          "id": "e2d17595-3db4-483d-abb0-4399db0d3711",
+          "createdAt": "2026-07-28T01:26:29.000Z",
+          "updatedAt": "2026-07-28T01:26:29.000Z",
+          "uid": "35240-e2d17595-3db4-483d-abb0-4399db0d3711"
+        }
+      ],
+      "id": "069fdde3-8851-4644-9d37-a3e5dcdc4327",
+      "createdAt": "2026-07-28T01:26:29.000Z",
+      "updatedAt": "2026-07-28T01:26:29.000Z",
+      "uid": "35240-069fdde3-8851-4644-9d37-a3e5dcdc4327"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

@@ -1,0 +1,1881 @@
+{
+  "info": {
+    "_postman_id": "5791e2e3-5c60-4fe6-9e23-7ba6cfcbaf58",
+    "name": "Coval Agents Mutations API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:26:37.000Z",
+    "updatedAt": "2026-07-28T01:26:38.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5791e2e3-5c60-4fe6-9e23-7ba6cfcbaf58"
+  },
+  "item": [
+    {
+      "name": "agents",
+      "item": [
+        {
+          "name": "{agent_id}",
+          "item": [
+            {
+              "name": "mutations",
+              "item": [
+                {
+                  "name": "{mutation_id}",
+                  "item": [
+                    {
+                      "name": "Get mutation",
+                      "id": "190f96b0-1950-487a-bc67-a67a532069fe",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "x-api-key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "mutations",
+                            ":mutation_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "3e83ea20-c8ce-4441-a7ee-d5a62beccdf5",
+                              "key": "agent_id",
+                              "value": "AZPbpsktK4GKHTL4SMw8oF",
+                              "description": "(Required) Parent agent ID (22-character ShortUUID)"
+                            },
+                            {
+                              "id": "d253b6c3-9f11-4f44-97c0-426b2a9500c5",
+                              "key": "mutation_id",
+                              "value": "C40Uki9VPvThDwLdAwJNsf3KsG",
+                              "description": "(Required) Mutation ID (26-character ULID)"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve a specific mutation by its ID."
+                      },
+                      "response": [
+                        {
+                          "id": "b04430a2-325c-4658-9042-bb9caa72abcf",
+                          "name": "Mutation retrieved successfully",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"mutation\": {\n    \"id\": \"6VDETKWwPw1Jm8txLYQl5p7hFQ\",\n    \"agent_id\": \"drBII8LeODgT96j9FGGgxq\",\n    \"display_name\": \"<string>\",\n    \"config_overrides\": {\n      \"cupidatat71e\": 11160683.094813839,\n      \"pariaturb7\": -3798902,\n      \"laborum__c\": \"do magna\"\n    },\n    \"parameter_values\": {\n      \"eu9_\": \"<string>\",\n      \"laboris_69\": \"<string>\"\n    },\n    \"create_time\": \"<dateTime>\",\n    \"description\": \"\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-b04430a2-325c-4658-9042-bb9caa72abcf"
+                        },
+                        {
+                          "id": "b1c2dbbb-778f-437e-a0d4-b847c4ac8fe1",
+                          "name": "Authentication failed",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-b1c2dbbb-778f-437e-a0d4-b847c4ac8fe1"
+                        },
+                        {
+                          "id": "bd6683e6-34f7-4515-9b99-6962714924a6",
+                          "name": "Agent or mutation not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-bd6683e6-34f7-4515-9b99-6962714924a6"
+                        },
+                        {
+                          "id": "bae2dee4-5b80-4cd1-b99f-2722e6363f3c",
+                          "name": "Internal server error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-bae2dee4-5b80-4cd1-b99f-2722e6363f3c"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:26:38.000Z",
+                      "updatedAt": "2026-07-28T01:26:38.000Z",
+                      "uid": "35240-190f96b0-1950-487a-bc67-a67a532069fe"
+                    },
+                    {
+                      "name": "Update mutation",
+                      "id": "8bbe1ac2-a64f-4d31-8187-5004163fae6c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "x-api-key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config_overrides\": {\n    \"ut_8\": true,\n    \"inc\": true,\n    \"in_2e0\": \"adipisicing Lorem eiusmod in aliquip\"\n  },\n  \"parameter_values\": {\n    \"minimad_\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "mutations",
+                            ":mutation_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "fc51b754-b206-47ae-831f-4ba62ef7cdba",
+                              "key": "agent_id",
+                              "value": "AZPbpsktK4GKHTL4SMw8oF",
+                              "description": "(Required) Parent agent ID (22-character ShortUUID)"
+                            },
+                            {
+                              "id": "7c35ebba-8561-4f68-b3f7-c6fe0cf28c78",
+                              "key": "mutation_id",
+                              "value": "C40Uki9VPvThDwLdAwJNsf3KsG",
+                              "description": "(Required) Mutation ID (26-character ULID)"
+                            }
+                          ]
+                        },
+                        "description": "Update specific fields of a mutation."
+                      },
+                      "response": [
+                        {
+                          "id": "f94e0ab1-f1dc-426b-a65a-e8e34719ce62",
+                          "name": "Mutation updated successfully",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config_overrides\": {\n    \"ut_8\": true,\n    \"inc\": true,\n    \"in_2e0\": \"adipisicing Lorem eiusmod in aliquip\"\n  },\n  \"parameter_values\": {\n    \"minimad_\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"mutation\": {\n    \"id\": \"6VDETKWwPw1Jm8txLYQl5p7hFQ\",\n    \"agent_id\": \"drBII8LeODgT96j9FGGgxq\",\n    \"display_name\": \"<string>\",\n    \"config_overrides\": {\n      \"cupidatat71e\": 11160683.094813839,\n      \"pariaturb7\": -3798902,\n      \"laborum__c\": \"do magna\"\n    },\n    \"parameter_values\": {\n      \"eu9_\": \"<string>\",\n      \"laboris_69\": \"<string>\"\n    },\n    \"create_time\": \"<dateTime>\",\n    \"description\": \"\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-f94e0ab1-f1dc-426b-a65a-e8e34719ce62"
+                        },
+                        {
+                          "id": "3c2cfecf-c987-4a2f-9d67-3c4b3dfaf70c",
+                          "name": "Invalid request body or validation failed",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config_overrides\": {\n    \"ut_8\": true,\n    \"inc\": true,\n    \"in_2e0\": \"adipisicing Lorem eiusmod in aliquip\"\n  },\n  \"parameter_values\": {\n    \"minimad_\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-3c2cfecf-c987-4a2f-9d67-3c4b3dfaf70c"
+                        },
+                        {
+                          "id": "0a0189c4-177f-4eb6-b77a-8a3fe8c2dc40",
+                          "name": "Authentication failed",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config_overrides\": {\n    \"ut_8\": true,\n    \"inc\": true,\n    \"in_2e0\": \"adipisicing Lorem eiusmod in aliquip\"\n  },\n  \"parameter_values\": {\n    \"minimad_\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-0a0189c4-177f-4eb6-b77a-8a3fe8c2dc40"
+                        },
+                        {
+                          "id": "ce42d6da-ca8a-4049-9c56-045937a7482a",
+                          "name": "Agent or mutation not found",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config_overrides\": {\n    \"ut_8\": true,\n    \"inc\": true,\n    \"in_2e0\": \"adipisicing Lorem eiusmod in aliquip\"\n  },\n  \"parameter_values\": {\n    \"minimad_\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-ce42d6da-ca8a-4049-9c56-045937a7482a"
+                        },
+                        {
+                          "id": "6952573d-4cb0-4966-a70a-6bedc8b018af",
+                          "name": "Mutation name conflicts with another active mutation",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config_overrides\": {\n    \"ut_8\": true,\n    \"inc\": true,\n    \"in_2e0\": \"adipisicing Lorem eiusmod in aliquip\"\n  },\n  \"parameter_values\": {\n    \"minimad_\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-6952573d-4cb0-4966-a70a-6bedc8b018af"
+                        },
+                        {
+                          "id": "5bed530b-458f-4e91-9389-bbb9984a8f79",
+                          "name": "Internal server error",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"config_overrides\": {\n    \"ut_8\": true,\n    \"inc\": true,\n    \"in_2e0\": \"adipisicing Lorem eiusmod in aliquip\"\n  },\n  \"parameter_values\": {\n    \"minimad_\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-5bed530b-458f-4e91-9389-bbb9984a8f79"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:26:38.000Z",
+                      "updatedAt": "2026-07-28T01:26:38.000Z",
+                      "uid": "35240-8bbe1ac2-a64f-4d31-8187-5004163fae6c"
+                    },
+                    {
+                      "name": "Delete mutation",
+                      "id": "d6b55bb1-781f-450f-bc15-b4346ebe31f6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "x-api-key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "mutations",
+                            ":mutation_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "7e2bf369-b7c7-4973-93e1-be47e7c9e182",
+                              "key": "agent_id",
+                              "value": "AZPbpsktK4GKHTL4SMw8oF",
+                              "description": "(Required) Parent agent ID (22-character ShortUUID)"
+                            },
+                            {
+                              "id": "1b10ec36-1a70-465e-8091-5f24c00dfb56",
+                              "key": "mutation_id",
+                              "value": "C40Uki9VPvThDwLdAwJNsf3KsG",
+                              "description": "(Required) Mutation ID (26-character ULID)"
+                            }
+                          ]
+                        },
+                        "description": "Delete a mutation."
+                      },
+                      "response": [
+                        {
+                          "id": "fe0b0b1f-5f4b-40ab-ad89-56e0d56acc5c",
+                          "name": "Mutation deleted successfully (or already deleted)",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-fe0b0b1f-5f4b-40ab-ad89-56e0d56acc5c"
+                        },
+                        {
+                          "id": "d12969f7-be30-4462-820e-dddbfa1c5e03",
+                          "name": "Authentication failed",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-d12969f7-be30-4462-820e-dddbfa1c5e03"
+                        },
+                        {
+                          "id": "9cc38703-4540-4f7f-90f9-cba51c15d110",
+                          "name": "Agent or mutation not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-9cc38703-4540-4f7f-90f9-cba51c15d110"
+                        },
+                        {
+                          "id": "4b4ec772-c127-47b9-8bda-6014de473c1f",
+                          "name": "Internal server error",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/agents/:agent_id/mutations/:mutation_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "agents",
+                                ":agent_id",
+                                "mutations",
+                                ":mutation_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "agent_id"
+                                },
+                                {
+                                  "key": "mutation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:26:38.000Z",
+                          "updatedAt": "2026-07-28T01:26:38.000Z",
+                          "uid": "35240-4b4ec772-c127-47b9-8bda-6014de473c1f"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:26:38.000Z",
+                      "updatedAt": "2026-07-28T01:26:38.000Z",
+                      "uid": "35240-d6b55bb1-781f-450f-bc15-b4346ebe31f6"
+                    }
+                  ],
+                  "id": "86e9d8d5-e5f3-43a5-ad04-072187052822",
+                  "createdAt": "2026-07-28T01:26:38.000Z",
+                  "updatedAt": "2026-07-28T01:26:38.000Z",
+                  "uid": "35240-86e9d8d5-e5f3-43a5-ad04-072187052822"
+                },
+                {
+                  "name": "List mutations",
+                  "id": "e778241d-0243-4d2e-bd4c-29e3c713ad4a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id/mutations?page_size=50&page_token=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id",
+                        "mutations"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of results per page",
+                          "key": "page_size",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Opaque pagination token from previous response",
+                          "key": "page_token",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "7aeb53e5-0ce8-4ca6-bc24-50d3a4970de4",
+                          "key": "agent_id",
+                          "value": "AZPbpsktK4GKHTL4SMw8oF",
+                          "description": "(Required) Parent agent ID (22-character ShortUUID)"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve a paginated list of mutations for a specific agent."
+                  },
+                  "response": [
+                    {
+                      "id": "676e7039-b95f-44dc-902a-f42116b4e32c",
+                      "name": "Mutations retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/mutations?page_size=50&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "mutations"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Opaque pagination token from previous response",
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"mutations\": [\n    {\n      \"id\": \"3mupcac9tlAa0UXtfKF0sFZqgT\",\n      \"agent_id\": \"EGkpV7X0aBmSkzJNAVxok8\",\n      \"display_name\": \"<string>\",\n      \"config_overrides\": {\n        \"aute_b70\": 17836491.94950056,\n        \"eu_f4\": true,\n        \"non2\": false,\n        \"eiusmod8\": -17771182\n      },\n      \"parameter_values\": {\n        \"elitd\": \"<string>\",\n        \"id2\": \"<string>\"\n      },\n      \"create_time\": \"<dateTime>\",\n      \"description\": \"\",\n      \"update_time\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"oeM49xgVvqz27ozusKUULGVLbk\",\n      \"agent_id\": \"CfsjjxfKMnWYHiNKMyvSNQ\",\n      \"display_name\": \"<string>\",\n      \"config_overrides\": {\n        \"consequatfc2\": 8123295.57594493,\n        \"proident_59\": \"irure mollit ut\",\n        \"eiusmod_b8\": false\n      },\n      \"parameter_values\": {\n        \"cupidatata1\": \"<string>\",\n        \"cillum_7_\": \"<string>\",\n        \"eiusmod_43\": \"<string>\",\n        \"aliquip0e8\": \"<string>\"\n      },\n      \"create_time\": \"<dateTime>\",\n      \"description\": \"\",\n      \"update_time\": \"<dateTime>\"\n    }\n  ],\n  \"next_page_token\": \"<string>\",\n  \"total_count\": \"<integer>\"\n}",
+                      "createdAt": "2026-07-28T01:26:38.000Z",
+                      "updatedAt": "2026-07-28T01:26:38.000Z",
+                      "uid": "35240-676e7039-b95f-44dc-902a-f42116b4e32c"
+                    },
+                    {
+                      "id": "af452d0d-8ee0-4435-abb2-e7c5afbcc0de",
+                      "name": "Authentication failed",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/mutations?page_size=50&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "mutations"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Opaque pagination token from previous response",
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:38.000Z",
+                      "updatedAt": "2026-07-28T01:26:38.000Z",
+                      "uid": "35240-af452d0d-8ee0-4435-abb2-e7c5afbcc0de"
+                    },
+                    {
+                      "id": "6d3f8806-6aae-4915-b19e-dc1d38140e67",
+                      "name": "Agent not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/mutations?page_size=50&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "mutations"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Opaque pagination token from previous response",
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:38.000Z",
+                      "updatedAt": "2026-07-28T01:26:38.000Z",
+                      "uid": "35240-6d3f8806-6aae-4915-b19e-dc1d38140e67"
+                    },
+                    {
+                      "id": "9fa4fc66-b864-4b8a-83ba-a19519123c22",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/mutations?page_size=50&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "mutations"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Opaque pagination token from previous response",
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:38.000Z",
+                      "updatedAt": "2026-07-28T01:26:38.000Z",
+                      "uid": "35240-9fa4fc66-b864-4b8a-83ba-a19519123c22"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:26:38.000Z",
+                  "updatedAt": "2026-07-28T01:26:38.000Z",
+                  "uid": "35240-e778241d-0243-4d2e-bd4c-29e3c713ad4a"
+                },
+                {
+                  "name": "Create mutation",
+                  "id": "852f945e-f498-4263-9be0-ef69d171002f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"\",\n  \"config_overrides\": {},\n  \"parameter_values\": {\n    \"fugiat_be7\": \"<string>\",\n    \"Excepteur_1\": \"<string>\",\n    \"elit_6\": \"<string>\",\n    \"et_7_0\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/agents/:agent_id/mutations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "agents",
+                        ":agent_id",
+                        "mutations"
+                      ],
+                      "variable": [
+                        {
+                          "id": "8d495271-100b-4bbb-983f-e3db808aab62",
+                          "key": "agent_id",
+                          "value": "AZPbpsktK4GKHTL4SMw8oF",
+                          "description": "(Required) Parent agent ID (22-character ShortUUID)"
+                        }
+                      ]
+                    },
+                    "description": "Create a new configuration mutation for an agent."
+                  },
+                  "response": [
+                    {
+                      "id": "aea49019-6d11-4844-8d37-221b9f5e31f8",
+                      "name": "Mutation created successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"\",\n  \"config_overrides\": {},\n  \"parameter_values\": {\n    \"fugiat_be7\": \"<string>\",\n    \"Excepteur_1\": \"<string>\",\n    \"elit_6\": \"<string>\",\n    \"et_7_0\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/mutations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "mutations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"mutation\": {\n    \"id\": \"6VDETKWwPw1Jm8txLYQl5p7hFQ\",\n    \"agent_id\": \"drBII8LeODgT96j9FGGgxq\",\n    \"display_name\": \"<string>\",\n    \"config_overrides\": {\n      \"cupidatat71e\": 11160683.094813839,\n      \"pariaturb7\": -3798902,\n      \"laborum__c\": \"do magna\"\n    },\n    \"parameter_values\": {\n      \"eu9_\": \"<string>\",\n      \"laboris_69\": \"<string>\"\n    },\n    \"create_time\": \"<dateTime>\",\n    \"description\": \"\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:38.000Z",
+                      "updatedAt": "2026-07-28T01:26:38.000Z",
+                      "uid": "35240-aea49019-6d11-4844-8d37-221b9f5e31f8"
+                    },
+                    {
+                      "id": "d5517dc8-50cc-41b4-b089-1e46acf9f1d1",
+                      "name": "Invalid request body or validation failed",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"\",\n  \"config_overrides\": {},\n  \"parameter_values\": {\n    \"fugiat_be7\": \"<string>\",\n    \"Excepteur_1\": \"<string>\",\n    \"elit_6\": \"<string>\",\n    \"et_7_0\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/mutations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "mutations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:38.000Z",
+                      "updatedAt": "2026-07-28T01:26:38.000Z",
+                      "uid": "35240-d5517dc8-50cc-41b4-b089-1e46acf9f1d1"
+                    },
+                    {
+                      "id": "4198f949-3fc1-429d-b636-52e7cbd07f43",
+                      "name": "Authentication failed",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"\",\n  \"config_overrides\": {},\n  \"parameter_values\": {\n    \"fugiat_be7\": \"<string>\",\n    \"Excepteur_1\": \"<string>\",\n    \"elit_6\": \"<string>\",\n    \"et_7_0\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/mutations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "mutations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:38.000Z",
+                      "updatedAt": "2026-07-28T01:26:38.000Z",
+                      "uid": "35240-4198f949-3fc1-429d-b636-52e7cbd07f43"
+                    },
+                    {
+                      "id": "1a786f4e-759b-450f-983d-4791255434c9",
+                      "name": "Agent not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"\",\n  \"config_overrides\": {},\n  \"parameter_values\": {\n    \"fugiat_be7\": \"<string>\",\n    \"Excepteur_1\": \"<string>\",\n    \"elit_6\": \"<string>\",\n    \"et_7_0\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/mutations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "mutations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:38.000Z",
+                      "updatedAt": "2026-07-28T01:26:38.000Z",
+                      "uid": "35240-1a786f4e-759b-450f-983d-4791255434c9"
+                    },
+                    {
+                      "id": "718b997a-cca6-4de0-bd1f-09f5f2db14e8",
+                      "name": "Mutation name already exists for this agent",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"\",\n  \"config_overrides\": {},\n  \"parameter_values\": {\n    \"fugiat_be7\": \"<string>\",\n    \"Excepteur_1\": \"<string>\",\n    \"elit_6\": \"<string>\",\n    \"et_7_0\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/mutations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "mutations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:38.000Z",
+                      "updatedAt": "2026-07-28T01:26:38.000Z",
+                      "uid": "35240-718b997a-cca6-4de0-bd1f-09f5f2db14e8"
+                    },
+                    {
+                      "id": "2d262149-9461-443a-bafb-73f9f361718d",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"description\": \"\",\n  \"config_overrides\": {},\n  \"parameter_values\": {\n    \"fugiat_be7\": \"<string>\",\n    \"Excepteur_1\": \"<string>\",\n    \"elit_6\": \"<string>\",\n    \"et_7_0\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/agents/:agent_id/mutations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "agents",
+                            ":agent_id",
+                            "mutations"
+                          ],
+                          "variable": [
+                            {
+                              "key": "agent_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:26:38.000Z",
+                      "updatedAt": "2026-07-28T01:26:38.000Z",
+                      "uid": "35240-2d262149-9461-443a-bafb-73f9f361718d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:26:38.000Z",
+                  "updatedAt": "2026-07-28T01:26:38.000Z",
+                  "uid": "35240-852f945e-f498-4263-9be0-ef69d171002f"
+                }
+              ],
+              "id": "9c417e95-6201-4829-b606-b3738c647297",
+              "createdAt": "2026-07-28T01:26:38.000Z",
+              "updatedAt": "2026-07-28T01:26:38.000Z",
+              "uid": "35240-9c417e95-6201-4829-b606-b3738c647297"
+            }
+          ],
+          "id": "f53ef092-5e6e-4e6f-95c1-76f30ba26f07",
+          "createdAt": "2026-07-28T01:26:38.000Z",
+          "updatedAt": "2026-07-28T01:26:38.000Z",
+          "uid": "35240-f53ef092-5e6e-4e6f-95c1-76f30ba26f07"
+        }
+      ],
+      "id": "e0d95225-764f-4211-aab5-2226f6baf2de",
+      "createdAt": "2026-07-28T01:26:38.000Z",
+      "updatedAt": "2026-07-28T01:26:38.000Z",
+      "uid": "35240-e0d95225-764f-4211-aab5-2226f6baf2de"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

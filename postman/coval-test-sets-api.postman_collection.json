@@ -1,0 +1,3164 @@
+{
+  "info": {
+    "_postman_id": "cf8ec966-e5c9-45d1-a80d-1c2ad62f54b2",
+    "name": "Coval Agents Test Sets API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:27:30.000Z",
+    "updatedAt": "2026-07-28T01:27:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cf8ec966-e5c9-45d1-a80d-1c2ad62f54b2"
+  },
+  "item": [
+    {
+      "name": "test-sets",
+      "item": [
+        {
+          "name": "{test_set_id}",
+          "item": [
+            {
+              "name": "duplicate",
+              "item": [
+                {
+                  "name": "Duplicate a test set",
+                  "id": "0287a428-779c-41b6-8fce-881956abea9c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id/duplicate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id",
+                        "duplicate"
+                      ],
+                      "variable": [
+                        {
+                          "id": "2b2b5077-578c-45ac-9b63-75a4298439ab",
+                          "key": "test_set_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the test set to duplicate"
+                        }
+                      ]
+                    },
+                    "description": "Clone an existing test set and its active test cases into a new test set. Returns the new test set."
+                  },
+                  "response": [
+                    {
+                      "id": "2ec44676-9448-4048-b0fe-4cd1931a5846",
+                      "name": "Test set duplicated successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"test_set\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"test_set_type\": \"<string>\",\n    \"test_set_metadata\": {\n      \"proident4\": true,\n      \"excf\": \"esse aute commodo\",\n      \"doloreafb\": true\n    },\n    \"parameters\": {\n      \"ut_2\": 44319643,\n      \"laborum_89\": \"ut sunt Ut in\",\n      \"sit_16d\": -7232667.73683475\n    },\n    \"test_case_count\": \"<integer>\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-2ec44676-9448-4048-b0fe-4cd1931a5846"
+                    },
+                    {
+                      "id": "d0455a48-e401-4f26-a12c-d63944539efb",
+                      "name": "Authentication failed or missing API key",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-d0455a48-e401-4f26-a12c-d63944539efb"
+                    },
+                    {
+                      "id": "d43f5f6e-d382-4898-87e0-4f14dbe696f4",
+                      "name": "Resource not found or doesn't belong to organization",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-d43f5f6e-d382-4898-87e0-4f14dbe696f4"
+                    },
+                    {
+                      "id": "e571f870-cff3-49ae-8c11-914a7fbdf2dc",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/duplicate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "duplicate"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-e571f870-cff3-49ae-8c11-914a7fbdf2dc"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-0287a428-779c-41b6-8fce-881956abea9c"
+                }
+              ],
+              "id": "b34ae9d0-5726-4eac-8cb5-b19d1607cc36",
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-b34ae9d0-5726-4eac-8cb5-b19d1607cc36"
+            },
+            {
+              "name": "versions",
+              "item": [
+                {
+                  "name": "{version_id}",
+                  "item": [
+                    {
+                      "name": "revert",
+                      "item": [
+                        {
+                          "name": "Revert test set version",
+                          "id": "bd6b7c91-aee7-4b3b-b1c4-21e9024d6ab7",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/test-sets/:test_set_id/versions/:version_id/revert",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "test-sets",
+                                ":test_set_id",
+                                "versions",
+                                ":version_id",
+                                "revert"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "23451d3b-46ab-499a-89a7-479f750084bc",
+                                  "key": "test_set_id",
+                                  "value": "<string>",
+                                  "description": "(Required) Test set ID (8-character ID)"
+                                },
+                                {
+                                  "id": "7aa5fad6-cfb7-4bb7-b6b5-fa06f0601d5f",
+                                  "key": "version_id",
+                                  "value": "SQJWRZ38ESBZPHA8PC2VSVP2S8",
+                                  "description": "(Required) ULID of the target version to re-apply"
+                                }
+                              ]
+                            },
+                            "description": "Re-apply a prior version's content (config + test-case grid) to the live test set. A revert is forward-only: it mints a new version (change_type=revert) and advances the test set, so the response reflects the test set's new live config. Reverting to the version the test set already points at is rejected with 400. Test cases are not included in the response; fetch them separately via GET /test-cases."
+                          },
+                          "response": [
+                            {
+                              "id": "f4346b58-f867-4584-8fff-01afa8f8e517",
+                              "name": "Test set reverted successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/test-sets/:test_set_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "test-sets",
+                                    ":test_set_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "test_set_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"test_set\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"test_set_type\": \"<string>\",\n    \"test_set_metadata\": {\n      \"proident4\": true,\n      \"excf\": \"esse aute commodo\",\n      \"doloreafb\": true\n    },\n    \"parameters\": {\n      \"ut_2\": 44319643,\n      \"laborum_89\": \"ut sunt Ut in\",\n      \"sit_16d\": -7232667.73683475\n    },\n    \"test_case_count\": \"<integer>\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                              "createdAt": "2026-07-28T01:27:30.000Z",
+                              "updatedAt": "2026-07-28T01:27:30.000Z",
+                              "uid": "35240-f4346b58-f867-4584-8fff-01afa8f8e517"
+                            },
+                            {
+                              "id": "234810e5-6a2a-4df1-aaee-268b869962c7",
+                              "name": "Invalid request parameters",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/test-sets/:test_set_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "test-sets",
+                                    ":test_set_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "test_set_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T01:27:30.000Z",
+                              "updatedAt": "2026-07-28T01:27:30.000Z",
+                              "uid": "35240-234810e5-6a2a-4df1-aaee-268b869962c7"
+                            },
+                            {
+                              "id": "728455cc-4a70-49ed-843a-ddf6fad6bb66",
+                              "name": "Authentication failed or missing API key",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/test-sets/:test_set_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "test-sets",
+                                    ":test_set_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "test_set_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T01:27:30.000Z",
+                              "updatedAt": "2026-07-28T01:27:30.000Z",
+                              "uid": "35240-728455cc-4a70-49ed-843a-ddf6fad6bb66"
+                            },
+                            {
+                              "id": "9b72613c-8e49-4753-a3b3-07afd7361c4f",
+                              "name": "Resource not found or doesn't belong to organization",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/test-sets/:test_set_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "test-sets",
+                                    ":test_set_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "test_set_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T01:27:30.000Z",
+                              "updatedAt": "2026-07-28T01:27:30.000Z",
+                              "uid": "35240-9b72613c-8e49-4753-a3b3-07afd7361c4f"
+                            },
+                            {
+                              "id": "72b8af42-37bc-4b70-a2af-33c9b6674cc5",
+                              "name": "Internal server error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "x-api-key",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/test-sets/:test_set_id/versions/:version_id/revert",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "test-sets",
+                                    ":test_set_id",
+                                    "versions",
+                                    ":version_id",
+                                    "revert"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "test_set_id"
+                                    },
+                                    {
+                                      "key": "version_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T01:27:30.000Z",
+                              "updatedAt": "2026-07-28T01:27:30.000Z",
+                              "uid": "35240-72b8af42-37bc-4b70-a2af-33c9b6674cc5"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:27:30.000Z",
+                          "updatedAt": "2026-07-28T01:27:30.000Z",
+                          "uid": "35240-bd6b7c91-aee7-4b3b-b1c4-21e9024d6ab7"
+                        }
+                      ],
+                      "id": "ef98425f-464b-4db8-a4d1-2dd14f63ea3c",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-ef98425f-464b-4db8-a4d1-2dd14f63ea3c"
+                    }
+                  ],
+                  "id": "4f78eac1-7909-47dc-bbfb-fc4f2703caa1",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-4f78eac1-7909-47dc-bbfb-fc4f2703caa1"
+                },
+                {
+                  "name": "List test set versions",
+                  "id": "c37fc36d-6439-4ef6-ab95-9b9603f4cad7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id/versions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id",
+                        "versions"
+                      ],
+                      "variable": [
+                        {
+                          "id": "fad90f54-7ad2-4d55-84e4-3c1bc176c513",
+                          "key": "test_set_id",
+                          "value": "<string>",
+                          "description": "(Required) Test set ID (8-character ID)"
+                        }
+                      ]
+                    },
+                    "description": "List the prior-state version history for a test set, newest first. The live test set is the current version and is not included here. Each entry captures the test set's config and an ordered snapshot of its test-case rows."
+                  },
+                  "response": [
+                    {
+                      "id": "21e517e0-accd-4e19-98de-df626cfeca10",
+                      "name": "Successful response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"versions\": [\n    {\n      \"name\": \"<string>\",\n      \"ulid\": \"<string>\",\n      \"version_number\": \"<integer>\",\n      \"change_type\": \"revert\",\n      \"created_by\": \"<string>\",\n      \"label\": \"<string>\",\n      \"test_set_metadata\": {\n        \"incididunt_fbb\": false,\n        \"reprehenderit_04\": 52837663.75478619,\n        \"ut7\": \"o\"\n      },\n      \"parameters\": {\n        \"laboris_ce\": false,\n        \"ullamco_2_\": \"quis eiusmod nisi anim in\",\n        \"consequat_4a\": false\n      },\n      \"test_set_type\": \"<string>\",\n      \"test_cases\": [\n        {\n          \"dolore_3f\": true\n        },\n        {\n          \"reprehenderit_8f\": \"fugiat a\",\n          \"idae\": -82938565\n        }\n      ],\n      \"create_time\": \"<dateTime>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"ulid\": \"<string>\",\n      \"version_number\": \"<integer>\",\n      \"change_type\": \"save\",\n      \"created_by\": \"<string>\",\n      \"label\": \"<string>\",\n      \"test_set_metadata\": {\n        \"deseruntc\": -79087635,\n        \"elit_f5\": 91024673.1965707,\n        \"laboriscd\": true\n      },\n      \"parameters\": {\n        \"minim2d1\": 35399558.66971135,\n        \"velitf2_\": -64950181.127594054\n      },\n      \"test_set_type\": \"<string>\",\n      \"test_cases\": [\n        {\n          \"Lorem_a\": 92067963.06502584\n        },\n        {\n          \"amet7c0\": false,\n          \"dolore4_0\": true,\n          \"commodo4\": \"in sint\"\n        }\n      ],\n      \"create_time\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-21e517e0-accd-4e19-98de-df626cfeca10"
+                    },
+                    {
+                      "id": "2ee3f1b0-23bb-4232-baf4-2a6435707257",
+                      "name": "Authentication failed or missing API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-2ee3f1b0-23bb-4232-baf4-2a6435707257"
+                    },
+                    {
+                      "id": "ae631a9a-1e4c-4582-a0b1-80740a81f918",
+                      "name": "Resource not found or doesn't belong to organization",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-ae631a9a-1e4c-4582-a0b1-80740a81f918"
+                    },
+                    {
+                      "id": "9e290570-2330-4609-b8b3-ce7920b2173e",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-9e290570-2330-4609-b8b3-ce7920b2173e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-c37fc36d-6439-4ef6-ab95-9b9603f4cad7"
+                }
+              ],
+              "id": "268deaf4-11b9-4fbd-a662-c48bb3fec1ca",
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-268deaf4-11b9-4fbd-a662-c48bb3fec1ca"
+            },
+            {
+              "name": "agents",
+              "item": [
+                {
+                  "name": "{agent_id}",
+                  "item": [
+                    {
+                      "name": "Remove an agent association",
+                      "id": "99208fa3-2d47-42d7-b132-15397c3e3fb7",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/agents/:agent_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "agents",
+                            ":agent_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "5f8f1598-22a7-482d-8082-f120a65b513a",
+                              "key": "test_set_id",
+                              "value": "<string>",
+                              "description": "(Required) Test set ID (8-character ID)"
+                            },
+                            {
+                              "id": "9a4cdcac-ea57-4341-a2dc-116d38baf17b",
+                              "key": "agent_id",
+                              "value": "<string>",
+                              "description": "(Required) Agent ID (22-character ShortUUID)"
+                            }
+                          ]
+                        },
+                        "description": "Remove one agent's association with a test set. Idempotent: returns 200 whether or not the association existed."
+                      },
+                      "response": [
+                        {
+                          "id": "9a5719e7-5849-427e-a56f-a7c68aa65c13",
+                          "name": "Association removed successfully (or already absent)",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/test-sets/:test_set_id/agents/:agent_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "test-sets",
+                                ":test_set_id",
+                                "agents",
+                                ":agent_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "test_set_id"
+                                },
+                                {
+                                  "key": "agent_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{}",
+                          "createdAt": "2026-07-28T01:27:30.000Z",
+                          "updatedAt": "2026-07-28T01:27:30.000Z",
+                          "uid": "35240-9a5719e7-5849-427e-a56f-a7c68aa65c13"
+                        },
+                        {
+                          "id": "9efe6bc4-e49a-4307-b15b-2580c7cef968",
+                          "name": "Authentication failed or missing API key",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/test-sets/:test_set_id/agents/:agent_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "test-sets",
+                                ":test_set_id",
+                                "agents",
+                                ":agent_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "test_set_id"
+                                },
+                                {
+                                  "key": "agent_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:30.000Z",
+                          "updatedAt": "2026-07-28T01:27:30.000Z",
+                          "uid": "35240-9efe6bc4-e49a-4307-b15b-2580c7cef968"
+                        },
+                        {
+                          "id": "9b2b2952-272c-48e4-bee1-27e1b1f50d5c",
+                          "name": "Internal server error",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/test-sets/:test_set_id/agents/:agent_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "test-sets",
+                                ":test_set_id",
+                                "agents",
+                                ":agent_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "test_set_id"
+                                },
+                                {
+                                  "key": "agent_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:30.000Z",
+                          "updatedAt": "2026-07-28T01:27:30.000Z",
+                          "uid": "35240-9b2b2952-272c-48e4-bee1-27e1b1f50d5c"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-99208fa3-2d47-42d7-b132-15397c3e3fb7"
+                    }
+                  ],
+                  "id": "94a5e88b-2f53-45b0-9983-440b2a49ffb9",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-94a5e88b-2f53-45b0-9983-440b2a49ffb9"
+                },
+                {
+                  "name": "List associated agents",
+                  "id": "aa678412-0c68-4ec0-832e-b1d728a2a64a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id/agents",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id",
+                        "agents"
+                      ],
+                      "variable": [
+                        {
+                          "id": "7575cd83-55f3-420b-93d4-a791cefda5cf",
+                          "key": "test_set_id",
+                          "value": "<string>",
+                          "description": "(Required) Test set ID (8-character ID)"
+                        }
+                      ]
+                    },
+                    "description": "List the agents currently associated with a test set. Returns every associated agent (not paginated); associations are bounded per test set. An unknown test_set_id returns an empty list rather than 404."
+                  },
+                  "response": [
+                    {
+                      "id": "b8fda8ce-c2c7-4e7c-9577-29ff38aee110",
+                      "name": "Successful response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/agents",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "agents"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"agents\": [\n    {\n      \"name\": \"<string>\",\n      \"agent_id\": \"<string>\",\n      \"display_name\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"agent_id\": \"<string>\",\n      \"display_name\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-b8fda8ce-c2c7-4e7c-9577-29ff38aee110"
+                    },
+                    {
+                      "id": "ea5d209d-8821-4d93-8b7c-351f8e9701a5",
+                      "name": "Authentication failed or missing API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/agents",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "agents"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-ea5d209d-8821-4d93-8b7c-351f8e9701a5"
+                    },
+                    {
+                      "id": "ef1dbb74-6b71-4a8a-b64b-86f73dac4e81",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/agents",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "agents"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-ef1dbb74-6b71-4a8a-b64b-86f73dac4e81"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-aa678412-0c68-4ec0-832e-b1d728a2a64a"
+                }
+              ],
+              "id": "e53cc954-94d6-4c8e-a55a-6e01a5895c6f",
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-e53cc954-94d6-4c8e-a55a-6e01a5895c6f"
+            },
+            {
+              "name": "agents:add",
+              "item": [
+                {
+                  "name": "Associate agents with a test set",
+                  "id": "3a45de5a-3170-4095-9790-3164abf35ff9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"agent_ids\": [\n    \"oVbKoC9FFe\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id/agents:add",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id",
+                        "agents:add"
+                      ],
+                      "variable": [
+                        {
+                          "id": "6dc66296-0c9b-492d-984e-dc3c0d40f7d0",
+                          "key": "test_set_id",
+                          "value": "<string>",
+                          "description": "(Required) Test set ID (8-character ID)"
+                        }
+                      ]
+                    },
+                    "description": "Associate one or more agents with a test set. The operation is idempotent: already-associated agents are a no-op, and unknown or inactive agent IDs are ignored. The response reflects the resulting association set, so callers can confirm which IDs took effect."
+                  },
+                  "response": [
+                    {
+                      "id": "626f26a3-ca6e-4477-a6c1-f1982fb74e4c",
+                      "name": "Agents associated successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"agent_ids\": [\n    \"oVbKoC9FFe\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/agents:add",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "agents:add"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"agents\": [\n    {\n      \"name\": \"<string>\",\n      \"agent_id\": \"<string>\",\n      \"display_name\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"agent_id\": \"<string>\",\n      \"display_name\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-626f26a3-ca6e-4477-a6c1-f1982fb74e4c"
+                    },
+                    {
+                      "id": "c83921df-5dcd-4741-a9d2-c088cf6830c0",
+                      "name": "Invalid request parameters",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"agent_ids\": [\n    \"oVbKoC9FFe\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/agents:add",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "agents:add"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-c83921df-5dcd-4741-a9d2-c088cf6830c0"
+                    },
+                    {
+                      "id": "3e0abc4a-9c9b-450a-ad8b-71eb10110fba",
+                      "name": "Authentication failed or missing API key",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"agent_ids\": [\n    \"oVbKoC9FFe\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/agents:add",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "agents:add"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-3e0abc4a-9c9b-450a-ad8b-71eb10110fba"
+                    },
+                    {
+                      "id": "a19a1b6f-7d00-43d3-9342-0e7bb9e3c106",
+                      "name": "Test set not found for this organization",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"agent_ids\": [\n    \"oVbKoC9FFe\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/agents:add",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "agents:add"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-a19a1b6f-7d00-43d3-9342-0e7bb9e3c106"
+                    },
+                    {
+                      "id": "b35c6d18-9912-474e-82c5-d6ded72ae56d",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"agent_ids\": [\n    \"oVbKoC9FFe\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/test-sets/:test_set_id/agents:add",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "test-sets",
+                            ":test_set_id",
+                            "agents:add"
+                          ],
+                          "variable": [
+                            {
+                              "key": "test_set_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:30.000Z",
+                      "updatedAt": "2026-07-28T01:27:30.000Z",
+                      "uid": "35240-b35c6d18-9912-474e-82c5-d6ded72ae56d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-3a45de5a-3170-4095-9790-3164abf35ff9"
+                }
+              ],
+              "id": "eb42ee0f-a76d-476b-b389-991417a481cf",
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-eb42ee0f-a76d-476b-b389-991417a481cf"
+            },
+            {
+              "name": "Get test set",
+              "id": "8f360178-bee6-4f6a-b55e-064d2c01ed9e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "8184a239-500e-45f8-a316-6e0dba101f3e",
+                      "key": "test_set_id",
+                      "value": "<string>",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "description": "Retrieve a test set by ID."
+              },
+              "response": [
+                {
+                  "id": "e47f6883-d587-40a4-9834-ef998a3644bc",
+                  "name": "Successful response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"test_set\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"test_set_type\": \"<string>\",\n    \"test_set_metadata\": {\n      \"proident4\": true,\n      \"excf\": \"esse aute commodo\",\n      \"doloreafb\": true\n    },\n    \"parameters\": {\n      \"ut_2\": 44319643,\n      \"laborum_89\": \"ut sunt Ut in\",\n      \"sit_16d\": -7232667.73683475\n    },\n    \"test_case_count\": \"<integer>\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-e47f6883-d587-40a4-9834-ef998a3644bc"
+                },
+                {
+                  "id": "d0051537-f607-434b-a8e1-c0f0dc567db3",
+                  "name": "Authentication failed or missing API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-d0051537-f607-434b-a8e1-c0f0dc567db3"
+                },
+                {
+                  "id": "115e9ace-c920-49f1-a5a1-1c87e6565f35",
+                  "name": "Resource not found or doesn't belong to organization",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-115e9ace-c920-49f1-a5a1-1c87e6565f35"
+                },
+                {
+                  "id": "4aef1e5f-e3b7-4e2d-aa6c-8ce8a12d1d6c",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-4aef1e5f-e3b7-4e2d-aa6c-8ce8a12d1d6c"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-8f360178-bee6-4f6a-b55e-064d2c01ed9e"
+            },
+            {
+              "name": "Update test set",
+              "id": "0fefbd49-134b-44c3-8271-c6ce88082b56",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {\n    \"dolor7\": 4344008,\n    \"adipisicingf3\": 96584325.67419547\n  },\n  \"parameters\": {\n    \"dolorece\": 86373104.26617414,\n    \"Loremd25\": -27364231.579728052\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "40427d42-4560-468a-bd6e-428049e062bf",
+                      "key": "test_set_id",
+                      "value": "<string>",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "description": "Update a test set."
+              },
+              "response": [
+                {
+                  "id": "645bba72-6870-4c54-b964-c8539df1bdc9",
+                  "name": "Test set updated successfully",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {\n    \"dolor7\": 4344008,\n    \"adipisicingf3\": 96584325.67419547\n  },\n  \"parameters\": {\n    \"dolorece\": 86373104.26617414,\n    \"Loremd25\": -27364231.579728052\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"test_set\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"test_set_type\": \"<string>\",\n    \"test_set_metadata\": {\n      \"proident4\": true,\n      \"excf\": \"esse aute commodo\",\n      \"doloreafb\": true\n    },\n    \"parameters\": {\n      \"ut_2\": 44319643,\n      \"laborum_89\": \"ut sunt Ut in\",\n      \"sit_16d\": -7232667.73683475\n    },\n    \"test_case_count\": \"<integer>\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-645bba72-6870-4c54-b964-c8539df1bdc9"
+                },
+                {
+                  "id": "d1f608cd-9b58-4889-8168-6b78ed8d2328",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {\n    \"dolor7\": 4344008,\n    \"adipisicingf3\": 96584325.67419547\n  },\n  \"parameters\": {\n    \"dolorece\": 86373104.26617414,\n    \"Loremd25\": -27364231.579728052\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-d1f608cd-9b58-4889-8168-6b78ed8d2328"
+                },
+                {
+                  "id": "1f03636b-c41c-4df9-b8e5-0aba08917112",
+                  "name": "Authentication failed or missing API key",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {\n    \"dolor7\": 4344008,\n    \"adipisicingf3\": 96584325.67419547\n  },\n  \"parameters\": {\n    \"dolorece\": 86373104.26617414,\n    \"Loremd25\": -27364231.579728052\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-1f03636b-c41c-4df9-b8e5-0aba08917112"
+                },
+                {
+                  "id": "3648b898-a347-4d47-81c8-e665ad27f04d",
+                  "name": "Resource not found or doesn't belong to organization",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {\n    \"dolor7\": 4344008,\n    \"adipisicingf3\": 96584325.67419547\n  },\n  \"parameters\": {\n    \"dolorece\": 86373104.26617414,\n    \"Loremd25\": -27364231.579728052\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-3648b898-a347-4d47-81c8-e665ad27f04d"
+                },
+                {
+                  "id": "250ff6b8-614b-4931-8b2c-a88112552baf",
+                  "name": "Slug or display_name conflict",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {\n    \"dolor7\": 4344008,\n    \"adipisicingf3\": 96584325.67419547\n  },\n  \"parameters\": {\n    \"dolorece\": 86373104.26617414,\n    \"Loremd25\": -27364231.579728052\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-250ff6b8-614b-4931-8b2c-a88112552baf"
+                },
+                {
+                  "id": "feb58aba-a4b0-46f9-b615-b0b0ae9a6fa5",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {\n    \"dolor7\": 4344008,\n    \"adipisicingf3\": 96584325.67419547\n  },\n  \"parameters\": {\n    \"dolorece\": 86373104.26617414,\n    \"Loremd25\": -27364231.579728052\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-feb58aba-a4b0-46f9-b615-b0b0ae9a6fa5"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-0fefbd49-134b-44c3-8271-c6ce88082b56"
+            },
+            {
+              "name": "Delete test set",
+              "id": "d518dd04-3f62-4d30-a39b-e0b735e81acf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "9db23cdd-ce44-4a3b-ac37-03a5297b869c",
+                      "key": "test_set_id",
+                      "value": "<string>",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "description": "Delete a test set.\n"
+              },
+              "response": [
+                {
+                  "id": "4e7bb74c-8d0e-4adb-9505-970151953e69",
+                  "name": "Test set deleted successfully (or already deleted)",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-4e7bb74c-8d0e-4adb-9505-970151953e69"
+                },
+                {
+                  "id": "cd19e702-5fa9-4e4c-b9a2-cbee5f484fde",
+                  "name": "Authentication failed or missing API key",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-cd19e702-5fa9-4e4c-b9a2-cbee5f484fde"
+                },
+                {
+                  "id": "e0cd5746-645b-4ea4-a6a7-cd1f329b4811",
+                  "name": "Test set belongs to different organization",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-e0cd5746-645b-4ea4-a6a7-cd1f329b4811"
+                },
+                {
+                  "id": "e56c694c-a12f-4702-8570-ab0879f8af1f",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/test-sets/:test_set_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "test-sets",
+                        ":test_set_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "test_set_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:30.000Z",
+                  "updatedAt": "2026-07-28T01:27:30.000Z",
+                  "uid": "35240-e56c694c-a12f-4702-8570-ab0879f8af1f"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-d518dd04-3f62-4d30-a39b-e0b735e81acf"
+            }
+          ],
+          "id": "5c09c1b7-e055-41eb-9086-31e9c26c0e4b",
+          "createdAt": "2026-07-28T01:27:30.000Z",
+          "updatedAt": "2026-07-28T01:27:30.000Z",
+          "uid": "35240-5c09c1b7-e055-41eb-9086-31e9c26c0e4b"
+        },
+        {
+          "name": "List test sets",
+          "id": "8350ca91-8b79-4b81-be25-2efbe81efaa3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/test-sets?filter=<string>&page_size=50&page_token=<string>&order_by=-update_time&tag_filters=<string>&tag_filters=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "test-sets"
+              ],
+              "query": [
+                {
+                  "description": "Filter expression syntax.\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\nExample: `test_set_type=SCENARIO`\n",
+                  "key": "filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Maximum number of test sets to return (default 50, max 100)",
+                  "key": "page_size",
+                  "value": "50"
+                },
+                {
+                  "description": "Token for retrieving the next page of results",
+                  "key": "page_token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Field to order results by. Prefix with `-` for descending order.\nExample: `-create_time` for newest first\n",
+                  "key": "order_by",
+                  "value": "-update_time"
+                },
+                {
+                  "description": "Filter test sets by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=regression`).\n",
+                  "key": "tag_filters",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter test sets by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=regression`).\n",
+                  "key": "tag_filters",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "List test sets for your organization."
+          },
+          "response": [
+            {
+              "id": "a7a89f8b-20bd-467d-aad0-db3e6cb05d22",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/test-sets?filter=<string>&page_size=50&page_token=<string>&order_by=-update_time&tag_filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "test-sets"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\nExample: `test_set_type=SCENARIO`\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of test sets to return (default 50, max 100)",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Token for retrieving the next page of results",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Field to order results by. Prefix with `-` for descending order.\nExample: `-create_time` for newest first\n",
+                      "key": "order_by",
+                      "value": "-update_time"
+                    },
+                    {
+                      "description": "Filter test sets by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=regression`).\n",
+                      "key": "tag_filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"test_sets\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"test_set_type\": \"<string>\",\n      \"test_set_metadata\": {\n        \"id00\": -96458017,\n        \"laborum_34\": \"sit in irure\",\n        \"irurec9\": 8906691\n      },\n      \"parameters\": {\n        \"in_5\": true,\n        \"dolore_5a\": -94705511\n      },\n      \"test_case_count\": \"<integer>\",\n      \"create_time\": \"<dateTime>\",\n      \"update_time\": \"<dateTime>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"test_set_type\": \"<string>\",\n      \"test_set_metadata\": {\n        \"sed7\": -68407832\n      },\n      \"parameters\": {\n        \"culpa__\": 94165846,\n        \"nostrud79\": false\n      },\n      \"test_case_count\": \"<integer>\",\n      \"create_time\": \"<dateTime>\",\n      \"update_time\": \"<dateTime>\"\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-a7a89f8b-20bd-467d-aad0-db3e6cb05d22"
+            },
+            {
+              "id": "077f3c71-86c8-4c22-9bcb-8a18d7ddab08",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/test-sets?filter=<string>&page_size=50&page_token=<string>&order_by=-update_time&tag_filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "test-sets"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\nExample: `test_set_type=SCENARIO`\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of test sets to return (default 50, max 100)",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Token for retrieving the next page of results",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Field to order results by. Prefix with `-` for descending order.\nExample: `-create_time` for newest first\n",
+                      "key": "order_by",
+                      "value": "-update_time"
+                    },
+                    {
+                      "description": "Filter test sets by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=regression`).\n",
+                      "key": "tag_filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-077f3c71-86c8-4c22-9bcb-8a18d7ddab08"
+            },
+            {
+              "id": "9c57283c-1eea-46db-9902-bd1d5f8712e3",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/test-sets?filter=<string>&page_size=50&page_token=<string>&order_by=-update_time&tag_filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "test-sets"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\nExample: `test_set_type=SCENARIO`\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of test sets to return (default 50, max 100)",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Token for retrieving the next page of results",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Field to order results by. Prefix with `-` for descending order.\nExample: `-create_time` for newest first\n",
+                      "key": "order_by",
+                      "value": "-update_time"
+                    },
+                    {
+                      "description": "Filter test sets by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=regression`).\n",
+                      "key": "tag_filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-9c57283c-1eea-46db-9902-bd1d5f8712e3"
+            }
+          ],
+          "createdAt": "2026-07-28T01:27:30.000Z",
+          "updatedAt": "2026-07-28T01:27:30.000Z",
+          "uid": "35240-8350ca91-8b79-4b81-be25-2efbe81efaa3"
+        },
+        {
+          "name": "Create test set",
+          "id": "86fc2907-a448-454e-bdce-73d2eda6a3e1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {},\n  \"parameters\": {},\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/test-sets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "test-sets"
+              ]
+            },
+            "description": "Create a new test set."
+          },
+          "response": [
+            {
+              "id": "24671f06-fa44-41b2-8388-3a0efe18e666",
+              "name": "Test set created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {},\n  \"parameters\": {},\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/test-sets",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "test-sets"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"test_set\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"test_set_type\": \"<string>\",\n    \"test_set_metadata\": {\n      \"proident4\": true,\n      \"excf\": \"esse aute commodo\",\n      \"doloreafb\": true\n    },\n    \"parameters\": {\n      \"ut_2\": 44319643,\n      \"laborum_89\": \"ut sunt Ut in\",\n      \"sit_16d\": -7232667.73683475\n    },\n    \"test_case_count\": \"<integer>\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-24671f06-fa44-41b2-8388-3a0efe18e666"
+            },
+            {
+              "id": "f1ce6a62-78b8-493e-8f45-73ef1f2cf9ca",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {},\n  \"parameters\": {},\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/test-sets",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "test-sets"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-f1ce6a62-78b8-493e-8f45-73ef1f2cf9ca"
+            },
+            {
+              "id": "13670327-d13e-4849-98a7-b761744c16c1",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {},\n  \"parameters\": {},\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/test-sets",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "test-sets"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-13670327-d13e-4849-98a7-b761744c16c1"
+            },
+            {
+              "id": "c2b375f7-00e9-49ba-9e04-27023f993cf0",
+              "name": "Slug or display_name already exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {},\n  \"parameters\": {},\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/test-sets",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "test-sets"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-c2b375f7-00e9-49ba-9e04-27023f993cf0"
+            },
+            {
+              "id": "dae9d714-0bc7-4870-87b5-4f6136c012d4",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {},\n  \"parameters\": {},\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/test-sets",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "test-sets"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:30.000Z",
+              "updatedAt": "2026-07-28T01:27:30.000Z",
+              "uid": "35240-dae9d714-0bc7-4870-87b5-4f6136c012d4"
+            }
+          ],
+          "createdAt": "2026-07-28T01:27:30.000Z",
+          "updatedAt": "2026-07-28T01:27:30.000Z",
+          "uid": "35240-86fc2907-a448-454e-bdce-73d2eda6a3e1"
+        }
+      ],
+      "id": "325d5a4e-b7f9-42e5-939a-6bfe6167a46f",
+      "createdAt": "2026-07-28T01:27:30.000Z",
+      "updatedAt": "2026-07-28T01:27:30.000Z",
+      "uid": "35240-325d5a4e-b7f9-42e5-939a-6bfe6167a46f"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

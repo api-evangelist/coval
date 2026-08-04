@@ -1,0 +1,693 @@
+{
+  "info": {
+    "_postman_id": "e311f25d-e349-44e3-901c-e812a37257a2",
+    "name": "Coval Agents Organization Conversations Config API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:26:39.000Z",
+    "updatedAt": "2026-07-28T01:26:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e311f25d-e349-44e3-901c-e812a37257a2"
+  },
+  "item": [
+    {
+      "name": "organization",
+      "item": [
+        {
+          "name": "monitoring-metrics",
+          "item": [
+            {
+              "name": "Get conversation metrics config",
+              "id": "1c0f01f7-d2c4-4c75-8cb0-760c93e5ce7a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/organization/monitoring-metrics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organization",
+                    "monitoring-metrics"
+                  ]
+                },
+                "description": "Return the organization's conversation metrics configuration: the default metric IDs run on every conversation, plus the conditional rules that add metrics based on run metadata."
+              },
+              "response": [
+                {
+                  "id": "c8c8e6aa-fe4e-4ad4-8838-0095ccf7b0ac",
+                  "name": "Successful response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organization/monitoring-metrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organization",
+                        "monitoring-metrics"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"default_monitoring_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"CONTAINS_ANY\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"CONTAINS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:26:40.000Z",
+                  "updatedAt": "2026-07-28T01:26:40.000Z",
+                  "uid": "35240-c8c8e6aa-fe4e-4ad4-8838-0095ccf7b0ac"
+                },
+                {
+                  "id": "f5382e41-d6b1-45e2-904a-c701eec3ecde",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organization/monitoring-metrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organization",
+                        "monitoring-metrics"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:40.000Z",
+                  "updatedAt": "2026-07-28T01:26:40.000Z",
+                  "uid": "35240-f5382e41-d6b1-45e2-904a-c701eec3ecde"
+                },
+                {
+                  "id": "df1b3e49-a998-4270-8b38-929171381af3",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organization/monitoring-metrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organization",
+                        "monitoring-metrics"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:40.000Z",
+                  "updatedAt": "2026-07-28T01:26:40.000Z",
+                  "uid": "35240-df1b3e49-a998-4270-8b38-929171381af3"
+                },
+                {
+                  "id": "3cb516f6-4792-4dd2-aa04-1f5149f3721b",
+                  "name": "Not Found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organization/monitoring-metrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organization",
+                        "monitoring-metrics"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:40.000Z",
+                  "updatedAt": "2026-07-28T01:26:40.000Z",
+                  "uid": "35240-3cb516f6-4792-4dd2-aa04-1f5149f3721b"
+                },
+                {
+                  "id": "6d4c6b92-5a6a-4cb6-a95c-ef27319ac06d",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organization/monitoring-metrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organization",
+                        "monitoring-metrics"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:40.000Z",
+                  "updatedAt": "2026-07-28T01:26:40.000Z",
+                  "uid": "35240-6d4c6b92-5a6a-4cb6-a95c-ef27319ac06d"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:40.000Z",
+              "updatedAt": "2026-07-28T01:26:40.000Z",
+              "uid": "35240-1c0f01f7-d2c4-4c75-8cb0-760c93e5ce7a"
+            },
+            {
+              "name": "Update conversation metrics config",
+              "id": "ac408095-f68c-48c2-9b90-ef64245a61a2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"default_monitoring_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"CONTAINS_ANY\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"BOOLEAN\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/organization/monitoring-metrics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organization",
+                    "monitoring-metrics"
+                  ]
+                },
+                "description": "Partially update the organization's conversation metrics configuration. Provide at least one of `default_monitoring_metrics` or `conditional_monitoring_metrics`; each field provided fully replaces the stored value (a field omitted is left unchanged). Returns the full resulting configuration."
+              },
+              "response": [
+                {
+                  "id": "07e77b6c-78f3-427d-922f-77a1e4d451a3",
+                  "name": "Configuration updated",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"default_monitoring_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"CONTAINS_ANY\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"BOOLEAN\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/organization/monitoring-metrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organization",
+                        "monitoring-metrics"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"default_monitoring_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"CONTAINS_ANY\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"CONTAINS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:26:40.000Z",
+                  "updatedAt": "2026-07-28T01:26:40.000Z",
+                  "uid": "35240-07e77b6c-78f3-427d-922f-77a1e4d451a3"
+                },
+                {
+                  "id": "951d5a6a-4537-430b-afd7-93d7c04dffc4",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"default_monitoring_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"CONTAINS_ANY\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"BOOLEAN\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/organization/monitoring-metrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organization",
+                        "monitoring-metrics"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:40.000Z",
+                  "updatedAt": "2026-07-28T01:26:40.000Z",
+                  "uid": "35240-951d5a6a-4537-430b-afd7-93d7c04dffc4"
+                },
+                {
+                  "id": "b4eb558c-66dd-44fd-a048-3713cd374704",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"default_monitoring_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"CONTAINS_ANY\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"BOOLEAN\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/organization/monitoring-metrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organization",
+                        "monitoring-metrics"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:40.000Z",
+                  "updatedAt": "2026-07-28T01:26:40.000Z",
+                  "uid": "35240-b4eb558c-66dd-44fd-a048-3713cd374704"
+                },
+                {
+                  "id": "0955be40-60e9-4a4f-ae6c-e881243a9b68",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"default_monitoring_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"CONTAINS_ANY\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"BOOLEAN\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/organization/monitoring-metrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organization",
+                        "monitoring-metrics"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:40.000Z",
+                  "updatedAt": "2026-07-28T01:26:40.000Z",
+                  "uid": "35240-0955be40-60e9-4a4f-ae6c-e881243a9b68"
+                },
+                {
+                  "id": "c0f2c765-3f13-4ac7-9631-562aa3b99159",
+                  "name": "Not Found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"default_monitoring_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"CONTAINS_ANY\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"BOOLEAN\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/organization/monitoring-metrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organization",
+                        "monitoring-metrics"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:40.000Z",
+                  "updatedAt": "2026-07-28T01:26:40.000Z",
+                  "uid": "35240-c0f2c765-3f13-4ac7-9631-562aa3b99159"
+                },
+                {
+                  "id": "7b436763-afa1-4708-886b-b1b10cfd88b1",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"default_monitoring_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"CONTAINS_ANY\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"BOOLEAN\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/organization/monitoring-metrics",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organization",
+                        "monitoring-metrics"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:40.000Z",
+                  "updatedAt": "2026-07-28T01:26:40.000Z",
+                  "uid": "35240-7b436763-afa1-4708-886b-b1b10cfd88b1"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:40.000Z",
+              "updatedAt": "2026-07-28T01:26:40.000Z",
+              "uid": "35240-ac408095-f68c-48c2-9b90-ef64245a61a2"
+            }
+          ],
+          "id": "15c4aa85-9433-4b11-9a37-a505725a2289",
+          "createdAt": "2026-07-28T01:26:40.000Z",
+          "updatedAt": "2026-07-28T01:26:40.000Z",
+          "uid": "35240-15c4aa85-9433-4b11-9a37-a505725a2289"
+        }
+      ],
+      "id": "317c641c-9c3c-4b0f-8223-4ee8e44cde36",
+      "createdAt": "2026-07-28T01:26:40.000Z",
+      "updatedAt": "2026-07-28T01:26:40.000Z",
+      "uid": "35240-317c641c-9c3c-4b0f-8223-4ee8e44cde36"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

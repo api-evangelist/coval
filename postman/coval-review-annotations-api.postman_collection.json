@@ -1,0 +1,2517 @@
+{
+  "info": {
+    "_postman_id": "e176499d-d097-43e8-8136-cc237e668121",
+    "name": "Coval Agents Review Annotations API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:27:04.000Z",
+    "updatedAt": "2026-07-28T01:27:04.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e176499d-d097-43e8-8136-cc237e668121"
+  },
+  "item": [
+    {
+      "name": "review-annotations",
+      "item": [
+        {
+          "name": "{annotation_id}",
+          "item": [
+            {
+              "name": "Get review annotation",
+              "id": "3161232a-d78c-489a-b2f5-23b0c6815277",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations/:annotation_id?project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations",
+                    ":annotation_id"
+                  ],
+                  "query": [
+                    {
+                      "description": "Optional project ID to apply project-rule-aware completion status",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "38f1969a-e0f4-4631-a6bb-f16a4511fe92",
+                      "key": "annotation_id",
+                      "value": "<string>",
+                      "description": "(Required) The annotation ID"
+                    }
+                  ]
+                },
+                "description": "Get a single review annotation by ID."
+              },
+              "response": [
+                {
+                  "id": "71f1ebb2-42f0-45cc-a342-046c1ef10192",
+                  "name": "Annotation retrieved successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/:annotation_id?project_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        ":annotation_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional project ID to apply project-rule-aware completion status",
+                          "key": "project_id",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "annotation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"review_annotation\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"simulation_output_id\": \"<string>\",\n    \"metric_id\": \"<string>\",\n    \"assignee\": \"<string>\",\n    \"status\": \"ACTIVE\",\n    \"completion_status\": \"PENDING\",\n    \"priority\": \"PRIORITY_STANDARD\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\",\n    \"ground_truth_float_value\": \"<float>\",\n    \"ground_truth_string_value\": \"<string>\",\n    \"reviewer_notes\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-71f1ebb2-42f0-45cc-a342-046c1ef10192"
+                },
+                {
+                  "id": "9cde4a60-a088-4039-b175-2005539f1897",
+                  "name": "Authentication failed",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/:annotation_id?project_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        ":annotation_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional project ID to apply project-rule-aware completion status",
+                          "key": "project_id",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "annotation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-9cde4a60-a088-4039-b175-2005539f1897"
+                },
+                {
+                  "id": "1cdc28d8-b42a-412f-8e5b-a08cb1b63679",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/:annotation_id?project_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        ":annotation_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional project ID to apply project-rule-aware completion status",
+                          "key": "project_id",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "annotation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-1cdc28d8-b42a-412f-8e5b-a08cb1b63679"
+                },
+                {
+                  "id": "08772b6b-405e-4456-bb4e-9124fe81bf67",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/:annotation_id?project_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        ":annotation_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional project ID to apply project-rule-aware completion status",
+                          "key": "project_id",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "annotation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-08772b6b-405e-4456-bb4e-9124fe81bf67"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-3161232a-d78c-489a-b2f5-23b0c6815277"
+            },
+            {
+              "name": "Update review annotation",
+              "id": "72b6515b-0fbd-49f6-bda9-e19b707637de",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ground_truth_float_value\": \"<float>\",\n  \"ground_truth_string_value\": \"<string>\",\n  \"reviewer_notes\": \"<string>\",\n  \"priority\": \"PRIORITY_STANDARD\",\n  \"assignee\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations/:annotation_id?project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations",
+                    ":annotation_id"
+                  ],
+                  "query": [
+                    {
+                      "description": "Optional project ID to apply project-rule-aware completion status",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "fd28c34a-dbe7-4081-80c4-ede0f32540b0",
+                      "key": "annotation_id",
+                      "value": "<string>",
+                      "description": "(Required) The annotation ID"
+                    }
+                  ]
+                },
+                "description": "Partially update a review annotation.\nProviding a ground truth value auto-sets `completion_status` to `COMPLETED`.\n"
+              },
+              "response": [
+                {
+                  "id": "fac890fe-b964-427b-b6b2-12d41754190b",
+                  "name": "Annotation updated successfully",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ground_truth_float_value\": \"<float>\",\n  \"ground_truth_string_value\": \"<string>\",\n  \"reviewer_notes\": \"<string>\",\n  \"priority\": \"PRIORITY_STANDARD\",\n  \"assignee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/:annotation_id?project_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        ":annotation_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional project ID to apply project-rule-aware completion status",
+                          "key": "project_id",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "annotation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"review_annotation\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"simulation_output_id\": \"<string>\",\n    \"metric_id\": \"<string>\",\n    \"assignee\": \"<string>\",\n    \"status\": \"ACTIVE\",\n    \"completion_status\": \"PENDING\",\n    \"priority\": \"PRIORITY_STANDARD\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\",\n    \"ground_truth_float_value\": \"<float>\",\n    \"ground_truth_string_value\": \"<string>\",\n    \"reviewer_notes\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-fac890fe-b964-427b-b6b2-12d41754190b"
+                },
+                {
+                  "id": "00235a98-6c60-4111-857d-419025fd0049",
+                  "name": "Invalid request",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ground_truth_float_value\": \"<float>\",\n  \"ground_truth_string_value\": \"<string>\",\n  \"reviewer_notes\": \"<string>\",\n  \"priority\": \"PRIORITY_STANDARD\",\n  \"assignee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/:annotation_id?project_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        ":annotation_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional project ID to apply project-rule-aware completion status",
+                          "key": "project_id",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "annotation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-00235a98-6c60-4111-857d-419025fd0049"
+                },
+                {
+                  "id": "57c0433c-b7fc-4f54-a68c-20ce80e7e504",
+                  "name": "Authentication failed",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ground_truth_float_value\": \"<float>\",\n  \"ground_truth_string_value\": \"<string>\",\n  \"reviewer_notes\": \"<string>\",\n  \"priority\": \"PRIORITY_STANDARD\",\n  \"assignee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/:annotation_id?project_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        ":annotation_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional project ID to apply project-rule-aware completion status",
+                          "key": "project_id",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "annotation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-57c0433c-b7fc-4f54-a68c-20ce80e7e504"
+                },
+                {
+                  "id": "502f727e-4a8e-4d59-9ad5-e3bad45272ea",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ground_truth_float_value\": \"<float>\",\n  \"ground_truth_string_value\": \"<string>\",\n  \"reviewer_notes\": \"<string>\",\n  \"priority\": \"PRIORITY_STANDARD\",\n  \"assignee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/:annotation_id?project_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        ":annotation_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional project ID to apply project-rule-aware completion status",
+                          "key": "project_id",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "annotation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-502f727e-4a8e-4d59-9ad5-e3bad45272ea"
+                },
+                {
+                  "id": "bd462c8a-2deb-4cd2-8024-740078b36d4e",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"ground_truth_float_value\": \"<float>\",\n  \"ground_truth_string_value\": \"<string>\",\n  \"reviewer_notes\": \"<string>\",\n  \"priority\": \"PRIORITY_STANDARD\",\n  \"assignee\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/:annotation_id?project_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        ":annotation_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional project ID to apply project-rule-aware completion status",
+                          "key": "project_id",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "annotation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-bd462c8a-2deb-4cd2-8024-740078b36d4e"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-72b6515b-0fbd-49f6-bda9-e19b707637de"
+            },
+            {
+              "name": "Delete review annotation",
+              "id": "20a79bfd-65b9-4b5a-b3a2-580b17ae4ebe",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations/:annotation_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations",
+                    ":annotation_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "763ce9a8-34cf-4809-b454-ce3a4ba34d6b",
+                      "key": "annotation_id",
+                      "value": "<string>",
+                      "description": "(Required) The annotation ID"
+                    }
+                  ]
+                },
+                "description": "Delete a review annotation."
+              },
+              "response": [
+                {
+                  "id": "2df725b8-27db-4d18-a767-c2860203bf11",
+                  "name": "Annotation deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/:annotation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        ":annotation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "annotation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-2df725b8-27db-4d18-a767-c2860203bf11"
+                },
+                {
+                  "id": "0e12e34e-d783-4eaf-905e-68ce93f60430",
+                  "name": "Authentication failed",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/:annotation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        ":annotation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "annotation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-0e12e34e-d783-4eaf-905e-68ce93f60430"
+                },
+                {
+                  "id": "fd41ac15-8ab9-45f4-9431-a7311822415a",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/:annotation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        ":annotation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "annotation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-fd41ac15-8ab9-45f4-9431-a7311822415a"
+                },
+                {
+                  "id": "b5a5416e-8619-4bb0-a630-fcf471bde47c",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/:annotation_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        ":annotation_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "annotation_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-b5a5416e-8619-4bb0-a630-fcf471bde47c"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-20a79bfd-65b9-4b5a-b3a2-580b17ae4ebe"
+            }
+          ],
+          "id": "97a1943b-b75d-49cb-b1db-46bb14906f10",
+          "createdAt": "2026-07-28T01:27:04.000Z",
+          "updatedAt": "2026-07-28T01:27:04.000Z",
+          "uid": "35240-97a1943b-b75d-49cb-b1db-46bb14906f10"
+        },
+        {
+          "name": "metric-health-stats",
+          "item": [
+            {
+              "name": "Get metric health stats",
+              "id": "01c37d74-6482-45a6-a1ab-b0dbd8cbf276",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations/metric-health-stats?metric_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations",
+                    "metric-health-stats"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The metric ID (22-char ShortUUID).",
+                      "key": "metric_id",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Compact machine-vs-human and human-vs-human agreement health for one metric, computed from its review annotations. Metric-scoped (no project)."
+              },
+              "response": [
+                {
+                  "id": "97077d67-631f-4935-b576-6725d2834330",
+                  "name": "Health stats computed successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/metric-health-stats?metric_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        "metric-health-stats"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The metric ID (22-char ShortUUID).",
+                          "key": "metric_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"conversations\": \"<integer>\",\n  \"annotations\": \"<integer>\",\n  \"agreement_rate\": \"<number>\",\n  \"agreements\": \"<integer>\",\n  \"disagreements\": \"<integer>\",\n  \"human_agreement\": {\n    \"human_agreement_rate\": \"<number>\",\n    \"human_agreement_total\": \"<integer>\",\n    \"human_agreements\": \"<integer>\",\n    \"human_disagreements\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-97077d67-631f-4935-b576-6725d2834330"
+                },
+                {
+                  "id": "9967d86c-47f3-4a70-a950-1ebdd17c1eb1",
+                  "name": "Invalid request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/metric-health-stats?metric_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        "metric-health-stats"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The metric ID (22-char ShortUUID).",
+                          "key": "metric_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-9967d86c-47f3-4a70-a950-1ebdd17c1eb1"
+                },
+                {
+                  "id": "1454a786-e584-4a14-b0cf-29972b11d980",
+                  "name": "Authentication failed",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/metric-health-stats?metric_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        "metric-health-stats"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The metric ID (22-char ShortUUID).",
+                          "key": "metric_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-1454a786-e584-4a14-b0cf-29972b11d980"
+                },
+                {
+                  "id": "9453ec41-f3f5-40c2-863d-ae87a92e726f",
+                  "name": "Insufficient permissions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/metric-health-stats?metric_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        "metric-health-stats"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The metric ID (22-char ShortUUID).",
+                          "key": "metric_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-9453ec41-f3f5-40c2-863d-ae87a92e726f"
+                },
+                {
+                  "id": "8ad79c94-c885-4616-b80d-7fc4efc9cce7",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/metric-health-stats?metric_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        "metric-health-stats"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The metric ID (22-char ShortUUID).",
+                          "key": "metric_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-8ad79c94-c885-4616-b80d-7fc4efc9cce7"
+                },
+                {
+                  "id": "4e78e798-3b5f-4516-a184-35f4131e7f97",
+                  "name": "Service temporarily unavailable",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/review-annotations/metric-health-stats?metric_id=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "review-annotations",
+                        "metric-health-stats"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The metric ID (22-char ShortUUID).",
+                          "key": "metric_id",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:05.000Z",
+                  "updatedAt": "2026-07-28T01:27:05.000Z",
+                  "uid": "35240-4e78e798-3b5f-4516-a184-35f4131e7f97"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-01c37d74-6482-45a6-a1ab-b0dbd8cbf276"
+            }
+          ],
+          "id": "679c047b-51c4-4568-880e-e488955c39e2",
+          "createdAt": "2026-07-28T01:27:04.000Z",
+          "updatedAt": "2026-07-28T01:27:04.000Z",
+          "uid": "35240-679c047b-51c4-4568-880e-e488955c39e2"
+        },
+        {
+          "name": "List review annotations",
+          "id": "884a3fe8-ad10-4837-a9d9-c5c3ae075791",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/review-annotations?page_size=50&page_token=<string>&order_by=<string>&filter=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "review-annotations"
+              ],
+              "query": [
+                {
+                  "description": "Maximum number of results per page",
+                  "key": "page_size",
+                  "value": "50"
+                },
+                {
+                  "description": "Opaque pagination token from previous response",
+                  "key": "page_token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Sort field and direction. Prefix with `-` for descending.\nValid fields: `create_time`, `update_time`, `assignee`, `priority`.\n",
+                  "key": "order_by",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter expression. Supported fields:\n- `simulation_output_id` \u2014 exact match\n- `metric_id` \u2014 exact match\n- `assignee` \u2014 exact match\n- `status` \u2014 `ACTIVE` or `ARCHIVED`\n- `completion_status` \u2014 `PENDING` or `COMPLETED`\n- `project_id` \u2014 annotations belonging to a project\n",
+                  "key": "filter",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "List review annotations for your organization with optional filtering, sorting, and pagination."
+          },
+          "response": [
+            {
+              "id": "b00c825b-fd45-4cb6-9ae4-d48f6d564a0f",
+              "name": "Annotations retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations?page_size=50&page_token=<string>&order_by=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort field and direction. Prefix with `-` for descending.\nValid fields: `create_time`, `update_time`, `assignee`, `priority`.\n",
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter expression. Supported fields:\n- `simulation_output_id` \u2014 exact match\n- `metric_id` \u2014 exact match\n- `assignee` \u2014 exact match\n- `status` \u2014 `ACTIVE` or `ARCHIVED`\n- `completion_status` \u2014 `PENDING` or `COMPLETED`\n- `project_id` \u2014 annotations belonging to a project\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"review_annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"simulation_output_id\": \"<string>\",\n      \"metric_id\": \"<string>\",\n      \"assignee\": \"<string>\",\n      \"status\": \"ARCHIVED\",\n      \"completion_status\": \"COMPLETED\",\n      \"priority\": \"PRIORITY_STANDARD\",\n      \"create_time\": \"<dateTime>\",\n      \"update_time\": \"<dateTime>\",\n      \"ground_truth_float_value\": \"<float>\",\n      \"ground_truth_string_value\": \"<string>\",\n      \"reviewer_notes\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"simulation_output_id\": \"<string>\",\n      \"metric_id\": \"<string>\",\n      \"assignee\": \"<string>\",\n      \"status\": \"ARCHIVED\",\n      \"completion_status\": \"PENDING\",\n      \"priority\": \"PRIORITY_STANDARD\",\n      \"create_time\": \"<dateTime>\",\n      \"update_time\": \"<dateTime>\",\n      \"ground_truth_float_value\": \"<float>\",\n      \"ground_truth_string_value\": \"<string>\",\n      \"reviewer_notes\": \"<string>\"\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-b00c825b-fd45-4cb6-9ae4-d48f6d564a0f"
+            },
+            {
+              "id": "b5584348-9e00-4efa-a6e3-456f08a61696",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations?page_size=50&page_token=<string>&order_by=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort field and direction. Prefix with `-` for descending.\nValid fields: `create_time`, `update_time`, `assignee`, `priority`.\n",
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter expression. Supported fields:\n- `simulation_output_id` \u2014 exact match\n- `metric_id` \u2014 exact match\n- `assignee` \u2014 exact match\n- `status` \u2014 `ACTIVE` or `ARCHIVED`\n- `completion_status` \u2014 `PENDING` or `COMPLETED`\n- `project_id` \u2014 annotations belonging to a project\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-b5584348-9e00-4efa-a6e3-456f08a61696"
+            },
+            {
+              "id": "44f9408e-d924-4547-844c-8b21982eed9c",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations?page_size=50&page_token=<string>&order_by=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort field and direction. Prefix with `-` for descending.\nValid fields: `create_time`, `update_time`, `assignee`, `priority`.\n",
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter expression. Supported fields:\n- `simulation_output_id` \u2014 exact match\n- `metric_id` \u2014 exact match\n- `assignee` \u2014 exact match\n- `status` \u2014 `ACTIVE` or `ARCHIVED`\n- `completion_status` \u2014 `PENDING` or `COMPLETED`\n- `project_id` \u2014 annotations belonging to a project\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-44f9408e-d924-4547-844c-8b21982eed9c"
+            },
+            {
+              "id": "a3f3117d-1eea-464b-a373-0b57f48b027d",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations?page_size=50&page_token=<string>&order_by=<string>&filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort field and direction. Prefix with `-` for descending.\nValid fields: `create_time`, `update_time`, `assignee`, `priority`.\n",
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter expression. Supported fields:\n- `simulation_output_id` \u2014 exact match\n- `metric_id` \u2014 exact match\n- `assignee` \u2014 exact match\n- `status` \u2014 `ACTIVE` or `ARCHIVED`\n- `completion_status` \u2014 `PENDING` or `COMPLETED`\n- `project_id` \u2014 annotations belonging to a project\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-a3f3117d-1eea-464b-a373-0b57f48b027d"
+            }
+          ],
+          "createdAt": "2026-07-28T01:27:05.000Z",
+          "updatedAt": "2026-07-28T01:27:05.000Z",
+          "uid": "35240-884a3fe8-ad10-4837-a9d9-c5c3ae075791"
+        },
+        {
+          "name": "Create review annotation",
+          "id": "445351e1-4fdb-4416-b8bf-32c3c1e830ae",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"simulation_output_id\": \"<string>\",\n  \"metric_id\": \"<string>\",\n  \"assignee\": \"<string>\",\n  \"ground_truth_float_value\": \"<float>\",\n  \"ground_truth_string_value\": \"<string>\",\n  \"reviewer_notes\": \"<string>\",\n  \"priority\": \"PRIORITY_STANDARD\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/review-annotations?project_id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "review-annotations"
+              ],
+              "query": [
+                {
+                  "description": "Optional project ID to apply project-rule-aware completion status",
+                  "key": "project_id",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Create a new review annotation for your organization."
+          },
+          "response": [
+            {
+              "id": "0243fa4b-a120-40bf-a267-2da3da70767c",
+              "name": "Annotation created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simulation_output_id\": \"<string>\",\n  \"metric_id\": \"<string>\",\n  \"assignee\": \"<string>\",\n  \"ground_truth_float_value\": \"<float>\",\n  \"ground_truth_string_value\": \"<string>\",\n  \"reviewer_notes\": \"<string>\",\n  \"priority\": \"PRIORITY_STANDARD\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations?project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Optional project ID to apply project-rule-aware completion status",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"review_annotation\": {\n    \"name\": \"<string>\",\n    \"id\": \"<string>\",\n    \"simulation_output_id\": \"<string>\",\n    \"metric_id\": \"<string>\",\n    \"assignee\": \"<string>\",\n    \"status\": \"ACTIVE\",\n    \"completion_status\": \"PENDING\",\n    \"priority\": \"PRIORITY_STANDARD\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\",\n    \"ground_truth_float_value\": \"<float>\",\n    \"ground_truth_string_value\": \"<string>\",\n    \"reviewer_notes\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-0243fa4b-a120-40bf-a267-2da3da70767c"
+            },
+            {
+              "id": "a36d599c-4b20-4720-acf7-f3b26c7f09f2",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simulation_output_id\": \"<string>\",\n  \"metric_id\": \"<string>\",\n  \"assignee\": \"<string>\",\n  \"ground_truth_float_value\": \"<float>\",\n  \"ground_truth_string_value\": \"<string>\",\n  \"reviewer_notes\": \"<string>\",\n  \"priority\": \"PRIORITY_STANDARD\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations?project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Optional project ID to apply project-rule-aware completion status",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-a36d599c-4b20-4720-acf7-f3b26c7f09f2"
+            },
+            {
+              "id": "483e5ad0-055b-4189-9b66-04cc4a1cf7ee",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simulation_output_id\": \"<string>\",\n  \"metric_id\": \"<string>\",\n  \"assignee\": \"<string>\",\n  \"ground_truth_float_value\": \"<float>\",\n  \"ground_truth_string_value\": \"<string>\",\n  \"reviewer_notes\": \"<string>\",\n  \"priority\": \"PRIORITY_STANDARD\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations?project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Optional project ID to apply project-rule-aware completion status",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-483e5ad0-055b-4189-9b66-04cc4a1cf7ee"
+            },
+            {
+              "id": "2b1e6c39-2706-4974-8dcc-af1f941f62d0",
+              "name": "Resource not found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simulation_output_id\": \"<string>\",\n  \"metric_id\": \"<string>\",\n  \"assignee\": \"<string>\",\n  \"ground_truth_float_value\": \"<float>\",\n  \"ground_truth_string_value\": \"<string>\",\n  \"reviewer_notes\": \"<string>\",\n  \"priority\": \"PRIORITY_STANDARD\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations?project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Optional project ID to apply project-rule-aware completion status",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-2b1e6c39-2706-4974-8dcc-af1f941f62d0"
+            },
+            {
+              "id": "5db91648-d722-4ce9-b06d-efd6d074e458",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"simulation_output_id\": \"<string>\",\n  \"metric_id\": \"<string>\",\n  \"assignee\": \"<string>\",\n  \"ground_truth_float_value\": \"<float>\",\n  \"ground_truth_string_value\": \"<string>\",\n  \"reviewer_notes\": \"<string>\",\n  \"priority\": \"PRIORITY_STANDARD\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations?project_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Optional project ID to apply project-rule-aware completion status",
+                      "key": "project_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-5db91648-d722-4ce9-b06d-efd6d074e458"
+            }
+          ],
+          "createdAt": "2026-07-28T01:27:05.000Z",
+          "updatedAt": "2026-07-28T01:27:05.000Z",
+          "uid": "35240-445351e1-4fdb-4416-b8bf-32c3c1e830ae"
+        }
+      ],
+      "id": "9f4a2b94-afd7-46cb-8490-0346d63646b5",
+      "createdAt": "2026-07-28T01:27:04.000Z",
+      "updatedAt": "2026-07-28T01:27:04.000Z",
+      "uid": "35240-9f4a2b94-afd7-46cb-8490-0346d63646b5"
+    },
+    {
+      "name": "review-annotations:withMetricOutputs",
+      "item": [
+        {
+          "name": "Get annotations with metric outputs",
+          "id": "e0b0cf0c-f84a-4ded-b8e1-70f4c8032652",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metric_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"project_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filter_archived\": false,\n  \"include_metric_output_details\": true,\n  \"include_audio_lengths\": true,\n  \"page_size\": \"<integer>\",\n  \"page_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/review-annotations:withMetricOutputs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "review-annotations:withMetricOutputs"
+              ]
+            },
+            "description": "Review annotations grouped by metric plus the latest pipeline metric outputs, scoped by any of metric_ids / simulation_output_ids / project_ids (all optional). Offset-paginated via page_token / page_size."
+          },
+          "response": [
+            {
+              "id": "356f5184-88a0-410b-ac6e-9c3e87fa2dbb",
+              "name": "Annotations retrieved successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metric_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"project_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filter_archived\": false,\n  \"include_metric_output_details\": true,\n  \"include_audio_lengths\": true,\n  \"page_size\": \"<integer>\",\n  \"page_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations:withMetricOutputs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations:withMetricOutputs"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"annotations\": {\n    \"eu_28\": [\n      {\n        \"name\": \"<string>\",\n        \"id\": \"<string>\",\n        \"simulation_output_id\": \"<string>\",\n        \"metric_id\": \"<string>\",\n        \"assignee\": \"<string>\",\n        \"status\": \"ACTIVE\",\n        \"completion_status\": \"COMPLETED\",\n        \"priority\": \"PRIORITY_STANDARD\",\n        \"create_time\": \"<dateTime>\",\n        \"update_time\": \"<dateTime>\",\n        \"ground_truth_float_value\": \"<float>\",\n        \"ground_truth_string_value\": \"<string>\",\n        \"reviewer_notes\": \"<string>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"id\": \"<string>\",\n        \"simulation_output_id\": \"<string>\",\n        \"metric_id\": \"<string>\",\n        \"assignee\": \"<string>\",\n        \"status\": \"ACTIVE\",\n        \"completion_status\": \"COMPLETED\",\n        \"priority\": \"PRIORITY_STANDARD\",\n        \"create_time\": \"<dateTime>\",\n        \"update_time\": \"<dateTime>\",\n        \"ground_truth_float_value\": \"<float>\",\n        \"ground_truth_string_value\": \"<string>\",\n        \"reviewer_notes\": \"<string>\"\n      }\n    ]\n  },\n  \"metric_outputs\": {\n    \"qui_4\": {\n      \"labore_51\": {\n        \"created_at\": \"<dateTime>\",\n        \"output_type\": \"<string>\",\n        \"float_value\": \"<number>\",\n        \"string_value\": \"<string>\",\n        \"set_value\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"error_status\": \"<string>\",\n        \"explanation\": \"<string>\",\n        \"result_json\": {\n          \"nullable\": true\n        },\n        \"subvalues_by_timestamp\": {\n          \"nullable\": true\n        },\n        \"metric_version_number\": \"<integer>\",\n        \"metric_version_ulid\": \"<string>\"\n      },\n      \"velit_c27\": {\n        \"created_at\": \"<dateTime>\",\n        \"output_type\": \"<string>\",\n        \"float_value\": \"<number>\",\n        \"string_value\": \"<string>\",\n        \"set_value\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"error_status\": \"<string>\",\n        \"explanation\": \"<string>\",\n        \"result_json\": {\n          \"nullable\": true\n        },\n        \"subvalues_by_timestamp\": {\n          \"nullable\": true\n        },\n        \"metric_version_number\": \"<integer>\",\n        \"metric_version_ulid\": \"<string>\"\n      },\n      \"cupidatat_98c\": {\n        \"created_at\": \"<dateTime>\",\n        \"output_type\": \"<string>\",\n        \"float_value\": \"<number>\",\n        \"string_value\": \"<string>\",\n        \"set_value\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"error_status\": \"<string>\",\n        \"explanation\": \"<string>\",\n        \"result_json\": {\n          \"nullable\": true\n        },\n        \"subvalues_by_timestamp\": {\n          \"nullable\": true\n        },\n        \"metric_version_number\": \"<integer>\",\n        \"metric_version_ulid\": \"<string>\"\n      }\n    },\n    \"qui_7\": {\n      \"deserunt5\": {\n        \"created_at\": \"<dateTime>\",\n        \"output_type\": \"<string>\",\n        \"float_value\": \"<number>\",\n        \"string_value\": \"<string>\",\n        \"set_value\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"error_status\": \"<string>\",\n        \"explanation\": \"<string>\",\n        \"result_json\": {\n          \"nullable\": true\n        },\n        \"subvalues_by_timestamp\": {\n          \"nullable\": true\n        },\n        \"metric_version_number\": \"<integer>\",\n        \"metric_version_ulid\": \"<string>\"\n      },\n      \"labore_\": {\n        \"created_at\": \"<dateTime>\",\n        \"output_type\": \"<string>\",\n        \"float_value\": \"<number>\",\n        \"string_value\": \"<string>\",\n        \"set_value\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"error_status\": \"<string>\",\n        \"explanation\": \"<string>\",\n        \"result_json\": {\n          \"nullable\": true\n        },\n        \"subvalues_by_timestamp\": {\n          \"nullable\": true\n        },\n        \"metric_version_number\": \"<integer>\",\n        \"metric_version_ulid\": \"<string>\"\n      }\n    }\n  },\n  \"audio_lengths_by_simulation_output_id\": {\n    \"magna_7\": \"<number>\",\n    \"sit79\": \"<number>\",\n    \"fugiat_a8\": \"<number>\"\n  },\n  \"next_page_token\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-356f5184-88a0-410b-ac6e-9c3e87fa2dbb"
+            },
+            {
+              "id": "bd717264-7881-4961-818f-fe5d6431bc08",
+              "name": "Invalid request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metric_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"project_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filter_archived\": false,\n  \"include_metric_output_details\": true,\n  \"include_audio_lengths\": true,\n  \"page_size\": \"<integer>\",\n  \"page_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations:withMetricOutputs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations:withMetricOutputs"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-bd717264-7881-4961-818f-fe5d6431bc08"
+            },
+            {
+              "id": "7c002387-c676-40ca-bb4a-8c7bdcd2bb1d",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metric_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"project_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filter_archived\": false,\n  \"include_metric_output_details\": true,\n  \"include_audio_lengths\": true,\n  \"page_size\": \"<integer>\",\n  \"page_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations:withMetricOutputs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations:withMetricOutputs"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-7c002387-c676-40ca-bb4a-8c7bdcd2bb1d"
+            },
+            {
+              "id": "b8fbf67d-e2ce-4a55-9cee-e5a3dd965ed5",
+              "name": "Insufficient permissions",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metric_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"project_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filter_archived\": false,\n  \"include_metric_output_details\": true,\n  \"include_audio_lengths\": true,\n  \"page_size\": \"<integer>\",\n  \"page_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations:withMetricOutputs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations:withMetricOutputs"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-b8fbf67d-e2ce-4a55-9cee-e5a3dd965ed5"
+            },
+            {
+              "id": "77d80454-d90c-46ab-a723-23e43afce3f5",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metric_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"project_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filter_archived\": false,\n  \"include_metric_output_details\": true,\n  \"include_audio_lengths\": true,\n  \"page_size\": \"<integer>\",\n  \"page_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations:withMetricOutputs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations:withMetricOutputs"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-77d80454-d90c-46ab-a723-23e43afce3f5"
+            },
+            {
+              "id": "253940f8-64ec-4de8-8a1e-54540dcebe4c",
+              "name": "Service temporarily unavailable",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metric_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"project_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filter_archived\": false,\n  \"include_metric_output_details\": true,\n  \"include_audio_lengths\": true,\n  \"page_size\": \"<integer>\",\n  \"page_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/review-annotations:withMetricOutputs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "review-annotations:withMetricOutputs"
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:05.000Z",
+              "updatedAt": "2026-07-28T01:27:05.000Z",
+              "uid": "35240-253940f8-64ec-4de8-8a1e-54540dcebe4c"
+            }
+          ],
+          "createdAt": "2026-07-28T01:27:05.000Z",
+          "updatedAt": "2026-07-28T01:27:05.000Z",
+          "uid": "35240-e0b0cf0c-f84a-4ded-b8e1-70f4c8032652"
+        }
+      ],
+      "id": "9e3b99c3-a74a-4848-996c-645891f38c12",
+      "createdAt": "2026-07-28T01:27:04.000Z",
+      "updatedAt": "2026-07-28T01:27:04.000Z",
+      "uid": "35240-9e3b99c3-a74a-4848-996c-645891f38c12"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

@@ -1,0 +1,1794 @@
+{
+  "info": {
+    "_postman_id": "43296803-d4d9-4c6d-92d0-cff67af20d8e",
+    "name": "Coval Agents Runs API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:27:24.000Z",
+    "updatedAt": "2026-07-28T01:27:24.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-43296803-d4d9-4c6d-92d0-cff67af20d8e"
+  },
+  "item": [
+    {
+      "name": "runs",
+      "item": [
+        {
+          "name": "{run_id}",
+          "item": [
+            {
+              "name": "Get run",
+              "id": "9e42db48-e158-4dc8-a984-7d3e13d02c2e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/runs/:run_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs",
+                    ":run_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "83150846-4176-46c1-af74-a019093c1499",
+                      "key": "run_id",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier for the run"
+                    }
+                  ]
+                },
+                "description": "Retrieve detailed information about a specific simulation run.\n"
+              },
+              "response": [
+                {
+                  "id": "87fc657b-8ad7-474c-814c-ee5822f8e332",
+                  "name": "Run details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"run\": {\n    \"name\": \"<string>\",\n    \"run_id\": \"<string>\",\n    \"status\": \"DELETED\",\n    \"create_time\": \"<dateTime>\",\n    \"display_name\": \"<string>\",\n    \"update_time\": \"<dateTime>\",\n    \"agent_id\": \"<string>\",\n    \"persona_id\": \"<string>\",\n    \"test_set_id\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"progress\": {\n      \"total_test_cases\": \"<integer>\",\n      \"completed_test_cases\": \"<integer>\",\n      \"failed_test_cases\": \"<integer>\",\n      \"in_progress_test_cases\": \"<integer>\"\n    },\n    \"results\": {\n      \"output_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"metrics\": {\n        \"consectetur_4\": {\n          \"mean\": \"<float>\",\n          \"min\": \"<float>\",\n          \"max\": \"<float>\"\n        }\n      }\n    },\n    \"metadata\": {\n      \"id_7\": -63735466,\n      \"esse__1\": \"aliqua ea in irure nostrud\"\n    },\n    \"error\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-87fc657b-8ad7-474c-814c-ee5822f8e332"
+                },
+                {
+                  "id": "b133a1d9-4938-4f22-8db2-df7611165c1e",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-b133a1d9-4938-4f22-8db2-df7611165c1e"
+                },
+                {
+                  "id": "d7aa7a9c-8830-47d1-b124-1bf72aa2a980",
+                  "name": "Not Found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-d7aa7a9c-8830-47d1-b124-1bf72aa2a980"
+                },
+                {
+                  "id": "921c45a6-cf6d-40e6-827d-48092e508c52",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-921c45a6-cf6d-40e6-827d-48092e508c52"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-9e42db48-e158-4dc8-a984-7d3e13d02c2e"
+            },
+            {
+              "name": "Delete run",
+              "id": "cbdae2b6-c6f1-4752-9064-7dc1189ea150",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/runs/:run_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs",
+                    ":run_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "00ce639f-847d-4672-bbbb-e0851e9f5909",
+                      "key": "run_id",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier for the run"
+                    }
+                  ]
+                },
+                "description": "Delete or cancel a simulation run based on its current status.\n"
+              },
+              "response": [
+                {
+                  "id": "ba3fe4a5-cf07-4962-9dbb-538506919452",
+                  "name": "Run deleted or cancelled successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-ba3fe4a5-cf07-4962-9dbb-538506919452"
+                },
+                {
+                  "id": "4af01aaa-3853-4b99-964a-f53f87406631",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-4af01aaa-3853-4b99-964a-f53f87406631"
+                },
+                {
+                  "id": "fe256956-8b6d-4dbc-898d-62ca326fcd06",
+                  "name": "Not Found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-fe256956-8b6d-4dbc-898d-62ca326fcd06"
+                },
+                {
+                  "id": "7b47c215-e875-4661-8333-d3d9efe31a0a",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-7b47c215-e875-4661-8333-d3d9efe31a0a"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-cbdae2b6-c6f1-4752-9064-7dc1189ea150"
+            },
+            {
+              "name": "Update run",
+              "id": "a488f0f2-07e1-480c-af22-2918b3e93dff",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/runs/:run_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs",
+                    ":run_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2959eb73-a408-471b-a0fd-bbb1fc2c7778",
+                      "key": "run_id",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier for the run"
+                    }
+                  ]
+                },
+                "description": "Replace the tag set for an existing simulation run.\nProvide an empty list to clear all tags.\n"
+              },
+              "response": [
+                {
+                  "id": "b761b5d6-a7fe-4ea6-8a7f-920f7df8d33e",
+                  "name": "Run updated successfully",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"run\": {\n    \"name\": \"<string>\",\n    \"run_id\": \"<string>\",\n    \"status\": \"DELETED\",\n    \"create_time\": \"<dateTime>\",\n    \"display_name\": \"<string>\",\n    \"update_time\": \"<dateTime>\",\n    \"agent_id\": \"<string>\",\n    \"persona_id\": \"<string>\",\n    \"test_set_id\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"progress\": {\n      \"total_test_cases\": \"<integer>\",\n      \"completed_test_cases\": \"<integer>\",\n      \"failed_test_cases\": \"<integer>\",\n      \"in_progress_test_cases\": \"<integer>\"\n    },\n    \"results\": {\n      \"output_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"metrics\": {\n        \"consectetur_4\": {\n          \"mean\": \"<float>\",\n          \"min\": \"<float>\",\n          \"max\": \"<float>\"\n        }\n      }\n    },\n    \"metadata\": {\n      \"id_7\": -63735466,\n      \"esse__1\": \"aliqua ea in irure nostrud\"\n    },\n    \"error\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-b761b5d6-a7fe-4ea6-8a7f-920f7df8d33e"
+                },
+                {
+                  "id": "9fdfcc57-b2f3-4391-9d99-b80e05e55d4d",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-9fdfcc57-b2f3-4391-9d99-b80e05e55d4d"
+                },
+                {
+                  "id": "1d44eac0-308c-4522-a573-671649c73bfd",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-1d44eac0-308c-4522-a573-671649c73bfd"
+                },
+                {
+                  "id": "58c3f973-0356-4d28-bcc7-6827956174ff",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-58c3f973-0356-4d28-bcc7-6827956174ff"
+                },
+                {
+                  "id": "1299f5ab-b10e-4561-9ecd-0f4fdcac655c",
+                  "name": "Not Found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-1299f5ab-b10e-4561-9ecd-0f4fdcac655c"
+                },
+                {
+                  "id": "53959092-2af0-49d8-8a18-f1f157823c7e",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/runs/:run_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "runs",
+                        ":run_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "run_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:27:25.000Z",
+                  "updatedAt": "2026-07-28T01:27:25.000Z",
+                  "uid": "35240-53959092-2af0-49d8-8a18-f1f157823c7e"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-a488f0f2-07e1-480c-af22-2918b3e93dff"
+            }
+          ],
+          "id": "0c5e3011-734a-4c17-9097-1985bdf84268",
+          "createdAt": "2026-07-28T01:27:24.000Z",
+          "updatedAt": "2026-07-28T01:27:24.000Z",
+          "uid": "35240-0c5e3011-734a-4c17-9097-1985bdf84268"
+        },
+        {
+          "name": "List runs",
+          "id": "94aa46ad-3dd7-4afd-9f49-54fc9adeed33",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/runs?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "runs"
+              ],
+              "query": [
+                {
+                  "description": "Filter expression syntax.\n\nSupported fields: `status`, `agent_id`, `persona_id`, `test_set_id`, `create_time`, `update_time`, `created_by`, `tag`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n",
+                  "key": "filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Maximum number of results per page",
+                  "key": "page_size",
+                  "value": "50"
+                },
+                {
+                  "description": "Opaque pagination token from previous response",
+                  "key": "page_token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `create_time`, `update_time`, `status`, `agent_id`, `persona_id`, `test_set_id`\n",
+                  "key": "order_by",
+                  "value": "-create_time"
+                }
+              ]
+            },
+            "description": "Retrieve a paginated list of simulation runs with optional filtering and sorting.\n"
+          },
+          "response": [
+            {
+              "id": "5aec4094-dfd0-4c9c-b460-1ce7097e0045",
+              "name": "List of runs",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/runs?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\n\nSupported fields: `status`, `agent_id`, `persona_id`, `test_set_id`, `create_time`, `update_time`, `created_by`, `tag`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `create_time`, `update_time`, `status`, `agent_id`, `persona_id`, `test_set_id`\n",
+                      "key": "order_by",
+                      "value": "-create_time"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"runs\": [\n    {\n      \"name\": \"<string>\",\n      \"run_id\": \"<string>\",\n      \"status\": \"PENDING\",\n      \"create_time\": \"<dateTime>\",\n      \"display_name\": \"<string>\",\n      \"update_time\": \"<dateTime>\",\n      \"agent_id\": \"<string>\",\n      \"persona_id\": \"<string>\",\n      \"test_set_id\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"progress\": {\n        \"total_test_cases\": \"<integer>\",\n        \"completed_test_cases\": \"<integer>\",\n        \"failed_test_cases\": \"<integer>\",\n        \"in_progress_test_cases\": \"<integer>\"\n      },\n      \"results\": {\n        \"output_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"metrics\": {\n          \"sed06\": {\n            \"mean\": \"<float>\",\n            \"min\": \"<float>\",\n            \"max\": \"<float>\"\n          }\n        }\n      },\n      \"metadata\": {\n        \"Lorem824\": \"anim\",\n        \"elitda\": true\n      },\n      \"error\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"run_id\": \"<string>\",\n      \"status\": \"IN PROGRESS\",\n      \"create_time\": \"<dateTime>\",\n      \"display_name\": \"<string>\",\n      \"update_time\": \"<dateTime>\",\n      \"agent_id\": \"<string>\",\n      \"persona_id\": \"<string>\",\n      \"test_set_id\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"progress\": {\n        \"total_test_cases\": \"<integer>\",\n        \"completed_test_cases\": \"<integer>\",\n        \"failed_test_cases\": \"<integer>\",\n        \"in_progress_test_cases\": \"<integer>\"\n      },\n      \"results\": {\n        \"output_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"metrics\": {\n          \"Ut9b1\": {\n            \"mean\": \"<float>\",\n            \"min\": \"<float>\",\n            \"max\": \"<float>\"\n          },\n          \"tempor_7\": {\n            \"mean\": \"<float>\",\n            \"min\": \"<float>\",\n            \"max\": \"<float>\"\n          },\n          \"ipsum_\": {\n            \"mean\": \"<float>\",\n            \"min\": \"<float>\",\n            \"max\": \"<float>\"\n          }\n        }\n      },\n      \"metadata\": {\n        \"inff\": 17611753\n      },\n      \"error\": \"<string>\"\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-5aec4094-dfd0-4c9c-b460-1ce7097e0045"
+            },
+            {
+              "id": "339c2128-da69-49f2-8c87-3a154fdab8a6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/runs?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\n\nSupported fields: `status`, `agent_id`, `persona_id`, `test_set_id`, `create_time`, `update_time`, `created_by`, `tag`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `create_time`, `update_time`, `status`, `agent_id`, `persona_id`, `test_set_id`\n",
+                      "key": "order_by",
+                      "value": "-create_time"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-339c2128-da69-49f2-8c87-3a154fdab8a6"
+            },
+            {
+              "id": "1f0c3564-eb9e-4348-83aa-c2a261a32cc8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/runs?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\n\nSupported fields: `status`, `agent_id`, `persona_id`, `test_set_id`, `create_time`, `update_time`, `created_by`, `tag`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `create_time`, `update_time`, `status`, `agent_id`, `persona_id`, `test_set_id`\n",
+                      "key": "order_by",
+                      "value": "-create_time"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-1f0c3564-eb9e-4348-83aa-c2a261a32cc8"
+            },
+            {
+              "id": "05a39604-1d03-48b7-9a6f-32a46177f6a6",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/runs?filter=<string>&page_size=50&page_token=<string>&order_by=-create_time",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression syntax.\n\nSupported fields: `status`, `agent_id`, `persona_id`, `test_set_id`, `create_time`, `update_time`, `created_by`, `tag`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of results per page",
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Opaque pagination token from previous response",
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `create_time`, `update_time`, `status`, `agent_id`, `persona_id`, `test_set_id`\n",
+                      "key": "order_by",
+                      "value": "-create_time"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-05a39604-1d03-48b7-9a6f-32a46177f6a6"
+            }
+          ],
+          "createdAt": "2026-07-28T01:27:25.000Z",
+          "updatedAt": "2026-07-28T01:27:25.000Z",
+          "uid": "35240-94aa46ad-3dd7-4afd-9f49-54fc9adeed33"
+        },
+        {
+          "name": "Launch run",
+          "id": "d40953b4-cad2-4e7b-be02-25820dcd4126",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agent_id\": \"<string>\",\n  \"persona_id\": \"<string>\",\n  \"test_set_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"mutation_id\": \"<string>\",\n  \"mutation_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"persona_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"options\": {\n    \"iteration_count\": 1,\n    \"concurrency\": 1,\n    \"sub_sample_size\": 0,\n    \"sub_sample_seed\": null,\n    \"test_case_ids\": null\n  },\n  \"metadata\": {\n    \"customer\": {\n      \"Duis_7\": false\n    },\n    \"created_by\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/runs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "runs"
+              ]
+            },
+            "description": "Launch a new simulation run to evaluate an agent against test cases using a persona.\n"
+          },
+          "response": [
+            {
+              "id": "9e4061c0-ab3b-4981-b134-09054841ead0",
+              "name": "Run launched successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"<string>\",\n  \"persona_id\": \"<string>\",\n  \"test_set_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"mutation_id\": \"<string>\",\n  \"mutation_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"persona_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"options\": {\n    \"iteration_count\": 1,\n    \"concurrency\": 1,\n    \"sub_sample_size\": 0,\n    \"sub_sample_seed\": null,\n    \"test_case_ids\": null\n  },\n  \"metadata\": {\n    \"customer\": {\n      \"Duis_7\": false\n    },\n    \"created_by\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/runs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"run\": {\n    \"name\": \"<string>\",\n    \"run_id\": \"<string>\",\n    \"status\": \"DELETED\",\n    \"create_time\": \"<dateTime>\",\n    \"display_name\": \"<string>\",\n    \"update_time\": \"<dateTime>\",\n    \"agent_id\": \"<string>\",\n    \"persona_id\": \"<string>\",\n    \"test_set_id\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"progress\": {\n      \"total_test_cases\": \"<integer>\",\n      \"completed_test_cases\": \"<integer>\",\n      \"failed_test_cases\": \"<integer>\",\n      \"in_progress_test_cases\": \"<integer>\"\n    },\n    \"results\": {\n      \"output_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"metrics\": {\n        \"consectetur_4\": {\n          \"mean\": \"<float>\",\n          \"min\": \"<float>\",\n          \"max\": \"<float>\"\n        }\n      }\n    },\n    \"metadata\": {\n      \"id_7\": -63735466,\n      \"esse__1\": \"aliqua ea in irure nostrud\"\n    },\n    \"error\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-9e4061c0-ab3b-4981-b134-09054841ead0"
+            },
+            {
+              "id": "24debb66-f257-46d6-a935-943b8e655673",
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"<string>\",\n  \"persona_id\": \"<string>\",\n  \"test_set_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"mutation_id\": \"<string>\",\n  \"mutation_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"persona_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"options\": {\n    \"iteration_count\": 1,\n    \"concurrency\": 1,\n    \"sub_sample_size\": 0,\n    \"sub_sample_seed\": null,\n    \"test_case_ids\": null\n  },\n  \"metadata\": {\n    \"customer\": {\n      \"Duis_7\": false\n    },\n    \"created_by\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/runs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-24debb66-f257-46d6-a935-943b8e655673"
+            },
+            {
+              "id": "5270f486-4289-4959-b9a0-c65a8bf77090",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"<string>\",\n  \"persona_id\": \"<string>\",\n  \"test_set_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"mutation_id\": \"<string>\",\n  \"mutation_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"persona_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"options\": {\n    \"iteration_count\": 1,\n    \"concurrency\": 1,\n    \"sub_sample_size\": 0,\n    \"sub_sample_seed\": null,\n    \"test_case_ids\": null\n  },\n  \"metadata\": {\n    \"customer\": {\n      \"Duis_7\": false\n    },\n    \"created_by\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/runs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-5270f486-4289-4959-b9a0-c65a8bf77090"
+            },
+            {
+              "id": "bc7b5f3d-a800-4194-9409-ec786407c720",
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"<string>\",\n  \"persona_id\": \"<string>\",\n  \"test_set_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"mutation_id\": \"<string>\",\n  \"mutation_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"persona_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"options\": {\n    \"iteration_count\": 1,\n    \"concurrency\": 1,\n    \"sub_sample_size\": 0,\n    \"sub_sample_seed\": null,\n    \"test_case_ids\": null\n  },\n  \"metadata\": {\n    \"customer\": {\n      \"Duis_7\": false\n    },\n    \"created_by\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/runs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-bc7b5f3d-a800-4194-9409-ec786407c720"
+            },
+            {
+              "id": "5a5b7482-6e0f-4c2f-ac7a-7d6bed2f1078",
+              "name": "Not Found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"<string>\",\n  \"persona_id\": \"<string>\",\n  \"test_set_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"mutation_id\": \"<string>\",\n  \"mutation_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"persona_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"options\": {\n    \"iteration_count\": 1,\n    \"concurrency\": 1,\n    \"sub_sample_size\": 0,\n    \"sub_sample_seed\": null,\n    \"test_case_ids\": null\n  },\n  \"metadata\": {\n    \"customer\": {\n      \"Duis_7\": false\n    },\n    \"created_by\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/runs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-5a5b7482-6e0f-4c2f-ac7a-7d6bed2f1078"
+            },
+            {
+              "id": "94d50f6f-3003-4a74-9651-eeaa4eabc165",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"<string>\",\n  \"persona_id\": \"<string>\",\n  \"test_set_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"mutation_id\": \"<string>\",\n  \"mutation_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"persona_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"options\": {\n    \"iteration_count\": 1,\n    \"concurrency\": 1,\n    \"sub_sample_size\": 0,\n    \"sub_sample_seed\": null,\n    \"test_case_ids\": null\n  },\n  \"metadata\": {\n    \"customer\": {\n      \"Duis_7\": false\n    },\n    \"created_by\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/runs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-94d50f6f-3003-4a74-9651-eeaa4eabc165"
+            },
+            {
+              "id": "c1e35527-7103-4178-8791-6ae24d2cb4c3",
+              "name": "Service temporarily unavailable",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_id\": \"<string>\",\n  \"persona_id\": \"<string>\",\n  \"test_set_id\": \"<string>\",\n  \"metric_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"mutation_id\": \"<string>\",\n  \"mutation_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"persona_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"options\": {\n    \"iteration_count\": 1,\n    \"concurrency\": 1,\n    \"sub_sample_size\": 0,\n    \"sub_sample_seed\": null,\n    \"test_case_ids\": null\n  },\n  \"metadata\": {\n    \"customer\": {\n      \"Duis_7\": false\n    },\n    \"created_by\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/runs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "runs"
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:27:25.000Z",
+              "updatedAt": "2026-07-28T01:27:25.000Z",
+              "uid": "35240-c1e35527-7103-4178-8791-6ae24d2cb4c3"
+            }
+          ],
+          "createdAt": "2026-07-28T01:27:25.000Z",
+          "updatedAt": "2026-07-28T01:27:25.000Z",
+          "uid": "35240-d40953b4-cad2-4e7b-be02-25820dcd4126"
+        }
+      ],
+      "id": "cc1762d3-b6a5-49d3-a84b-b6f981ff0f34",
+      "createdAt": "2026-07-28T01:27:24.000Z",
+      "updatedAt": "2026-07-28T01:27:24.000Z",
+      "uid": "35240-cc1762d3-b6a5-49d3-a84b-b6f981ff0f34"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

@@ -1,0 +1,1760 @@
+{
+  "info": {
+    "_postman_id": "6cb29b5a-2c87-4cda-a44b-fcf79475e0bf",
+    "name": "Coval Agents Widgets API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:27:33.000Z",
+    "updatedAt": "2026-07-28T01:27:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6cb29b5a-2c87-4cda-a44b-fcf79475e0bf"
+  },
+  "item": [
+    {
+      "name": "dashboards",
+      "item": [
+        {
+          "name": "{dashboard_id}",
+          "item": [
+            {
+              "name": "widgets",
+              "item": [
+                {
+                  "name": "{widget_id}",
+                  "item": [
+                    {
+                      "name": "Get widget",
+                      "id": "4bed8420-ef36-4ae1-9a0b-b48312479f08",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "x-api-key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dashboards",
+                            ":dashboard_id",
+                            "widgets",
+                            ":widget_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "87f079f1-5f63-455f-a2a3-28a949ff0391",
+                              "key": "dashboard_id",
+                              "value": "<string>",
+                              "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                            },
+                            {
+                              "id": "60d23623-6621-4322-a0b1-f996999471cc",
+                              "key": "widget_id",
+                              "value": "<string>",
+                              "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve a specific widget by ID."
+                      },
+                      "response": [
+                        {
+                          "id": "54fc5a15-04b8-47e2-9501-566a6d44cb49",
+                          "name": "Widget retrieved successfully",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dashboards",
+                                ":dashboard_id",
+                                "widgets",
+                                ":widget_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                },
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"widget\": {\n    \"name\": \"<string>\",\n    \"type\": \"table\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\",\n    \"display_name\": \"<string>\",\n    \"grid_x\": \"<integer>\",\n    \"grid_y\": \"<integer>\",\n    \"grid_w\": \"<integer>\",\n    \"grid_h\": \"<integer>\",\n    \"config\": {\n      \"metricId\": \"<string>\",\n      \"visualizationType\": \"bar\",\n      \"monitoring\": \"Monitoring\",\n      \"aggregation\": \"avg\",\n      \"metricOutputType\": \"string\",\n      \"bucketInterval\": \"1 day\",\n      \"stacked\": \"<boolean>\",\n      \"grouped\": \"<boolean>\",\n      \"showAsPercentage\": \"<boolean>\",\n      \"groupBy\": \"mutation\",\n      \"customColorMap\": {\n        \"Duis4f\": \"<string>\"\n      },\n      \"xAxisLabel\": \"<string>\",\n      \"yAxisLabel\": \"<string>\",\n      \"customSeriesNames\": {\n        \"in5\": \"<string>\",\n        \"enim_7\": \"<string>\"\n      },\n      \"hiddenSeries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"precision\": \"<integer>\",\n      \"units\": \"<string>\",\n      \"showCount\": \"<boolean>\",\n      \"showRange\": \"<boolean>\",\n      \"showStdDev\": \"<boolean>\",\n      \"showBoxPlot\": \"<boolean>\",\n      \"showTargetZone\": \"<boolean>\",\n      \"filters\": {\n        \"metricIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"agentIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"agentMutationIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"personaIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"templateNames\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"testSetIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"metricFilter\": [\n        {\n          \"metricId\": \"<string>\",\n          \"operator\": \"=\",\n          \"value\": \"<number>\",\n          \"metricOutputType\": \"string\"\n        },\n        {\n          \"metricId\": \"<string>\",\n          \"operator\": \"!=\",\n          \"value\": \"<number>\",\n          \"metricOutputType\": \"float\"\n        }\n      ]\n    }\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:33.000Z",
+                          "updatedAt": "2026-07-28T01:27:33.000Z",
+                          "uid": "35240-54fc5a15-04b8-47e2-9501-566a6d44cb49"
+                        },
+                        {
+                          "id": "9063c90d-a8af-4fa6-9da9-e1e17255bbfd",
+                          "name": "Authentication failed",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dashboards",
+                                ":dashboard_id",
+                                "widgets",
+                                ":widget_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                },
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:33.000Z",
+                          "updatedAt": "2026-07-28T01:27:33.000Z",
+                          "uid": "35240-9063c90d-a8af-4fa6-9da9-e1e17255bbfd"
+                        },
+                        {
+                          "id": "1d216779-c12a-460c-984e-225813dd6ca0",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dashboards",
+                                ":dashboard_id",
+                                "widgets",
+                                ":widget_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                },
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:33.000Z",
+                          "updatedAt": "2026-07-28T01:27:33.000Z",
+                          "uid": "35240-1d216779-c12a-460c-984e-225813dd6ca0"
+                        },
+                        {
+                          "id": "6314efa0-51e7-4b8d-968c-6dca7f1517e4",
+                          "name": "Internal server error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dashboards",
+                                ":dashboard_id",
+                                "widgets",
+                                ":widget_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                },
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:33.000Z",
+                          "updatedAt": "2026-07-28T01:27:33.000Z",
+                          "uid": "35240-6314efa0-51e7-4b8d-968c-6dca7f1517e4"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:27:33.000Z",
+                      "updatedAt": "2026-07-28T01:27:33.000Z",
+                      "uid": "35240-4bed8420-ef36-4ae1-9a0b-b48312479f08"
+                    },
+                    {
+                      "name": "Update widget",
+                      "id": "b6174396-ef7b-424c-aa5d-9a98a04c90b0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "x-api-key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"text\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"pie\",\n    \"monitoring\": \"Simulations\",\n    \"aggregation\": \"avg\",\n    \"metricOutputType\": \"string\",\n    \"bucketInterval\": \"1 hour\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"test_set\",\n    \"customColorMap\": {\n      \"qui2\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"tempor_62\": \"<string>\",\n      \"nisi_3\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"=\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      }\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dashboards",
+                            ":dashboard_id",
+                            "widgets",
+                            ":widget_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "4af1fc88-bff9-4f1a-9ad6-7e3f7d5ce32d",
+                              "key": "dashboard_id",
+                              "value": "<string>",
+                              "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                            },
+                            {
+                              "id": "fa55eff4-a4bc-4a0b-893e-7219cb985a77",
+                              "key": "widget_id",
+                              "value": "<string>",
+                              "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                            }
+                          ]
+                        },
+                        "description": "Update a widget."
+                      },
+                      "response": [
+                        {
+                          "id": "be45b53b-2051-40ba-8212-044ab3ad0cb8",
+                          "name": "Widget updated successfully",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"text\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"pie\",\n    \"monitoring\": \"Simulations\",\n    \"aggregation\": \"avg\",\n    \"metricOutputType\": \"string\",\n    \"bucketInterval\": \"1 hour\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"test_set\",\n    \"customColorMap\": {\n      \"qui2\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"tempor_62\": \"<string>\",\n      \"nisi_3\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"=\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      }\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dashboards",
+                                ":dashboard_id",
+                                "widgets",
+                                ":widget_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                },
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"widget\": {\n    \"name\": \"<string>\",\n    \"type\": \"table\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\",\n    \"display_name\": \"<string>\",\n    \"grid_x\": \"<integer>\",\n    \"grid_y\": \"<integer>\",\n    \"grid_w\": \"<integer>\",\n    \"grid_h\": \"<integer>\",\n    \"config\": {\n      \"metricId\": \"<string>\",\n      \"visualizationType\": \"bar\",\n      \"monitoring\": \"Monitoring\",\n      \"aggregation\": \"avg\",\n      \"metricOutputType\": \"string\",\n      \"bucketInterval\": \"1 day\",\n      \"stacked\": \"<boolean>\",\n      \"grouped\": \"<boolean>\",\n      \"showAsPercentage\": \"<boolean>\",\n      \"groupBy\": \"mutation\",\n      \"customColorMap\": {\n        \"Duis4f\": \"<string>\"\n      },\n      \"xAxisLabel\": \"<string>\",\n      \"yAxisLabel\": \"<string>\",\n      \"customSeriesNames\": {\n        \"in5\": \"<string>\",\n        \"enim_7\": \"<string>\"\n      },\n      \"hiddenSeries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"precision\": \"<integer>\",\n      \"units\": \"<string>\",\n      \"showCount\": \"<boolean>\",\n      \"showRange\": \"<boolean>\",\n      \"showStdDev\": \"<boolean>\",\n      \"showBoxPlot\": \"<boolean>\",\n      \"showTargetZone\": \"<boolean>\",\n      \"filters\": {\n        \"metricIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"agentIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"agentMutationIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"personaIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"templateNames\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"testSetIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"metricFilter\": [\n        {\n          \"metricId\": \"<string>\",\n          \"operator\": \"=\",\n          \"value\": \"<number>\",\n          \"metricOutputType\": \"string\"\n        },\n        {\n          \"metricId\": \"<string>\",\n          \"operator\": \"!=\",\n          \"value\": \"<number>\",\n          \"metricOutputType\": \"float\"\n        }\n      ]\n    }\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:33.000Z",
+                          "updatedAt": "2026-07-28T01:27:33.000Z",
+                          "uid": "35240-be45b53b-2051-40ba-8212-044ab3ad0cb8"
+                        },
+                        {
+                          "id": "ead7cc77-e0b3-4365-b339-d19d3191764d",
+                          "name": "Invalid request",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"text\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"pie\",\n    \"monitoring\": \"Simulations\",\n    \"aggregation\": \"avg\",\n    \"metricOutputType\": \"string\",\n    \"bucketInterval\": \"1 hour\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"test_set\",\n    \"customColorMap\": {\n      \"qui2\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"tempor_62\": \"<string>\",\n      \"nisi_3\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"=\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      }\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dashboards",
+                                ":dashboard_id",
+                                "widgets",
+                                ":widget_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                },
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:33.000Z",
+                          "updatedAt": "2026-07-28T01:27:33.000Z",
+                          "uid": "35240-ead7cc77-e0b3-4365-b339-d19d3191764d"
+                        },
+                        {
+                          "id": "72d5debf-9971-48f6-925f-300147b7c796",
+                          "name": "Authentication failed",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"text\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"pie\",\n    \"monitoring\": \"Simulations\",\n    \"aggregation\": \"avg\",\n    \"metricOutputType\": \"string\",\n    \"bucketInterval\": \"1 hour\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"test_set\",\n    \"customColorMap\": {\n      \"qui2\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"tempor_62\": \"<string>\",\n      \"nisi_3\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"=\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      }\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dashboards",
+                                ":dashboard_id",
+                                "widgets",
+                                ":widget_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                },
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:33.000Z",
+                          "updatedAt": "2026-07-28T01:27:33.000Z",
+                          "uid": "35240-72d5debf-9971-48f6-925f-300147b7c796"
+                        },
+                        {
+                          "id": "43f00430-b1a5-4ed1-b51b-e32c79354a45",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"text\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"pie\",\n    \"monitoring\": \"Simulations\",\n    \"aggregation\": \"avg\",\n    \"metricOutputType\": \"string\",\n    \"bucketInterval\": \"1 hour\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"test_set\",\n    \"customColorMap\": {\n      \"qui2\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"tempor_62\": \"<string>\",\n      \"nisi_3\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"=\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      }\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dashboards",
+                                ":dashboard_id",
+                                "widgets",
+                                ":widget_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                },
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:33.000Z",
+                          "updatedAt": "2026-07-28T01:27:33.000Z",
+                          "uid": "35240-43f00430-b1a5-4ed1-b51b-e32c79354a45"
+                        },
+                        {
+                          "id": "954ff6e0-8a36-4fb0-a662-f562306621c7",
+                          "name": "Internal server error",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"text\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"pie\",\n    \"monitoring\": \"Simulations\",\n    \"aggregation\": \"avg\",\n    \"metricOutputType\": \"string\",\n    \"bucketInterval\": \"1 hour\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"test_set\",\n    \"customColorMap\": {\n      \"qui2\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"tempor_62\": \"<string>\",\n      \"nisi_3\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"=\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      }\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dashboards",
+                                ":dashboard_id",
+                                "widgets",
+                                ":widget_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                },
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:33.000Z",
+                          "updatedAt": "2026-07-28T01:27:33.000Z",
+                          "uid": "35240-954ff6e0-8a36-4fb0-a662-f562306621c7"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:27:33.000Z",
+                      "updatedAt": "2026-07-28T01:27:33.000Z",
+                      "uid": "35240-b6174396-ef7b-424c-aa5d-9a98a04c90b0"
+                    },
+                    {
+                      "name": "Delete widget",
+                      "id": "7f654477-7925-4ae0-9234-3c08fe00b815",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "x-api-key",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dashboards",
+                            ":dashboard_id",
+                            "widgets",
+                            ":widget_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "3ed359c6-0081-445a-a8af-20a45f5eb5e8",
+                              "key": "dashboard_id",
+                              "value": "<string>",
+                              "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                            },
+                            {
+                              "id": "ef5925fc-cadf-4900-8d23-7e5149c6b0f8",
+                              "key": "widget_id",
+                              "value": "<string>",
+                              "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                            }
+                          ]
+                        },
+                        "description": "Delete a widget."
+                      },
+                      "response": [
+                        {
+                          "id": "be3d1b95-df94-453d-a2c6-6f037c9b1e7e",
+                          "name": "Widget deleted successfully",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dashboards",
+                                ":dashboard_id",
+                                "widgets",
+                                ":widget_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                },
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{}",
+                          "createdAt": "2026-07-28T01:27:33.000Z",
+                          "updatedAt": "2026-07-28T01:27:33.000Z",
+                          "uid": "35240-be3d1b95-df94-453d-a2c6-6f037c9b1e7e"
+                        },
+                        {
+                          "id": "1145fa48-9c6e-40fd-a72a-00e055021bd7",
+                          "name": "Authentication failed",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dashboards",
+                                ":dashboard_id",
+                                "widgets",
+                                ":widget_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                },
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:33.000Z",
+                          "updatedAt": "2026-07-28T01:27:33.000Z",
+                          "uid": "35240-1145fa48-9c6e-40fd-a72a-00e055021bd7"
+                        },
+                        {
+                          "id": "2b65cc7c-8dc4-4100-97b9-0fe9bdef6e9c",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dashboards",
+                                ":dashboard_id",
+                                "widgets",
+                                ":widget_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                },
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:33.000Z",
+                          "updatedAt": "2026-07-28T01:27:33.000Z",
+                          "uid": "35240-2b65cc7c-8dc4-4100-97b9-0fe9bdef6e9c"
+                        },
+                        {
+                          "id": "6b0adffd-55a0-41c8-b662-ec0f6fde5f9a",
+                          "name": "Internal server error",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "x-api-key",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets/:widget_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dashboards",
+                                ":dashboard_id",
+                                "widgets",
+                                ":widget_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                },
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:33.000Z",
+                          "updatedAt": "2026-07-28T01:27:33.000Z",
+                          "uid": "35240-6b0adffd-55a0-41c8-b662-ec0f6fde5f9a"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:27:33.000Z",
+                      "updatedAt": "2026-07-28T01:27:33.000Z",
+                      "uid": "35240-7f654477-7925-4ae0-9234-3c08fe00b815"
+                    }
+                  ],
+                  "id": "de4acb42-e135-427d-87d3-504738e8e142",
+                  "createdAt": "2026-07-28T01:27:33.000Z",
+                  "updatedAt": "2026-07-28T01:27:33.000Z",
+                  "uid": "35240-de4acb42-e135-427d-87d3-504738e8e142"
+                },
+                {
+                  "name": "Create widget",
+                  "id": "51ee6ea9-408b-4a41-865d-6a377c5d51e9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"table\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"area\",\n    \"monitoring\": \"Simulations\",\n    \"aggregation\": \"p90\",\n    \"metricOutputType\": \"float\",\n    \"bucketInterval\": \"4 hours\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"persona\",\n    \"customColorMap\": {\n      \"esse_e\": \"<string>\",\n      \"Uta58\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"aliquip_f1c\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \">\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"float\"\n      }\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id",
+                        "widgets"
+                      ],
+                      "variable": [
+                        {
+                          "id": "50276390-51db-4cfa-994b-5195fa1abfb4",
+                          "key": "dashboard_id",
+                          "value": "<string>",
+                          "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                        }
+                      ]
+                    },
+                    "description": "Create a new widget on a dashboard."
+                  },
+                  "response": [
+                    {
+                      "id": "866d7547-c5da-410d-b42f-d0d2b594ca71",
+                      "name": "Widget created successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"table\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"area\",\n    \"monitoring\": \"Simulations\",\n    \"aggregation\": \"p90\",\n    \"metricOutputType\": \"float\",\n    \"bucketInterval\": \"4 hours\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"persona\",\n    \"customColorMap\": {\n      \"esse_e\": \"<string>\",\n      \"Uta58\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"aliquip_f1c\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \">\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"float\"\n      }\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dashboards",
+                            ":dashboard_id",
+                            "widgets"
+                          ],
+                          "variable": [
+                            {
+                              "key": "dashboard_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"widget\": {\n    \"name\": \"<string>\",\n    \"type\": \"table\",\n    \"create_time\": \"<dateTime>\",\n    \"update_time\": \"<dateTime>\",\n    \"display_name\": \"<string>\",\n    \"grid_x\": \"<integer>\",\n    \"grid_y\": \"<integer>\",\n    \"grid_w\": \"<integer>\",\n    \"grid_h\": \"<integer>\",\n    \"config\": {\n      \"metricId\": \"<string>\",\n      \"visualizationType\": \"bar\",\n      \"monitoring\": \"Monitoring\",\n      \"aggregation\": \"avg\",\n      \"metricOutputType\": \"string\",\n      \"bucketInterval\": \"1 day\",\n      \"stacked\": \"<boolean>\",\n      \"grouped\": \"<boolean>\",\n      \"showAsPercentage\": \"<boolean>\",\n      \"groupBy\": \"mutation\",\n      \"customColorMap\": {\n        \"Duis4f\": \"<string>\"\n      },\n      \"xAxisLabel\": \"<string>\",\n      \"yAxisLabel\": \"<string>\",\n      \"customSeriesNames\": {\n        \"in5\": \"<string>\",\n        \"enim_7\": \"<string>\"\n      },\n      \"hiddenSeries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"precision\": \"<integer>\",\n      \"units\": \"<string>\",\n      \"showCount\": \"<boolean>\",\n      \"showRange\": \"<boolean>\",\n      \"showStdDev\": \"<boolean>\",\n      \"showBoxPlot\": \"<boolean>\",\n      \"showTargetZone\": \"<boolean>\",\n      \"filters\": {\n        \"metricIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"agentIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"agentMutationIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"personaIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"templateNames\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"testSetIds\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"metricFilter\": [\n        {\n          \"metricId\": \"<string>\",\n          \"operator\": \"=\",\n          \"value\": \"<number>\",\n          \"metricOutputType\": \"string\"\n        },\n        {\n          \"metricId\": \"<string>\",\n          \"operator\": \"!=\",\n          \"value\": \"<number>\",\n          \"metricOutputType\": \"float\"\n        }\n      ]\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:33.000Z",
+                      "updatedAt": "2026-07-28T01:27:33.000Z",
+                      "uid": "35240-866d7547-c5da-410d-b42f-d0d2b594ca71"
+                    },
+                    {
+                      "id": "c01a3c03-4091-4a21-9bdd-d43fd3368119",
+                      "name": "Invalid request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"table\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"area\",\n    \"monitoring\": \"Simulations\",\n    \"aggregation\": \"p90\",\n    \"metricOutputType\": \"float\",\n    \"bucketInterval\": \"4 hours\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"persona\",\n    \"customColorMap\": {\n      \"esse_e\": \"<string>\",\n      \"Uta58\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"aliquip_f1c\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \">\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"float\"\n      }\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dashboards",
+                            ":dashboard_id",
+                            "widgets"
+                          ],
+                          "variable": [
+                            {
+                              "key": "dashboard_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:33.000Z",
+                      "updatedAt": "2026-07-28T01:27:33.000Z",
+                      "uid": "35240-c01a3c03-4091-4a21-9bdd-d43fd3368119"
+                    },
+                    {
+                      "id": "d26a01d3-dedf-4ce1-bce2-a47fe66f5473",
+                      "name": "Authentication failed",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"table\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"area\",\n    \"monitoring\": \"Simulations\",\n    \"aggregation\": \"p90\",\n    \"metricOutputType\": \"float\",\n    \"bucketInterval\": \"4 hours\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"persona\",\n    \"customColorMap\": {\n      \"esse_e\": \"<string>\",\n      \"Uta58\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"aliquip_f1c\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \">\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"float\"\n      }\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dashboards",
+                            ":dashboard_id",
+                            "widgets"
+                          ],
+                          "variable": [
+                            {
+                              "key": "dashboard_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:33.000Z",
+                      "updatedAt": "2026-07-28T01:27:33.000Z",
+                      "uid": "35240-d26a01d3-dedf-4ce1-bce2-a47fe66f5473"
+                    },
+                    {
+                      "id": "d645d891-3b15-4458-87d2-77801f170cea",
+                      "name": "Parent dashboard not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"table\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"area\",\n    \"monitoring\": \"Simulations\",\n    \"aggregation\": \"p90\",\n    \"metricOutputType\": \"float\",\n    \"bucketInterval\": \"4 hours\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"persona\",\n    \"customColorMap\": {\n      \"esse_e\": \"<string>\",\n      \"Uta58\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"aliquip_f1c\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \">\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"float\"\n      }\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dashboards",
+                            ":dashboard_id",
+                            "widgets"
+                          ],
+                          "variable": [
+                            {
+                              "key": "dashboard_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:33.000Z",
+                      "updatedAt": "2026-07-28T01:27:33.000Z",
+                      "uid": "35240-d645d891-3b15-4458-87d2-77801f170cea"
+                    },
+                    {
+                      "id": "ba0b7edf-5aca-48a2-ad01-237927a4ab36",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"table\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"area\",\n    \"monitoring\": \"Simulations\",\n    \"aggregation\": \"p90\",\n    \"metricOutputType\": \"float\",\n    \"bucketInterval\": \"4 hours\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"persona\",\n    \"customColorMap\": {\n      \"esse_e\": \"<string>\",\n      \"Uta58\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"aliquip_f1c\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"string\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \">\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"float\"\n      }\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dashboards",
+                            ":dashboard_id",
+                            "widgets"
+                          ],
+                          "variable": [
+                            {
+                              "key": "dashboard_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:33.000Z",
+                      "updatedAt": "2026-07-28T01:27:33.000Z",
+                      "uid": "35240-ba0b7edf-5aca-48a2-ad01-237927a4ab36"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:27:33.000Z",
+                  "updatedAt": "2026-07-28T01:27:33.000Z",
+                  "uid": "35240-51ee6ea9-408b-4a41-865d-6a377c5d51e9"
+                },
+                {
+                  "name": "List widgets",
+                  "id": "7d112e65-23d2-43b7-93d9-b2ed9d72a6b6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "x-api-key",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets?page_size=50&page_token=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dashboards",
+                        ":dashboard_id",
+                        "widgets"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of results per page",
+                          "key": "page_size",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Opaque pagination token from previous response",
+                          "key": "page_token",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "51990deb-323d-436e-8554-6e0dc4c83574",
+                          "key": "dashboard_id",
+                          "value": "<string>",
+                          "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                        }
+                      ]
+                    },
+                    "description": "List widgets for a dashboard."
+                  },
+                  "response": [
+                    {
+                      "id": "2f62c3b4-af39-42af-b6e9-bf2336024c91",
+                      "name": "Widgets retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets?page_size=50&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dashboards",
+                            ":dashboard_id",
+                            "widgets"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Opaque pagination token from previous response",
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "dashboard_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"widgets\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"chart\",\n      \"create_time\": \"<dateTime>\",\n      \"update_time\": \"<dateTime>\",\n      \"display_name\": \"<string>\",\n      \"grid_x\": \"<integer>\",\n      \"grid_y\": \"<integer>\",\n      \"grid_w\": \"<integer>\",\n      \"grid_h\": \"<integer>\",\n      \"config\": {\n        \"metricId\": \"<string>\",\n        \"visualizationType\": \"histogram\",\n        \"monitoring\": \"Simulations\",\n        \"aggregation\": \"min\",\n        \"metricOutputType\": \"string\",\n        \"bucketInterval\": \"1 day\",\n        \"stacked\": \"<boolean>\",\n        \"grouped\": \"<boolean>\",\n        \"showAsPercentage\": \"<boolean>\",\n        \"groupBy\": \"test_set\",\n        \"customColorMap\": {\n          \"Loremce\": \"<string>\",\n          \"commodo_b\": \"<string>\"\n        },\n        \"xAxisLabel\": \"<string>\",\n        \"yAxisLabel\": \"<string>\",\n        \"customSeriesNames\": {\n          \"commodo21\": \"<string>\",\n          \"occaecat2af\": \"<string>\",\n          \"adipisicing_e\": \"<string>\"\n        },\n        \"hiddenSeries\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"precision\": \"<integer>\",\n        \"units\": \"<string>\",\n        \"showCount\": \"<boolean>\",\n        \"showRange\": \"<boolean>\",\n        \"showStdDev\": \"<boolean>\",\n        \"showBoxPlot\": \"<boolean>\",\n        \"showTargetZone\": \"<boolean>\",\n        \"filters\": {\n          \"metricIds\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"agentIds\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"agentMutationIds\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"personaIds\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"templateNames\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"testSetIds\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"metricFilter\": [\n          {\n            \"metricId\": \"<string>\",\n            \"operator\": \">\",\n            \"value\": \"<number>\",\n            \"metricOutputType\": \"string\"\n          },\n          {\n            \"metricId\": \"<string>\",\n            \"operator\": \">\",\n            \"value\": \"<number>\",\n            \"metricOutputType\": \"float\"\n          }\n        ]\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"text\",\n      \"create_time\": \"<dateTime>\",\n      \"update_time\": \"<dateTime>\",\n      \"display_name\": \"<string>\",\n      \"grid_x\": \"<integer>\",\n      \"grid_y\": \"<integer>\",\n      \"grid_w\": \"<integer>\",\n      \"grid_h\": \"<integer>\",\n      \"config\": {\n        \"metricId\": \"<string>\",\n        \"visualizationType\": \"bar\",\n        \"monitoring\": \"Monitoring\",\n        \"aggregation\": \"count\",\n        \"metricOutputType\": \"float\",\n        \"bucketInterval\": \"15 minutes\",\n        \"stacked\": \"<boolean>\",\n        \"grouped\": \"<boolean>\",\n        \"showAsPercentage\": \"<boolean>\",\n        \"groupBy\": \"mutation\",\n        \"customColorMap\": {\n          \"culpacff\": \"<string>\",\n          \"deserunt5a1\": \"<string>\"\n        },\n        \"xAxisLabel\": \"<string>\",\n        \"yAxisLabel\": \"<string>\",\n        \"customSeriesNames\": {\n          \"fugiatce\": \"<string>\"\n        },\n        \"hiddenSeries\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"precision\": \"<integer>\",\n        \"units\": \"<string>\",\n        \"showCount\": \"<boolean>\",\n        \"showRange\": \"<boolean>\",\n        \"showStdDev\": \"<boolean>\",\n        \"showBoxPlot\": \"<boolean>\",\n        \"showTargetZone\": \"<boolean>\",\n        \"filters\": {\n          \"metricIds\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"agentIds\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"agentMutationIds\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"personaIds\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"templateNames\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"testSetIds\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"metricFilter\": [\n          {\n            \"metricId\": \"<string>\",\n            \"operator\": \"<\",\n            \"value\": \"<number>\",\n            \"metricOutputType\": \"float\"\n          },\n          {\n            \"metricId\": \"<string>\",\n            \"operator\": \">\",\n            \"value\": \"<number>\",\n            \"metricOutputType\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"next_page_token\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:27:33.000Z",
+                      "updatedAt": "2026-07-28T01:27:33.000Z",
+                      "uid": "35240-2f62c3b4-af39-42af-b6e9-bf2336024c91"
+                    },
+                    {
+                      "id": "f1273f05-d5e4-4b3e-80fd-e27e22a6ebe4",
+                      "name": "Authentication failed",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets?page_size=50&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dashboards",
+                            ":dashboard_id",
+                            "widgets"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Opaque pagination token from previous response",
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "dashboard_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:33.000Z",
+                      "updatedAt": "2026-07-28T01:27:33.000Z",
+                      "uid": "35240-f1273f05-d5e4-4b3e-80fd-e27e22a6ebe4"
+                    },
+                    {
+                      "id": "6aad0816-75ba-4f6f-a0e7-a9f3688dd569",
+                      "name": "Parent dashboard not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets?page_size=50&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dashboards",
+                            ":dashboard_id",
+                            "widgets"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Opaque pagination token from previous response",
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "dashboard_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:33.000Z",
+                      "updatedAt": "2026-07-28T01:27:33.000Z",
+                      "uid": "35240-6aad0816-75ba-4f6f-a0e7-a9f3688dd569"
+                    },
+                    {
+                      "id": "5536da4f-e444-4fe7-b30d-ccc8182fe373",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "x-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/dashboards/:dashboard_id/widgets?page_size=50&page_token=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dashboards",
+                            ":dashboard_id",
+                            "widgets"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of results per page",
+                              "key": "page_size",
+                              "value": "50"
+                            },
+                            {
+                              "description": "Opaque pagination token from previous response",
+                              "key": "page_token",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "dashboard_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:27:33.000Z",
+                      "updatedAt": "2026-07-28T01:27:33.000Z",
+                      "uid": "35240-5536da4f-e444-4fe7-b30d-ccc8182fe373"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:27:33.000Z",
+                  "updatedAt": "2026-07-28T01:27:33.000Z",
+                  "uid": "35240-7d112e65-23d2-43b7-93d9-b2ed9d72a6b6"
+                }
+              ],
+              "id": "07658a24-ac22-459c-bf85-5991fb6cebd1",
+              "createdAt": "2026-07-28T01:27:33.000Z",
+              "updatedAt": "2026-07-28T01:27:33.000Z",
+              "uid": "35240-07658a24-ac22-459c-bf85-5991fb6cebd1"
+            }
+          ],
+          "id": "1133e3f9-39c0-4aad-87e5-c130233c7da6",
+          "createdAt": "2026-07-28T01:27:33.000Z",
+          "updatedAt": "2026-07-28T01:27:33.000Z",
+          "uid": "35240-1133e3f9-39c0-4aad-87e5-c130233c7da6"
+        }
+      ],
+      "id": "496d9062-a1a9-4501-a7e5-3687e9105366",
+      "createdAt": "2026-07-28T01:27:33.000Z",
+      "updatedAt": "2026-07-28T01:27:33.000Z",
+      "uid": "35240-496d9062-a1a9-4501-a7e5-3687e9105366"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}

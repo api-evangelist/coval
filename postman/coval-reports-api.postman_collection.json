@@ -1,0 +1,2050 @@
+{
+  "info": {
+    "_postman_id": "1ca3c16b-5279-4b3e-a2fd-e41dd4b61264",
+    "name": "Coval Agents Reports API",
+    "description": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:26:41.000Z",
+    "updatedAt": "2026-07-28T01:26:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1ca3c16b-5279-4b3e-a2fd-e41dd4b61264"
+  },
+  "item": [
+    {
+      "name": "reports",
+      "item": [
+        {
+          "name": "{report_id}",
+          "item": [
+            {
+              "name": "Get report",
+              "id": "1a1b28d9-cde1-4f61-9fd6-6c12270b3e0c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reports/:report_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports",
+                    ":report_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "1f5bf59e-63d3-4793-8eda-fcb4ddf260af",
+                      "key": "report_id",
+                      "value": "<string>",
+                      "description": "(Required) Saved report ULID."
+                    }
+                  ]
+                },
+                "description": "Retrieve a saved report by ID."
+              },
+              "response": [
+                {
+                  "id": "a7cd377c-8842-483a-8d92-c5c4698c4dd4",
+                  "name": "Report retrieved successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"report\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"run_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"compare_by\": \"none\",\n    \"metadata_key\": \"<string>\",\n    \"permissions\": \"PRIVATE\",\n    \"simulation_output_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"source_human_review_project_id\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-a7cd377c-8842-483a-8d92-c5c4698c4dd4"
+                },
+                {
+                  "id": "764cdf77-4f97-4afd-8b95-18fa7fd00ec4",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-764cdf77-4f97-4afd-8b95-18fa7fd00ec4"
+                },
+                {
+                  "id": "90e64782-04c7-4e1a-8289-a880ce4d7dfc",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-90e64782-04c7-4e1a-8289-a880ce4d7dfc"
+                },
+                {
+                  "id": "25126096-5985-4288-882e-877480b209fa",
+                  "name": "Not Found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-25126096-5985-4288-882e-877480b209fa"
+                },
+                {
+                  "id": "f0e10503-a3e4-48c2-9824-330f47e178f9",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-f0e10503-a3e4-48c2-9824-330f47e178f9"
+                },
+                {
+                  "id": "5271bb93-acc0-4a8f-a490-e97f8601c0ea",
+                  "name": "Service temporarily unavailable",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-5271bb93-acc0-4a8f-a490-e97f8601c0ea"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-1a1b28d9-cde1-4f61-9fd6-6c12270b3e0c"
+            },
+            {
+              "name": "Update report",
+              "id": "c555c869-b857-4033-a27e-0e0134079fb9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": \"<string>\",\n  \"compare_by\": \"none\",\n  \"metadata_key\": \"<string>\",\n  \"permissions\": \"PRIVATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reports/:report_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports",
+                    ":report_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "c161d48d-80e5-436a-b6d3-987990209813",
+                      "key": "report_id",
+                      "value": "<string>",
+                      "description": "(Required) Saved report ULID."
+                    }
+                  ]
+                },
+                "description": "Partially update a saved report. To group by metadata, provide both\n`compare_by: metadata` and `metadata_key`.\n"
+              },
+              "response": [
+                {
+                  "id": "1cc0edc3-ea63-465b-973c-b57f0574b8d4",
+                  "name": "Report updated successfully",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": \"<string>\",\n  \"compare_by\": \"none\",\n  \"metadata_key\": \"<string>\",\n  \"permissions\": \"PRIVATE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"report\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"run_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"compare_by\": \"none\",\n    \"metadata_key\": \"<string>\",\n    \"permissions\": \"PRIVATE\",\n    \"simulation_output_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"source_human_review_project_id\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-1cc0edc3-ea63-465b-973c-b57f0574b8d4"
+                },
+                {
+                  "id": "19f0f5e5-1a33-4450-8177-75b093f3fcdc",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": \"<string>\",\n  \"compare_by\": \"none\",\n  \"metadata_key\": \"<string>\",\n  \"permissions\": \"PRIVATE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-19f0f5e5-1a33-4450-8177-75b093f3fcdc"
+                },
+                {
+                  "id": "0ef1cafd-172b-4f1c-a86e-324c7f5e95a8",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": \"<string>\",\n  \"compare_by\": \"none\",\n  \"metadata_key\": \"<string>\",\n  \"permissions\": \"PRIVATE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-0ef1cafd-172b-4f1c-a86e-324c7f5e95a8"
+                },
+                {
+                  "id": "71436f41-6f0b-43a7-9b95-a5acabb5c395",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": \"<string>\",\n  \"compare_by\": \"none\",\n  \"metadata_key\": \"<string>\",\n  \"permissions\": \"PRIVATE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-71436f41-6f0b-43a7-9b95-a5acabb5c395"
+                },
+                {
+                  "id": "a9a316c8-b53c-47d8-9e40-0cfa8fcdc664",
+                  "name": "Not Found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": \"<string>\",\n  \"compare_by\": \"none\",\n  \"metadata_key\": \"<string>\",\n  \"permissions\": \"PRIVATE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-a9a316c8-b53c-47d8-9e40-0cfa8fcdc664"
+                },
+                {
+                  "id": "4b1a70a9-ce3e-4f0e-8673-8abab54fb36e",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": \"<string>\",\n  \"compare_by\": \"none\",\n  \"metadata_key\": \"<string>\",\n  \"permissions\": \"PRIVATE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-4b1a70a9-ce3e-4f0e-8673-8abab54fb36e"
+                },
+                {
+                  "id": "b691a56a-b06b-41df-8458-9af846b02ab7",
+                  "name": "Service temporarily unavailable",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": \"<string>\",\n  \"compare_by\": \"none\",\n  \"metadata_key\": \"<string>\",\n  \"permissions\": \"PRIVATE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-b691a56a-b06b-41df-8458-9af846b02ab7"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-c555c869-b857-4033-a27e-0e0134079fb9"
+            },
+            {
+              "name": "Delete report",
+              "id": "e6f308e1-3c3d-4fc4-896b-85971cb2d68b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "x-api-key",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reports/:report_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports",
+                    ":report_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "acccb058-f630-4410-872a-e75a9e70809f",
+                      "key": "report_id",
+                      "value": "<string>",
+                      "description": "(Required) Saved report ULID."
+                    }
+                  ]
+                },
+                "description": "Soft-delete a saved report. If the report is public, its run visibility\nis revoked unless another public report still references the same runs.\n"
+              },
+              "response": [
+                {
+                  "id": "501a355a-658d-4b47-8129-a4a98ba34cfc",
+                  "name": "Report deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-501a355a-658d-4b47-8129-a4a98ba34cfc"
+                },
+                {
+                  "id": "ad88cf06-69de-40ab-b68e-a80bdffe4caf",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-ad88cf06-69de-40ab-b68e-a80bdffe4caf"
+                },
+                {
+                  "id": "365f1088-c205-40f0-8a41-cc191d85bc88",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-365f1088-c205-40f0-8a41-cc191d85bc88"
+                },
+                {
+                  "id": "b141688c-61d5-4a57-9551-fe2597230f95",
+                  "name": "Not Found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-b141688c-61d5-4a57-9551-fe2597230f95"
+                },
+                {
+                  "id": "3acf304a-6052-4d7d-83be-d07bb247c047",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-3acf304a-6052-4d7d-83be-d07bb247c047"
+                },
+                {
+                  "id": "ae8d5595-44d8-477d-8922-95c35083e32e",
+                  "name": "Service temporarily unavailable",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/:report_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        ":report_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "report_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:26:42.000Z",
+                  "updatedAt": "2026-07-28T01:26:42.000Z",
+                  "uid": "35240-ae8d5595-44d8-477d-8922-95c35083e32e"
+                }
+              ],
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-e6f308e1-3c3d-4fc4-896b-85971cb2d68b"
+            }
+          ],
+          "id": "2cf40520-bb1d-4b1a-b347-f5911782f28d",
+          "createdAt": "2026-07-28T01:26:42.000Z",
+          "updatedAt": "2026-07-28T01:26:42.000Z",
+          "uid": "35240-2cf40520-bb1d-4b1a-b347-f5911782f28d"
+        },
+        {
+          "name": "List reports",
+          "id": "c111a189-cbe5-4388-87d0-83b1f6add16f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reports?cursor=0970003&limit=50",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports"
+              ],
+              "query": [
+                {
+                  "description": "Cursor from the previous page.",
+                  "key": "cursor",
+                  "value": "0970003"
+                },
+                {
+                  "description": "Maximum number of reports to return.",
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            },
+            "description": "Retrieve a paginated list of saved reports for the authenticated organization."
+          },
+          "response": [
+            {
+              "id": "1fd1fac6-4f57-4089-aa7b-cb3a33662c84",
+              "name": "Reports retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reports?cursor=0970003&limit=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ],
+                  "query": [
+                    {
+                      "description": "Cursor from the previous page.",
+                      "key": "cursor",
+                      "value": "0970003"
+                    },
+                    {
+                      "description": "Maximum number of reports to return.",
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"reports\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"run_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"compare_by\": \"none\",\n      \"metadata_key\": \"<string>\",\n      \"permissions\": \"PRIVATE\",\n      \"simulation_output_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"source_human_review_project_id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"run_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"compare_by\": \"none\",\n      \"metadata_key\": \"<string>\",\n      \"permissions\": \"PRIVATE\",\n      \"simulation_output_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"source_human_review_project_id\": \"<string>\"\n    }\n  ],\n  \"next_cursor\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-1fd1fac6-4f57-4089-aa7b-cb3a33662c84"
+            },
+            {
+              "id": "460d80c5-a3c9-4626-aa77-d57aecbf4f56",
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reports?cursor=0970003&limit=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ],
+                  "query": [
+                    {
+                      "description": "Cursor from the previous page.",
+                      "key": "cursor",
+                      "value": "0970003"
+                    },
+                    {
+                      "description": "Maximum number of reports to return.",
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-460d80c5-a3c9-4626-aa77-d57aecbf4f56"
+            },
+            {
+              "id": "3f0852a5-9973-4564-8486-6d3aeab2da4b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reports?cursor=0970003&limit=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ],
+                  "query": [
+                    {
+                      "description": "Cursor from the previous page.",
+                      "key": "cursor",
+                      "value": "0970003"
+                    },
+                    {
+                      "description": "Maximum number of reports to return.",
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-3f0852a5-9973-4564-8486-6d3aeab2da4b"
+            },
+            {
+              "id": "f74deaf1-015b-4d95-b1a2-977f7581fb1e",
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reports?cursor=0970003&limit=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ],
+                  "query": [
+                    {
+                      "description": "Cursor from the previous page.",
+                      "key": "cursor",
+                      "value": "0970003"
+                    },
+                    {
+                      "description": "Maximum number of reports to return.",
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-f74deaf1-015b-4d95-b1a2-977f7581fb1e"
+            },
+            {
+              "id": "8033623b-a3dd-4091-b3a8-e7210e138b65",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reports?cursor=0970003&limit=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ],
+                  "query": [
+                    {
+                      "description": "Cursor from the previous page.",
+                      "key": "cursor",
+                      "value": "0970003"
+                    },
+                    {
+                      "description": "Maximum number of reports to return.",
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-8033623b-a3dd-4091-b3a8-e7210e138b65"
+            },
+            {
+              "id": "26b59108-49e5-441a-a9b3-bc80a87181d8",
+              "name": "Service temporarily unavailable",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reports?cursor=0970003&limit=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ],
+                  "query": [
+                    {
+                      "description": "Cursor from the previous page.",
+                      "key": "cursor",
+                      "value": "0970003"
+                    },
+                    {
+                      "description": "Maximum number of reports to return.",
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-26b59108-49e5-441a-a9b3-bc80a87181d8"
+            }
+          ],
+          "createdAt": "2026-07-28T01:26:42.000Z",
+          "updatedAt": "2026-07-28T01:26:42.000Z",
+          "uid": "35240-c111a189-cbe5-4388-87d0-83b1f6add16f"
+        },
+        {
+          "name": "Create report",
+          "id": "532f1c85-077c-43cf-909c-33ddaac43ada",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": null,\n  \"compare_by\": \"none\",\n  \"metadata_key\": null,\n  \"permissions\": \"PRIVATE\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports"
+              ]
+            },
+            "description": "Create a saved report from existing run IDs. All runs must belong to the\nauthenticated organization. Public reports are shareable without login and\nmark their included runs public.\n"
+          },
+          "response": [
+            {
+              "id": "fb2ed963-afc4-470f-9a88-c75d8813d9fc",
+              "name": "Report created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": null,\n  \"compare_by\": \"none\",\n  \"metadata_key\": null,\n  \"permissions\": \"PRIVATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reports",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"report\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"run_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"compare_by\": \"none\",\n    \"metadata_key\": \"<string>\",\n    \"permissions\": \"PRIVATE\",\n    \"simulation_output_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"source_human_review_project_id\": \"<string>\"\n  }\n}",
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-fb2ed963-afc4-470f-9a88-c75d8813d9fc"
+            },
+            {
+              "id": "6569b49d-6ece-4af8-83cc-a636d941d8b3",
+              "name": "Invalid request body or validation failed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": null,\n  \"compare_by\": \"none\",\n  \"metadata_key\": null,\n  \"permissions\": \"PRIVATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reports",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-6569b49d-6ece-4af8-83cc-a636d941d8b3"
+            },
+            {
+              "id": "fb08952c-88fc-4dfc-bf53-d31d0d06bd6a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": null,\n  \"compare_by\": \"none\",\n  \"metadata_key\": null,\n  \"permissions\": \"PRIVATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reports",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-fb08952c-88fc-4dfc-bf53-d31d0d06bd6a"
+            },
+            {
+              "id": "e9b59ebb-c966-4158-adeb-54f04ef1b5dd",
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": null,\n  \"compare_by\": \"none\",\n  \"metadata_key\": null,\n  \"permissions\": \"PRIVATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reports",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-e9b59ebb-c966-4158-adeb-54f04ef1b5dd"
+            },
+            {
+              "id": "01f29b30-ddd9-461e-b76c-c04e590f79fd",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": null,\n  \"compare_by\": \"none\",\n  \"metadata_key\": null,\n  \"permissions\": \"PRIVATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reports",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-01f29b30-ddd9-461e-b76c-c04e590f79fd"
+            },
+            {
+              "id": "b2a862f5-5b1f-4416-a135-93831f0313f7",
+              "name": "Service temporarily unavailable",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"run_ids\": [\n    \"<string>\"\n  ],\n  \"simulation_output_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"source_human_review_project_id\": null,\n  \"compare_by\": \"none\",\n  \"metadata_key\": null,\n  \"permissions\": \"PRIVATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reports",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ]
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"<string>\",\n    \"details\": [\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"field\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T01:26:42.000Z",
+              "updatedAt": "2026-07-28T01:26:42.000Z",
+              "uid": "35240-b2a862f5-5b1f-4416-a135-93831f0313f7"
+            }
+          ],
+          "createdAt": "2026-07-28T01:26:42.000Z",
+          "updatedAt": "2026-07-28T01:26:42.000Z",
+          "uid": "35240-532f1c85-077c-43cf-909c-33ddaac43ada"
+        }
+      ],
+      "id": "6e4fc7cd-fbdf-4799-90be-31be6b15bee9",
+      "createdAt": "2026-07-28T01:26:42.000Z",
+      "updatedAt": "2026-07-28T01:26:42.000Z",
+      "uid": "35240-6e4fc7cd-fbdf-4799-90be-31be6b15bee9"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.coval.dev/v1"
+    }
+  ]
+}
