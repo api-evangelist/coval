@@ -303,6 +303,8 @@ apis:
   - type: OpenAPI
     url: openapi/coval-widgets-api-openapi.yml
 common:
+- type: Overlay
+  url: overlays/coval-agents-overlay.yaml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/coval/overview
 - type: DeveloperPortal
