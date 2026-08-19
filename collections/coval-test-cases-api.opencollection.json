@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Test Cases API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Test Cases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List test cases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/test-cases",
+            "params": [
+              {
+                "name": "filter",
+                "value": "test_set_id=abc12345",
+                "type": "query",
+                "description": "Filter expression syntax.\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\nExample: `test_set_id=abc12345`\n"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of test cases to return (default 50, max 100)"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              },
+              {
+                "name": "order_by",
+                "value": "-create_time",
+                "type": "query",
+                "description": "Field to order results by. Prefix with `-` for descending order.\nExample: `-create_time` for newest first\n"
+              }
+            ]
+          },
+          "docs": "List test cases for your organization.\n"
+        },
+        {
+          "info": {
+            "name": "Create test case",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/test-cases",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new test case."
+        },
+        {
+          "info": {
+            "name": "Get test case",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/test-cases/:test_case_id",
+            "params": [
+              {
+                "name": "test_case_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Test case ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a test case by ID."
+        },
+        {
+          "info": {
+            "name": "Update test case",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/test-cases/:test_case_id",
+            "params": [
+              {
+                "name": "test_case_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Test case ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a test case."
+        },
+        {
+          "info": {
+            "name": "Delete test case",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/test-cases/:test_case_id",
+            "params": [
+              {
+                "name": "test_case_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Test case ID"
+              }
+            ]
+          },
+          "docs": "Delete a test case permanently.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

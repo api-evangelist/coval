@@ -1,0 +1,2019 @@
+{
+  "item": [
+    {
+      "id": "61234849-0271-49c2-8d88-aaebbf5835a5",
+      "name": "Scheduled Runs",
+      "description": {
+        "content": "CRUD operations for scheduled evaluations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "39050f03-7918-402a-bef5-59592f24dbab",
+          "name": "List scheduled runs",
+          "request": {
+            "name": "List scheduled runs",
+            "description": {
+              "content": "Retrieve a paginated list of scheduled runs with optional filtering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scheduled-runs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "50",
+                  "description": "Maximum number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_token",
+                  "value": "<string>",
+                  "description": "Opaque pagination token from previous response"
+                },
+                {
+                  "disabled": false,
+                  "key": "enabled",
+                  "value": "<boolean>",
+                  "description": "Filter by enabled state (true = active schedules, false = paused)"
+                },
+                {
+                  "disabled": false,
+                  "key": "template_id",
+                  "value": "<string>",
+                  "description": "Filter by run template ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2ad973a3-9e2c-4888-b470-b07439eb72ee",
+              "name": "Scheduled runs retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "true"
+                    },
+                    {
+                      "key": "template_id",
+                      "value": "abc123def456ghi789jklm"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"scheduled_runs\": [\n    {\n      \"name\": \"scheduled-runs/xyz789uvw456rst123abcd\",\n      \"id\": \"xyz789uvw456rst123abcd\",\n      \"display_name\": \"Voice Agent Health Check\",\n      \"run_template_id\": \"abc123def456ghi789jklm\",\n      \"schedule_expression\": \"rate(15 minutes)\",\n      \"schedule_timezone\": \"UTC\",\n      \"enabled\": true,\n      \"last_run_at\": \"2025-10-15T14:15:00Z\",\n      \"last_run_id\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"create_time\": \"2025-10-14T12:00:00Z\",\n      \"update_time\": null\n    },\n    {\n      \"name\": \"scheduled-runs/def456ghi789jklmabc123\",\n      \"id\": \"def456ghi789jklmabc123\",\n      \"display_name\": \"Nightly Regression Tests\",\n      \"run_template_id\": \"abc123def456ghi789jklm\",\n      \"schedule_expression\": \"cron(0 2 ? * * *)\",\n      \"schedule_timezone\": \"America/New_York\",\n      \"enabled\": true,\n      \"last_run_at\": \"2025-10-15T06:00:00Z\",\n      \"last_run_id\": \"9FluskHbWyo0MgyiJzobY\",\n      \"create_time\": \"2025-10-10T09:00:00Z\",\n      \"update_time\": \"2025-10-12T11:30:00Z\"\n    }\n  ],\n  \"next_page_token\": null,\n  \"total_count\": 2\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d31dcdb-1dc7-4d9b-8c68-f6a2a81a9ddc",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "true"
+                    },
+                    {
+                      "key": "template_id",
+                      "value": "abc123def456ghi789jklm"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request body\",\n    \"details\": [\n      {\n        \"field\": \"display_name\",\n        \"description\": \"Field required\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32ce16bb-deed-4471-ada4-653d54699465",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "true"
+                    },
+                    {
+                      "key": "template_id",
+                      "value": "abc123def456ghi789jklm"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c8e8fde-b1f1-4edb-9d21-a9a9bb7a40a6",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "true"
+                    },
+                    {
+                      "key": "template_id",
+                      "value": "abc123def456ghi789jklm"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff69de69-a399-4742-9e9d-765d764299b1",
+          "name": "Create scheduled run",
+          "request": {
+            "name": "Create scheduled run",
+            "description": {
+              "content": "Create a new scheduled run that will trigger evaluations on a recurring schedule.\n\nThe schedule is defined using either:\n- **Rate expressions**: `rate(15 minutes)`, `rate(1 hour)`, `rate(1 day)`\n- **Cron expressions**: `cron(0 9 ? * MON-FRI *)` (9am weekdays)\n\nSchedules are created in an enabled state by default and will begin triggering\nat the next scheduled time.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scheduled-runs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"<string>\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"UTC\",\n  \"enabled\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b0ec2c3-5fcb-47af-ab17-64027f844c31",
+              "name": "Scheduled run created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Voice Agent Health Check\",\n  \"run_template_id\": \"abc123def456ghi789jklm\",\n  \"schedule_expression\": \"rate(15 minutes)\",\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"scheduled_run\": {\n    \"name\": \"scheduled-runs/xyz789uvw456rst123abcd\",\n    \"id\": \"xyz789uvw456rst123abcd\",\n    \"display_name\": \"Voice Agent Health Check\",\n    \"run_template_id\": \"abc123def456ghi789jklm\",\n    \"schedule_expression\": \"rate(15 minutes)\",\n    \"schedule_timezone\": \"UTC\",\n    \"enabled\": true,\n    \"last_run_at\": null,\n    \"last_run_id\": null,\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd543990-7071-42b3-a5a3-1853725e6591",
+              "name": "Invalid request body or validation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Voice Agent Health Check\",\n  \"run_template_id\": \"abc123def456ghi789jklm\",\n  \"schedule_expression\": \"rate(15 minutes)\",\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request body\",\n    \"details\": [\n      {\n        \"field\": \"schedule_expression\",\n        \"description\": \"schedule_expression must be 'rate(...)' or 'cron(...)' format\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa53e299-882f-42c3-9d09-f75b19aff301",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Voice Agent Health Check\",\n  \"run_template_id\": \"abc123def456ghi789jklm\",\n  \"schedule_expression\": \"rate(15 minutes)\",\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44db072f-2432-4066-b934-bdfb5bd378f0",
+              "name": "Referenced run template not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Voice Agent Health Check\",\n  \"run_template_id\": \"abc123def456ghi789jklm\",\n  \"schedule_expression\": \"rate(15 minutes)\",\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Template not found\",\n    \"details\": [\n      {\n        \"field\": \"run_template_id\",\n        \"description\": \"Run template not found or not accessible by your organization\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f99225e3-117d-4f35-b6fe-80b5d6abbbb4",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Voice Agent Health Check\",\n  \"run_template_id\": \"abc123def456ghi789jklm\",\n  \"schedule_expression\": \"rate(15 minutes)\",\n  \"enabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2cac2784-8819-4adc-a76f-4f76621a79c4",
+          "name": "Get scheduled run",
+          "request": {
+            "name": "Get scheduled run",
+            "description": {
+              "content": "Retrieve a specific scheduled run by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scheduled-runs",
+                ":scheduled_run_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduled_run_id",
+                  "description": "(Required) Scheduled run resource ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e6b9f5da-3a28-44b8-8c8b-3b3772e8eb5d",
+              "name": "Scheduled run retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"scheduled_run\": {\n    \"name\": \"scheduled-runs/xyz789uvw456rst123abcd\",\n    \"id\": \"xyz789uvw456rst123abcd\",\n    \"display_name\": \"Voice Agent Health Check\",\n    \"run_template_id\": \"abc123def456ghi789jklm\",\n    \"schedule_expression\": \"rate(15 minutes)\",\n    \"schedule_timezone\": \"UTC\",\n    \"enabled\": true,\n    \"last_run_at\": \"2025-10-15T14:15:00Z\",\n    \"last_run_id\": \"8EktrIgaVxn9LfxkIynagX\",\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce944bc1-7d99-49cb-a118-5deba7ee0377",
+              "name": "Missing or invalid scheduled_run_id",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameter\",\n    \"details\": [\n      {\n        \"field\": \"schedule_expression\",\n        \"description\": \"Must be 'rate(...)' or 'cron(...)' format\"\n      },\n      {\n        \"field\": \"schedule_expression\",\n        \"description\": \"Must be 'rate(...)' or 'cron(...)' format\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4be06486-8240-4309-bac0-991cbbed71f8",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cab71810-4926-4441-92b7-faca91c5b09f",
+              "name": "Scheduled run not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Scheduled run not found\",\n    \"details\": [\n      {\n        \"field\": \"scheduled_run_id\",\n        \"description\": \"Scheduled run not found or not accessible by your organization\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de1131f3-6f11-4733-b018-7383ac46a688",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e8098ae-2ea1-4c0a-b454-bd07ce3cee4f",
+          "name": "Update scheduled run",
+          "request": {
+            "name": "Update scheduled run",
+            "description": {
+              "content": "Update specific fields of an existing scheduled run.\n\nCommon use cases:\n- Enable/disable a schedule: `{\"enabled\": false}`\n- Change the schedule frequency: `{\"schedule_expression\": \"rate(1 hour)\"}`\n- Update the run template: `{\"run_template_id\": \"new_template_id\"}`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scheduled-runs",
+                ":scheduled_run_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduled_run_id",
+                  "description": "(Required) Scheduled run resource ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display_name\": \"<string>\",\n  \"run_template_id\": \"<string>\",\n  \"schedule_expression\": \"<string>\",\n  \"schedule_timezone\": \"<string>\",\n  \"enabled\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "84c5bd79-3ada-455a-8400-e0fb200292b7",
+              "name": "Scheduled run updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"scheduled_run\": {\n    \"name\": \"scheduled-runs/xyz789uvw456rst123abcd\",\n    \"id\": \"xyz789uvw456rst123abcd\",\n    \"display_name\": \"Hourly Health Check\",\n    \"run_template_id\": \"abc123def456ghi789jklm\",\n    \"schedule_expression\": \"rate(1 hour)\",\n    \"schedule_timezone\": \"UTC\",\n    \"enabled\": true,\n    \"last_run_at\": \"2025-10-15T14:15:00Z\",\n    \"last_run_id\": \"8EktrIgaVxn9LfxkIynagX\",\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": \"2025-10-15T15:00:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62402037-4bc7-4964-9ec3-240d4da9c6cd",
+              "name": "Invalid request body or validation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameter\",\n    \"details\": [\n      {\n        \"field\": \"schedule_expression\",\n        \"description\": \"Must be 'rate(...)' or 'cron(...)' format\"\n      },\n      {\n        \"field\": \"schedule_expression\",\n        \"description\": \"Must be 'rate(...)' or 'cron(...)' format\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e09fd9d-93a6-40c5-b3ab-4859305b8c39",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5630b28-8959-4711-99c1-ea5bfbaa963e",
+              "name": "Scheduled run not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Scheduled run not found\",\n    \"details\": [\n      {\n        \"field\": \"scheduled_run_id\",\n        \"description\": \"Scheduled run not found or not accessible by your organization\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d812041-c098-45be-ab77-e5ace8c7872f",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69b938b2-a837-4a26-8da1-8f0a1c1da846",
+          "name": "Delete scheduled run",
+          "request": {
+            "name": "Delete scheduled run",
+            "description": {
+              "content": "Delete a scheduled run and remove its associated schedule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scheduled-runs",
+                ":scheduled_run_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduled_run_id",
+                  "description": "(Required) Scheduled run resource ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3672e574-3620-47c8-bb17-b9e214db0aec",
+              "name": "Scheduled run deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3500636b-f92c-46e2-8fc6-fb3fa2063c17",
+              "name": "Missing scheduled_run_id",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameter\",\n    \"details\": [\n      {\n        \"field\": \"schedule_expression\",\n        \"description\": \"Must be 'rate(...)' or 'cron(...)' format\"\n      },\n      {\n        \"field\": \"schedule_expression\",\n        \"description\": \"Must be 'rate(...)' or 'cron(...)' format\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c56a415-4c5b-4a7c-8fba-0f49d3d779af",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71214706-a417-4976-8493-678d262cc535",
+              "name": "Scheduled run not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Scheduled run not found\",\n    \"details\": [\n      {\n        \"field\": \"scheduled_run_id\",\n        \"description\": \"Scheduled run not found or not accessible by your organization\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e86c90a8-1c3d-4b9f-8b4b-3684a260f2ed",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76438d03-a8a9-4b98-a27d-10421655bed6",
+          "name": "List a scheduled run's produced runs",
+          "request": {
+            "name": "List a scheduled run's produced runs",
+            "description": {
+              "content": "Retrieve the runs a scheduled run has produced, most recent first\n(capped at the 500 most recent). Useful for programmatically checking\nwhat a schedule created via `POST /scheduled-runs`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scheduled-runs",
+                ":scheduled_run_id",
+                "runs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduled_run_id",
+                  "description": "(Required) Scheduled run resource ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "06bf3ab4-6a93-4677-aeb5-6e27a3148f75",
+              "name": "Scheduled run history retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"runs\": [\n    {\n      \"name\": \"runs/8EktrIgaVxn9LfxkIynagX\",\n      \"id\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"status\": \"COMPLETED\",\n      \"test_set_name\": \"Checkout flows\",\n      \"model_type\": \"openai_realtime\",\n      \"is_public\": false,\n      \"create_time\": \"2025-10-14T12:00:00Z\",\n      \"display_name\": \"Nightly regression\",\n      \"test_set_id\": \"aB1cD2eF\",\n      \"agent_id\": \"gk3jK9mPq2xRt5vW8yZaBc\"\n    },\n    {\n      \"name\": \"runs/8EktrIgaVxn9LfxkIynagX\",\n      \"id\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"status\": \"COMPLETED\",\n      \"test_set_name\": \"Checkout flows\",\n      \"model_type\": \"openai_realtime\",\n      \"is_public\": false,\n      \"create_time\": \"2025-10-14T12:00:00Z\",\n      \"display_name\": \"Nightly regression\",\n      \"test_set_id\": \"aB1cD2eF\",\n      \"agent_id\": \"gk3jK9mPq2xRt5vW8yZaBc\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c47c500-6c0a-46a7-94ba-82b13352bd4f",
+              "name": "Missing scheduled_run_id in path",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameter\",\n    \"details\": [\n      {\n        \"field\": \"schedule_expression\",\n        \"description\": \"Must be 'rate(...)' or 'cron(...)' format\"\n      },\n      {\n        \"field\": \"schedule_expression\",\n        \"description\": \"Must be 'rate(...)' or 'cron(...)' format\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f84d0c9-31d6-4ea8-96fa-e5651e957f6b",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "397efac5-150b-40e5-9ca0-36a9e9cb201b",
+              "name": "Scheduled run not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Scheduled run not found\",\n    \"details\": [\n      {\n        \"field\": \"scheduled_run_id\",\n        \"description\": \"Scheduled run not found or not accessible by your organization\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a1de7aa-0483-4773-b1d0-63d176e33dcd",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-runs",
+                    ":scheduled_run_id",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduled_run_id",
+                      "description": "(Required) Scheduled run resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coval.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1e5da4a4-5fde-4ebe-8b32-ee63bc9f2caf",
+    "name": "Coval Agents Scheduled Runs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,2186 @@
+{
+  "item": [
+    {
+      "id": "1946077b-e3bf-4c66-9a56-c51552de67fc",
+      "name": "Monitors",
+      "description": {
+        "content": "CRUD operations for monitor definitions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "860a2ee7-b68e-4c8f-96ee-d7e3f8070d5e",
+          "name": "List monitors",
+          "request": {
+            "name": "List monitors",
+            "description": {
+              "content": "Returns all active monitors for the authenticated organization.\n\nSupports optional filtering by scope and pagination.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "<string>",
+                  "description": "Filter monitors by scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "50",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_token",
+                  "value": "<string>",
+                  "description": "Token for fetching the next page of results"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da378bd8-735b-42fc-a66c-04e6d89a7fe2",
+              "name": "List of monitors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"monitors\": [\n    {\n      \"ulid\": \"01HZ0EXAMPLE00000000000000\",\n      \"name\": \"Latency SLA Monitor\",\n      \"description\": \"Alert when average response latency exceeds 500ms\",\n      \"status\": \"ACTIVE\",\n      \"evaluation_type\": \"ON_RUN_COMPLETE\",\n      \"scope\": \"MONITORING\",\n      \"match_mode\": \"ALL\",\n      \"cooldown_seconds\": 3600,\n      \"trigger_count\": 5,\n      \"last_triggered_at\": \"2026-03-01T12:00:00Z\",\n      \"conditions\": [\n        {\n          \"ulid\": \"01HZCOND100000000000000000\",\n          \"metric_id\": \"01HZMETRIC0000000000000000\",\n          \"aggregation\": \"RUN_AVERAGE\",\n          \"operator\": \"GT\",\n          \"threshold_float\": 500\n        }\n      ],\n      \"channels\": [\n        {\n          \"ulid\": \"01HZCHAN100000000000000000\",\n          \"channel_type\": \"SLACK\",\n          \"config\": {\n            \"channel_id\": \"C0123ABC\",\n            \"channel_name\": \"#sla-alerts\"\n          }\n        }\n      ],\n      \"create_time\": \"2026-02-15T10:30:00Z\",\n      \"update_time\": \"2026-02-15T10:30:00Z\"\n    }\n  ],\n  \"next_page_token\": null,\n  \"total_count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea69b6e0-3b9f-43b0-928f-e0a1ee7b5edc",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8dc3d533-c2e9-4d99-b1b8-cb14d3a70098",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"Insufficient permissions\",\n    \"details\": [\n      {\n        \"field\": \"permissions\",\n        \"description\": \"Required scope: monitors:read\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e11603e7-d21c-4a15-9118-ce9710e6cc68",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c2fea59-1b2c-4e82-8292-42a6ff6945fc",
+          "name": "Create a monitor",
+          "request": {
+            "name": "Create a monitor",
+            "description": {
+              "content": "Creates a new monitor with conditions and notification channels.\n\nAt least one condition is required. Channels are optional — a monitor\nwithout channels will still evaluate and log events but won't dispatch\nnotifications.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"evaluation_type\": \"<string>\",\n  \"conditions\": [\n    {\n      \"metric_id\": \"<string>\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": \"<number>\",\n      \"threshold_string\": \"<string>\",\n      \"window_size_days\": \"<integer>\",\n      \"window_size_runs\": \"<integer>\",\n      \"match_value\": \"<string>\",\n      \"match_mode\": \"<string>\"\n    }\n  ],\n  \"description\": \"\",\n  \"scope\": \"<string>\",\n  \"match_mode\": \"<string>\",\n  \"cooldown_seconds\": 0,\n  \"custom_message_template\": \"<string>\",\n  \"agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"required_tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduled_run_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "466444cf-9a5d-4b3c-a3f0-adf0d35026a8",
+              "name": "Monitor created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Low Resolution Rate Alert\",\n  \"evaluation_type\": \"ON_RUN_COMPLETE\",\n  \"scope\": \"MONITORING\",\n  \"conditions\": [\n    {\n      \"metric_id\": \"01HZMETRIC0000000000000000\",\n      \"aggregation\": \"SINGLE\",\n      \"operator\": \"LT\",\n      \"threshold_float\": 0.7\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"SLACK\",\n      \"config\": {\n        \"channel_id\": \"C12345\",\n        \"channel_name\": \"#alerts\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ulid\": \"01HZ0EXAMPLE00000000000000\",\n  \"name\": \"Latency SLA Monitor\",\n  \"status\": \"DELETED\",\n  \"evaluation_type\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"match_mode\": \"<string>\",\n  \"cooldown_seconds\": 17065,\n  \"trigger_count\": 7289,\n  \"conditions\": [\n    {\n      \"ulid\": \"SU3TWDJXLH632LUCL25NE64SJX\",\n      \"metric_id\": \"string\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": 8194.290405875528,\n      \"threshold_string\": \"string\",\n      \"window_size_days\": 31,\n      \"window_size_runs\": 9599,\n      \"match_value\": \"string\",\n      \"match_mode\": \"contains_case_insensitive\"\n    },\n    {\n      \"ulid\": \"F1UE0XBL8WDRT0QKX9AIKZZTC3\",\n      \"metric_id\": \"string\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": 4030.8062177438896,\n      \"threshold_string\": \"string\",\n      \"window_size_days\": 200,\n      \"window_size_runs\": 3126,\n      \"match_value\": \"string\",\n      \"match_mode\": \"contains_case_insensitive\"\n    }\n  ],\n  \"channels\": [\n    {\n      \"ulid\": \"JJSWRJIAKDDAPXELIUCPHSFBDR\",\n      \"channel_type\": \"<string>\",\n      \"config\": {}\n    },\n    {\n      \"ulid\": \"4BG86NLZX1MTSYDVU1IAE7BGLQ\",\n      \"channel_type\": \"<string>\",\n      \"config\": {}\n    }\n  ],\n  \"create_time\": \"2021-02-04T16:22:54.836Z\",\n  \"update_time\": \"2007-11-09T02:30:32.899Z\",\n  \"description\": \"\",\n  \"custom_message_template\": \"string\",\n  \"agent_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"required_tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"scheduled_run_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"last_triggered_at\": \"1974-06-12T20:20:46.149Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1940ceb2-358e-4e2d-a7c0-3fd11e752df1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Low Resolution Rate Alert\",\n  \"evaluation_type\": \"ON_RUN_COMPLETE\",\n  \"scope\": \"MONITORING\",\n  \"conditions\": [\n    {\n      \"metric_id\": \"01HZMETRIC0000000000000000\",\n      \"aggregation\": \"SINGLE\",\n      \"operator\": \"LT\",\n      \"threshold_float\": 0.7\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"SLACK\",\n      \"config\": {\n        \"channel_id\": \"C12345\",\n        \"channel_name\": \"#alerts\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request body\",\n    \"details\": [\n      {\n        \"field\": \"conditions\",\n        \"description\": \"Value error, List should have at least 1 item after validation\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "924bbccb-b1f4-4c9b-aca4-d64c372c4db1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Low Resolution Rate Alert\",\n  \"evaluation_type\": \"ON_RUN_COMPLETE\",\n  \"scope\": \"MONITORING\",\n  \"conditions\": [\n    {\n      \"metric_id\": \"01HZMETRIC0000000000000000\",\n      \"aggregation\": \"SINGLE\",\n      \"operator\": \"LT\",\n      \"threshold_float\": 0.7\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"SLACK\",\n      \"config\": {\n        \"channel_id\": \"C12345\",\n        \"channel_name\": \"#alerts\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92e340bf-e409-434b-92ab-dd94386e74d6",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Low Resolution Rate Alert\",\n  \"evaluation_type\": \"ON_RUN_COMPLETE\",\n  \"scope\": \"MONITORING\",\n  \"conditions\": [\n    {\n      \"metric_id\": \"01HZMETRIC0000000000000000\",\n      \"aggregation\": \"SINGLE\",\n      \"operator\": \"LT\",\n      \"threshold_float\": 0.7\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"SLACK\",\n      \"config\": {\n        \"channel_id\": \"C12345\",\n        \"channel_name\": \"#alerts\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"Insufficient permissions\",\n    \"details\": [\n      {\n        \"field\": \"permissions\",\n        \"description\": \"Required scope: monitors:read\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2e146cc-9520-497b-8219-69da53ab87de",
+              "name": "Monitor name conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Low Resolution Rate Alert\",\n  \"evaluation_type\": \"ON_RUN_COMPLETE\",\n  \"scope\": \"MONITORING\",\n  \"conditions\": [\n    {\n      \"metric_id\": \"01HZMETRIC0000000000000000\",\n      \"aggregation\": \"SINGLE\",\n      \"operator\": \"LT\",\n      \"threshold_float\": 0.7\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"SLACK\",\n      \"config\": {\n        \"channel_id\": \"C12345\",\n        \"channel_name\": \"#alerts\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"ALREADY_EXISTS\",\n    \"message\": \"Monitor name conflict\",\n    \"details\": [\n      {\n        \"field\": \"name\",\n        \"description\": \"An active monitor named 'Latency SLA' already exists\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98de3d17-2b2f-46d3-a9ab-5c0824a9e175",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Low Resolution Rate Alert\",\n  \"evaluation_type\": \"ON_RUN_COMPLETE\",\n  \"scope\": \"MONITORING\",\n  \"conditions\": [\n    {\n      \"metric_id\": \"01HZMETRIC0000000000000000\",\n      \"aggregation\": \"SINGLE\",\n      \"operator\": \"LT\",\n      \"threshold_float\": 0.7\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"SLACK\",\n      \"config\": {\n        \"channel_id\": \"C12345\",\n        \"channel_name\": \"#alerts\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f22fddd-6f47-4036-bf1c-1e5aa1764e3e",
+          "name": "Get a monitor",
+          "request": {
+            "name": "Get a monitor",
+            "description": {
+              "content": "Returns a single monitor with its conditions and channels.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitors",
+                ":monitor_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "monitor_id",
+                  "description": "(Required) Monitor ULID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9d5e0d14-9ce6-4310-ab92-fbad12f2af1b",
+              "name": "Monitor details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ulid\": \"01HZ0EXAMPLE00000000000000\",\n  \"name\": \"Latency SLA Monitor\",\n  \"status\": \"DELETED\",\n  \"evaluation_type\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"match_mode\": \"<string>\",\n  \"cooldown_seconds\": 43338,\n  \"trigger_count\": 7235,\n  \"conditions\": [\n    {\n      \"ulid\": \"VYS18TW98ORDDROU0NIL8Y6OAV\",\n      \"metric_id\": \"string\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": 1156.9814106233346,\n      \"threshold_string\": \"string\",\n      \"window_size_days\": 312,\n      \"window_size_runs\": 6520,\n      \"match_value\": \"string\",\n      \"match_mode\": \"contains\"\n    },\n    {\n      \"ulid\": \"8TJEXNGB07ZHTY9OSG8JIIGI8V\",\n      \"metric_id\": \"string\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": 1974.502676102271,\n      \"threshold_string\": \"string\",\n      \"window_size_days\": 90,\n      \"window_size_runs\": 7890,\n      \"match_value\": \"string\",\n      \"match_mode\": \"exact\"\n    }\n  ],\n  \"channels\": [\n    {\n      \"ulid\": \"0NPZKJ1L9UV5K9N4KH54EENNXP\",\n      \"channel_type\": \"<string>\",\n      \"config\": {}\n    },\n    {\n      \"ulid\": \"GSM57Z54SGNWJVGG2H2ZRKHJB9\",\n      \"channel_type\": \"<string>\",\n      \"config\": {}\n    }\n  ],\n  \"create_time\": \"2024-01-08T04:29:15.587Z\",\n  \"update_time\": \"1966-11-06T07:13:03.649Z\",\n  \"description\": \"\",\n  \"custom_message_template\": \"string\",\n  \"agent_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"required_tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"scheduled_run_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"last_triggered_at\": \"2006-09-19T19:32:40.653Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "328f003d-05c2-4e0c-acfb-1368399f54e1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae91e34f-c8b2-49c6-8bc3-9dfe052812ab",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"Insufficient permissions\",\n    \"details\": [\n      {\n        \"field\": \"permissions\",\n        \"description\": \"Required scope: monitors:read\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6631d077-3c71-41db-8761-fa65b08290aa",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Monitor not found\",\n    \"details\": [\n      {\n        \"field\": \"monitor_id\",\n        \"description\": \"Monitor '01HZ0EXAMPLE00000000000000' not found\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9177592f-7987-4283-a577-cc93ad447356",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dad3d4bc-7dc1-44d6-b77e-5c280d08f94c",
+          "name": "Update a monitor",
+          "request": {
+            "name": "Update a monitor",
+            "description": {
+              "content": "Partially updates a monitor. All fields are optional; omitted fields\nretain their current values (PATCH semantics).\n\nWhen `conditions` or `channels` are provided, they **replace** the\nexisting set atomically (delete old, create new).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitors",
+                ":monitor_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "monitor_id",
+                  "description": "(Required) Monitor ULID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"evaluation_type\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"match_mode\": \"<string>\",\n  \"cooldown_seconds\": \"<integer>\",\n  \"custom_message_template\": \"<string>\",\n  \"agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"required_tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduled_run_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditions\": [\n    {\n      \"metric_id\": \"<string>\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": \"<number>\",\n      \"threshold_string\": \"<string>\",\n      \"window_size_days\": \"<integer>\",\n      \"window_size_runs\": \"<integer>\",\n      \"match_value\": \"<string>\",\n      \"match_mode\": \"<string>\"\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    },\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ee612e2b-8374-4056-90eb-2b6598dff2d0",
+              "name": "Monitor updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"evaluation_type\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"match_mode\": \"<string>\",\n  \"cooldown_seconds\": \"<integer>\",\n  \"custom_message_template\": \"<string>\",\n  \"agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"required_tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduled_run_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditions\": [\n    {\n      \"metric_id\": \"<string>\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": \"<number>\",\n      \"threshold_string\": \"<string>\",\n      \"window_size_days\": \"<integer>\",\n      \"window_size_runs\": \"<integer>\",\n      \"match_value\": \"<string>\",\n      \"match_mode\": \"<string>\"\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    },\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ulid\": \"01HZ0EXAMPLE00000000000000\",\n  \"name\": \"Latency SLA Monitor\",\n  \"status\": \"DELETED\",\n  \"evaluation_type\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"match_mode\": \"<string>\",\n  \"cooldown_seconds\": 43338,\n  \"trigger_count\": 7235,\n  \"conditions\": [\n    {\n      \"ulid\": \"VYS18TW98ORDDROU0NIL8Y6OAV\",\n      \"metric_id\": \"string\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": 1156.9814106233346,\n      \"threshold_string\": \"string\",\n      \"window_size_days\": 312,\n      \"window_size_runs\": 6520,\n      \"match_value\": \"string\",\n      \"match_mode\": \"contains\"\n    },\n    {\n      \"ulid\": \"8TJEXNGB07ZHTY9OSG8JIIGI8V\",\n      \"metric_id\": \"string\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": 1974.502676102271,\n      \"threshold_string\": \"string\",\n      \"window_size_days\": 90,\n      \"window_size_runs\": 7890,\n      \"match_value\": \"string\",\n      \"match_mode\": \"exact\"\n    }\n  ],\n  \"channels\": [\n    {\n      \"ulid\": \"0NPZKJ1L9UV5K9N4KH54EENNXP\",\n      \"channel_type\": \"<string>\",\n      \"config\": {}\n    },\n    {\n      \"ulid\": \"GSM57Z54SGNWJVGG2H2ZRKHJB9\",\n      \"channel_type\": \"<string>\",\n      \"config\": {}\n    }\n  ],\n  \"create_time\": \"2024-01-08T04:29:15.587Z\",\n  \"update_time\": \"1966-11-06T07:13:03.649Z\",\n  \"description\": \"\",\n  \"custom_message_template\": \"string\",\n  \"agent_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"required_tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"scheduled_run_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"last_triggered_at\": \"2006-09-19T19:32:40.653Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd15a692-9990-4bc8-9859-08c301c97a92",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"evaluation_type\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"match_mode\": \"<string>\",\n  \"cooldown_seconds\": \"<integer>\",\n  \"custom_message_template\": \"<string>\",\n  \"agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"required_tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduled_run_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditions\": [\n    {\n      \"metric_id\": \"<string>\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": \"<number>\",\n      \"threshold_string\": \"<string>\",\n      \"window_size_days\": \"<integer>\",\n      \"window_size_runs\": \"<integer>\",\n      \"match_value\": \"<string>\",\n      \"match_mode\": \"<string>\"\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    },\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request body\",\n    \"details\": [\n      {\n        \"field\": \"conditions\",\n        \"description\": \"Value error, List should have at least 1 item after validation\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a120f9c3-aab4-4c27-acd4-c3f361ed34b9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"evaluation_type\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"match_mode\": \"<string>\",\n  \"cooldown_seconds\": \"<integer>\",\n  \"custom_message_template\": \"<string>\",\n  \"agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"required_tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduled_run_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditions\": [\n    {\n      \"metric_id\": \"<string>\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": \"<number>\",\n      \"threshold_string\": \"<string>\",\n      \"window_size_days\": \"<integer>\",\n      \"window_size_runs\": \"<integer>\",\n      \"match_value\": \"<string>\",\n      \"match_mode\": \"<string>\"\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    },\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32ef0abb-6cf7-4dca-a8c4-331686974661",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"evaluation_type\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"match_mode\": \"<string>\",\n  \"cooldown_seconds\": \"<integer>\",\n  \"custom_message_template\": \"<string>\",\n  \"agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"required_tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduled_run_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditions\": [\n    {\n      \"metric_id\": \"<string>\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": \"<number>\",\n      \"threshold_string\": \"<string>\",\n      \"window_size_days\": \"<integer>\",\n      \"window_size_runs\": \"<integer>\",\n      \"match_value\": \"<string>\",\n      \"match_mode\": \"<string>\"\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    },\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"Insufficient permissions\",\n    \"details\": [\n      {\n        \"field\": \"permissions\",\n        \"description\": \"Required scope: monitors:read\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca58d5af-b3ab-4de7-b837-7c0e0c45dfe9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"evaluation_type\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"match_mode\": \"<string>\",\n  \"cooldown_seconds\": \"<integer>\",\n  \"custom_message_template\": \"<string>\",\n  \"agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"required_tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduled_run_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditions\": [\n    {\n      \"metric_id\": \"<string>\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": \"<number>\",\n      \"threshold_string\": \"<string>\",\n      \"window_size_days\": \"<integer>\",\n      \"window_size_runs\": \"<integer>\",\n      \"match_value\": \"<string>\",\n      \"match_mode\": \"<string>\"\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    },\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Monitor not found\",\n    \"details\": [\n      {\n        \"field\": \"monitor_id\",\n        \"description\": \"Monitor '01HZ0EXAMPLE00000000000000' not found\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "221accd5-f5bf-46d8-8e8e-08d7ba61bf84",
+              "name": "Monitor name conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"evaluation_type\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"match_mode\": \"<string>\",\n  \"cooldown_seconds\": \"<integer>\",\n  \"custom_message_template\": \"<string>\",\n  \"agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"required_tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduled_run_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditions\": [\n    {\n      \"metric_id\": \"<string>\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": \"<number>\",\n      \"threshold_string\": \"<string>\",\n      \"window_size_days\": \"<integer>\",\n      \"window_size_runs\": \"<integer>\",\n      \"match_value\": \"<string>\",\n      \"match_mode\": \"<string>\"\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    },\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"ALREADY_EXISTS\",\n    \"message\": \"string\",\n    \"details\": [\n      {\n        \"field\": \"string\",\n        \"description\": \"string\"\n      },\n      {\n        \"field\": \"string\",\n        \"description\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "050458ad-1dea-4cf6-8d5b-fbdef17988f8",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"evaluation_type\": \"<string>\",\n  \"scope\": \"<string>\",\n  \"match_mode\": \"<string>\",\n  \"cooldown_seconds\": \"<integer>\",\n  \"custom_message_template\": \"<string>\",\n  \"agent_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"required_tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scheduled_run_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditions\": [\n    {\n      \"metric_id\": \"<string>\",\n      \"aggregation\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"threshold_float\": \"<number>\",\n      \"threshold_string\": \"<string>\",\n      \"window_size_days\": \"<integer>\",\n      \"window_size_runs\": \"<integer>\",\n      \"match_value\": \"<string>\",\n      \"match_mode\": \"<string>\"\n    }\n  ],\n  \"channels\": [\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    },\n    {\n      \"channel_type\": \"<string>\",\n      \"config\": \"<object>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e94dd64-9bf7-4eea-a868-1ebd9d4ed33b",
+          "name": "Delete a monitor",
+          "request": {
+            "name": "Delete a monitor",
+            "description": {
+              "content": "Soft-deletes a monitor by setting its status to DELETED.\nThe monitor and its channels are deactivated but retained for audit.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitors",
+                ":monitor_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "monitor_id",
+                  "description": "(Required) Monitor ULID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0897d9be-63a9-4e9c-a0a6-725e9bb7a30e",
+              "name": "Monitor deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "826c6c85-ea05-42c9-a777-33e399d63036",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a464df9-8fa6-42ae-ae50-4d0d9117ffd0",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"Insufficient permissions\",\n    \"details\": [\n      {\n        \"field\": \"permissions\",\n        \"description\": \"Required scope: monitors:read\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57dd286e-e26f-4993-929a-033dd6e20fc2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Monitor not found\",\n    \"details\": [\n      {\n        \"field\": \"monitor_id\",\n        \"description\": \"Monitor '01HZ0EXAMPLE00000000000000' not found\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f21c829-4221-42ab-b97f-53593f1e5569",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc705f57-5ef7-4389-b405-84b7b5b7a1cb",
+          "name": "Test evaluate a monitor",
+          "request": {
+            "name": "Test evaluate a monitor",
+            "description": {
+              "content": "Dry-run evaluation of a monitor against a specific run.\n\nEvaluates all conditions and builds the notification message,\nbut does **not** dispatch notifications or write an event record.\nUse this to preview what would happen if the monitor evaluated\nagainst a given run.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "monitors",
+                ":monitor_id",
+                "test-evaluate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "monitor_id",
+                  "description": "(Required) Monitor ULID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"run_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5dc4aea5-d67e-4e45-8ff6-e9f80e7bc08f",
+              "name": "Test evaluation results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id",
+                    "test-evaluate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"run_id\": \"hUWu3PxY6G7fTYbLzBAwZm\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"monitor_id\": \"string\",\n  \"run_id\": \"string\",\n  \"triggered\": true,\n  \"suppressed\": false,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f698a7d-8e16-4c33-b058-62ddde23b61e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id",
+                    "test-evaluate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"run_id\": \"hUWu3PxY6G7fTYbLzBAwZm\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request body\",\n    \"details\": [\n      {\n        \"field\": \"conditions\",\n        \"description\": \"Value error, List should have at least 1 item after validation\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "995ae200-5200-4bd7-a3e6-05fdeb17b079",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id",
+                    "test-evaluate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"run_id\": \"hUWu3PxY6G7fTYbLzBAwZm\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7083247-4d2f-436c-b837-6e4b8fcf65ea",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id",
+                    "test-evaluate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"run_id\": \"hUWu3PxY6G7fTYbLzBAwZm\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"Insufficient permissions\",\n    \"details\": [\n      {\n        \"field\": \"permissions\",\n        \"description\": \"Required scope: monitors:read\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c9b7212-fcca-406a-bb5b-1be76109da29",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id",
+                    "test-evaluate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"run_id\": \"hUWu3PxY6G7fTYbLzBAwZm\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Monitor not found\",\n    \"details\": [\n      {\n        \"field\": \"monitor_id\",\n        \"description\": \"Monitor '01HZ0EXAMPLE00000000000000' not found\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd0b5648-eb04-49da-9d3a-6206cb22325f",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "monitors",
+                    ":monitor_id",
+                    "test-evaluate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "monitor_id",
+                      "description": "(Required) Monitor ULID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"run_id\": \"hUWu3PxY6G7fTYbLzBAwZm\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coval.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "12865364-aad2-44bc-bf5b-978371b8fdac",
+    "name": "Coval Agents Monitors API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+      "type": "text/plain"
+    }
+  }
+}

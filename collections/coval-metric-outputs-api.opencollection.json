@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Metric Outputs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metric Outputs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/simulations/:simulation_id/metrics",
+            "params": [
+              {
+                "name": "simulation_id",
+                "value": "6djpxGeYTvl7JdvhGwlYfV",
+                "type": "path",
+                "description": "The simulation ID"
+              },
+              {
+                "name": "filter",
+                "value": "status=COMPLETED AND metric_name=accuracy",
+                "type": "query",
+                "description": "Filter expression syntax.\n\nSupported fields: `status`, `metric_id`, `metric_name`, `value`, `create_time`, `start_time`, `end_time`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n"
+              },
+              {
+                "name": "page_size",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination token from previous response"
+              },
+              {
+                "name": "order_by",
+                "value": "metric_name",
+                "type": "query",
+                "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `metric_name`, `create_time`, `value`, `start_time`, `end_time`\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List metric results for a simulation."
+        },
+        {
+          "info": {
+            "name": "Get simulation metric output(s)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/simulations/:simulation_id/metrics/:metric_output_id",
+            "params": [
+              {
+                "name": "simulation_id",
+                "value": "7ekqyHfZUwm8KewjHxmZgW",
+                "type": "path",
+                "description": "The simulation ID"
+              },
+              {
+                "name": "metric_output_id",
+                "value": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
+                "type": "path",
+                "description": "Either a 26-char MetricOutput ULID or a 22-char Metric definition ID.\nSee endpoint description for response shape per ID type.\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve metric output(s) for a simulation by ID. The path segment\naccepts two ID types and returns different response shapes:\n\n- **26-char MetricOutput ULID**: returns a single metric output as\n  `{ \"metric\": {...} }`.\n- **22-char Metric definition ID**: returns every output for that\n  metric on the simulation as `{ \"metric_outputs\": [...] }`.\n\nClients should branch on the input ID length they passed.\n\n**Retrieving test-metric results:** after calling\n`POST /v1/metrics/{metric_id}/test`, poll t"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

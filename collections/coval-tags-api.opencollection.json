@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Tags API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/tags",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "eyJvZmZzZXQiOjUwfQ==",
+                "type": "query",
+                "description": "Opaque pagination token from previous response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve all active tags for your organization."
+        },
+        {
+          "info": {
+            "name": "Create tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/tags",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new tag. Tag names are normalized to lowercase before persistence.\nReturns 409 if a tag with the same name already exists and is active.\n"
+        },
+        {
+          "info": {
+            "name": "Get tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/tags/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "01HX2ABC3DEF4GHI5JKL6MNO7P",
+                "type": "path",
+                "description": "Tag resource ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a specific tag by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/tags/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "01HX2ABC3DEF4GHI5JKL6MNO7P",
+                "type": "path",
+                "description": "Tag resource ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a tag's name or color. Only provided fields are updated.\nTag names are normalized to lowercase before persistence.\n"
+        },
+        {
+          "info": {
+            "name": "Delete tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/tags/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "01HX2ABC3DEF4GHI5JKL6MNO7P",
+                "type": "path",
+                "description": "Tag resource ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a tag. The tag is soft-deleted (status='DELETED') and removed from all\nassociated resources. Creating a new tag with the same name will reactivate\nthis record.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

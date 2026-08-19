@@ -1,0 +1,194 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Scheduled Runs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Scheduled Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List scheduled runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/scheduled-runs",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination token from previous response"
+              },
+              {
+                "name": "enabled",
+                "value": "true",
+                "type": "query",
+                "description": "Filter by enabled state (true = active schedules, false = paused)"
+              },
+              {
+                "name": "template_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "query",
+                "description": "Filter by run template ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a paginated list of scheduled runs with optional filtering."
+        },
+        {
+          "info": {
+            "name": "Create scheduled run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/scheduled-runs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new scheduled run that will trigger evaluations on a recurring schedule.\n\nThe schedule is defined using either:\n- **Rate expressions**: `rate(15 minutes)`, `rate(1 hour)`, `rate(1 day)`\n- **Cron expressions**: `cron(0 9 ? * MON-FRI *)` (9am weekdays)\n\nSchedules are created in an enabled state by default and will begin triggering\nat the next scheduled time.\n"
+        },
+        {
+          "info": {
+            "name": "Get scheduled run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/scheduled-runs/:scheduled_run_id",
+            "params": [
+              {
+                "name": "scheduled_run_id",
+                "value": "xyz789uvw456rst123abcd",
+                "type": "path",
+                "description": "Scheduled run resource ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a specific scheduled run by ID."
+        },
+        {
+          "info": {
+            "name": "Update scheduled run",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/scheduled-runs/:scheduled_run_id",
+            "params": [
+              {
+                "name": "scheduled_run_id",
+                "value": "xyz789uvw456rst123abcd",
+                "type": "path",
+                "description": "Scheduled run resource ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update specific fields of an existing scheduled run.\n\nCommon use cases:\n- Enable/disable a schedule: `{\"enabled\": false}`\n- Change the schedule frequency: `{\"schedule_expression\": \"rate(1 hour)\"}`\n- Update the run template: `{\"run_template_id\": \"new_template_id\"}`\n"
+        },
+        {
+          "info": {
+            "name": "Delete scheduled run",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/scheduled-runs/:scheduled_run_id",
+            "params": [
+              {
+                "name": "scheduled_run_id",
+                "value": "xyz789uvw456rst123abcd",
+                "type": "path",
+                "description": "Scheduled run resource ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a scheduled run and remove its associated schedule."
+        },
+        {
+          "info": {
+            "name": "List a scheduled run's produced runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/scheduled-runs/:scheduled_run_id/runs",
+            "params": [
+              {
+                "name": "scheduled_run_id",
+                "value": "xyz789uvw456rst123abcd",
+                "type": "path",
+                "description": "Scheduled run resource ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the runs a scheduled run has produced, most recent first\n(capped at the 500 most recent). Useful for programmatically checking\nwhat a schedule created via `POST /scheduled-runs`.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

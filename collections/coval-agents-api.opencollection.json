@@ -1,0 +1,260 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Agents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/agents",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter expression syntax.\n\n**Supported fields:** `model_type`, `display_name`, `create_time`, `update_time`\n\n**Operators:** `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `display_name=\"Support Agent\"`).\n\n**Date format:** ISO 8601 (e.g., `2025-10-01T00:00:00Z`)\n"
+              },
+              {
+                "name": "page_size",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "eyJvZmZzZXQiOjUwfQ==",
+                "type": "query",
+                "description": "Opaque pagination token from previous response.\n\nDo not decode or modify this token.\n"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order specification.\n\n**Formats:**\n1. Dash-prefix: `-create_time` (descending), `display_name` (ascending)\n2. Space-separated: `create_time desc`, `display_name asc`\n\n**Sortable fields:** `create_time`, `update_time`, `display_name`, `model_type`\n"
+              },
+              {
+                "name": "tag_filters",
+                "value": "production",
+                "type": "query",
+                "description": "Filter agents by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a paginated list of agent configurations with optional filtering and sorting."
+        },
+        {
+          "info": {
+            "name": "Connect an agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/agents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Connect an agent to coval by providing the agent's configuration."
+        },
+        {
+          "info": {
+            "name": "Get agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/agents/:agent_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Agent resource ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a specific agent configuration by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/agents/:agent_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Agent resource ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update specific fields of an existing agent configuration."
+        },
+        {
+          "info": {
+            "name": "Delete agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/agents/:agent_id",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Agent resource ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Soft-delete an agent configuration, marking it as inactive while preserving the record."
+        },
+        {
+          "info": {
+            "name": "Duplicate an agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/agents/:agent_id/duplicate",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "ID of the agent to duplicate"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Clone an existing agent into a new agent owned by your organization.\nBy default only the agent config is copied; set `include_associations`\nto also copy its metric and test-set associations. Returns the new\nagent in the same shape as create.\n"
+        },
+        {
+          "info": {
+            "name": "List agent versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/agents/:agent_id/versions",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Agent resource ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List the version history for an agent, newest first. The newest entry is the agent's current live config; earlier entries are prior states displaced by later saves. Only behavioral config is versioned; identity and cosmetic fields are not."
+        },
+        {
+          "info": {
+            "name": "Revert agent version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/agents/:agent_id/versions/:version_id/revert",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Agent resource ID"
+              },
+              {
+                "name": "version_id",
+                "value": "01KKWQYSF737ZN6X1Q1RYX8M22",
+                "type": "path",
+                "description": "ULID of the target version to re-apply"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Re-apply a prior version's configuration to the live agent. A revert is forward-only: it mints a new version (change_type=revert) and advances the agent, so the response reflects the agent's new live config. Reverting to the version the agent already points at is rejected with 400."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

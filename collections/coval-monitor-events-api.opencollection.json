@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Monitor Events API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitor Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List monitor events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/monitors/:monitor_id/events",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "01HZ0EXAMPLE00000000000000",
+                "type": "path",
+                "description": "Monitor ULID"
+              },
+              {
+                "name": "outcome",
+                "value": "",
+                "type": "query",
+                "description": "Filter events by outcome"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Token for fetching the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns evaluation events for a monitor, ordered by most recent first.\n\nEvery run completion that evaluates this monitor produces an event,\nregardless of outcome (TRIGGERED, NOT_MET, SUPPRESSED, ERROR).\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

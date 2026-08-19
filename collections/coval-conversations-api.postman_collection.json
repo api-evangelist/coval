@@ -1,0 +1,2610 @@
+{
+  "item": [
+    {
+      "id": "a6c0a805-6a06-4387-9c12-0ada3592990f",
+      "name": "Conversations",
+      "description": {
+        "content": "Submit and manage real-world conversation monitoring evaluations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "82ef1b9e-b19c-4155-a81b-bd9160566435",
+          "name": "Submit conversation for evaluation",
+          "request": {
+            "name": "Submit conversation for evaluation",
+            "description": {
+              "content": "Submit a conversation for monitoring evaluation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations:submit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transcript\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"message\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          }\n        },\n        {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\"\n          }\n        }\n      ],\n      \"tool_call_id\": \"<string>\",\n      \"start_time\": \"<float>\",\n      \"end_time\": \"<float>\",\n      \"timestamp\": \"<dateTime>\",\n      \"firstWordStart\": \"<float>\",\n      \"lastWordEnd\": \"<float>\"\n    }\n  ],\n  \"audio_url\": \"<uri>\",\n  \"upload_id\": \"<string>\",\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": 6141,\n    \"key_1\": 4140\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"external_conversation_id\": \"<string>\",\n  \"occurred_at\": \"<dateTime>\",\n  \"agent_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "266c10b4-f148-4be3-9385-cf1ece84cffb",
+              "name": "Conversation submitted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations:submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transcript\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Hi, I'd like to check my account balance\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"I can help you with that. Let me pull up your account.\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"Your current balance is $1,247.53\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Thank you!\"\n    }\n  ],\n  \"external_conversation_id\": \"external-call-7x8z9a\",\n  \"occurred_at\": \"2025-11-03T14:32:00Z\",\n  \"metadata\": {\n    \"campaign\": \"q4-support\",\n    \"channel\": \"phone\",\n    \"customer_tier\": \"premium\"\n  },\n  \"tags\": [\n    \"restaurant\",\n    \"support-tier-1\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conversation\": {\n    \"name\": \"conversations/gk3jK9mPq2xRt5vW8yZaBc\",\n    \"conversation_id\": \"gk3jK9mPq2xRt5vW8yZaBc\",\n    \"status\": \"PENDING\",\n    \"create_time\": \"2025-11-03T14:32:30Z\",\n    \"external_conversation_id\": \"external-call-7x8z9a\",\n    \"occurred_at\": \"2025-11-03T14:32:00Z\",\n    \"has_audio\": true,\n    \"agent_id\": null,\n    \"persona_id\": null,\n    \"metadata\": {\n      \"campaign\": \"q4-support\",\n      \"channel\": \"phone\",\n      \"customer_tier\": \"premium\"\n    },\n    \"tags\": [\n      \"restaurant\",\n      \"support-tier-1\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be6f74c8-71d4-4ed5-88b0-eb9cf71c83b5",
+              "name": "Invalid request arguments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations:submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transcript\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Hi, I'd like to check my account balance\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"I can help you with that. Let me pull up your account.\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"Your current balance is $1,247.53\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Thank you!\"\n    }\n  ],\n  \"external_conversation_id\": \"external-call-7x8z9a\",\n  \"occurred_at\": \"2025-11-03T14:32:00Z\",\n  \"metadata\": {\n    \"campaign\": \"q4-support\",\n    \"channel\": \"phone\",\n    \"customer_tier\": \"premium\"\n  },\n  \"tags\": [\n    \"restaurant\",\n    \"support-tier-1\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Missing required input data\",\n    \"details\": [\n      {\n        \"field\": \"transcript\",\n        \"description\": \"At least one of transcript or audio_url must be provided\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7eaf6a7c-6aec-4c64-96b2-1e439775005e",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations:submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transcript\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Hi, I'd like to check my account balance\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"I can help you with that. Let me pull up your account.\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"Your current balance is $1,247.53\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Thank you!\"\n    }\n  ],\n  \"external_conversation_id\": \"external-call-7x8z9a\",\n  \"occurred_at\": \"2025-11-03T14:32:00Z\",\n  \"metadata\": {\n    \"campaign\": \"q4-support\",\n    \"channel\": \"phone\",\n    \"customer_tier\": \"premium\"\n  },\n  \"tags\": [\n    \"restaurant\",\n    \"support-tier-1\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Invalid or missing API key\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0566d39c-9f63-4aa8-a5f4-e36171f1020a",
+              "name": "Referenced resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations:submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transcript\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Hi, I'd like to check my account balance\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"I can help you with that. Let me pull up your account.\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"Your current balance is $1,247.53\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Thank you!\"\n    }\n  ],\n  \"external_conversation_id\": \"external-call-7x8z9a\",\n  \"occurred_at\": \"2025-11-03T14:32:00Z\",\n  \"metadata\": {\n    \"campaign\": \"q4-support\",\n    \"channel\": \"phone\",\n    \"customer_tier\": \"premium\"\n  },\n  \"tags\": [\n    \"restaurant\",\n    \"support-tier-1\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Agent not found: gk3jK9mPq2xRt5vW8yZaBc\",\n    \"details\": [\n      {\n        \"field\": \"agent_id\",\n        \"description\": \"Agent not found: gk3jK9mPq2xRt5vW8yZaBc\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8cc7a28d-f158-4013-bf63-65a3d8b77359",
+              "name": "Request payload exceeds size limit",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations:submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transcript\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Hi, I'd like to check my account balance\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"I can help you with that. Let me pull up your account.\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"Your current balance is $1,247.53\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Thank you!\"\n    }\n  ],\n  \"external_conversation_id\": \"external-call-7x8z9a\",\n  \"occurred_at\": \"2025-11-03T14:32:00Z\",\n  \"metadata\": {\n    \"campaign\": \"q4-support\",\n    \"channel\": \"phone\",\n    \"customer_tier\": \"premium\"\n  },\n  \"tags\": [\n    \"restaurant\",\n    \"support-tier-1\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"PAYLOAD_TOO_LARGE\",\n    \"message\": \"Request payload exceeds maximum size limit\",\n    \"details\": [\n      {\n        \"field\": \"metadata\",\n        \"description\": \"Request payload exceeds maximum size limit. Consider reducing metadata size.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9cce242-f7d0-4aa3-8215-07516b97cba2",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations:submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transcript\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Hi, I'd like to check my account balance\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"I can help you with that. Let me pull up your account.\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"Your current balance is $1,247.53\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Thank you!\"\n    }\n  ],\n  \"external_conversation_id\": \"external-call-7x8z9a\",\n  \"occurred_at\": \"2025-11-03T14:32:00Z\",\n  \"metadata\": {\n    \"campaign\": \"q4-support\",\n    \"channel\": \"phone\",\n    \"customer_tier\": \"premium\"\n  },\n  \"tags\": [\n    \"restaurant\",\n    \"support-tier-1\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"An internal error occurred while processing the request\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed5446ae-354f-481d-b051-d3cc30eddedf",
+          "name": "List conversations",
+          "request": {
+            "name": "List conversations",
+            "description": {
+              "content": "List conversations with optional filtering, pagination, and ordering.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "50",
+                  "description": "Maximum number of conversations to return (1-250)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_token",
+                  "value": "<string>",
+                  "description": "Token for retrieving next page (from previous response)"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter expression syntax.\n\n**Operators:** `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\n\n**Fields:**\n- `status` - PENDING, IN_QUEUE, IN_PROGRESS, COMPLETED, FAILED, CANCELLED, DELETED\n- `external_conversation_id` - Your system's conversation ID\n- `create_time` - ISO 8601 timestamp\n- `occurred_at` - ISO 8601 timestamp\n- `metadata.{key}` - Custom metadata fields\n\n**Examples:**\n- `status=COMPLETED`\n- `create_time>\"2025-11-01T00:00:00Z\"`\n- `status=COMPLETED AND occurred_at>=\"2025-11-01T00:00:00Z\"`\n- `external_conversation_id=external-call-abc`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "-occurred_at",
+                  "description": "Sort field with optional `-` prefix for descending order.\n\n**Fields:** `create_time`, `occurred_at`, `status`\n\n**Examples:**\n- `create_time` (ascending)\n- `-create_time` (descending, most recent first)\n- `-occurred_at` (most recent conversations first)\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "view",
+                  "value": "<string>",
+                  "description": "Set to `metric_breakdown` to return an aggregate of one metric's scores\ngrouped by a `customer_metadata` key (e.g. vendor), computed over the whole\nscored monitoring corpus, instead of the conversation list. Requires\n`metric_id` and `group_by_metadata`; the response is a metric-breakdown object\n(`{view, metric_id, group_by_metadata, aggregation, breakdown:[{metadata_value,\nvalue, count}], total_count}`).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_id",
+                  "value": "<string>",
+                  "description": "Metric to aggregate when `view=metric_breakdown`, or the metric whose full\noutputs should be embedded when `include=metric_outputs`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Set to `metric_outputs` to embed full outputs for `metric_id` on every\nconversation in the returned page. Omitted by default to keep list payloads small.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "group_by_metadata",
+                  "value": "<string>",
+                  "description": "Required when `view=metric_breakdown`: the customer_metadata key to group by (e.g. nlp_provider)."
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregation",
+                  "value": "<string>",
+                  "description": "Aggregation for `view=metric_breakdown`. Defaults to `success` (a YES/NO\nsuccess rate) for binary/string metrics and `avg` (numeric mean) for float\nmetrics.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<dateTime>",
+                  "description": "Optional ISO-8601 lower bound (occurred_at) for `view=metric_breakdown`."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<dateTime>",
+                  "description": "Optional ISO-8601 upper bound (occurred_at) for `view=metric_breakdown`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b3491585-556b-446a-9c9b-cd89e97eb367",
+              "name": "List of conversations, or a metric breakdown when `view=metric_breakdown`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "eyJvZmZzZXQiOiA1MH0="
+                    },
+                    {
+                      "key": "filter",
+                      "value": "status=COMPLETED"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "-create_time"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_by_metadata",
+                      "value": "nlp_provider"
+                    },
+                    {
+                      "key": "aggregation",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conversations\": [\n    {\n      \"name\": \"conversations/gk3jK9mPq2xRt5vW8yZaBc\",\n      \"conversation_id\": \"gk3jK9mPq2xRt5vW8yZaBc\",\n      \"status\": \"COMPLETED\",\n      \"create_time\": \"2025-11-03T14:32:30Z\",\n      \"external_conversation_id\": \"external-call-7x8z9a\",\n      \"occurred_at\": \"2025-11-03T14:32:00Z\",\n      \"has_audio\": true,\n      \"metadata\": {\n        \"campaign\": \"q4-support\"\n      }\n    },\n    {\n      \"name\": \"conversations/hL4kL0nQr3ySt6vX9zAcDd\",\n      \"conversation_id\": \"hL4kL0nQr3ySt6vX9zAcDd\",\n      \"status\": \"IN_PROGRESS\",\n      \"create_time\": \"2025-11-03T15:20:18Z\",\n      \"external_conversation_id\": \"twilio-call-CA9m2k4p\",\n      \"occurred_at\": \"2025-11-03T15:20:00Z\",\n      \"has_audio\": true,\n      \"metadata\": {\n        \"department\": \"sales\"\n      }\n    }\n  ],\n  \"next_page_token\": \"eyJvZmZzZXQiOiA1MH0=\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32439308-1c5c-49d7-9834-dea8f0bb4086",
+              "name": "Invalid request arguments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "eyJvZmZzZXQiOiA1MH0="
+                    },
+                    {
+                      "key": "filter",
+                      "value": "status=COMPLETED"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "-create_time"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_by_metadata",
+                      "value": "nlp_provider"
+                    },
+                    {
+                      "key": "aggregation",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Missing required input data\",\n    \"details\": [\n      {\n        \"field\": \"transcript\",\n        \"description\": \"At least one of transcript or audio_url must be provided\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3fcc5bf3-d9b9-473f-baea-101353e0af8f",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "eyJvZmZzZXQiOiA1MH0="
+                    },
+                    {
+                      "key": "filter",
+                      "value": "status=COMPLETED"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "-create_time"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_by_metadata",
+                      "value": "nlp_provider"
+                    },
+                    {
+                      "key": "aggregation",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Invalid or missing API key\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7215400d-c3ae-4a2c-9cfd-7b025aafb5d2",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "eyJvZmZzZXQiOiA1MH0="
+                    },
+                    {
+                      "key": "filter",
+                      "value": "status=COMPLETED"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "-create_time"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_by_metadata",
+                      "value": "nlp_provider"
+                    },
+                    {
+                      "key": "aggregation",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Conversation not found\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc2357b7-0193-45cc-a49c-6f18f4ed631b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "eyJvZmZzZXQiOiA1MH0="
+                    },
+                    {
+                      "key": "filter",
+                      "value": "status=COMPLETED"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "-create_time"
+                    },
+                    {
+                      "key": "view",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metric_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_by_metadata",
+                      "value": "nlp_provider"
+                    },
+                    {
+                      "key": "aggregation",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"An internal error occurred while processing the request\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f6431b8f-3084-465b-8634-10ccc9e5b7b7",
+          "name": "Get conversation details",
+          "request": {
+            "name": "Get conversation details",
+            "description": {
+              "content": "Retrieve detailed information about a specific conversation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations",
+                ":conversation_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_progress",
+                  "value": "true",
+                  "description": "Include progress tracking information"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) Unique conversation identifier (22-26 characters)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88e1b82a-c45a-44ff-a1f8-65235df6ea12",
+              "name": "Conversation details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_progress",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier (22-26 characters)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conversation\": {\n    \"name\": \"conversations/gk3jK9mPq2xRt5vW8yZaBc\",\n    \"conversation_id\": \"gk3jK9mPq2xRt5vW8yZaBc\",\n    \"status\": \"COMPLETED\",\n    \"create_time\": \"2025-11-03T14:32:30Z\",\n    \"external_conversation_id\": \"external-call-7x8z9a\",\n    \"occurred_at\": \"2025-11-03T14:32:00Z\",\n    \"has_audio\": true,\n    \"agent_id\": null,\n    \"persona_id\": null,\n    \"progress\": {\n      \"total_metrics\": 5,\n      \"completed_metrics\": 5,\n      \"failed_metrics\": 0,\n      \"in_progress_metrics\": 0\n    },\n    \"metadata\": {\n      \"campaign\": \"q4-support\",\n      \"channel\": \"phone\",\n      \"customer_tier\": \"premium\"\n    },\n    \"metric_ids\": [\n      \"29BlkepvvX19ebbLDB0y6Q\",\n      \"mymKvEg6ZA65srXbTX5wSM\",\n      \"fstokU4ev5UmT8sUBexiwV\"\n    ],\n    \"error\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43094ac1-ce9e-4ba2-ba2f-5f9be187a4c4",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_progress",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier (22-26 characters)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Invalid or missing API key\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "838af6ac-b504-46d9-aeb2-1f27dbc17b30",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_progress",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier (22-26 characters)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Conversation not found\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bace2cdf-608f-4549-b82f-24a4f0ffa9b1",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_progress",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier (22-26 characters)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"An internal error occurred while processing the request\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca070f7b-c022-458b-984a-97d5fdb81907",
+          "name": "Delete or cancel conversation",
+          "request": {
+            "name": "Delete or cancel conversation",
+            "description": {
+              "content": "Delete or cancel a conversation evaluation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations",
+                ":conversation_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) Unique conversation identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e02a3263-4e32-42b6-ae92-eac34a5a4aaf",
+              "name": "Conversation deleted or cancelled successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conversation\": {\n    \"name\": \"conversations/gk3jK9mPq2xRt5vW8yZaBc\",\n    \"conversation_id\": \"gk3jK9mPq2xRt5vW8yZaBc\",\n    \"status\": \"DELETED\",\n    \"create_time\": \"2025-11-03T14:32:30Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "695756ee-9243-4d23-b682-0c7112e89a8f",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Invalid or missing API key\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bd4beb0-47c0-414a-af08-66e917ec7881",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Conversation not found\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7fb42fa5-c14e-4c45-8276-c98012782dbe",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"An internal error occurred while processing the request\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48580692-bd67-4d8a-81d5-9fc2e7650d4d",
+          "name": "Attach audio to a conversation",
+          "request": {
+            "name": "Attach audio to a conversation",
+            "description": {
+              "content": "Attach an audio recording to a conversation previously submitted via\n`POST /v1/conversations:submit` without audio, and trigger audio-dependent\nmetrics as a second wave.\n\n**When to use this endpoint**\n\nUse this endpoint when your recording URL is not available at the moment\nthe call ends (for example, Twilio Programmable Voice recordings that are\nonly fetchable after an asynchronous job completes ~60 seconds later).\nSubmit the transcript immediately at call end to get a `conversation_id`\nfor trace correlation, then PATCH the audio when the recording URL is\nready.\n\n**Two-wave metric timing**\n\n- Text-only metrics fire immediately after `POST /v1/conversations:submit`\n  and deliver their results via your configured webhook.\n- Audio-dependent metrics fire after this PATCH and deliver a separate,\n  later webhook. Configure your consumer to expect both waves.\n\n**One-shot**\n\nAudio can be attached only once per conversation. Overwriting is not\nsupported in v1 — a second PATCH on a conversation that already has\naudio returns `409 ALREADY_EXISTS`.\n\n**Body**\n\nExactly one of `audio` or `audio_url` is required.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations",
+                ":conversation_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) Unique conversation identifier (22-26 characters)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"audio_url\": \"<uri>\",\n  \"audio\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c5939a36-8578-4e04-8104-e7159ac01b75",
+              "name": "Audio attached successfully; audio metrics queued",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier (22-26 characters)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"audio_url\": \"https://recordings.s3.amazonaws.com/calls/2025/11/call-4k2m9p.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conversation\": {\n    \"name\": \"conversations/gk3jK9mPq2xRt5vW8yZaBc\",\n    \"conversation_id\": \"gk3jK9mPq2xRt5vW8yZaBc\",\n    \"status\": \"IN_PROGRESS\",\n    \"create_time\": \"2025-11-03T14:32:30Z\",\n    \"external_conversation_id\": \"external-call-7x8z9a\",\n    \"occurred_at\": \"2025-11-03T14:32:00Z\",\n    \"has_audio\": true,\n    \"agent_id\": null,\n    \"persona_id\": null,\n    \"metadata\": {\n      \"campaign\": \"q4-support\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64358fe6-9082-4297-9583-1805a077e142",
+              "name": "Invalid request arguments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier (22-26 characters)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"audio_url\": \"https://recordings.s3.amazonaws.com/calls/2025/11/call-4k2m9p.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Missing required input data\",\n    \"details\": [\n      {\n        \"field\": \"transcript\",\n        \"description\": \"At least one of transcript or audio_url must be provided\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6e27384-0879-4aef-a0ba-d57ce6b05c1d",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier (22-26 characters)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"audio_url\": \"https://recordings.s3.amazonaws.com/calls/2025/11/call-4k2m9p.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Invalid or missing API key\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d68caba-b660-4de7-bc05-025e8fdfb64b",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier (22-26 characters)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"audio_url\": \"https://recordings.s3.amazonaws.com/calls/2025/11/call-4k2m9p.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Conversation not found\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b66e6180-1edf-48c1-a9b9-f9c1cf77b1b9",
+              "name": "Audio is already attached to this conversation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier (22-26 characters)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"audio_url\": \"https://recordings.s3.amazonaws.com/calls/2025/11/call-4k2m9p.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"ALREADY_EXISTS\",\n    \"message\": \"Conversation 'gk3jK9mPq2xRt5vW8yZaBc' already has audio attached. Overwriting audio is not supported.\",\n    \"details\": [\n      {\n        \"field\": \"audio\",\n        \"description\": \"Audio already attached\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3fa4282-94b0-442c-a399-e3df79e29cf8",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier (22-26 characters)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"audio_url\": \"https://recordings.s3.amazonaws.com/calls/2025/11/call-4k2m9p.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"An internal error occurred while processing the request\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84d90fdf-565e-4d6f-9440-6e2ced106349",
+          "name": "List conversation metrics",
+          "request": {
+            "name": "List conversation metrics",
+            "description": {
+              "content": "List all metrics computed for a specific conversation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations",
+                ":conversation_id",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter expression syntax.\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\n\n**Supported fields:**\n- `metric_name` (string): Filter by metric name (e.g., `metric_name=latency`)\n- `status` (string): Filter by status (e.g., `status=COMPLETED`)\n- `output_type` (string): Filter by type (e.g., `output_type=float`)\n\n**Examples:**\n- `filter=status=COMPLETED`\n- `filter=metric_name=latency AND status=COMPLETED`\n- `filter=output_type=float`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "50",
+                  "description": "Maximum number of metrics to return (1-1000)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_token",
+                  "value": "<string>",
+                  "description": "Pagination token from previous response (for fetching next page)"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "metric_name",
+                  "description": "Field to order results by.\n\n**Supported fields:**\n- `metric_name` (default): Sort by metric name alphabetically\n- `create_time`: Sort by creation time\n- `start_time`: Sort by computation start time\n- `end_time`: Sort by computation end time\n- `value`: Sort by metric value (float types only)\n\n**Prefix with `-` for descending order** (e.g., `-create_time`)\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) Unique conversation identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "47b1c76c-db38-4620-a0f1-24199f12ead8",
+              "name": "List of metrics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "status=COMPLETED"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "eyJvZmZzZXQiOiA1MH0="
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "metric_name"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metrics\": [\n    {\n      \"metric_output_id\": \"01JCQR8Z9PQSTNVWXY12345678\",\n      \"metric_id\": \"29BlkepvvX19ebbLDB0y6Q\",\n      \"value\": 2.35,\n      \"status\": \"COMPLETED\"\n    },\n    {\n      \"metric_output_id\": \"01JCQR9A1BRSUWVXYZ12345678\",\n      \"metric_id\": \"mymKvEg6ZA65srXbTX5wSM\",\n      \"value\": \"positive\",\n      \"status\": \"COMPLETED\"\n    },\n    {\n      \"metric_output_id\": \"01JCQR9B2CRTUVWXYZ12345678\",\n      \"metric_id\": \"fstokU4ev5UmT8sUBexiwV\",\n      \"value\": \"resolved\",\n      \"status\": \"COMPLETED\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "010536e5-5519-4ea6-a887-12b25a83f8c1",
+              "name": "Invalid request arguments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "status=COMPLETED"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "eyJvZmZzZXQiOiA1MH0="
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "metric_name"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Missing required input data\",\n    \"details\": [\n      {\n        \"field\": \"transcript\",\n        \"description\": \"At least one of transcript or audio_url must be provided\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ad3d76e-c45d-4fdc-bf7a-125da5efaae3",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "status=COMPLETED"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "eyJvZmZzZXQiOiA1MH0="
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "metric_name"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Invalid or missing API key\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a63d26d8-6214-4345-89fa-139fd96761da",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "status=COMPLETED"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "eyJvZmZzZXQiOiA1MH0="
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "metric_name"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Conversation not found\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63fe6d78-8f83-4eb5-bd63-098e44af6294",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "status=COMPLETED"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "eyJvZmZzZXQiOiA1MH0="
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "metric_name"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"An internal error occurred while processing the request\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "950e42c1-f3e2-4b12-856c-867110e84504",
+          "name": "Get conversation metric output(s)",
+          "request": {
+            "name": "Get conversation metric output(s)",
+            "description": {
+              "content": "Retrieve metric output(s) for a conversation by ID. The path segment\naccepts two ID types and returns different response shapes:\n\n- **26-char MetricOutput ULID** (e.g. `01JCQR8Z9PQSTNVWXY12345678`):\n  returns a single metric output as `{ \"metric\": {...} }`.\n- **22-char Metric definition ID** (e.g. `29BlkepvvX19ebbLDB0y6Q`):\n  returns every output for that metric on the conversation as\n  `{ \"metric_outputs\": [...] }`.\n\nClients should branch on the input ID length they passed.\n\nThis endpoint serves **monitoring conversations only**. To retrieve\nresults for a simulation — including test-metric results from\n`POST /v1/metrics/{metric_id}/test` — use\n`GET /v1/simulations/{simulation_id}/metrics/{metric_output_id}` instead.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations",
+                ":conversation_id",
+                "metrics",
+                ":metric_output_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) Unique conversation identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "metric_output_id",
+                  "description": "(Required) Either a 26-char MetricOutput ULID or a 22-char Metric definition ID.\nSee endpoint description for response shape per ID type.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "96e66527-8d53-48e5-8041-7ccf71500064",
+              "name": "Metric output details. Single object when called with a 26-char\nULID, collection object when called with a 22-char metric_id.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id",
+                    "metrics",
+                    ":metric_output_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "metric_output_id",
+                      "description": "(Required) Either a 26-char MetricOutput ULID or a 22-char Metric definition ID.\nSee endpoint description for response shape per ID type.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metric\": {\n    \"metric_output_id\": \"01JCQR8Z9PQSTNVWXY12345678\",\n    \"metric_id\": \"29BlkepvvX19ebbLDB0y6Q\",\n    \"value\": 2.35,\n    \"status\": \"COMPLETED\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40dd0013-d341-4b75-9006-cb81efa25c56",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id",
+                    "metrics",
+                    ":metric_output_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "metric_output_id",
+                      "description": "(Required) Either a 26-char MetricOutput ULID or a 22-char Metric definition ID.\nSee endpoint description for response shape per ID type.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Invalid or missing API key\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a7432fd-7665-43f4-b8a8-b3b948dbb6db",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id",
+                    "metrics",
+                    ":metric_output_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "metric_output_id",
+                      "description": "(Required) Either a 26-char MetricOutput ULID or a 22-char Metric definition ID.\nSee endpoint description for response shape per ID type.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Conversation not found\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bae0a3d9-77bb-43e2-922e-f429fb8136d2",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id",
+                    "metrics",
+                    ":metric_output_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) Unique conversation identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "metric_output_id",
+                      "description": "(Required) Either a 26-char MetricOutput ULID or a 22-char Metric definition ID.\nSee endpoint description for response shape per ID type.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL_ERROR\",\n    \"message\": \"An internal error occurred while processing the request\",\n    \"details\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coval.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bb78d817-defd-46c8-9648-4e7d0d741803",
+    "name": "Coval Agents Conversations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+      "type": "text/plain"
+    }
+  }
+}

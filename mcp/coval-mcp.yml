@@ -11,28 +11,40 @@ server:
     header: X-API-Key
   local_option:
     command: npx
-    args: ["-y", "mcp-remote", "https://mcp.coval.dev/mcp", "--header", "X-API-Key: ${COVAL_API_KEY}"]
+    args:
+    - -y
+    - mcp-remote
+    - https://mcp.coval.dev/mcp
+    - --header
+    - 'X-API-Key: ${COVAL_API_KEY}'
   requirements:
-    - Node.js 20+
-    - Coval API key
-    - MCP-compatible client (Claude Desktop, Cursor)
+  - Node.js 20+
+  - Coval API key
+  - MCP-compatible client (Claude Desktop, Cursor)
 tool_categories:
-  - category: Runs
-    count: 4
-    purpose: Launch and monitor evaluations
-  - category: Agents
-    count: 4
-    purpose: Manage agent configurations
-  - category: Test Sets
-    count: 3
-    purpose: Organize test cases
-  - category: Test Cases
-    count: 4
-    purpose: Manage individual test cases
-  - category: Metrics
-    count: 2
-    purpose: View evaluation metrics
-  - category: Personas
-    count: 2
-    purpose: Configure simulated users
+- category: Runs
+  count: 4
+  purpose: Launch and monitor evaluations
+- category: Agents
+  count: 4
+  purpose: Manage agent configurations
+- category: Test Sets
+  count: 3
+  purpose: Organize test cases
+- category: Test Cases
+  count: 4
+  purpose: Manage individual test cases
+- category: Metrics
+  count: 2
+  purpose: View evaluation metrics
+- category: Personas
+  count: 2
+  purpose: Configure simulated users
 tool_count: 18
+deployment:
+  mode: remote
+  endpoint: https://mcp.coval.dev/mcp
+  verified: probed
+  probe: gated
+  checked: '2026-08-12'
+  source: catalog MCP census

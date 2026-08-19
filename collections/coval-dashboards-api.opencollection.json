@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Dashboards API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dashboards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List dashboards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/dashboards",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination token from previous response"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort field and direction. Prefix with - for descending (e.g. -create_time)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List dashboards for your organization."
+        },
+        {
+          "info": {
+            "name": "Create dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/dashboards",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new dashboard for your organization."
+        },
+        {
+          "info": {
+            "name": "Get dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/dashboards/:dashboard_id",
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Dashboard resource ID (22-character ShortUUID)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a specific dashboard by ID."
+        },
+        {
+          "info": {
+            "name": "Update dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/dashboards/:dashboard_id",
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Dashboard resource ID (22-character ShortUUID)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a dashboard."
+        },
+        {
+          "info": {
+            "name": "Delete dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/dashboards/:dashboard_id",
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Dashboard resource ID (22-character ShortUUID)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a dashboard."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

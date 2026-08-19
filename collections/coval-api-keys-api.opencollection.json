@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents API Keys API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "API Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List API keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/api-keys",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of statuses to filter by.\n\n**Supported values:** `ACTIVE`, `REVOKED`, `SUSPENDED`, `EXPIRED`\n\nIf not provided, defaults to showing only `ACTIVE` keys.\n"
+              },
+              {
+                "name": "page_size",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "eyJvZmZzZXQiOjIwfQ==",
+                "type": "query",
+                "description": "Pagination token from previous response."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List API keys for your organization. Returns ACTIVE keys by default."
+        },
+        {
+          "info": {
+            "name": "Create API key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/api-keys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new API key. The full key value is only returned once in this response."
+        },
+        {
+          "info": {
+            "name": "Update API key status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/api-keys/:api_key_id",
+            "params": [
+              {
+                "name": "api_key_id",
+                "value": "01HX2ABC3DEF4GHI5JKL6MNO7P",
+                "type": "path",
+                "description": "API key resource ID (ULID, 26 characters)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update the status of an API key. REVOKED is a terminal state."
+        },
+        {
+          "info": {
+            "name": "Delete API key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/api-keys/:api_key_id",
+            "params": [
+              {
+                "name": "api_key_id",
+                "value": "01HX2ABC3DEF4GHI5JKL6MNO7P",
+                "type": "path",
+                "description": "API key resource ID (ULID, 26 characters)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Permanently delete an API key. This action cannot be undone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

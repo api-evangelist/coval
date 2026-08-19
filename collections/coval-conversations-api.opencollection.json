@@ -1,0 +1,255 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Conversations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit conversation for evaluation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/conversations:submit",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a conversation for monitoring evaluation.\n"
+        },
+        {
+          "info": {
+            "name": "List conversations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/conversations",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of conversations to return (1-250)"
+              },
+              {
+                "name": "page_token",
+                "value": "eyJvZmZzZXQiOiA1MH0=",
+                "type": "query",
+                "description": "Token for retrieving next page (from previous response)"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter expression syntax.\n\n**Operators:** `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\n\n**Fields:**\n- `status` - PENDING, IN_QUEUE, IN_PROGRESS, COMPLETED, FAILED, CANCELLED, DELETED\n- `external_conversation_id` - Your system's conversation ID\n- `create_time` - ISO 8601 timestamp\n- `occurred_at` - ISO 8601 timestamp\n- `metadata.{key}` - Custom metadata fields\n\n**Examples:**\n- `status=COMPLETED`\n- `create_time>\"2025-11-01T00:00:00Z\"`\n- `status=COMPLETED AND occurred_at>=\"2025-11-01T00:00:00Z\"`\n- `external_conversation_id=external-call-abc`\n"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort field with optional `-` prefix for descending order.\n\n**Fields:** `create_time`, `occurred_at`, `status`\n\n**Examples:**\n- `create_time` (ascending)\n- `-create_time` (descending, most recent first)\n- `-occurred_at` (most recent conversations first)\n"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Set to `metric_breakdown` to return an aggregate of one metric's scores\ngrouped by a `customer_metadata` key (e.g. vendor), computed over the whole\nscored monitoring corpus, instead of the conversation list. Requires\n`metric_id` and `group_by_metadata`; the response is a metric-breakdown object\n(`{view, metric_id, group_by_metadata, aggregation, breakdown:[{metadata_value,\nvalue, count}], total_count}`).\n"
+              },
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "query",
+                "description": "Metric to aggregate when `view=metric_breakdown`, or the metric whose full\noutputs should be embedded when `include=metric_outputs`.\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Set to `metric_outputs` to embed full outputs for `metric_id` on every\nconversation in the returned page. Omitted by default to keep list payloads small.\n"
+              },
+              {
+                "name": "group_by_metadata",
+                "value": "nlp_provider",
+                "type": "query",
+                "description": "Required when `view=metric_breakdown`: the customer_metadata key to group by (e.g. nlp_provider)."
+              },
+              {
+                "name": "aggregation",
+                "value": "",
+                "type": "query",
+                "description": "Aggregation for `view=metric_breakdown`. Defaults to `success` (a YES/NO\nsuccess rate) for binary/string metrics and `avg` (numeric mean) for float\nmetrics.\n"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Optional ISO-8601 lower bound (occurred_at) for `view=metric_breakdown`."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Optional ISO-8601 upper bound (occurred_at) for `view=metric_breakdown`."
+              }
+            ]
+          },
+          "docs": "List conversations with optional filtering, pagination, and ordering.\n"
+        },
+        {
+          "info": {
+            "name": "Get conversation details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/conversations/:conversation_id",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "gk3jK9mPq2xRt5vW8yZaBc",
+                "type": "path",
+                "description": "Unique conversation identifier (22-26 characters)"
+              },
+              {
+                "name": "include_progress",
+                "value": "",
+                "type": "query",
+                "description": "Include progress tracking information"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information about a specific conversation.\n"
+        },
+        {
+          "info": {
+            "name": "Attach audio to a conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/conversations/:conversation_id",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "gk3jK9mPq2xRt5vW8yZaBc",
+                "type": "path",
+                "description": "Unique conversation identifier (22-26 characters)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attach an audio recording to a conversation previously submitted via\n`POST /v1/conversations:submit` without audio, and trigger audio-dependent\nmetrics as a second wave.\n\n**When to use this endpoint**\n\nUse this endpoint when your recording URL is not available at the moment\nthe call ends (for example, Twilio Programmable Voice recordings that are\nonly fetchable after an asynchronous job completes ~60 seconds later).\nSubmit the transcript immediately at call end to get a `conversation_id`\nfor tra"
+        },
+        {
+          "info": {
+            "name": "Delete or cancel conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/conversations/:conversation_id",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "gk3jK9mPq2xRt5vW8yZaBc",
+                "type": "path",
+                "description": "Unique conversation identifier"
+              }
+            ]
+          },
+          "docs": "Delete or cancel a conversation evaluation.\n"
+        },
+        {
+          "info": {
+            "name": "List conversation metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/conversations/:conversation_id/metrics",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "gk3jK9mPq2xRt5vW8yZaBc",
+                "type": "path",
+                "description": "Unique conversation identifier"
+              },
+              {
+                "name": "filter",
+                "value": "status=COMPLETED",
+                "type": "query",
+                "description": "Filter expression syntax.\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\n\n**Supported fields:**\n- `metric_name` (string): Filter by metric name (e.g., `metric_name=latency`)\n- `status` (string): Filter by status (e.g., `status=COMPLETED`)\n- `output_type` (string): Filter by type (e.g., `output_type=float`)\n\n**Examples:**\n- `filter=status=COMPLETED`\n- `filter=metric_name=latency AND status=COMPLETED`\n- `filter=output_type=float`\n"
+              },
+              {
+                "name": "page_size",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of metrics to return (1-1000)"
+              },
+              {
+                "name": "page_token",
+                "value": "eyJvZmZzZXQiOiA1MH0=",
+                "type": "query",
+                "description": "Pagination token from previous response (for fetching next page)"
+              },
+              {
+                "name": "order_by",
+                "value": "metric_name",
+                "type": "query",
+                "description": "Field to order results by.\n\n**Supported fields:**\n- `metric_name` (default): Sort by metric name alphabetically\n- `create_time`: Sort by creation time\n- `start_time`: Sort by computation start time\n- `end_time`: Sort by computation end time\n- `value`: Sort by metric value (float types only)\n\n**Prefix with `-` for descending order** (e.g., `-create_time`)\n"
+              }
+            ]
+          },
+          "docs": "List all metrics computed for a specific conversation.\n"
+        },
+        {
+          "info": {
+            "name": "Get conversation metric output(s)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/conversations/:conversation_id/metrics/:metric_output_id",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "gk3jK9mPq2xRt5vW8yZaBc",
+                "type": "path",
+                "description": "Unique conversation identifier"
+              },
+              {
+                "name": "metric_output_id",
+                "value": "01JCQR8Z9PQSTNVWXY12345678",
+                "type": "path",
+                "description": "Either a 26-char MetricOutput ULID or a 22-char Metric definition ID.\nSee endpoint description for response shape per ID type.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve metric output(s) for a conversation by ID. The path segment\naccepts two ID types and returns different response shapes:\n\n- **26-char MetricOutput ULID** (e.g. `01JCQR8Z9PQSTNVWXY12345678`):\n  returns a single metric output as `{ \"metric\": {...} }`.\n- **22-char Metric definition ID** (e.g. `29BlkepvvX19ebbLDB0y6Q`):\n  returns every output for that metric on the conversation as\n  `{ \"metric_outputs\": [...] }`.\n\nClients should branch on the input ID length they passed.\n\nThis endpoint serve"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

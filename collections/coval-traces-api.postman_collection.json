@@ -1,0 +1,550 @@
+{
+  "item": [
+    {
+      "id": "a21c579c-da35-42ee-a8b5-75cde1dd7d30",
+      "name": "Traces",
+      "description": {
+        "content": "OTLP trace ingestion for simulations and monitoring conversations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dd440e49-1474-4d06-90ba-4de94bdb5d0e",
+          "name": "Ingest OTLP traces",
+          "request": {
+            "name": "Ingest OTLP traces",
+            "description": {
+              "content": "Ingest OpenTelemetry trace data and associate it with a simulation\noutput or a monitoring conversation.\n\nThe request body must be a standard OTLP `ExportTraceServiceRequest`,\nin protobuf binary (`application/x-protobuf`, the default for stock\nOTLP HTTP exporters) or JSON (`application/json`) format. See the\n[OTLP/HTTP specification](https://opentelemetry.io/docs/specs/otlp/#otlphttp)\nand [opentelemetry-proto](https://github.com/open-telemetry/opentelemetry-proto)\nfor the wire format.\n\nIdentify the target by providing exactly one of `X-Simulation-Id` or\n`X-Conversation-Id` (not both).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "traces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                "key": "X-Simulation-Id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                "key": "X-Conversation-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7bde74e2-2eef-411c-82e6-8176949600ac",
+              "name": "Spans accepted and queued for ingestion.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "traces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "a1b2c3d4"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "01H8XYZABCDEFG"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceSpans\": [\n    {\n      \"resource\": {\n        \"attributes\": [\n          {\n            \"key\": \"service.name\",\n            \"value\": {\n              \"stringValue\": \"my-agent\"\n            }\n          }\n        ]\n      },\n      \"scopeSpans\": [\n        {\n          \"scope\": {\n            \"name\": \"my-tracer\"\n          },\n          \"spans\": [\n            {\n              \"traceId\": \"5b8aa5a2d2c872e8321cf37308d69df2\",\n              \"spanId\": \"051581bf3cb55c13\",\n              \"name\": \"llm\",\n              \"kind\": 1,\n              \"startTimeUnixNano\": \"1738000000000000000\",\n              \"endTimeUnixNano\": \"1738000001000000000\",\n              \"attributes\": [\n                {\n                  \"key\": \"metrics.ttfb\",\n                  \"value\": {\n                    \"doubleValue\": 0.42\n                  }\n                }\n              ],\n              \"status\": {\n                \"code\": 1\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"simulation_output_id\": \"a1b2c3d4\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96010ab4-d309-4d0b-a9e4-01aa2d1ec5c7",
+              "name": "Invalid request body, missing identification header, or both\n`X-Simulation-Id` and `X-Conversation-Id` provided.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "traces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "a1b2c3d4"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "01H8XYZABCDEFG"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceSpans\": [\n    {\n      \"resource\": {\n        \"attributes\": [\n          {\n            \"key\": \"service.name\",\n            \"value\": {\n              \"stringValue\": \"my-agent\"\n            }\n          }\n        ]\n      },\n      \"scopeSpans\": [\n        {\n          \"scope\": {\n            \"name\": \"my-tracer\"\n          },\n          \"spans\": [\n            {\n              \"traceId\": \"5b8aa5a2d2c872e8321cf37308d69df2\",\n              \"spanId\": \"051581bf3cb55c13\",\n              \"name\": \"llm\",\n              \"kind\": 1,\n              \"startTimeUnixNano\": \"1738000000000000000\",\n              \"endTimeUnixNano\": \"1738000001000000000\",\n              \"attributes\": [\n                {\n                  \"key\": \"metrics.ttfb\",\n                  \"value\": {\n                    \"doubleValue\": 0.42\n                  }\n                }\n              ],\n              \"status\": {\n                \"code\": 1\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Missing required header: X-Simulation-Id or X-Conversation-Id\",\n    \"details\": [\n      {\n        \"field\": \"X-Simulation-Id\",\n        \"description\": \"Provide either X-Simulation-Id or X-Conversation-Id\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db5dfd99-c291-4aa4-b92b-be091b347dcc",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "traces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "a1b2c3d4"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "01H8XYZABCDEFG"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceSpans\": [\n    {\n      \"resource\": {\n        \"attributes\": [\n          {\n            \"key\": \"service.name\",\n            \"value\": {\n              \"stringValue\": \"my-agent\"\n            }\n          }\n        ]\n      },\n      \"scopeSpans\": [\n        {\n          \"scope\": {\n            \"name\": \"my-tracer\"\n          },\n          \"spans\": [\n            {\n              \"traceId\": \"5b8aa5a2d2c872e8321cf37308d69df2\",\n              \"spanId\": \"051581bf3cb55c13\",\n              \"name\": \"llm\",\n              \"kind\": 1,\n              \"startTimeUnixNano\": \"1738000000000000000\",\n              \"endTimeUnixNano\": \"1738000001000000000\",\n              \"attributes\": [\n                {\n                  \"key\": \"metrics.ttfb\",\n                  \"value\": {\n                    \"doubleValue\": 0.42\n                  }\n                }\n              ],\n              \"status\": {\n                \"code\": 1\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2ff589a-3461-4521-870d-4c0e56604285",
+              "name": "API key lacks the `traces:write` scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "traces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "a1b2c3d4"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "01H8XYZABCDEFG"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceSpans\": [\n    {\n      \"resource\": {\n        \"attributes\": [\n          {\n            \"key\": \"service.name\",\n            \"value\": {\n              \"stringValue\": \"my-agent\"\n            }\n          }\n        ]\n      },\n      \"scopeSpans\": [\n        {\n          \"scope\": {\n            \"name\": \"my-tracer\"\n          },\n          \"spans\": [\n            {\n              \"traceId\": \"5b8aa5a2d2c872e8321cf37308d69df2\",\n              \"spanId\": \"051581bf3cb55c13\",\n              \"name\": \"llm\",\n              \"kind\": 1,\n              \"startTimeUnixNano\": \"1738000000000000000\",\n              \"endTimeUnixNano\": \"1738000001000000000\",\n              \"attributes\": [\n                {\n                  \"key\": \"metrics.ttfb\",\n                  \"value\": {\n                    \"doubleValue\": 0.42\n                  }\n                }\n              ],\n              \"status\": {\n                \"code\": 1\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"Insufficient permissions\",\n    \"details\": [\n      {\n        \"field\": \"permissions\",\n        \"description\": \"API key lacks the traces:write scope\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c2f9871-2bef-498c-ab45-f3ec7097db3f",
+              "name": "The simulation output or conversation does not exist, or it does\nnot belong to your organization.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "traces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "a1b2c3d4"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "01H8XYZABCDEFG"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceSpans\": [\n    {\n      \"resource\": {\n        \"attributes\": [\n          {\n            \"key\": \"service.name\",\n            \"value\": {\n              \"stringValue\": \"my-agent\"\n            }\n          }\n        ]\n      },\n      \"scopeSpans\": [\n        {\n          \"scope\": {\n            \"name\": \"my-tracer\"\n          },\n          \"spans\": [\n            {\n              \"traceId\": \"5b8aa5a2d2c872e8321cf37308d69df2\",\n              \"spanId\": \"051581bf3cb55c13\",\n              \"name\": \"llm\",\n              \"kind\": 1,\n              \"startTimeUnixNano\": \"1738000000000000000\",\n              \"endTimeUnixNano\": \"1738000001000000000\",\n              \"attributes\": [\n                {\n                  \"key\": \"metrics.ttfb\",\n                  \"value\": {\n                    \"doubleValue\": 0.42\n                  }\n                }\n              ],\n              \"status\": {\n                \"code\": 1\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Simulation output not found\",\n    \"details\": [\n      {\n        \"field\": \"X-Simulation-Id\",\n        \"description\": \"No simulation output found with this ID\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c422fca6-ac8f-4ec9-bd05-464ef2e7e6dc",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "traces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "a1b2c3d4"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "01H8XYZABCDEFG"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceSpans\": [\n    {\n      \"resource\": {\n        \"attributes\": [\n          {\n            \"key\": \"service.name\",\n            \"value\": {\n              \"stringValue\": \"my-agent\"\n            }\n          }\n        ]\n      },\n      \"scopeSpans\": [\n        {\n          \"scope\": {\n            \"name\": \"my-tracer\"\n          },\n          \"spans\": [\n            {\n              \"traceId\": \"5b8aa5a2d2c872e8321cf37308d69df2\",\n              \"spanId\": \"051581bf3cb55c13\",\n              \"name\": \"llm\",\n              \"kind\": 1,\n              \"startTimeUnixNano\": \"1738000000000000000\",\n              \"endTimeUnixNano\": \"1738000001000000000\",\n              \"attributes\": [\n                {\n                  \"key\": \"metrics.ttfb\",\n                  \"value\": {\n                    \"doubleValue\": 0.42\n                  }\n                }\n              ],\n              \"status\": {\n                \"code\": 1\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ca4f768-b22e-494d-825b-0dddb0c693ae",
+              "name": "Service temporarily unavailable, typically because per-organization\ndatabase routing has not yet activated. Retry after a brief delay.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "traces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Simulation output ID to associate the spans with. Use for\nsimulation-based flows. Mutually exclusive with `X-Conversation-Id`.\n",
+                    "key": "X-Simulation-Id",
+                    "value": "a1b2c3d4"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Conversation (Run) ID returned by `POST /v1/conversations:submit`.\nUse for monitoring flows. Mutually exclusive with `X-Simulation-Id`.\n",
+                    "key": "X-Conversation-Id",
+                    "value": "01H8XYZABCDEFG"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resourceSpans\": [\n    {\n      \"resource\": {\n        \"attributes\": [\n          {\n            \"key\": \"service.name\",\n            \"value\": {\n              \"stringValue\": \"my-agent\"\n            }\n          }\n        ]\n      },\n      \"scopeSpans\": [\n        {\n          \"scope\": {\n            \"name\": \"my-tracer\"\n          },\n          \"spans\": [\n            {\n              \"traceId\": \"5b8aa5a2d2c872e8321cf37308d69df2\",\n              \"spanId\": \"051581bf3cb55c13\",\n              \"name\": \"llm\",\n              \"kind\": 1,\n              \"startTimeUnixNano\": \"1738000000000000000\",\n              \"endTimeUnixNano\": \"1738000001000000000\",\n              \"attributes\": [\n                {\n                  \"key\": \"metrics.ttfb\",\n                  \"value\": {\n                    \"doubleValue\": 0.42\n                  }\n                }\n              ],\n              \"status\": {\n                \"code\": 1\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Service temporarily unavailable\",\n    \"details\": [\n      {\n        \"description\": \"Database routing is temporarily unavailable. Please retry.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coval.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6f78dc62-54fe-4071-9ab9-16dc8e77e95a",
+    "name": "Coval Agents Traces API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+      "type": "text/plain"
+    }
+  }
+}

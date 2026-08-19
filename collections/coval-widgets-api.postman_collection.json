@@ -1,0 +1,1803 @@
+{
+  "item": [
+    {
+      "id": "15363090-688d-4b3e-92fb-d994b1e3fb95",
+      "name": "Widgets",
+      "description": {
+        "content": "Dashboard widget CRUD operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d358fe36-092a-4398-9eeb-84383ba9aa52",
+          "name": "Create widget",
+          "request": {
+            "name": "Create widget",
+            "description": {
+              "content": "Create a new widget on a dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards",
+                ":dashboard_id",
+                "widgets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard_id",
+                  "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"<string>\",\n    \"monitoring\": \"<string>\",\n    \"aggregation\": \"<string>\",\n    \"metricOutputType\": \"<string>\",\n    \"bucketInterval\": \"<string>\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"<string>\",\n    \"customColorMap\": {\n      \"key_0\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"metadata\": [\n        \"<object>\",\n        \"<object>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"<string>\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b3e4c7b-99bf-4ee5-a4ae-b5068d3d4b9c",
+              "name": "Widget created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Response Time Trend\",\n  \"type\": \"chart\",\n  \"grid_x\": 0,\n  \"grid_y\": 0,\n  \"grid_w\": 6,\n  \"grid_h\": 4,\n  \"config\": {\n    \"metricId\": \"metric_response_time\",\n    \"visualizationType\": \"line\",\n    \"monitoring\": \"Monitoring\",\n    \"aggregation\": \"avg\",\n    \"metricOutputType\": \"float\",\n    \"bucketInterval\": \"1 hour\",\n    \"yAxisLabel\": \"Seconds\",\n    \"units\": \"s\",\n    \"precision\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"widget\": {\n    \"name\": \"dashboards/abc123def456ghi789jklm/widgets/wgt456xyz789abc012defg\",\n    \"type\": \"chart\",\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": \"2025-10-15T14:30:00Z\",\n    \"display_name\": \"Response Time Chart\",\n    \"grid_x\": 2819,\n    \"grid_y\": 7283,\n    \"grid_w\": 8172,\n    \"grid_h\": 6346,\n    \"config\": {\n      \"metricId\": \"<string>\",\n      \"visualizationType\": \"line\",\n      \"monitoring\": \"Monitoring\",\n      \"aggregation\": \"avg\",\n      \"metricOutputType\": \"float\",\n      \"bucketInterval\": \"<string>\",\n      \"stacked\": \"<boolean>\",\n      \"grouped\": \"<boolean>\",\n      \"showAsPercentage\": \"<boolean>\",\n      \"groupBy\": \"agent\",\n      \"customColorMap\": {\n        \"key_0\": \"<string>\"\n      },\n      \"xAxisLabel\": \"<string>\",\n      \"yAxisLabel\": \"<string>\",\n      \"customSeriesNames\": {\n        \"key_0\": \"<string>\"\n      },\n      \"hiddenSeries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"precision\": \"<integer>\",\n      \"units\": \"<string>\",\n      \"showCount\": \"<boolean>\",\n      \"showRange\": \"<boolean>\",\n      \"showStdDev\": \"<boolean>\",\n      \"showBoxPlot\": \"<boolean>\",\n      \"showTargetZone\": \"<boolean>\",\n      \"filters\": {\n        \"metricIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"agentIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"agentMutationIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"personaIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"templateNames\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"testSetIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"metadata\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"metricFilter\": [\n        {\n          \"metricId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"metricOutputType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"metricId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"metricOutputType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ce101b5-309a-4f0d-9823-35681aa73ecd",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Response Time Trend\",\n  \"type\": \"chart\",\n  \"grid_x\": 0,\n  \"grid_y\": 0,\n  \"grid_w\": 6,\n  \"grid_h\": 4,\n  \"config\": {\n    \"metricId\": \"metric_response_time\",\n    \"visualizationType\": \"line\",\n    \"monitoring\": \"Monitoring\",\n    \"aggregation\": \"avg\",\n    \"metricOutputType\": \"float\",\n    \"bucketInterval\": \"1 hour\",\n    \"yAxisLabel\": \"Seconds\",\n    \"units\": \"s\",\n    \"precision\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request body\",\n    \"details\": [\n      {\n        \"field\": \"display_name\",\n        \"description\": \"display_name must be between 1 and 255 characters\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05920f30-4d52-40ff-aaf2-f50be81ee753",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Response Time Trend\",\n  \"type\": \"chart\",\n  \"grid_x\": 0,\n  \"grid_y\": 0,\n  \"grid_w\": 6,\n  \"grid_h\": 4,\n  \"config\": {\n    \"metricId\": \"metric_response_time\",\n    \"visualizationType\": \"line\",\n    \"monitoring\": \"Monitoring\",\n    \"aggregation\": \"avg\",\n    \"metricOutputType\": \"float\",\n    \"bucketInterval\": \"1 hour\",\n    \"yAxisLabel\": \"Seconds\",\n    \"units\": \"s\",\n    \"precision\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31c7c5f8-7b4c-4a40-9c8c-0e5617fbbd83",
+              "name": "Parent dashboard not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Response Time Trend\",\n  \"type\": \"chart\",\n  \"grid_x\": 0,\n  \"grid_y\": 0,\n  \"grid_w\": 6,\n  \"grid_h\": 4,\n  \"config\": {\n    \"metricId\": \"metric_response_time\",\n    \"visualizationType\": \"line\",\n    \"monitoring\": \"Monitoring\",\n    \"aggregation\": \"avg\",\n    \"metricOutputType\": \"float\",\n    \"bucketInterval\": \"1 hour\",\n    \"yAxisLabel\": \"Seconds\",\n    \"units\": \"s\",\n    \"precision\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameter\",\n    \"details\": [\n      {\n        \"field\": \"string\",\n        \"description\": \"string\"\n      },\n      {\n        \"field\": \"string\",\n        \"description\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd2faf0d-144c-4238-872e-4312b413c900",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Response Time Trend\",\n  \"type\": \"chart\",\n  \"grid_x\": 0,\n  \"grid_y\": 0,\n  \"grid_w\": 6,\n  \"grid_h\": 4,\n  \"config\": {\n    \"metricId\": \"metric_response_time\",\n    \"visualizationType\": \"line\",\n    \"monitoring\": \"Monitoring\",\n    \"aggregation\": \"avg\",\n    \"metricOutputType\": \"float\",\n    \"bucketInterval\": \"1 hour\",\n    \"yAxisLabel\": \"Seconds\",\n    \"units\": \"s\",\n    \"precision\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82e44a2c-c4a2-44d6-b59b-70f115b08069",
+          "name": "List widgets",
+          "request": {
+            "name": "List widgets",
+            "description": {
+              "content": "List widgets for a dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards",
+                ":dashboard_id",
+                "widgets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "50",
+                  "description": "Maximum number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_token",
+                  "value": "<string>",
+                  "description": "Opaque pagination token from previous response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard_id",
+                  "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f6af851c-d4c6-4ef2-9b55-75e68c0c8bcf",
+              "name": "Widgets retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"widgets\": [\n    {\n      \"name\": \"dashboards/abc123def456ghi789jklm/widgets/wgt456xyz789abc012defg\",\n      \"type\": \"chart\",\n      \"create_time\": \"2025-10-14T12:00:00Z\",\n      \"update_time\": \"2025-10-15T14:30:00Z\",\n      \"display_name\": \"Response Time Chart\",\n      \"grid_x\": 1874,\n      \"grid_y\": 8872,\n      \"grid_w\": 1410,\n      \"grid_h\": 3879,\n      \"config\": {\n        \"metricId\": \"<string>\",\n        \"visualizationType\": \"line\",\n        \"monitoring\": \"Monitoring\",\n        \"aggregation\": \"avg\",\n        \"metricOutputType\": \"float\",\n        \"bucketInterval\": \"<string>\",\n        \"stacked\": \"<boolean>\",\n        \"grouped\": \"<boolean>\",\n        \"showAsPercentage\": \"<boolean>\",\n        \"groupBy\": \"agent\",\n        \"customColorMap\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\"\n        },\n        \"xAxisLabel\": \"<string>\",\n        \"yAxisLabel\": \"<string>\",\n        \"customSeriesNames\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\"\n        },\n        \"hiddenSeries\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"precision\": \"<integer>\",\n        \"units\": \"<string>\",\n        \"showCount\": \"<boolean>\",\n        \"showRange\": \"<boolean>\",\n        \"showStdDev\": \"<boolean>\",\n        \"showBoxPlot\": \"<boolean>\",\n        \"showTargetZone\": \"<boolean>\",\n        \"filters\": {\n          \"metricIds\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"agentIds\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"agentMutationIds\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"personaIds\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"templateNames\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"testSetIds\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"metadata\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"metricFilter\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    },\n    {\n      \"name\": \"dashboards/abc123def456ghi789jklm/widgets/wgt456xyz789abc012defg\",\n      \"type\": \"chart\",\n      \"create_time\": \"2025-10-14T12:00:00Z\",\n      \"update_time\": \"2025-10-15T14:30:00Z\",\n      \"display_name\": \"Response Time Chart\",\n      \"grid_x\": 6486,\n      \"grid_y\": 1346,\n      \"grid_w\": 4367,\n      \"grid_h\": 577,\n      \"config\": {\n        \"metricId\": \"<string>\",\n        \"visualizationType\": \"line\",\n        \"monitoring\": \"Monitoring\",\n        \"aggregation\": \"avg\",\n        \"metricOutputType\": \"float\",\n        \"bucketInterval\": \"<string>\",\n        \"stacked\": \"<boolean>\",\n        \"grouped\": \"<boolean>\",\n        \"showAsPercentage\": \"<boolean>\",\n        \"groupBy\": \"agent\",\n        \"customColorMap\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\"\n        },\n        \"xAxisLabel\": \"<string>\",\n        \"yAxisLabel\": \"<string>\",\n        \"customSeriesNames\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\"\n        },\n        \"hiddenSeries\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"precision\": \"<integer>\",\n        \"units\": \"<string>\",\n        \"showCount\": \"<boolean>\",\n        \"showRange\": \"<boolean>\",\n        \"showStdDev\": \"<boolean>\",\n        \"showBoxPlot\": \"<boolean>\",\n        \"showTargetZone\": \"<boolean>\",\n        \"filters\": {\n          \"metricIds\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"agentIds\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"agentMutationIds\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"personaIds\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"templateNames\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"testSetIds\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"metadata\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"metricFilter\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    }\n  ],\n  \"next_page_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60848cb3-eb9b-48e0-aa0e-7faa445f5278",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f4067b9-4370-4d69-bea1-8039f7096560",
+              "name": "Parent dashboard not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameter\",\n    \"details\": [\n      {\n        \"field\": \"string\",\n        \"description\": \"string\"\n      },\n      {\n        \"field\": \"string\",\n        \"description\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a2b2f5e-a0f9-4f42-91ee-bf4c431217fc",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d5957c7-c3ac-4c47-9774-24df7fb6db1a",
+          "name": "Get widget",
+          "request": {
+            "name": "Get widget",
+            "description": {
+              "content": "Retrieve a specific widget by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards",
+                ":dashboard_id",
+                "widgets",
+                ":widget_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard_id",
+                  "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "widget_id",
+                  "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "99c0ffa4-c95f-4ba1-b4be-b6ea71efa2c3",
+              "name": "Widget retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"widget\": {\n    \"name\": \"dashboards/abc123def456ghi789jklm/widgets/wgt456xyz789abc012defg\",\n    \"type\": \"chart\",\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": \"2025-10-15T14:30:00Z\",\n    \"display_name\": \"Response Time Chart\",\n    \"grid_x\": 2819,\n    \"grid_y\": 7283,\n    \"grid_w\": 8172,\n    \"grid_h\": 6346,\n    \"config\": {\n      \"metricId\": \"<string>\",\n      \"visualizationType\": \"line\",\n      \"monitoring\": \"Monitoring\",\n      \"aggregation\": \"avg\",\n      \"metricOutputType\": \"float\",\n      \"bucketInterval\": \"<string>\",\n      \"stacked\": \"<boolean>\",\n      \"grouped\": \"<boolean>\",\n      \"showAsPercentage\": \"<boolean>\",\n      \"groupBy\": \"agent\",\n      \"customColorMap\": {\n        \"key_0\": \"<string>\"\n      },\n      \"xAxisLabel\": \"<string>\",\n      \"yAxisLabel\": \"<string>\",\n      \"customSeriesNames\": {\n        \"key_0\": \"<string>\"\n      },\n      \"hiddenSeries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"precision\": \"<integer>\",\n      \"units\": \"<string>\",\n      \"showCount\": \"<boolean>\",\n      \"showRange\": \"<boolean>\",\n      \"showStdDev\": \"<boolean>\",\n      \"showBoxPlot\": \"<boolean>\",\n      \"showTargetZone\": \"<boolean>\",\n      \"filters\": {\n        \"metricIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"agentIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"agentMutationIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"personaIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"templateNames\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"testSetIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"metadata\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"metricFilter\": [\n        {\n          \"metricId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"metricOutputType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"metricId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"metricOutputType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d715b166-d53e-46b1-a96d-6638ea29b494",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "691e0659-5852-4c9c-af4d-ef6fffd48463",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Resource not found\",\n    \"details\": [\n      {\n        \"field\": \"dashboard_id\",\n        \"description\": \"Dashboard not found or not accessible by your organization\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c95703c-9853-40ac-9e5b-956b749eef66",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce8abe6b-11e3-4a8d-9022-5d17be5e2c40",
+          "name": "Update widget",
+          "request": {
+            "name": "Update widget",
+            "description": {
+              "content": "Update a widget.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards",
+                ":dashboard_id",
+                "widgets",
+                ":widget_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard_id",
+                  "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "widget_id",
+                  "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display_name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"grid_x\": \"<integer>\",\n  \"grid_y\": \"<integer>\",\n  \"grid_w\": \"<integer>\",\n  \"grid_h\": \"<integer>\",\n  \"config\": {\n    \"metricId\": \"<string>\",\n    \"visualizationType\": \"<string>\",\n    \"monitoring\": \"<string>\",\n    \"aggregation\": \"<string>\",\n    \"metricOutputType\": \"<string>\",\n    \"bucketInterval\": \"<string>\",\n    \"stacked\": \"<boolean>\",\n    \"grouped\": \"<boolean>\",\n    \"showAsPercentage\": \"<boolean>\",\n    \"groupBy\": \"<string>\",\n    \"customColorMap\": {\n      \"key_0\": \"<string>\"\n    },\n    \"xAxisLabel\": \"<string>\",\n    \"yAxisLabel\": \"<string>\",\n    \"customSeriesNames\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"hiddenSeries\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"precision\": \"<integer>\",\n    \"units\": \"<string>\",\n    \"showCount\": \"<boolean>\",\n    \"showRange\": \"<boolean>\",\n    \"showStdDev\": \"<boolean>\",\n    \"showBoxPlot\": \"<boolean>\",\n    \"showTargetZone\": \"<boolean>\",\n    \"filters\": {\n      \"metricIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"agentMutationIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"personaIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"templateNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"testSetIds\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"metadata\": [\n        \"<object>\",\n        \"<object>\"\n      ]\n    },\n    \"metricFilter\": [\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"<string>\"\n      },\n      {\n        \"metricId\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<number>\",\n        \"metricOutputType\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e89844c7-25f2-4a4c-9d4f-f55330d657e4",
+              "name": "Widget updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Updated Widget Name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"widget\": {\n    \"name\": \"dashboards/abc123def456ghi789jklm/widgets/wgt456xyz789abc012defg\",\n    \"type\": \"chart\",\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": \"2025-10-15T14:30:00Z\",\n    \"display_name\": \"Response Time Chart\",\n    \"grid_x\": 2819,\n    \"grid_y\": 7283,\n    \"grid_w\": 8172,\n    \"grid_h\": 6346,\n    \"config\": {\n      \"metricId\": \"<string>\",\n      \"visualizationType\": \"line\",\n      \"monitoring\": \"Monitoring\",\n      \"aggregation\": \"avg\",\n      \"metricOutputType\": \"float\",\n      \"bucketInterval\": \"<string>\",\n      \"stacked\": \"<boolean>\",\n      \"grouped\": \"<boolean>\",\n      \"showAsPercentage\": \"<boolean>\",\n      \"groupBy\": \"agent\",\n      \"customColorMap\": {\n        \"key_0\": \"<string>\"\n      },\n      \"xAxisLabel\": \"<string>\",\n      \"yAxisLabel\": \"<string>\",\n      \"customSeriesNames\": {\n        \"key_0\": \"<string>\"\n      },\n      \"hiddenSeries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"precision\": \"<integer>\",\n      \"units\": \"<string>\",\n      \"showCount\": \"<boolean>\",\n      \"showRange\": \"<boolean>\",\n      \"showStdDev\": \"<boolean>\",\n      \"showBoxPlot\": \"<boolean>\",\n      \"showTargetZone\": \"<boolean>\",\n      \"filters\": {\n        \"metricIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"agentIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"agentMutationIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"personaIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"templateNames\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"testSetIds\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"metadata\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      \"metricFilter\": [\n        {\n          \"metricId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"metricOutputType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"metricId\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"metricOutputType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "852310c3-fff3-4410-a729-441947cc1526",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Updated Widget Name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request body\",\n    \"details\": [\n      {\n        \"field\": \"display_name\",\n        \"description\": \"display_name must be between 1 and 255 characters\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b67dbf59-060b-4d28-9ee6-d2aca3b74278",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Updated Widget Name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74eaaad0-236b-4b7c-a7b8-1352f520e089",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Updated Widget Name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Resource not found\",\n    \"details\": [\n      {\n        \"field\": \"dashboard_id\",\n        \"description\": \"Dashboard not found or not accessible by your organization\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41be4d3b-2ecf-412c-ab30-d170d02a7ec7",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Updated Widget Name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8be8994-ab10-464b-9c4c-cb0a0981ed57",
+          "name": "Delete widget",
+          "request": {
+            "name": "Delete widget",
+            "description": {
+              "content": "Delete a widget.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dashboards",
+                ":dashboard_id",
+                "widgets",
+                ":widget_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dashboard_id",
+                  "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "widget_id",
+                  "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5b43ca12-1c31-4679-9a9c-6fcfe6f97cdd",
+              "name": "Widget deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc78f653-19fa-4682-81c2-8d87be4b8b17",
+              "name": "Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8cd9d7fc-d39b-4f81-b27f-5e90e7e1f29d",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Resource not found\",\n    \"details\": [\n      {\n        \"field\": \"dashboard_id\",\n        \"description\": \"Dashboard not found or not accessible by your organization\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9859e6e2-5b77-414c-bf6e-2071ed5f7361",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dashboards",
+                    ":dashboard_id",
+                    "widgets",
+                    ":widget_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dashboard_id",
+                      "description": "(Required) Dashboard resource ID (22-character ShortUUID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget resource ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coval.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2d892c39-6d59-4397-b22c-9c48e32c2c07",
+    "name": "Coval Agents Widgets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+      "type": "text/plain"
+    }
+  }
+}

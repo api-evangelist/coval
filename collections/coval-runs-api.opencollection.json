@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Runs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/runs",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter expression syntax.\n\nSupported fields: `status`, `agent_id`, `persona_id`, `test_set_id`, `create_time`, `update_time`, `created_by`, `tag`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n"
+              },
+              {
+                "name": "page_size",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination token from previous response"
+              },
+              {
+                "name": "order_by",
+                "value": "-create_time",
+                "type": "query",
+                "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `create_time`, `update_time`, `status`, `agent_id`, `persona_id`, `test_set_id`\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a paginated list of simulation runs with optional filtering and sorting.\n"
+        },
+        {
+          "info": {
+            "name": "Launch run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/runs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Launch a new simulation run to evaluate an agent against test cases using a persona.\n"
+        },
+        {
+          "info": {
+            "name": "Get run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/runs/:run_id",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "4AgpnEcWRtj5HbtfEujWdT",
+                "type": "path",
+                "description": "Unique identifier for the run"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve detailed information about a specific simulation run.\n"
+        },
+        {
+          "info": {
+            "name": "Update run",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/runs/:run_id",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "7DjsqHfZUwm8KewjHxmZgW",
+                "type": "path",
+                "description": "Unique identifier for the run"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Replace the tag set for an existing simulation run.\nProvide an empty list to clear all tags.\n"
+        },
+        {
+          "info": {
+            "name": "Delete run",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/runs/:run_id",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "7DjsqHfZUwm8KewjHxmZgW",
+                "type": "path",
+                "description": "Unique identifier for the run"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete or cancel a simulation run based on its current status.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,223 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Simulations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Simulations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List simulations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/simulations",
+            "params": [
+              {
+                "name": "filter",
+                "value": "status=COMPLETED AND agent_id=gk3jK9mPq2xRt5vW8yZaBc",
+                "type": "query",
+                "description": "Filter expression syntax.\n\nSupported fields: `status`, `agent_id`, `persona_id`, `test_set_id`, `test_case_id`, `run_id`, `external_conversation_id`, `mutation_id`, `mutation_name`, `create_time`\n\nOperators: `=`, `!=`, `>`, `<`, `>=`, `<=`, `AND`, `OR`\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted (e.g., `status=\"IN PROGRESS\"`).\n\nThe `external_conversation_id` field is your system's conversation ID for cross-system lookup.\n\n**Mutation Filtering:** Use `mutation_id` or `mutation_name` to filter simulations by agent mutation variant.\nBase agent simulations have both `mutation_id` and `mutation_name` = null.\nTo get only base agent results, filter for simulations where `mutation_id` is not set.\n"
+              },
+              {
+                "name": "page_size",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination token from previous response"
+              },
+              {
+                "name": "order_by",
+                "value": "-create_time",
+                "type": "query",
+                "description": "Sort order specification.\n\nFormat: `field` or `-field` (descending)\n\nSupported fields: `create_time`, `status`\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List simulations with optional filtering and sorting."
+        },
+        {
+          "info": {
+            "name": "Get simulation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/simulations/:simulation_id",
+            "params": [
+              {
+                "name": "simulation_id",
+                "value": "3zfmuDbVQsi4GaseDtiVcS",
+                "type": "path",
+                "description": "The simulation ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a simulation by ID."
+        },
+        {
+          "info": {
+            "name": "Update simulation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/simulations/:simulation_id",
+            "params": [
+              {
+                "name": "simulation_id",
+                "value": "3zfmuDbVQsi4GaseDtiVcS",
+                "type": "path",
+                "description": "The simulation ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update specific fields of a simulation.\nAll fields are optional (PATCH semantics). Only provided fields will be updated.\n"
+        },
+        {
+          "info": {
+            "name": "Delete or cancel simulation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/simulations/:simulation_id",
+            "params": [
+              {
+                "name": "simulation_id",
+                "value": "4bgnvEcWRtj5HbtfEujWdT",
+                "type": "path",
+                "description": "The simulation ID to delete/cancel"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancel or delete a simulation."
+        },
+        {
+          "info": {
+            "name": "Rerun a simulation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/simulations/:simulation_id/resimulate",
+            "params": [
+              {
+                "name": "simulation_id",
+                "value": "4bgnvEcWRtj5HbtfEujWdT",
+                "type": "path",
+                "description": "The simulation ID to rerun"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Requeue a single existing simulation to run again in place.\nThe currently visible result for this simulation will be overwritten when the rerun completes.\n"
+        },
+        {
+          "info": {
+            "name": "Batch rerun metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/simulations:rerunMetrics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Re-score a set of metrics against a set of existing simulations without re-running the\nsimulations. The same metrics are applied to every simulation (metrics x simulations).\nLimits: up to 100 simulations, up to 500 metrics, and at most 500 total reruns\n(simulation_ids x metric_ids) per call. Best-effort per simulation: valid simulations are\nqueued and a per-simulation status is returned. Existing metric results are overwritten\nwhen each rerun completes.\n"
+        },
+        {
+          "info": {
+            "name": "Get audio file URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/simulations/:simulation_id/audio",
+            "params": [
+              {
+                "name": "simulation_id",
+                "value": "5chowFdXSuk6IcugFvkXeU",
+                "type": "path",
+                "description": "The simulation ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a download URL for the simulation audio recording."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

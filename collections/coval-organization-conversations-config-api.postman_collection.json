@@ -1,0 +1,666 @@
+{
+  "item": [
+    {
+      "id": "065ae139-1d95-4b02-9125-40dbfb09eb89",
+      "name": "Organization Conversations Config",
+      "description": {
+        "content": "Organization-level configuration for conversation metrics — the default and conditional metrics run on conversations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "91bcbc65-2caa-45f8-a63d-911b0575e469",
+          "name": "Get conversation metrics config",
+          "request": {
+            "name": "Get conversation metrics config",
+            "description": {
+              "content": "Return the organization's conversation metrics configuration: the default metric IDs run on every conversation, plus the conditional rules that add metrics based on run metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organization",
+                "monitoring-metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ecf4d239-c003-4a69-9904-a107998a7034",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "monitoring-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"default_monitoring_metrics\": [\n    \"8EktrIgaVxn9LfxkIynagX\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"string\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    },\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"string\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45056a35-9b40-47f4-925a-5f34a5ed1b6a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "monitoring-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"x-api-key\",\n        \"description\": \"API key is required in the x-api-key header\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "936fdcda-a67e-4a8f-a39d-1650ff5929c8",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "monitoring-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"Insufficient permissions\",\n    \"details\": [\n      {\n        \"field\": \"permissions\",\n        \"description\": \"The API key does not include the required organization permission.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05edbf0c-fcce-4128-a322-7ddea57a4973",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "monitoring-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Organization not found\",\n    \"details\": [\n      {\n        \"description\": \"Organization not found.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03c2c263-ad98-4058-b74b-1801cb2f03c1",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "monitoring-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the organization request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "43cea1a7-853d-44ba-9cf2-4911e6a33784",
+          "name": "Update conversation metrics config",
+          "request": {
+            "name": "Update conversation metrics config",
+            "description": {
+              "content": "Partially update the organization's conversation metrics configuration. Provide at least one of `default_monitoring_metrics` or `conditional_monitoring_metrics`; each field provided fully replaces the stored value (a field omitted is left unchanged). Returns the full resulting configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organization",
+                "monitoring-metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"default_monitoring_metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"<string>\",\n      \"match_type\": \"<string>\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"metadata_key\": \"<string>\",\n      \"metadata_type\": \"<string>\",\n      \"match_type\": \"<string>\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"<string>\",\n      \"metrics\": [\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2242e537-35fa-485a-bbc1-88d44f65e88a",
+              "name": "Configuration updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "monitoring-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"default_monitoring_metrics\": [\n    \"8EktrIgaVxn9LfxkIynagX\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    },\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"default_monitoring_metrics\": [\n    \"8EktrIgaVxn9LfxkIynagX\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    },\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "752e483d-218c-48be-bbb5-62a7bbe80bb1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "monitoring-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"default_monitoring_metrics\": [\n    \"8EktrIgaVxn9LfxkIynagX\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    },\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request body\",\n    \"details\": [\n      {\n        \"field\": \"conditional_monitoring_metrics\",\n        \"description\": \"Provide exactly one of 'metric' or 'metrics'.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "848fbd00-cb85-420e-b116-d3aa1868f563",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "monitoring-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"default_monitoring_metrics\": [\n    \"8EktrIgaVxn9LfxkIynagX\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    },\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"x-api-key\",\n        \"description\": \"API key is required in the x-api-key header\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1389655-c834-4f5c-8ec4-7ca79dc4df57",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "monitoring-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"default_monitoring_metrics\": [\n    \"8EktrIgaVxn9LfxkIynagX\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    },\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"PERMISSION_DENIED\",\n    \"message\": \"Insufficient permissions\",\n    \"details\": [\n      {\n        \"field\": \"permissions\",\n        \"description\": \"The API key does not include the required organization permission.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca898a6e-ac0e-4e70-bd54-bafad1713964",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "monitoring-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"default_monitoring_metrics\": [\n    \"8EktrIgaVxn9LfxkIynagX\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    },\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Organization not found\",\n    \"details\": [\n      {\n        \"description\": \"Organization not found.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e2850b3-6f53-4246-9c4e-f2b57cfb8d4d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organization",
+                    "monitoring-metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"default_monitoring_metrics\": [\n    \"8EktrIgaVxn9LfxkIynagX\"\n  ],\n  \"conditional_monitoring_metrics\": [\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    },\n    {\n      \"id\": \"rule-voice\",\n      \"type\": \"RUN_METADATA\",\n      \"metadata_key\": \"channel\",\n      \"metadata_type\": \"STRING\",\n      \"match_type\": \"EQUALS\",\n      \"metadata_value\": \"<string>\",\n      \"metric\": \"8EktrIgaVxn9LfxkIynagX\",\n      \"metrics\": [\n        \"8EktrIgaVxn9LfxkIynagX\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the organization request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coval.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dfe31ce3-428d-4a0e-a956-55fe3f7bf4ad",
+    "name": "Coval Agents Organization Conversations Config API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+      "type": "text/plain"
+    }
+  }
+}

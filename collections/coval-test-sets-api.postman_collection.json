@@ -1,0 +1,3218 @@
+{
+  "item": [
+    {
+      "id": "9648391f-b389-4099-976c-3bc1c69c77b0",
+      "name": "Test Sets",
+      "description": {
+        "content": "Operations for managing test sets",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f63d31c1-d7df-4c28-88f0-b577a2b0725d",
+          "name": "List test sets",
+          "request": {
+            "name": "List test sets",
+            "description": {
+              "content": "List test sets for your organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-sets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter expression syntax.\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\nExample: `test_set_type=SCENARIO`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "50",
+                  "description": "Maximum number of test sets to return (default 50, max 100)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_token",
+                  "value": "<string>",
+                  "description": "Token for retrieving the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "-update_time",
+                  "description": "Field to order results by. Prefix with `-` for descending order.\nExample: `-create_time` for newest first\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_filters",
+                  "value": "<string>",
+                  "description": "Filter test sets by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=regression`).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_filters",
+                  "value": "<string>",
+                  "description": "Filter test sets by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=regression`).\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f331fcbb-648b-4733-8b9e-77d0a65ad002",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "test_set_type=SCENARIO"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "-create_time"
+                    },
+                    {
+                      "key": "tag_filters",
+                      "value": "regression"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"test_sets\": [\n    {\n      \"name\": \"test-sets/abc12345\",\n      \"id\": \"abc12345\",\n      \"slug\": \"customer-support-scenarios\",\n      \"display_name\": \"Customer Support Scenarios\",\n      \"description\": \"Test cases for customer support agent\",\n      \"test_set_type\": \"SCENARIO\",\n      \"test_set_metadata\": {\n        \"category\": \"support\",\n        \"priority\": \"high\"\n      },\n      \"parameters\": {\n        \"customer_name\": [\n          \"Alice\",\n          \"Bob\"\n        ],\n        \"issue_type\": [\n          \"billing\",\n          \"technical\"\n        ]\n      },\n      \"test_case_count\": 42,\n      \"tags\": [\n        \"regression\",\n        \"voice\"\n      ],\n      \"create_time\": \"2025-10-14T12:00:00Z\",\n      \"update_time\": \"2025-10-15T14:30:00Z\"\n    },\n    {\n      \"name\": \"test-sets/abc12345\",\n      \"id\": \"abc12345\",\n      \"slug\": \"customer-support-scenarios\",\n      \"display_name\": \"Customer Support Scenarios\",\n      \"description\": \"Test cases for customer support agent\",\n      \"test_set_type\": \"SCENARIO\",\n      \"test_set_metadata\": {\n        \"category\": \"support\",\n        \"priority\": \"high\"\n      },\n      \"parameters\": {\n        \"customer_name\": [\n          \"Alice\",\n          \"Bob\"\n        ],\n        \"issue_type\": [\n          \"billing\",\n          \"technical\"\n        ]\n      },\n      \"test_case_count\": 42,\n      \"tags\": [\n        \"regression\",\n        \"voice\"\n      ],\n      \"create_time\": \"2025-10-14T12:00:00Z\",\n      \"update_time\": \"2025-10-15T14:30:00Z\"\n    }\n  ],\n  \"next_page_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cdd976e6-8d9a-43d6-8518-59dc157e7fed",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "test_set_type=SCENARIO"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "-create_time"
+                    },
+                    {
+                      "key": "tag_filters",
+                      "value": "regression"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b9d1367-6878-47c8-b67e-92ac06025564",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "test_set_type=SCENARIO"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "-create_time"
+                    },
+                    {
+                      "key": "tag_filters",
+                      "value": "regression"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "45b2ba24-c4b0-459c-a718-dda4e308c302",
+          "name": "Create test set",
+          "request": {
+            "name": "Create test set",
+            "description": {
+              "content": "Create a new test set.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-sets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {},\n  \"parameters\": {},\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1462f90b-44f2-4510-9468-9d566a309f92",
+              "name": "Test set created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Customer Support Scenarios\",\n  \"slug\": \"customer-support-scenarios\",\n  \"description\": \"Test cases for customer support agent\",\n  \"test_set_type\": \"SCENARIO\",\n  \"test_set_metadata\": {\n    \"category\": \"support\",\n    \"priority\": \"high\"\n  },\n  \"parameters\": {\n    \"customer_name\": [\n      \"Alice\",\n      \"Bob\"\n    ],\n    \"issue_type\": [\n      \"billing\",\n      \"technical\"\n    ]\n  },\n  \"tags\": [\n    \"regression\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"test_set\": {\n    \"name\": \"test-sets/abc12345\",\n    \"id\": \"abc12345\",\n    \"slug\": \"customer-support-scenarios\",\n    \"display_name\": \"Customer Support Scenarios\",\n    \"description\": \"Test cases for customer support agent\",\n    \"test_set_type\": \"SCENARIO\",\n    \"test_set_metadata\": {\n      \"category\": \"support\",\n      \"priority\": \"high\"\n    },\n    \"parameters\": {\n      \"customer_name\": [\n        \"Alice\",\n        \"Bob\"\n      ],\n      \"issue_type\": [\n        \"billing\",\n        \"technical\"\n      ]\n    },\n    \"test_case_count\": 42,\n    \"tags\": [\n      \"regression\",\n      \"voice\"\n    ],\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": \"2025-10-15T14:30:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c7e4419-6737-4491-bb14-47ad3a84791b",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Customer Support Scenarios\",\n  \"slug\": \"customer-support-scenarios\",\n  \"description\": \"Test cases for customer support agent\",\n  \"test_set_type\": \"SCENARIO\",\n  \"test_set_metadata\": {\n    \"category\": \"support\",\n    \"priority\": \"high\"\n  },\n  \"parameters\": {\n    \"customer_name\": [\n      \"Alice\",\n      \"Bob\"\n    ],\n    \"issue_type\": [\n      \"billing\",\n      \"technical\"\n    ]\n  },\n  \"tags\": [\n    \"regression\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameters\",\n    \"details\": [\n      {\n        \"field\": \"display_name\",\n        \"description\": \"display_name is required and cannot be empty\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cb519ed-cb38-4fe6-9e6a-fdadd50c48b6",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Customer Support Scenarios\",\n  \"slug\": \"customer-support-scenarios\",\n  \"description\": \"Test cases for customer support agent\",\n  \"test_set_type\": \"SCENARIO\",\n  \"test_set_metadata\": {\n    \"category\": \"support\",\n    \"priority\": \"high\"\n  },\n  \"parameters\": {\n    \"customer_name\": [\n      \"Alice\",\n      \"Bob\"\n    ],\n    \"issue_type\": [\n      \"billing\",\n      \"technical\"\n    ]\n  },\n  \"tags\": [\n    \"regression\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db2b920b-caa5-4224-915e-421e9da7f988",
+              "name": "Slug or display_name already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Customer Support Scenarios\",\n  \"slug\": \"customer-support-scenarios\",\n  \"description\": \"Test cases for customer support agent\",\n  \"test_set_type\": \"SCENARIO\",\n  \"test_set_metadata\": {\n    \"category\": \"support\",\n    \"priority\": \"high\"\n  },\n  \"parameters\": {\n    \"customer_name\": [\n      \"Alice\",\n      \"Bob\"\n    ],\n    \"issue_type\": [\n      \"billing\",\n      \"technical\"\n    ]\n  },\n  \"tags\": [\n    \"regression\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameters\",\n    \"details\": [\n      {\n        \"field\": \"slug\",\n        \"description\": \"slug already exists for this organization\"\n      },\n      {\n        \"field\": \"slug\",\n        \"description\": \"slug already exists for this organization\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fce7860f-fcc2-47ef-bbb2-39336419be56",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Customer Support Scenarios\",\n  \"slug\": \"customer-support-scenarios\",\n  \"description\": \"Test cases for customer support agent\",\n  \"test_set_type\": \"SCENARIO\",\n  \"test_set_metadata\": {\n    \"category\": \"support\",\n    \"priority\": \"high\"\n  },\n  \"parameters\": {\n    \"customer_name\": [\n      \"Alice\",\n      \"Bob\"\n    ],\n    \"issue_type\": [\n      \"billing\",\n      \"technical\"\n    ]\n  },\n  \"tags\": [\n    \"regression\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "823b9922-5c59-4d1c-9d90-d9a2dee154b9",
+          "name": "Get test set",
+          "request": {
+            "name": "Get test set",
+            "description": {
+              "content": "Retrieve a test set by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-sets",
+                ":test_set_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test_set_id",
+                  "description": "(Required) Test set ID (8-character ID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d727f3e2-567e-417a-b637-2c70dccbe8f3",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"test_set\": {\n    \"name\": \"test-sets/abc12345\",\n    \"id\": \"abc12345\",\n    \"slug\": \"customer-support-scenarios\",\n    \"display_name\": \"Customer Support Scenarios\",\n    \"description\": \"Test cases for customer support agent\",\n    \"test_set_type\": \"SCENARIO\",\n    \"test_set_metadata\": {\n      \"category\": \"support\",\n      \"priority\": \"high\"\n    },\n    \"parameters\": {\n      \"customer_name\": [\n        \"Alice\",\n        \"Bob\"\n      ],\n      \"issue_type\": [\n        \"billing\",\n        \"technical\"\n      ]\n    },\n    \"test_case_count\": 42,\n    \"tags\": [\n      \"regression\",\n      \"voice\"\n    ],\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": \"2025-10-15T14:30:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3aaa377-8733-4430-ac57-30a28c557790",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd83cf53-a660-4315-a8bf-22ac4c332a26",
+              "name": "Resource not found or doesn't belong to organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Test set not found\",\n    \"details\": [\n      {\n        \"field\": \"test_set_id\",\n        \"description\": \"Test set 'abc12345' not found\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7bb067a2-5419-4415-9213-8ba02650b776",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26575a25-a26f-4f35-8697-96b3b408edd2",
+          "name": "Update test set",
+          "request": {
+            "name": "Update test set",
+            "description": {
+              "content": "Update a test set.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-sets",
+                ":test_set_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test_set_id",
+                  "description": "(Required) Test set ID (8-character ID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display_name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"test_set_type\": \"<string>\",\n  \"test_set_metadata\": {\n    \"key_0\": true,\n    \"key_1\": false,\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  },\n  \"parameters\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": 9987,\n    \"key_3\": 8555.59873515417\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "381e7232-0b88-421a-bab4-27045b47b638",
+              "name": "Test set updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Updated Test Set Name\",\n  \"slug\": \"updated-slug\",\n  \"description\": \"Updated description\",\n  \"test_set_type\": \"WORKFLOW\",\n  \"test_set_metadata\": {\n    \"category\": \"support\",\n    \"updated\": true\n  },\n  \"parameters\": {\n    \"name\": [\n      \"Alice\",\n      \"Bob\"\n    ]\n  },\n  \"tags\": [\n    \"regression\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"test_set\": {\n    \"name\": \"test-sets/abc12345\",\n    \"id\": \"abc12345\",\n    \"slug\": \"customer-support-scenarios\",\n    \"display_name\": \"Customer Support Scenarios\",\n    \"description\": \"Test cases for customer support agent\",\n    \"test_set_type\": \"SCENARIO\",\n    \"test_set_metadata\": {\n      \"category\": \"support\",\n      \"priority\": \"high\"\n    },\n    \"parameters\": {\n      \"customer_name\": [\n        \"Alice\",\n        \"Bob\"\n      ],\n      \"issue_type\": [\n        \"billing\",\n        \"technical\"\n      ]\n    },\n    \"test_case_count\": 42,\n    \"tags\": [\n      \"regression\",\n      \"voice\"\n    ],\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": \"2025-10-15T14:30:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04f5e8e3-a434-47b7-b965-fc858463cd5d",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Updated Test Set Name\",\n  \"slug\": \"updated-slug\",\n  \"description\": \"Updated description\",\n  \"test_set_type\": \"WORKFLOW\",\n  \"test_set_metadata\": {\n    \"category\": \"support\",\n    \"updated\": true\n  },\n  \"parameters\": {\n    \"name\": [\n      \"Alice\",\n      \"Bob\"\n    ]\n  },\n  \"tags\": [\n    \"regression\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameters\",\n    \"details\": [\n      {\n        \"field\": \"display_name\",\n        \"description\": \"display_name is required and cannot be empty\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c5a1767-d0ec-4ee0-a610-43fe51018e98",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Updated Test Set Name\",\n  \"slug\": \"updated-slug\",\n  \"description\": \"Updated description\",\n  \"test_set_type\": \"WORKFLOW\",\n  \"test_set_metadata\": {\n    \"category\": \"support\",\n    \"updated\": true\n  },\n  \"parameters\": {\n    \"name\": [\n      \"Alice\",\n      \"Bob\"\n    ]\n  },\n  \"tags\": [\n    \"regression\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d99a9e47-6192-424e-b1a8-3e508b3e6394",
+              "name": "Resource not found or doesn't belong to organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Updated Test Set Name\",\n  \"slug\": \"updated-slug\",\n  \"description\": \"Updated description\",\n  \"test_set_type\": \"WORKFLOW\",\n  \"test_set_metadata\": {\n    \"category\": \"support\",\n    \"updated\": true\n  },\n  \"parameters\": {\n    \"name\": [\n      \"Alice\",\n      \"Bob\"\n    ]\n  },\n  \"tags\": [\n    \"regression\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Test set not found\",\n    \"details\": [\n      {\n        \"field\": \"test_set_id\",\n        \"description\": \"Test set 'abc12345' not found\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7bf35f4-7b5c-49fe-993a-4bc71415b495",
+              "name": "Slug or display_name conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Updated Test Set Name\",\n  \"slug\": \"updated-slug\",\n  \"description\": \"Updated description\",\n  \"test_set_type\": \"WORKFLOW\",\n  \"test_set_metadata\": {\n    \"category\": \"support\",\n    \"updated\": true\n  },\n  \"parameters\": {\n    \"name\": [\n      \"Alice\",\n      \"Bob\"\n    ]\n  },\n  \"tags\": [\n    \"regression\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameters\",\n    \"details\": [\n      {\n        \"field\": \"slug\",\n        \"description\": \"slug already exists for this organization\"\n      },\n      {\n        \"field\": \"slug\",\n        \"description\": \"slug already exists for this organization\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d053104-96f2-495a-a456-0eb8555b47a1",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display_name\": \"Updated Test Set Name\",\n  \"slug\": \"updated-slug\",\n  \"description\": \"Updated description\",\n  \"test_set_type\": \"WORKFLOW\",\n  \"test_set_metadata\": {\n    \"category\": \"support\",\n    \"updated\": true\n  },\n  \"parameters\": {\n    \"name\": [\n      \"Alice\",\n      \"Bob\"\n    ]\n  },\n  \"tags\": [\n    \"regression\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c529fed-1b89-449b-bad0-3845f9dd4136",
+          "name": "Delete test set",
+          "request": {
+            "name": "Delete test set",
+            "description": {
+              "content": "Delete a test set.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-sets",
+                ":test_set_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test_set_id",
+                  "description": "(Required) Test set ID (8-character ID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3fadf35c-b2b7-40e1-a6d4-331e83c93f6a",
+              "name": "Test set deleted successfully (or already deleted)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb2a3079-108b-4333-af44-ccee23aa876a",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6452030a-3b86-49bc-9405-c992bb3ee511",
+              "name": "Test set belongs to different organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameters\",\n    \"details\": [\n      {\n        \"field\": \"slug\",\n        \"description\": \"slug already exists for this organization\"\n      },\n      {\n        \"field\": \"slug\",\n        \"description\": \"slug already exists for this organization\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6585e2d4-6491-47f6-b6cd-c896c9537565",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a0f3d1d-81ab-4ce8-a921-99e866c769db",
+          "name": "Duplicate a test set",
+          "request": {
+            "name": "Duplicate a test set",
+            "description": {
+              "content": "Clone an existing test set and its active test cases into a new test set. Returns the new test set.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-sets",
+                ":test_set_id",
+                "duplicate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test_set_id",
+                  "description": "(Required) ID of the test set to duplicate"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9f96e2a-0e03-49c4-b9f8-da966f587a76",
+              "name": "Test set duplicated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "duplicate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) ID of the test set to duplicate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"test_set\": {\n    \"name\": \"test-sets/abc12345\",\n    \"id\": \"abc12345\",\n    \"slug\": \"customer-support-scenarios\",\n    \"display_name\": \"Customer Support Scenarios\",\n    \"description\": \"Test cases for customer support agent\",\n    \"test_set_type\": \"SCENARIO\",\n    \"test_set_metadata\": {\n      \"category\": \"support\",\n      \"priority\": \"high\"\n    },\n    \"parameters\": {\n      \"customer_name\": [\n        \"Alice\",\n        \"Bob\"\n      ],\n      \"issue_type\": [\n        \"billing\",\n        \"technical\"\n      ]\n    },\n    \"test_case_count\": 42,\n    \"tags\": [\n      \"regression\",\n      \"voice\"\n    ],\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": \"2025-10-15T14:30:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d42af0e9-0e40-4446-b89d-d6b57a5dc11c",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "duplicate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) ID of the test set to duplicate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c29bffe-b06c-4f4c-bca7-b348c159a096",
+              "name": "Resource not found or doesn't belong to organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "duplicate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) ID of the test set to duplicate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Test set not found\",\n    \"details\": [\n      {\n        \"field\": \"test_set_id\",\n        \"description\": \"Test set 'abc12345' not found\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9a79f48-a3e8-45d8-9802-16b77f8be507",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "duplicate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) ID of the test set to duplicate"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f42fbb08-4685-4e70-b448-75d448adc700",
+          "name": "List test set versions",
+          "request": {
+            "name": "List test set versions",
+            "description": {
+              "content": "List the prior-state version history for a test set, newest first. The live test set is the current version and is not included here. Each entry captures the test set's config and an ordered snapshot of its test-case rows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-sets",
+                ":test_set_id",
+                "versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test_set_id",
+                  "description": "(Required) Test set ID (8-character ID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6a53cd55-2f58-434e-b7f2-11ab94878950",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"versions\": [\n    {\n      \"name\": \"test-sets/abc12345/versions/01KKWQYSF737ZN6X1Q1RYX8M2D\",\n      \"ulid\": \"01KKWQYSF737ZN6X1Q1RYX8M2D\",\n      \"version_number\": 2,\n      \"change_type\": \"save\",\n      \"created_by\": \"string\",\n      \"label\": \"v1.2 prod\",\n      \"test_set_metadata\": {\n        \"key_0\": false,\n        \"key_1\": true\n      },\n      \"parameters\": {\n        \"key_0\": \"string\",\n        \"key_1\": true\n      },\n      \"test_set_type\": \"string\",\n      \"test_cases\": [\n        {\n          \"key_0\": true\n        },\n        {\n          \"key_0\": 6455.070480814869\n        }\n      ],\n      \"create_time\": \"1991-05-14T00:10:04.427Z\"\n    },\n    {\n      \"name\": \"test-sets/abc12345/versions/01KKWQYSF737ZN6X1Q1RYX8M2D\",\n      \"ulid\": \"01KKWQYSF737ZN6X1Q1RYX8M2D\",\n      \"version_number\": 2,\n      \"change_type\": \"save\",\n      \"created_by\": \"string\",\n      \"label\": \"v1.2 prod\",\n      \"test_set_metadata\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": 130\n      },\n      \"parameters\": {\n        \"key_0\": \"string\"\n      },\n      \"test_set_type\": \"string\",\n      \"test_cases\": [\n        {\n          \"key_0\": 6689.752211080623\n        },\n        {\n          \"key_0\": 4119.906914335059\n        }\n      ],\n      \"create_time\": \"2005-01-28T06:41:18.294Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3aae77c-0f4f-4bcd-a2b5-2cb1e0ed5b58",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa3d239c-e487-4d51-8e9a-f9c0d02d0f05",
+              "name": "Resource not found or doesn't belong to organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Test set not found\",\n    \"details\": [\n      {\n        \"field\": \"test_set_id\",\n        \"description\": \"Test set 'abc12345' not found\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de1abb5e-fd0f-44f1-98a6-ff09522affdd",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e95ae6c6-f73e-4d45-a895-db278eaf603d",
+          "name": "Revert test set version",
+          "request": {
+            "name": "Revert test set version",
+            "description": {
+              "content": "Re-apply a prior version's content (config + test-case grid) to the live test set. A revert is forward-only: it mints a new version (change_type=revert) and advances the test set, so the response reflects the test set's new live config. Reverting to the version the test set already points at is rejected with 400. Test cases are not included in the response; fetch them separately via GET /test-cases.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-sets",
+                ":test_set_id",
+                "versions",
+                ":version_id",
+                "revert"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test_set_id",
+                  "description": "(Required) Test set ID (8-character ID)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version_id",
+                  "description": "(Required) ULID of the target version to re-apply"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "276e3e80-49d2-4ba2-94b1-40345f010413",
+              "name": "Test set reverted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "versions",
+                    ":version_id",
+                    "revert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version_id",
+                      "description": "(Required) ULID of the target version to re-apply"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"test_set\": {\n    \"name\": \"test-sets/abc12345\",\n    \"id\": \"abc12345\",\n    \"slug\": \"customer-support-scenarios\",\n    \"display_name\": \"Customer Support Scenarios\",\n    \"description\": \"Test cases for customer support agent\",\n    \"test_set_type\": \"SCENARIO\",\n    \"test_set_metadata\": {\n      \"category\": \"support\",\n      \"priority\": \"high\"\n    },\n    \"parameters\": {\n      \"customer_name\": [\n        \"Alice\",\n        \"Bob\"\n      ],\n      \"issue_type\": [\n        \"billing\",\n        \"technical\"\n      ]\n    },\n    \"test_case_count\": 42,\n    \"tags\": [\n      \"regression\",\n      \"voice\"\n    ],\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": \"2025-10-15T14:30:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ca4517e-602d-4d48-aabe-01b52510c67f",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "versions",
+                    ":version_id",
+                    "revert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version_id",
+                      "description": "(Required) ULID of the target version to re-apply"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameters\",\n    \"details\": [\n      {\n        \"field\": \"display_name\",\n        \"description\": \"display_name is required and cannot be empty\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e41f6473-9e36-4b57-81cf-f4286ca08b33",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "versions",
+                    ":version_id",
+                    "revert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version_id",
+                      "description": "(Required) ULID of the target version to re-apply"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b8585bc-2b35-4688-8aaf-e5027c34bedc",
+              "name": "Resource not found or doesn't belong to organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "versions",
+                    ":version_id",
+                    "revert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version_id",
+                      "description": "(Required) ULID of the target version to re-apply"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Test set not found\",\n    \"details\": [\n      {\n        \"field\": \"test_set_id\",\n        \"description\": \"Test set 'abc12345' not found\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e9f2219-a488-4a56-8955-2fcf06b515cf",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "versions",
+                    ":version_id",
+                    "revert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version_id",
+                      "description": "(Required) ULID of the target version to re-apply"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1c1370a-e42e-435a-a604-7ac376d49a23",
+          "name": "List associated agents",
+          "request": {
+            "name": "List associated agents",
+            "description": {
+              "content": "List the agents currently associated with a test set. Returns every associated agent (not paginated); associations are bounded per test set. An unknown test_set_id returns an empty list rather than 404.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-sets",
+                ":test_set_id",
+                "agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test_set_id",
+                  "description": "(Required) Test set ID (8-character ID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "50226448-7ebe-4bbe-b5da-5bbda3fae045",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"agents\": [\n    {\n      \"name\": \"test-sets/abc12345/agents/abc123def456ghi789jklm\",\n      \"agent_id\": \"abc123def456ghi789jklm\",\n      \"display_name\": \"Support Bot\"\n    },\n    {\n      \"name\": \"test-sets/abc12345/agents/abc123def456ghi789jklm\",\n      \"agent_id\": \"abc123def456ghi789jklm\",\n      \"display_name\": \"Support Bot\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6fc87c5-463e-4b3a-9ca7-58998dd80582",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a8bd3dc-ab37-44c4-8254-f1cf9f09c83a",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2489b9a-ecd2-4ffd-b2cd-e1ac8a0098cb",
+          "name": "Associate agents with a test set",
+          "request": {
+            "name": "Associate agents with a test set",
+            "description": {
+              "content": "Associate one or more agents with a test set. The operation is idempotent: already-associated agents are a no-op, and unknown or inactive agent IDs are ignored. The response reflects the resulting association set, so callers can confirm which IDs took effect.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-sets",
+                ":test_set_id",
+                "agents:add"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test_set_id",
+                  "description": "(Required) Test set ID (8-character ID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agent_ids\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b5e39d4f-0610-45e0-8684-0782c4548350",
+              "name": "Agents associated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "agents:add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_ids\": [\n    \"abc123def456ghi789jklm\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"agents\": [\n    {\n      \"name\": \"test-sets/abc12345/agents/abc123def456ghi789jklm\",\n      \"agent_id\": \"abc123def456ghi789jklm\",\n      \"display_name\": \"Support Bot\"\n    },\n    {\n      \"name\": \"test-sets/abc12345/agents/abc123def456ghi789jklm\",\n      \"agent_id\": \"abc123def456ghi789jklm\",\n      \"display_name\": \"Support Bot\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebb74fe4-7277-48e4-bed0-761933d2b1b5",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "agents:add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_ids\": [\n    \"abc123def456ghi789jklm\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameters\",\n    \"details\": [\n      {\n        \"field\": \"display_name\",\n        \"description\": \"display_name is required and cannot be empty\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f66ab1a-e34a-4ac2-93ee-879b95412fa1",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "agents:add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_ids\": [\n    \"abc123def456ghi789jklm\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "291da38a-f490-4775-95d8-9a2450537a9f",
+              "name": "Test set not found for this organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "agents:add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_ids\": [\n    \"abc123def456ghi789jklm\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameters\",\n    \"details\": [\n      {\n        \"field\": \"slug\",\n        \"description\": \"slug already exists for this organization\"\n      },\n      {\n        \"field\": \"slug\",\n        \"description\": \"slug already exists for this organization\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0e86a80-9a12-469e-966b-fb21dad069b5",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "agents:add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent_ids\": [\n    \"abc123def456ghi789jklm\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ddc9b6fd-0c46-4050-ae7c-6c80fbbed58e",
+          "name": "Remove an agent association",
+          "request": {
+            "name": "Remove an agent association",
+            "description": {
+              "content": "Remove one agent's association with a test set. Idempotent: returns 200 whether or not the association existed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-sets",
+                ":test_set_id",
+                "agents",
+                ":agent_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test_set_id",
+                  "description": "(Required) Test set ID (8-character ID)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "agent_id",
+                  "description": "(Required) Agent ID (22-character ShortUUID)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9b5e8465-9c63-4c68-8f92-41c905c19036",
+              "name": "Association removed successfully (or already absent)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) Agent ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df99afe2-87d5-4b9f-972d-870168b6e208",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) Agent ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5200387-b13f-40af-8d13-4ce338aa99e1",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-sets",
+                    ":test_set_id",
+                    "agents",
+                    ":agent_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_set_id",
+                      "description": "(Required) Test set ID (8-character ID)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "agent_id",
+                      "description": "(Required) Agent ID (22-character ShortUUID)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coval.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9f4f4bab-16c1-4b1d-9bef-fd5dd67e629f",
+    "name": "Coval Agents Test Sets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+      "type": "text/plain"
+    }
+  }
+}

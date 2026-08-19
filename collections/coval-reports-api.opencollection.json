@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Reports API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/reports",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "50",
+                "type": "query",
+                "description": "Cursor from the previous page."
+              },
+              {
+                "name": "limit",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of reports to return."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a paginated list of saved reports for the authenticated organization."
+        },
+        {
+          "info": {
+            "name": "Create report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/reports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a saved report from existing run IDs. All runs must belong to the\nauthenticated organization. Public reports are shareable without login and\nmark their included runs public.\n"
+        },
+        {
+          "info": {
+            "name": "Get report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/reports/:report_id",
+            "params": [
+              {
+                "name": "report_id",
+                "value": "01JABCDEFGHJKMNPQRSTVWXYZ0",
+                "type": "path",
+                "description": "Saved report ULID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a saved report by ID."
+        },
+        {
+          "info": {
+            "name": "Update report",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/reports/:report_id",
+            "params": [
+              {
+                "name": "report_id",
+                "value": "01JABCDEFGHJKMNPQRSTVWXYZ0",
+                "type": "path",
+                "description": "Saved report ULID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Partially update a saved report. To group by metadata, provide both\n`compare_by: metadata` and `metadata_key`.\n"
+        },
+        {
+          "info": {
+            "name": "Delete report",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/reports/:report_id",
+            "params": [
+              {
+                "name": "report_id",
+                "value": "01JABCDEFGHJKMNPQRSTVWXYZ0",
+                "type": "path",
+                "description": "Saved report ULID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Soft-delete a saved report. If the report is public, its run visibility\nis revoked unless another public report still references the same runs.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

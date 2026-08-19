@@ -1,0 +1,1453 @@
+{
+  "item": [
+    {
+      "id": "af012e5c-7749-44a4-a10b-67132fc04bfb",
+      "name": "Test Cases",
+      "description": {
+        "content": "Operations for managing test cases",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e46b7a4f-9331-4e6e-b11a-5e51e734f9fb",
+          "name": "List test cases",
+          "request": {
+            "name": "List test cases",
+            "description": {
+              "content": "List test cases for your organization.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-cases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter expression syntax.\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\nExample: `test_set_id=abc12345`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "50",
+                  "description": "Maximum number of test cases to return (default 50, max 100)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_token",
+                  "value": "<string>",
+                  "description": "Token for retrieving the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "-create_time",
+                  "description": "Field to order results by. Prefix with `-` for descending order.\nExample: `-create_time` for newest first\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "def26649-63cd-4206-96e3-4c5772d78119",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "test_set_id=abc12345"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "-create_time"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"test_cases\": [\n    {\n      \"name\": \"test-cases/abc123def456ghi789jklm\",\n      \"id\": \"abc123def456ghi789jklm\",\n      \"test_set_id\": \"abc12345\",\n      \"input_str\": \"What is the weather today?\",\n      \"expected_output_str\": \"The weather is sunny with a high of 75 degrees.\",\n      \"expected_output_json\": {\n        \"temperature\": 75,\n        \"condition\": \"sunny\"\n      },\n      \"description\": \"Test case for weather query with sunny conditions\",\n      \"input_type\": \"SCENARIO\",\n      \"simulation_metadata_input\": {\n        \"script_turns\": [\n          \"Hi, I'd like to check my account balance.\",\n          \"Yes, my account number is 12345.\",\n          \"Thank you, goodbye.\"\n        ]\n      },\n      \"metric_input\": {\n        \"expected_entities\": [\n          \"weather\",\n          \"temperature\"\n        ]\n      },\n      \"user_notes\": \"Added for regression testing weather queries\",\n      \"create_time\": \"2025-10-14T12:00:00Z\",\n      \"update_time\": \"2025-10-15T14:30:00Z\"\n    },\n    {\n      \"name\": \"test-cases/abc123def456ghi789jklm\",\n      \"id\": \"abc123def456ghi789jklm\",\n      \"test_set_id\": \"abc12345\",\n      \"input_str\": \"What is the weather today?\",\n      \"expected_output_str\": \"The weather is sunny with a high of 75 degrees.\",\n      \"expected_output_json\": {\n        \"temperature\": 75,\n        \"condition\": \"sunny\"\n      },\n      \"description\": \"Test case for weather query with sunny conditions\",\n      \"input_type\": \"SCENARIO\",\n      \"simulation_metadata_input\": {\n        \"script_turns\": [\n          \"Hi, I'd like to check my account balance.\",\n          \"Yes, my account number is 12345.\",\n          \"Thank you, goodbye.\"\n        ]\n      },\n      \"metric_input\": {\n        \"expected_entities\": [\n          \"weather\",\n          \"temperature\"\n        ]\n      },\n      \"user_notes\": \"Added for regression testing weather queries\",\n      \"create_time\": \"2025-10-14T12:00:00Z\",\n      \"update_time\": \"2025-10-15T14:30:00Z\"\n    }\n  ],\n  \"next_page_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7fb8067-9c1b-4ac2-bded-8840e5a28447",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "test_set_id=abc12345"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "-create_time"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37cdc276-2896-478d-8801-f8cc990bd1c7",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "test_set_id=abc12345"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "-create_time"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9bb4f90a-e337-4f39-b5bd-83a3e4354d85",
+          "name": "Create test case",
+          "request": {
+            "name": "Create test case",
+            "description": {
+              "content": "Create a new test case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-cases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input_str\": \"<string>\",\n  \"test_set_id\": \"<string>\",\n  \"expected_behaviors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"expected_output_str\": \"<string>\",\n  \"expected_output_json\": {},\n  \"description\": \"<string>\",\n  \"input_type\": \"SCENARIO\",\n  \"simulation_metadata_input\": {},\n  \"metric_input\": {},\n  \"user_notes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d59539ac-fad1-401d-9fd1-4d71405a6fbe",
+              "name": "Test case created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input_str\": \"What is the weather today?\",\n  \"test_set_id\": \"abc12345\",\n  \"expected_behaviors\": [\n    \"The weather is sunny.\"\n  ],\n  \"expected_output_str\": \"The weather is sunny.\",\n  \"expected_output_json\": {},\n  \"description\": \"Test case for weather query\",\n  \"input_type\": \"SCENARIO\",\n  \"simulation_metadata_input\": {},\n  \"metric_input\": {},\n  \"user_notes\": \"Created for regression testing\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"test_case\": {\n    \"name\": \"test-cases/abc123def456ghi789jklm\",\n    \"id\": \"abc123def456ghi789jklm\",\n    \"test_set_id\": \"abc12345\",\n    \"input_str\": \"What is the weather today?\",\n    \"expected_output_str\": \"The weather is sunny with a high of 75 degrees.\",\n    \"expected_output_json\": {\n      \"temperature\": 75,\n      \"condition\": \"sunny\"\n    },\n    \"description\": \"Test case for weather query with sunny conditions\",\n    \"input_type\": \"SCENARIO\",\n    \"simulation_metadata_input\": {\n      \"script_turns\": [\n        \"Hi, I'd like to check my account balance.\",\n        \"Yes, my account number is 12345.\",\n        \"Thank you, goodbye.\"\n      ]\n    },\n    \"metric_input\": {\n      \"expected_entities\": [\n        \"weather\",\n        \"temperature\"\n      ]\n    },\n    \"user_notes\": \"Added for regression testing weather queries\",\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": \"2025-10-15T14:30:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69d1090c-cbf0-4f79-b747-7f998f59619f",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input_str\": \"What is the weather today?\",\n  \"test_set_id\": \"abc12345\",\n  \"expected_behaviors\": [\n    \"The weather is sunny.\"\n  ],\n  \"expected_output_str\": \"The weather is sunny.\",\n  \"expected_output_json\": {},\n  \"description\": \"Test case for weather query\",\n  \"input_type\": \"SCENARIO\",\n  \"simulation_metadata_input\": {},\n  \"metric_input\": {},\n  \"user_notes\": \"Created for regression testing\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameters\",\n    \"details\": [\n      {\n        \"field\": \"input_str\",\n        \"description\": \"input_str is required and cannot be empty\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b2a403d-ab9a-4855-ad5a-2582d8332102",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input_str\": \"What is the weather today?\",\n  \"test_set_id\": \"abc12345\",\n  \"expected_behaviors\": [\n    \"The weather is sunny.\"\n  ],\n  \"expected_output_str\": \"The weather is sunny.\",\n  \"expected_output_json\": {},\n  \"description\": \"Test case for weather query\",\n  \"input_type\": \"SCENARIO\",\n  \"simulation_metadata_input\": {},\n  \"metric_input\": {},\n  \"user_notes\": \"Created for regression testing\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d19686d-afef-4091-892f-dfff6b7b893d",
+              "name": "Test set not found or doesn't belong to organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input_str\": \"What is the weather today?\",\n  \"test_set_id\": \"abc12345\",\n  \"expected_behaviors\": [\n    \"The weather is sunny.\"\n  ],\n  \"expected_output_str\": \"The weather is sunny.\",\n  \"expected_output_json\": {},\n  \"description\": \"Test case for weather query\",\n  \"input_type\": \"SCENARIO\",\n  \"simulation_metadata_input\": {},\n  \"metric_input\": {},\n  \"user_notes\": \"Created for regression testing\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameters\",\n    \"details\": [\n      {\n        \"field\": \"test_set_id\",\n        \"description\": \"test_set_id is required\"\n      },\n      {\n        \"field\": \"test_set_id\",\n        \"description\": \"test_set_id is required\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5713be3-3493-4f18-9c85-ac58557cea81",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input_str\": \"What is the weather today?\",\n  \"test_set_id\": \"abc12345\",\n  \"expected_behaviors\": [\n    \"The weather is sunny.\"\n  ],\n  \"expected_output_str\": \"The weather is sunny.\",\n  \"expected_output_json\": {},\n  \"description\": \"Test case for weather query\",\n  \"input_type\": \"SCENARIO\",\n  \"simulation_metadata_input\": {},\n  \"metric_input\": {},\n  \"user_notes\": \"Created for regression testing\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b7f443ec-d6a3-459a-8a6e-ee50bff0cead",
+          "name": "Get test case",
+          "request": {
+            "name": "Get test case",
+            "description": {
+              "content": "Retrieve a test case by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-cases",
+                ":test_case_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test_case_id",
+                  "description": "(Required) Test case ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "28516f53-5296-4d23-8281-fd6e9a5b2dff",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases",
+                    ":test_case_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_case_id",
+                      "description": "(Required) Test case ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"test_case\": {\n    \"name\": \"test-cases/abc123def456ghi789jklm\",\n    \"id\": \"abc123def456ghi789jklm\",\n    \"test_set_id\": \"abc12345\",\n    \"input_str\": \"What is the weather today?\",\n    \"expected_output_str\": \"The weather is sunny with a high of 75 degrees.\",\n    \"expected_output_json\": {\n      \"temperature\": 75,\n      \"condition\": \"sunny\"\n    },\n    \"description\": \"Test case for weather query with sunny conditions\",\n    \"input_type\": \"SCENARIO\",\n    \"simulation_metadata_input\": {\n      \"script_turns\": [\n        \"Hi, I'd like to check my account balance.\",\n        \"Yes, my account number is 12345.\",\n        \"Thank you, goodbye.\"\n      ]\n    },\n    \"metric_input\": {\n      \"expected_entities\": [\n        \"weather\",\n        \"temperature\"\n      ]\n    },\n    \"user_notes\": \"Added for regression testing weather queries\",\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": \"2025-10-15T14:30:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7b7f465-8dcc-4912-a85e-d06d1a534ab5",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases",
+                    ":test_case_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_case_id",
+                      "description": "(Required) Test case ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e56f61ae-9cba-41f1-8f01-68a1a80c7b11",
+              "name": "Resource not found or doesn't belong to organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases",
+                    ":test_case_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_case_id",
+                      "description": "(Required) Test case ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Test case not found\",\n    \"details\": [\n      {\n        \"field\": \"test_case_id\",\n        \"description\": \"Test case 'abc123def456ghi789jklm' not found\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b329316a-4a1a-4f43-829b-dbed69a59033",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases",
+                    ":test_case_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_case_id",
+                      "description": "(Required) Test case ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be0d91c3-d2da-49f1-a070-692b26aae4de",
+          "name": "Update test case",
+          "request": {
+            "name": "Update test case",
+            "description": {
+              "content": "Update a test case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-cases",
+                ":test_case_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test_case_id",
+                  "description": "(Required) Test case ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input_str\": \"<string>\",\n  \"test_set_id\": \"<string>\",\n  \"expected_behaviors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"expected_output_str\": \"<string>\",\n  \"expected_output_json\": {\n    \"key_0\": 9748.842707001619\n  },\n  \"description\": \"<string>\",\n  \"input_type\": \"<string>\",\n  \"simulation_metadata_input\": {\n    \"key_0\": 7956\n  },\n  \"metric_input\": {\n    \"key_0\": 9526.342871143013\n  },\n  \"user_notes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b3f6eab-bed0-42bd-a55c-630043a84153",
+              "name": "Test case updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases",
+                    ":test_case_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_case_id",
+                      "description": "(Required) Test case ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input_str\": \"What is the weather today?\",\n  \"test_set_id\": \"newset12\",\n  \"expected_behaviors\": [\n    \"The weather is sunny.\"\n  ],\n  \"expected_output_str\": \"The weather is sunny.\",\n  \"expected_output_json\": {\n    \"key_0\": 5945,\n    \"key_1\": \"string\",\n    \"key_2\": 8832.115669091141\n  },\n  \"description\": \"Updated description\",\n  \"input_type\": \"SCRIPT\",\n  \"simulation_metadata_input\": {\n    \"key_0\": 1771.3234336635585,\n    \"key_1\": false\n  },\n  \"metric_input\": {\n    \"key_0\": 3351.9338475587156\n  },\n  \"user_notes\": \"Updated notes\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"test_case\": {\n    \"name\": \"test-cases/abc123def456ghi789jklm\",\n    \"id\": \"abc123def456ghi789jklm\",\n    \"test_set_id\": \"abc12345\",\n    \"input_str\": \"What is the weather today?\",\n    \"expected_output_str\": \"The weather is sunny with a high of 75 degrees.\",\n    \"expected_output_json\": {\n      \"temperature\": 75,\n      \"condition\": \"sunny\"\n    },\n    \"description\": \"Test case for weather query with sunny conditions\",\n    \"input_type\": \"SCENARIO\",\n    \"simulation_metadata_input\": {\n      \"script_turns\": [\n        \"Hi, I'd like to check my account balance.\",\n        \"Yes, my account number is 12345.\",\n        \"Thank you, goodbye.\"\n      ]\n    },\n    \"metric_input\": {\n      \"expected_entities\": [\n        \"weather\",\n        \"temperature\"\n      ]\n    },\n    \"user_notes\": \"Added for regression testing weather queries\",\n    \"create_time\": \"2025-10-14T12:00:00Z\",\n    \"update_time\": \"2025-10-15T14:30:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0673a98-f635-411b-865a-f7179cc1d057",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases",
+                    ":test_case_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_case_id",
+                      "description": "(Required) Test case ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input_str\": \"What is the weather today?\",\n  \"test_set_id\": \"newset12\",\n  \"expected_behaviors\": [\n    \"The weather is sunny.\"\n  ],\n  \"expected_output_str\": \"The weather is sunny.\",\n  \"expected_output_json\": {\n    \"key_0\": 5945,\n    \"key_1\": \"string\",\n    \"key_2\": 8832.115669091141\n  },\n  \"description\": \"Updated description\",\n  \"input_type\": \"SCRIPT\",\n  \"simulation_metadata_input\": {\n    \"key_0\": 1771.3234336635585,\n    \"key_1\": false\n  },\n  \"metric_input\": {\n    \"key_0\": 3351.9338475587156\n  },\n  \"user_notes\": \"Updated notes\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameters\",\n    \"details\": [\n      {\n        \"field\": \"input_str\",\n        \"description\": \"input_str is required and cannot be empty\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a4af7d9-c9e7-4187-b3ba-a3d6125b9385",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases",
+                    ":test_case_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_case_id",
+                      "description": "(Required) Test case ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input_str\": \"What is the weather today?\",\n  \"test_set_id\": \"newset12\",\n  \"expected_behaviors\": [\n    \"The weather is sunny.\"\n  ],\n  \"expected_output_str\": \"The weather is sunny.\",\n  \"expected_output_json\": {\n    \"key_0\": 5945,\n    \"key_1\": \"string\",\n    \"key_2\": 8832.115669091141\n  },\n  \"description\": \"Updated description\",\n  \"input_type\": \"SCRIPT\",\n  \"simulation_metadata_input\": {\n    \"key_0\": 1771.3234336635585,\n    \"key_1\": false\n  },\n  \"metric_input\": {\n    \"key_0\": 3351.9338475587156\n  },\n  \"user_notes\": \"Updated notes\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2814e636-c1ff-43a5-a1bc-a113347dd5fa",
+              "name": "Resource not found or doesn't belong to organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases",
+                    ":test_case_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_case_id",
+                      "description": "(Required) Test case ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input_str\": \"What is the weather today?\",\n  \"test_set_id\": \"newset12\",\n  \"expected_behaviors\": [\n    \"The weather is sunny.\"\n  ],\n  \"expected_output_str\": \"The weather is sunny.\",\n  \"expected_output_json\": {\n    \"key_0\": 5945,\n    \"key_1\": \"string\",\n    \"key_2\": 8832.115669091141\n  },\n  \"description\": \"Updated description\",\n  \"input_type\": \"SCRIPT\",\n  \"simulation_metadata_input\": {\n    \"key_0\": 1771.3234336635585,\n    \"key_1\": false\n  },\n  \"metric_input\": {\n    \"key_0\": 3351.9338475587156\n  },\n  \"user_notes\": \"Updated notes\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"NOT_FOUND\",\n    \"message\": \"Test case not found\",\n    \"details\": [\n      {\n        \"field\": \"test_case_id\",\n        \"description\": \"Test case 'abc123def456ghi789jklm' not found\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d33bb0d9-5aec-481f-b29c-c966e8e73f27",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases",
+                    ":test_case_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_case_id",
+                      "description": "(Required) Test case ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input_str\": \"What is the weather today?\",\n  \"test_set_id\": \"newset12\",\n  \"expected_behaviors\": [\n    \"The weather is sunny.\"\n  ],\n  \"expected_output_str\": \"The weather is sunny.\",\n  \"expected_output_json\": {\n    \"key_0\": 5945,\n    \"key_1\": \"string\",\n    \"key_2\": 8832.115669091141\n  },\n  \"description\": \"Updated description\",\n  \"input_type\": \"SCRIPT\",\n  \"simulation_metadata_input\": {\n    \"key_0\": 1771.3234336635585,\n    \"key_1\": false\n  },\n  \"metric_input\": {\n    \"key_0\": 3351.9338475587156\n  },\n  \"user_notes\": \"Updated notes\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57c98f18-8803-4b5c-81ff-fe79a2b00005",
+          "name": "Delete test case",
+          "request": {
+            "name": "Delete test case",
+            "description": {
+              "content": "Delete a test case permanently.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test-cases",
+                ":test_case_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "test_case_id",
+                  "description": "(Required) Test case ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a0b314d5-385d-442b-b8f4-4ee60107cfbd",
+              "name": "Test case deleted successfully (or already deleted)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases",
+                    ":test_case_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_case_id",
+                      "description": "(Required) Test case ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8df69ae-ff6f-49f9-9a67-5358b53d934b",
+              "name": "Authentication failed or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases",
+                    ":test_case_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_case_id",
+                      "description": "(Required) Test case ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"UNAUTHENTICATED\",\n    \"message\": \"Authentication failed\",\n    \"details\": [\n      {\n        \"field\": \"X-API-Key\",\n        \"description\": \"Invalid or missing API key\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a7286c4-de7b-445c-9c53-c944369c2237",
+              "name": "Test case belongs to different organization",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases",
+                    ":test_case_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_case_id",
+                      "description": "(Required) Test case ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INVALID_ARGUMENT\",\n    \"message\": \"Invalid request parameters\",\n    \"details\": [\n      {\n        \"field\": \"test_set_id\",\n        \"description\": \"test_set_id is required\"\n      },\n      {\n        \"field\": \"test_set_id\",\n        \"description\": \"test_set_id is required\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "302fd9b8-7e2c-4f66-bf70-fe72d161f672",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test-cases",
+                    ":test_case_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "test_case_id",
+                      "description": "(Required) Test case ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"INTERNAL\",\n    \"message\": \"Internal server error\",\n    \"details\": [\n      {\n        \"description\": \"An unexpected error occurred while processing the request\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.coval.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9eba2420-f470-4d7c-acbf-a6583c1824d4",
+    "name": "Coval Agents Test Cases API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nManage configurations for simulations and evaluations.\n\n\nContact Support:\n Name: Coval API Support\n Email: support@coval.dev",
+      "type": "text/plain"
+    }
+  }
+}

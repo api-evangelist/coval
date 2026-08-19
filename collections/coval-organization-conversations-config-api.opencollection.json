@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Organization Conversations Config API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organization Conversations Config",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get conversation metrics config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/organization/monitoring-metrics"
+          },
+          "docs": "Return the organization's conversation metrics configuration: the default metric IDs run on every conversation, plus the conditional rules that add metrics based on run metadata."
+        },
+        {
+          "info": {
+            "name": "Update conversation metrics config",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/organization/monitoring-metrics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update the organization's conversation metrics configuration. Provide at least one of `default_monitoring_metrics` or `conditional_monitoring_metrics`; each field provided fully replaces the stored value (a field omitted is left unchanged). Returns the full resulting configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

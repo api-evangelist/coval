@@ -1,0 +1,310 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Personas API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Personas",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List personas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/personas",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of personas to return (1-100)"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Token for retrieving the next page of results"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter expression syntax.\n\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\n\nSupported fields:\n- `name`: Filter by persona name (e.g., `name=Customer` or `name=\"Customer Support\"`)\n- `create_time`: Filter by creation time (e.g., `create_time>\"2025-01-01T00:00:00Z\"`)\n- `update_time`: Filter by update time\n\nExamples:\n- `name=\"Customer Support\"` (quoted - contains space)\n- `create_time>\"2025-01-01T00:00:00Z\"`\n"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to order results by.\n\nSupported fields: `create_time`, `update_time`, `name`\n\nFormats:\n- Dash prefix: `-create_time` (descending)\n- Space separated: `create_time desc` (descending)\n- No prefix: `create_time` (ascending)\n"
+              },
+              {
+                "name": "tag_filters",
+                "value": "voice",
+                "type": "query",
+                "description": "Filter personas by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=voice`).\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of simulated personas with optional filtering and sorting."
+        },
+        {
+          "info": {
+            "name": "Create persona",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/personas",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new simulated persona with specified voice characteristics and behavior configuration."
+        },
+        {
+          "info": {
+            "name": "Get persona",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/personas/:persona_id",
+            "params": [
+              {
+                "name": "persona_id",
+                "value": "",
+                "type": "path",
+                "description": "Persona resource ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific persona by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update persona",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/personas/:persona_id",
+            "params": [
+              {
+                "name": "persona_id",
+                "value": "",
+                "type": "path",
+                "description": "Persona resource ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update specific fields of an existing persona configuration. All fields are optional."
+        },
+        {
+          "info": {
+            "name": "Delete persona",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/personas/:persona_id",
+            "params": [
+              {
+                "name": "persona_id",
+                "value": "",
+                "type": "path",
+                "description": "Persona resource ID"
+              }
+            ]
+          },
+          "docs": "Delete a persona"
+        },
+        {
+          "info": {
+            "name": "Duplicate a persona",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/personas/:persona_id/duplicate",
+            "params": [
+              {
+                "name": "persona_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the persona to duplicate"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Clone an existing persona into a new persona owned by your organization. Returns the new persona."
+        },
+        {
+          "info": {
+            "name": "List persona versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/personas/:persona_id/versions",
+            "params": [
+              {
+                "name": "persona_id",
+                "value": "3zfmuDbVQsi4GaseDtiVcS",
+                "type": "path",
+                "description": "Persona resource ID"
+              }
+            ]
+          },
+          "docs": "List the prior-state version history for a persona, newest first. The live persona is the current version and is not included here. Only behavioral config is versioned; display_name/avatar_url are not."
+        },
+        {
+          "info": {
+            "name": "Revert persona version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/personas/:persona_id/versions/:version_id/revert",
+            "params": [
+              {
+                "name": "persona_id",
+                "value": "3zfmuDbVQsi4GaseDtiVcS",
+                "type": "path",
+                "description": "Persona resource ID"
+              },
+              {
+                "name": "version_id",
+                "value": "01KKWQYSF737ZN6X1Q1RYX8M22",
+                "type": "path",
+                "description": "ULID of the target version to re-apply"
+              }
+            ]
+          },
+          "docs": "Re-apply a prior version's behavioral configuration to the live persona. A revert is forward-only: it mints a new version (change_type=revert) and advances the persona, so the response reflects the persona's new live config. Reverting to the version the persona already points at is rejected with 400."
+        },
+        {
+          "info": {
+            "name": "List background sounds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/personas/background-sounds",
+            "params": [
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query",
+                "description": "Include archived custom background sounds."
+              }
+            ]
+          },
+          "docs": "Returns built-in background sounds plus custom sounds owned by the authenticated organization."
+        },
+        {
+          "info": {
+            "name": "Create background sound upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/personas/background-sounds",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a pending custom background sound and returns a short-lived private S3 upload form."
+        },
+        {
+          "info": {
+            "name": "Complete background sound upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/personas/background-sounds/:background_sound_id/complete",
+            "params": [
+              {
+                "name": "background_sound_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "HEAD-validates the uploaded object and marks the custom background sound active."
+        },
+        {
+          "info": {
+            "name": "Update background sound",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/personas/background-sounds/:background_sound_id",
+            "params": [
+              {
+                "name": "background_sound_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rename, set default volume, archive, or restore an organization-owned custom background sound."
+        },
+        {
+          "info": {
+            "name": "List phone number mappings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/personas/phone-numbers"
+          },
+          "docs": "Returns available phone numbers for voice simulations with their index mappings.\nUse these indices when configuring persona caller phone numbers.\n\n- **Inbound**: Phone numbers Coval uses to call your agent\n- **Outbound**: Phone numbers your agent can call to reach the simulated persona\n"
+        },
+        {
+          "info": {
+            "name": "List available voices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/personas/voices"
+          },
+          "docs": "Returns available voices with their supported language codes.\nUse this endpoint to discover which voice and language combinations\nare valid when creating or updating personas.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

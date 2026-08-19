@@ -1,0 +1,566 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Metrics API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/metrics",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token from previous response"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order (e.g., `create_time desc`, `metric_name asc`)"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter expression syntax.\nValues may be unquoted or double-quoted. Values containing spaces must be quoted.\nExample: `metric_type=METRIC_LLM_BINARY`\n"
+              },
+              {
+                "name": "include_builtin",
+                "value": "",
+                "type": "query",
+                "description": "Include built-in metrics in the response. By default, only\norganization-specific metrics are returned. Set to `true` to also\ninclude Coval's built-in evaluation metrics.\n"
+              },
+              {
+                "name": "tag_filters",
+                "value": "production",
+                "type": "query",
+                "description": "Filter metrics by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=production&tag_filters=llm`).\n"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of evaluation metrics."
+        },
+        {
+          "info": {
+            "name": "Create metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/metrics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new custom evaluation metric.\n\n**Required fields vary by metric type:**\n\n| Metric Type | Required Fields |\n|-------------|-----------------|\n| METRIC_LLM_BINARY | prompt |\n| METRIC_CATEGORICAL | prompt, categories |\n| METRIC_NUMERICAL_LLM_JUDGE | prompt, min_value, max_value |\n| METRIC_AUDIO_LLM_BINARY | prompt |\n| METRIC_AUDIO_LLM_CATEGORICAL | prompt, categories |\n| METRIC_AUDIO_LLM_NUMERICAL | prompt, min_value, max_value |\n| METRIC_TOOLCALL | prompt |\n| METRIC_METADATA_FIELD | metad"
+        },
+        {
+          "info": {
+            "name": "List metric template variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/metrics/template-variables",
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Return the catalog of `{{prefix.key}}` template variables that can be\nused in LLM-judge metric prompts (e.g. `{{agent.company_name}}`,\n`{{expected_output.balance}}`, `{{customer_metadata.call_id}}`). These are\nsubstituted at evaluation time from the agent's `attributes`, the test\ncase's `expected_output`, and the run's `customer_metadata` respectively.\n"
+        },
+        {
+          "info": {
+            "name": "Get metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific metric by ID."
+        },
+        {
+          "info": {
+            "name": "Update metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partial update of metric fields. Only provided fields are updated."
+        },
+        {
+          "info": {
+            "name": "Delete metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              }
+            ]
+          },
+          "docs": "Soft-delete a metric."
+        },
+        {
+          "info": {
+            "name": "List metric versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/versions",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              }
+            ]
+          },
+          "docs": "List the prior-state version history for a metric, newest first. The live metric is the current version (see MetricResource.current_version) and is not included here. Built-in metrics carry no per-organization history and return an empty list."
+        },
+        {
+          "info": {
+            "name": "Revert metric version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/versions/:version_id/revert",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "ULID of the target version to re-apply"
+              }
+            ]
+          },
+          "docs": "Re-apply a prior version's scoring configuration to the live metric. A revert is forward-only: it mints a new version (change_type=revert) and advances the metric, so the response reflects the metric's new live config. Reverting to the version the metric already points at is rejected with 400."
+        },
+        {
+          "info": {
+            "name": "List recently-deleted metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/metrics/recently-deleted"
+          },
+          "docs": "List the organization's soft-deleted metrics still within the recovery window, newest first. Each entry carries who deleted it, when, and when it will be permanently purged. Built-in metrics are non-deletable and never appear."
+        },
+        {
+          "info": {
+            "name": "Restore a recently-deleted metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/restore",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              }
+            ]
+          },
+          "docs": "Restore a soft-deleted metric to active, returning it to the state it held at deletion time (its version history and current version are unchanged). Restoring an already-active metric is a no-op. A metric that has been permanently purged returns 404."
+        },
+        {
+          "info": {
+            "name": "List metric thresholds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/thresholds",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token from previous response"
+              }
+            ]
+          },
+          "docs": "Retrieve all thresholds for a specific metric."
+        },
+        {
+          "info": {
+            "name": "Create metric threshold",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/thresholds",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new threshold for a specific metric."
+        },
+        {
+          "info": {
+            "name": "Get metric threshold",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/threshold",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              }
+            ]
+          },
+          "docs": "Retrieve the singleton threshold for a specific metric (AIP-156 singleton sub-resource).\nReturns `200` with an empty threshold resource when the metric exists but no threshold is configured.\nReturns `404` only when the parent metric is not found or inaccessible.\n"
+        },
+        {
+          "info": {
+            "name": "Update metric threshold",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/threshold",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the threshold for a specific metric.\nSend `comparison_operator: null` to clear the threshold.\n"
+        },
+        {
+          "info": {
+            "name": "Delete metric threshold",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/thresholds/:threshold_id",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              },
+              {
+                "name": "threshold_id",
+                "value": "01JCQR8Z9PQSTNVWXY12AB34CD",
+                "type": "path",
+                "description": "26-character threshold ID (ULID)"
+              }
+            ]
+          },
+          "docs": "Delete a specific threshold by ID."
+        },
+        {
+          "info": {
+            "name": "List metric baselines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/baselines",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by agent ID. Null/omitted returns org-wide baselines."
+              },
+              {
+                "name": "test_set_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by test set ULID. Null/omitted returns monitoring baselines."
+              },
+              {
+                "name": "persona_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by persona ULID. Null/omitted returns baselines covering all personas."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by baseline lifecycle status."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination cursor."
+              },
+              {
+                "name": "sigma_levels",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated sigma multipliers used to populate `sigma_bands` in each baseline (e.g. `1,2,3`)."
+              }
+            ]
+          },
+          "docs": "Retrieve all anomaly-detection baselines for a specific metric."
+        },
+        {
+          "info": {
+            "name": "Create metric baseline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/baselines",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new anomaly-detection baseline for a specific metric."
+        },
+        {
+          "info": {
+            "name": "Get metric baseline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/baselines/:baseline_id",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              },
+              {
+                "name": "baseline_id",
+                "value": "01HXKZ4M5N6P7Q8R9STVWXYZAB",
+                "type": "path",
+                "description": "26-character baseline ULID."
+              },
+              {
+                "name": "sigma_levels",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated sigma multipliers used to populate `sigma_bands` in each baseline (e.g. `1,2,3`)."
+              }
+            ]
+          },
+          "docs": "Retrieve a single anomaly-detection baseline by ID."
+        },
+        {
+          "info": {
+            "name": "Update metric baseline",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/baselines/:baseline_id",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              },
+              {
+                "name": "baseline_id",
+                "value": "01HXKZ4M5N6P7Q8R9STVWXYZAB",
+                "type": "path",
+                "description": "26-character baseline ULID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update mutable fields on an anomaly-detection baseline. All fields optional."
+        },
+        {
+          "info": {
+            "name": "Delete metric baseline",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/baselines/:baseline_id",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "22-character metric ID"
+              },
+              {
+                "name": "baseline_id",
+                "value": "01HXKZ4M5N6P7Q8R9STVWXYZAB",
+                "type": "path",
+                "description": "26-character baseline ULID."
+              }
+            ]
+          },
+          "docs": "Delete a specific baseline by ID."
+        },
+        {
+          "info": {
+            "name": "Trigger test metric execution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/metrics/:metric_id/test",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path",
+                "description": "The metric ID (22-character ShortUUID)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger execution of a metric against a simulation output for testing purposes.\nThis is an asynchronous operation that returns immediately with a metric output ULID.\n\n**Retrieving the result:** poll\n`GET /v1/simulations/{simulation_id}/metrics/{metric_output_id}` using the\n`simulation_output_id` you passed here as `simulation_id` and the returned\n26-char `metric_output_ulid`. The response includes a `status` field\n(`IN QUEUE`, `IN PROGRESS`, `COMPLETED`, `FAILED`) — poll until it is\nterminal. Te"
+        },
+        {
+          "info": {
+            "name": "List available metric models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/models/metric"
+          },
+          "docs": "Returns all LLM models available for metric evaluation, grouped by access tier.\n\n- **standard** models are available to all organizations.\n- **enterprise** models require an Enterprise plan and will return a `403\n  MODEL_TIER_ACCESS_DENIED` error if used in `runtime_config` by a non-Enterprise org.\n\nUse the `model_id` values from this response when setting `runtime_config.model_version`\non a metric.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

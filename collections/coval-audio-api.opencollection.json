@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Audio API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload audio",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/audio:upload",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Issue an opaque `upload_id` and a short-lived presigned PUT URL for direct audio upload.\n"
+        },
+        {
+          "info": {
+            "name": "Get conversation audio",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/conversations/:conversation_id/audio",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "gk3jK9mPq2xRt5vW8yZaBc",
+                "type": "path",
+                "description": "Unique conversation identifier"
+              }
+            ]
+          },
+          "docs": "Retrieve a presigned URL for downloading conversation audio.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,189 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Widgets API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Widgets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List widgets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/dashboards/:dashboard_id/widgets",
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Dashboard resource ID (22-character ShortUUID)"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination token from previous response"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List widgets for a dashboard."
+        },
+        {
+          "info": {
+            "name": "Create widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/dashboards/:dashboard_id/widgets",
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Dashboard resource ID (22-character ShortUUID)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new widget on a dashboard."
+        },
+        {
+          "info": {
+            "name": "Get widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/dashboards/:dashboard_id/widgets/:widget_id",
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Dashboard resource ID (22-character ShortUUID)"
+              },
+              {
+                "name": "widget_id",
+                "value": "wgt456xyz789abc012defg",
+                "type": "path",
+                "description": "Widget resource ID (22-character ShortUUID)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a specific widget by ID."
+        },
+        {
+          "info": {
+            "name": "Update widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/dashboards/:dashboard_id/widgets/:widget_id",
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Dashboard resource ID (22-character ShortUUID)"
+              },
+              {
+                "name": "widget_id",
+                "value": "wgt456xyz789abc012defg",
+                "type": "path",
+                "description": "Widget resource ID (22-character ShortUUID)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a widget."
+        },
+        {
+          "info": {
+            "name": "Delete widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/dashboards/:dashboard_id/widgets/:widget_id",
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Dashboard resource ID (22-character ShortUUID)"
+              },
+              {
+                "name": "widget_id",
+                "value": "wgt456xyz789abc012defg",
+                "type": "path",
+                "description": "Widget resource ID (22-character ShortUUID)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a widget."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

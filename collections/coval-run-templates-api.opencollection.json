@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Run Templates API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Run Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List run templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/run-templates",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "50",
+                "type": "query",
+                "description": "Maximum number of results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination token from previous response"
+              },
+              {
+                "name": "tag_filters",
+                "value": "nightly",
+                "type": "query",
+                "description": "Filter run templates by tags. A resource matches when it has ALL the listed tags (AND-semantics).\n\nRepeat the parameter for each tag (e.g., `?tag_filters=nightly&tag_filters=voice`).\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a paginated list of run templates."
+        },
+        {
+          "info": {
+            "name": "Create run template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/run-templates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new run template with a reusable run configuration.\n\nTemplates capture all parameters needed to launch a run: the agent to test,\npersona to simulate, test set to use, and optional metrics and execution settings.\n"
+        },
+        {
+          "info": {
+            "name": "Get run template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/run-templates/:run_template_id",
+            "params": [
+              {
+                "name": "run_template_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Run template resource ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a specific run template by ID."
+        },
+        {
+          "info": {
+            "name": "Update run template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/run-templates/:run_template_id",
+            "params": [
+              {
+                "name": "run_template_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Run template resource ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update specific fields of an existing run template. Only provided fields are updated."
+        },
+        {
+          "info": {
+            "name": "Delete run template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/run-templates/:run_template_id",
+            "params": [
+              {
+                "name": "run_template_id",
+                "value": "abc123def456ghi789jklm",
+                "type": "path",
+                "description": "Run template resource ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a run template.\n\nTemplates with active scheduled runs cannot be deleted.\nDisable or delete associated scheduled runs first.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

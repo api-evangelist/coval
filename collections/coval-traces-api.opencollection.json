@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Traces API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Traces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ingest OTLP traces",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/traces",
+            "headers": [
+              {
+                "name": "X-Simulation-Id",
+                "value": "a1b2c3d4"
+              },
+              {
+                "name": "X-Conversation-Id",
+                "value": "01H8XYZABCDEFG"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Ingest OpenTelemetry trace data and associate it with a simulation\noutput or a monitoring conversation.\n\nThe request body must be a standard OTLP `ExportTraceServiceRequest`,\nin protobuf binary (`application/x-protobuf`, the default for stock\nOTLP HTTP exporters) or JSON (`application/json`) format. See the\n[OTLP/HTTP specification](https://opentelemetry.io/docs/specs/otlp/#otlphttp)\nand [opentelemetry-proto](https://github.com/open-telemetry/opentelemetry-proto)\nfor the wire format.\n\nIdentify t"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

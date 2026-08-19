@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Coval Agents Monitors API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List monitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/monitors",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Filter monitors by scope"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Token for fetching the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns all active monitors for the authenticated organization.\n\nSupports optional filtering by scope and pagination.\n"
+        },
+        {
+          "info": {
+            "name": "Create a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/monitors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new monitor with conditions and notification channels.\n\nAt least one condition is required. Channels are optional — a monitor\nwithout channels will still evaluate and log events but won't dispatch\nnotifications.\n"
+        },
+        {
+          "info": {
+            "name": "Get a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.coval.dev/v1/monitors/:monitor_id",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "01HZ0EXAMPLE00000000000000",
+                "type": "path",
+                "description": "Monitor ULID"
+              }
+            ]
+          },
+          "docs": "Returns a single monitor with its conditions and channels."
+        },
+        {
+          "info": {
+            "name": "Update a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.coval.dev/v1/monitors/:monitor_id",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "01HZ0EXAMPLE00000000000000",
+                "type": "path",
+                "description": "Monitor ULID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially updates a monitor. All fields are optional; omitted fields\nretain their current values (PATCH semantics).\n\nWhen `conditions` or `channels` are provided, they **replace** the\nexisting set atomically (delete old, create new).\n"
+        },
+        {
+          "info": {
+            "name": "Delete a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.coval.dev/v1/monitors/:monitor_id",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "01HZ0EXAMPLE00000000000000",
+                "type": "path",
+                "description": "Monitor ULID"
+              }
+            ]
+          },
+          "docs": "Soft-deletes a monitor by setting its status to DELETED.\nThe monitor and its channels are deactivated but retained for audit.\n"
+        },
+        {
+          "info": {
+            "name": "Test evaluate a monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.coval.dev/v1/monitors/:monitor_id/test-evaluate",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "01HZ0EXAMPLE00000000000000",
+                "type": "path",
+                "description": "Monitor ULID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Dry-run evaluation of a monitor against a specific run.\n\nEvaluates all conditions and builds the notification message,\nbut does **not** dispatch notifications or write an event record.\nUse this to preview what would happen if the monitor evaluated\nagainst a given run.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
