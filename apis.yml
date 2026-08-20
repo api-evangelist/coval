@@ -66,6 +66,8 @@ apis:
   humanURL: https://docs.coval.ai/api-reference/v1/introduction
   baseURL: https://api.coval.dev/v1
   tags:
+  - APIKeys
+  tags_raw:
   - API Keys
   properties:
   - type: OpenAPI
@@ -268,6 +270,8 @@ apis:
   humanURL: https://docs.coval.ai/api-reference/v1/introduction
   baseURL: https://api.coval.dev/v1
   tags:
+  - Testsets
+  tags_raw:
   - Test Sets
   properties:
   - type: OpenAPI
@@ -288,6 +292,8 @@ apis:
   humanURL: https://docs.coval.ai/api-reference/v1/introduction
   baseURL: https://api.coval.dev/v1
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
