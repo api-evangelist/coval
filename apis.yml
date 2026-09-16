@@ -1,15 +1,14 @@
 aid: coval
 name: Coval
-description: >-
-  Coval is the deployment-readiness platform for voice and chat AI agents. Teams simulate
-  thousands of realistic conversation scenarios before launch, monitor real production calls,
-  and improve reliability with metrics and human review. Coval supports inbound/outbound voice,
-  standard chat, chat over WebSocket, chat A2A (JSON-RPC), voice-to-voice models (OpenAI Realtime,
-  Gemini Live), SMS, Pipecat, and LiveKit agents. Its v1 REST API, TypeScript and Python SDKs,
-  Homebrew CLI, and hosted MCP server let developers connect agents, define personas and test sets,
-  launch simulation runs, ingest production conversations and OpenTelemetry traces, define
-  deterministic/statistical/ML/LLM-judge metrics, and route critical calls to human reviewers.
-  Coval is backed by General Catalyst and is SOC 2 Type II, GDPR, and HIPAA compliant.
+description: Coval is the deployment-readiness platform for voice and chat AI agents. Teams simulate thousands
+  of realistic conversation scenarios before launch, monitor real production calls, and improve reliability
+  with metrics and human review. Coval supports inbound/outbound voice, standard chat, chat over WebSocket,
+  chat A2A (JSON-RPC), voice-to-voice models (OpenAI Realtime, Gemini Live), SMS, Pipecat, and LiveKit
+  agents. Its v1 REST API, TypeScript and Python SDKs, Homebrew CLI, and hosted MCP server let developers
+  connect agents, define personas and test sets, launch simulation runs, ingest production conversations
+  and OpenTelemetry traces, define deterministic/statistical/ML/LLM-judge metrics, and route critical
+  calls to human reviewers. Coval is backed by General Catalyst and is SOC 2 Type II, GDPR, and HIPAA
+  compliant.
 url: https://raw.githubusercontent.com/api-evangelist/coval/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -44,7 +43,7 @@ accessModel:
   method: derived
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-07-18'
+modified: '2026-09-16'
 image: https://www.coval.ai/favicon.ico
 tags:
 - Company
@@ -167,9 +166,8 @@ apis:
     url: openapi/coval-mutations-api-openapi.yml
 - aid: coval:coval-organization-conversations-config-api
   name: Coval Organization Conversations Config API
-  description: >-
-    Organization-level configuration for conversation metrics — the default and conditional metrics run
-    on conversations.
+  description: Organization-level configuration for conversation metrics — the default and conditional
+    metrics run on conversations.
   humanURL: https://docs.coval.ai/api-reference/v1/introduction
   baseURL: https://api.coval.dev/v1
   tags:
@@ -322,6 +320,8 @@ apis:
   - type: OpenAPI
     url: openapi/coval-widgets-api-openapi.yml
 common:
+- type: Website
+  url: https://coval.ai
 - type: Overlay
   url: overlays/coval-agents-overlay.yaml
 - type: PostmanWorkspace
