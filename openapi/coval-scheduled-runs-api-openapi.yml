@@ -1,12 +1,15 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Coval Agents Scheduled Runs API
+  title: Coval Scheduled Runs API
   version: 1.0.0
-  description: '
+  description: 'Create and manage scheduled runs for automated, recurring evaluations.
 
-    Manage configurations for simulations and evaluations.
 
-    '
+    Scheduled runs trigger run templates on a defined schedule using cron expressions
+
+    or rate-based intervals. Use them for health checks, nightly regression tests,
+
+    or any recurring evaluation workflow.'
   contact:
     name: Coval API Support
     email: support@coval.dev
@@ -95,9 +98,7 @@ paths:
 
         Schedules are created in an enabled state by default and will begin triggering
 
-        at the next scheduled time.
-
-        '
+        at the next scheduled time.'
       tags:
       - Scheduled Runs
       security:
@@ -208,9 +209,7 @@ paths:
 
         - Change the schedule frequency: `{"schedule_expression": "rate(1 hour)"}`
 
-        - Update the run template: `{"run_template_id": "new_template_id"}`
-
-        '
+        - Update the run template: `{"run_template_id": "new_template_id"}`'
       tags:
       - Scheduled Runs
       security:
@@ -311,9 +310,7 @@ paths:
 
         (capped at the 500 most recent). Useful for programmatically checking
 
-        what a schedule created via `POST /scheduled-runs`.
-
-        '
+        what a schedule created via `POST /scheduled-runs`.'
       tags:
       - Scheduled Runs
       security:
@@ -354,140 +351,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
-  responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
-    Unauthorized:
-      description: Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INVALID_ARGUMENT
-              message: Invalid request body
-              details:
-              - field: display_name
-                description: Field required
   schemas:
-    ScheduledRunResource:
-      type: object
-      description: Scheduled run configuration resource.
-      required:
-      - name
-      - id
-      - display_name
-      - run_template_id
-      - schedule_expression
-      - enabled
-      - create_time
-      properties:
-        name:
-          type: string
-          description: 'Resource name: "scheduled-runs/{id}"'
-          example: scheduled-runs/xyz789uvw456rst123abcd
-        id:
-          type: string
-          pattern: ^[A-Za-z0-9]{22}$
-          description: Scheduled run resource ID
-          example: xyz789uvw456rst123abcd
-        display_name:
-          type: string
-          maxLength: 200
-          description: Human-readable schedule name
-          example: Voice Agent Health Check
-        run_template_id:
-          type: string
-          pattern: ^[A-Za-z0-9]{22}$
-          description: Associated run template
-          example: abc123def456ghi789jklm
-        schedule_expression:
-          type: string
-          description: 'Schedule expression in rate or cron format.
-
-
-            **Rate format**: `rate(value unit)` where unit is minutes, hours, or days
-
-            - `rate(15 minutes)` - Every 15 minutes
-
-            - `rate(1 hour)` - Every hour
-
-            - `rate(1 day)` - Daily
-
-
-            **Cron format**: `cron(minutes hours day-of-month month day-of-week year)`
-
-            - `cron(0 9 ? * MON-FRI *)` - 9am weekdays
-
-            - `cron(0 2 ? * * *)` - 2am daily
-
-            - `cron(0 0 1 * ? *)` - Midnight on 1st of month
-
-            '
-          example: rate(15 minutes)
-        schedule_timezone:
-          type: string
-          default: UTC
-          description: IANA timezone for cron expressions
-          example: America/New_York
-        enabled:
-          type: boolean
-          default: true
-          description: Whether the schedule is active
-          example: true
-        last_run_at:
-          type: string
-          format: date-time
-          nullable: true
-          description: Timestamp of the most recent execution
-          example: '2025-10-15T14:15:00Z'
-        last_run_id:
-          type: string
-          nullable: true
-          description: ID of the most recent run created by this schedule
-          example: 8EktrIgaVxn9LfxkIynagX
-        create_time:
-          type: string
-          format: date-time
-          description: Creation timestamp (ISO 8601)
-          example: '2025-10-14T12:00:00Z'
-        update_time:
-          type: string
-          format: date-time
-          nullable: true
-          description: Last update timestamp (ISO 8601)
-          example: '2025-10-15T14:30:00Z'
-    GetScheduledRunResponse:
-      type: object
-      required:
-      - scheduled_run
-      properties:
-        scheduled_run:
-          $ref: '#/components/schemas/ScheduledRunResource'
     CreateScheduledRunRequest:
       type: object
       required:
@@ -576,14 +440,105 @@ components:
                 type: object
                 properties:
                   field:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     description: Field that caused the error
                     example: schedule_expression
                   description:
                     type: string
                     description: Detailed error description
                     example: Must be 'rate(...)' or 'cron(...)' format
+    UpdateScheduledRunResponse:
+      type: object
+      required:
+      - scheduled_run
+      properties:
+        scheduled_run:
+          $ref: '#/components/schemas/ScheduledRunResource'
+    GetScheduledRunHistoryResponse:
+      type: object
+      required:
+      - runs
+      properties:
+        runs:
+          type: array
+          description: Runs produced by the schedule, most recent first
+          items:
+            $ref: '#/components/schemas/ScheduledRunHistoryEntry'
+    ScheduledRunHistoryEntry:
+      type: object
+      description: A run produced by a scheduled run (compact, AIP-shaped summary).
+      required:
+      - name
+      - id
+      - status
+      - test_set_name
+      - model_type
+      - is_public
+      - create_time
+      properties:
+        name:
+          type: string
+          description: Resource name in format "runs/{run_id}"
+          example: runs/8EktrIgaVxn9LfxkIynagX
+        id:
+          type: string
+          description: Run identifier
+          example: 8EktrIgaVxn9LfxkIynagX
+        display_name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable name for the run
+          example: Nightly regression
+        status:
+          type: string
+          description: Run status
+          example: COMPLETED
+        test_set_id:
+          type:
+          - string
+          - 'null'
+          description: Test set the run executed
+          example: aB1cD2eF
+        test_set_name:
+          type: string
+          description: Test set display name
+          example: Checkout flows
+        agent_id:
+          type:
+          - string
+          - 'null'
+          description: Agent under test
+          example: gk3jK9mPq2xRt5vW8yZaBc
+        model_type:
+          type: string
+          description: Model/connection type used for the run
+          example: openai_realtime
+        is_public:
+          type: boolean
+          description: Whether the run is shared via a public link
+          example: false
+        create_time:
+          type: string
+          format: date-time
+          description: When the run was created (ISO 8601)
+          example: '2025-10-14T12:00:00Z'
+    GetScheduledRunResponse:
+      type: object
+      required:
+      - scheduled_run
+      properties:
+        scheduled_run:
+          $ref: '#/components/schemas/ScheduledRunResource'
+    CreateScheduledRunResponse:
+      type: object
+      required:
+      - scheduled_run
+      properties:
+        scheduled_run:
+          $ref: '#/components/schemas/ScheduledRunResource'
     UpdateScheduledRunRequest:
       type: object
       description: Partial update request (PATCH semantics - only provided fields are updated)
@@ -613,30 +568,6 @@ components:
           type: boolean
           description: Enable or disable the schedule
           example: false
-    UpdateScheduledRunResponse:
-      type: object
-      required:
-      - scheduled_run
-      properties:
-        scheduled_run:
-          $ref: '#/components/schemas/ScheduledRunResource'
-    CreateScheduledRunResponse:
-      type: object
-      required:
-      - scheduled_run
-      properties:
-        scheduled_run:
-          $ref: '#/components/schemas/ScheduledRunResource'
-    GetScheduledRunHistoryResponse:
-      type: object
-      required:
-      - runs
-      properties:
-        runs:
-          type: array
-          description: Runs produced by the schedule, most recent first
-          items:
-            $ref: '#/components/schemas/ScheduledRunHistoryEntry'
     ListScheduledRunsResponse:
       type: object
       required:
@@ -647,71 +578,134 @@ components:
           items:
             $ref: '#/components/schemas/ScheduledRunResource'
         next_page_token:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Token for fetching next page (null if no more results)
           example: eyJvZmZzZXQiOjUwfQ==
         total_count:
           type: integer
           description: Total count of scheduled runs matching filter
           example: 12
-    ScheduledRunHistoryEntry:
+    ScheduledRunResource:
       type: object
-      description: A run produced by a scheduled run (compact, AIP-shaped summary).
+      description: Scheduled run configuration resource.
       required:
       - name
       - id
-      - status
-      - test_set_name
-      - model_type
-      - is_public
+      - display_name
+      - run_template_id
+      - schedule_expression
+      - enabled
       - create_time
       properties:
         name:
           type: string
-          description: Resource name in format "runs/{run_id}"
-          example: runs/8EktrIgaVxn9LfxkIynagX
+          description: 'Resource name: "scheduled-runs/{id}"'
+          example: scheduled-runs/xyz789uvw456rst123abcd
         id:
           type: string
-          description: Run identifier
-          example: 8EktrIgaVxn9LfxkIynagX
+          pattern: ^[A-Za-z0-9]{22}$
+          description: Scheduled run resource ID
+          example: xyz789uvw456rst123abcd
         display_name:
           type: string
-          nullable: true
-          description: Human-readable name for the run
-          example: Nightly regression
-        status:
+          maxLength: 200
+          description: Human-readable schedule name
+          example: Voice Agent Health Check
+        run_template_id:
           type: string
-          description: Run status
-          example: COMPLETED
-        test_set_id:
+          pattern: ^[A-Za-z0-9]{22}$
+          description: Associated run template
+          example: abc123def456ghi789jklm
+        schedule_expression:
           type: string
-          nullable: true
-          description: Test set the run executed
-          example: aB1cD2eF
-        test_set_name:
+          description: 'Schedule expression in rate or cron format.
+
+
+            **Rate format**: `rate(value unit)` where unit is minutes, hours, or days
+
+            - `rate(15 minutes)` - Every 15 minutes
+
+            - `rate(1 hour)` - Every hour
+
+            - `rate(1 day)` - Daily
+
+
+            **Cron format**: `cron(minutes hours day-of-month month day-of-week year)`
+
+            - `cron(0 9 ? * MON-FRI *)` - 9am weekdays
+
+            - `cron(0 2 ? * * *)` - 2am daily
+
+            - `cron(0 0 1 * ? *)` - Midnight on 1st of month
+
+            '
+          example: rate(15 minutes)
+        schedule_timezone:
           type: string
-          description: Test set display name
-          example: Checkout flows
-        agent_id:
-          type: string
-          nullable: true
-          description: Agent under test
-          example: gk3jK9mPq2xRt5vW8yZaBc
-        model_type:
-          type: string
-          description: Model/connection type used for the run
-          example: openai_realtime
-        is_public:
+          default: UTC
+          description: IANA timezone for cron expressions
+          example: America/New_York
+        enabled:
           type: boolean
-          description: Whether the run is shared via a public link
-          example: false
+          default: true
+          description: Whether the schedule is active
+          example: true
+        last_run_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp of the most recent execution
+          example: '2025-10-15T14:15:00Z'
+        last_run_id:
+          type:
+          - string
+          - 'null'
+          description: ID of the most recent run created by this schedule
+          example: 8EktrIgaVxn9LfxkIynagX
         create_time:
           type: string
           format: date-time
-          description: When the run was created (ISO 8601)
+          description: Creation timestamp (ISO 8601)
           example: '2025-10-14T12:00:00Z'
+        update_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Last update timestamp (ISO 8601)
+          example: '2025-10-15T14:30:00Z'
   examples:
+    GetScheduledRunSuccess:
+      summary: Successful get response
+      value:
+        scheduled_run:
+          name: scheduled-runs/xyz789uvw456rst123abcd
+          id: xyz789uvw456rst123abcd
+          display_name: Voice Agent Health Check
+          run_template_id: abc123def456ghi789jklm
+          schedule_expression: rate(15 minutes)
+          schedule_timezone: UTC
+          enabled: true
+          last_run_at: '2025-10-15T14:15:00Z'
+          last_run_id: 8EktrIgaVxn9LfxkIynagX
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: null
+    CreateScheduledRunCron:
+      summary: Cron-based schedule (2am daily in EST)
+      value:
+        display_name: Nightly Regression Tests
+        run_template_id: abc123def456ghi789jklm
+        schedule_expression: cron(0 2 ? * * *)
+        schedule_timezone: America/New_York
+        enabled: true
+    UpdateScheduledRunSchedule:
+      summary: Change schedule frequency
+      value:
+        schedule_expression: rate(1 hour)
+        display_name: Hourly Health Check
     CreateScheduledRunRate:
       summary: Rate-based schedule (every 15 minutes)
       value:
@@ -719,23 +713,30 @@ components:
         run_template_id: abc123def456ghi789jklm
         schedule_expression: rate(15 minutes)
         enabled: true
-    TemplateNotFoundError:
-      summary: Run template not found
+    InvalidScheduleError:
+      summary: Invalid schedule expression
       value:
         error:
-          code: NOT_FOUND
-          message: Template not found
+          code: INVALID_ARGUMENT
+          message: Invalid request body
           details:
-          - field: run_template_id
-            description: Run template not found or not accessible by your organization
-    UpdateScheduledRunSchedule:
-      summary: Change schedule frequency
+          - field: schedule_expression
+            description: schedule_expression must be 'rate(...)' or 'cron(...)' format
+    InvalidTimezoneError:
+      summary: Invalid timezone
       value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: schedule_timezone
+            description: 'Invalid IANA timezone: ''Invalid/Zone'''
+    CreateScheduledRunDisabled:
+      summary: Create schedule in disabled state
+      value:
+        display_name: Pending Approval Schedule
+        run_template_id: abc123def456ghi789jklm
         schedule_expression: rate(1 hour)
-        display_name: Hourly Health Check
-    UpdateScheduledRunDisable:
-      summary: Disable a schedule
-      value:
         enabled: false
     ScheduledRunCreated:
       summary: Scheduled run created successfully
@@ -761,54 +762,10 @@ components:
           details:
           - field: scheduled_run_id
             description: Scheduled run not found or not accessible by your organization
-    InvalidScheduleError:
-      summary: Invalid schedule expression
+    UpdateScheduledRunDisable:
+      summary: Disable a schedule
       value:
-        error:
-          code: INVALID_ARGUMENT
-          message: Invalid request body
-          details:
-          - field: schedule_expression
-            description: schedule_expression must be 'rate(...)' or 'cron(...)' format
-    GetScheduledRunSuccess:
-      summary: Successful get response
-      value:
-        scheduled_run:
-          name: scheduled-runs/xyz789uvw456rst123abcd
-          id: xyz789uvw456rst123abcd
-          display_name: Voice Agent Health Check
-          run_template_id: abc123def456ghi789jklm
-          schedule_expression: rate(15 minutes)
-          schedule_timezone: UTC
-          enabled: true
-          last_run_at: '2025-10-15T14:15:00Z'
-          last_run_id: 8EktrIgaVxn9LfxkIynagX
-          create_time: '2025-10-14T12:00:00Z'
-          update_time: null
-    CreateScheduledRunDisabled:
-      summary: Create schedule in disabled state
-      value:
-        display_name: Pending Approval Schedule
-        run_template_id: abc123def456ghi789jklm
-        schedule_expression: rate(1 hour)
         enabled: false
-    CreateScheduledRunCron:
-      summary: Cron-based schedule (2am daily in EST)
-      value:
-        display_name: Nightly Regression Tests
-        run_template_id: abc123def456ghi789jklm
-        schedule_expression: cron(0 2 ? * * *)
-        schedule_timezone: America/New_York
-        enabled: true
-    InvalidTimezoneError:
-      summary: Invalid timezone
-      value:
-        error:
-          code: INVALID_ARGUMENT
-          message: Invalid request body
-          details:
-          - field: schedule_timezone
-            description: 'Invalid IANA timezone: ''Invalid/Zone'''
     ScheduledRunUpdated:
       summary: Scheduled run updated successfully
       value:
@@ -852,10 +809,58 @@ components:
           update_time: '2025-10-12T11:30:00Z'
         next_page_token: null
         total_count: 2
+    TemplateNotFoundError:
+      summary: Run template not found
+      value:
+        error:
+          code: NOT_FOUND
+          message: Template not found
+          details:
+          - field: run_template_id
+            description: Run template not found or not accessible by your organization
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: display_name
+                description: Field required
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       in: header
-      name: x-api-key
+      name: X-API-Key
       description: API key for authentication
 x-visibility: external

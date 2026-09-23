@@ -1,12 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Coval Agents Dashboards API
+  title: Coval Dashboards API
   version: 1.0.0
-  description: '
-
-    Manage configurations for simulations and evaluations.
-
-    '
+  description: Create and manage dashboards and widgets for visualizing evaluation metrics.
   contact:
     name: Coval API Support
     email: support@coval.dev
@@ -192,58 +188,15 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
-  responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
-    Unauthorized:
-      description: Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INVALID_ARGUMENT
-              message: Invalid request body
-              details:
-              - field: display_name
-                description: display_name must be between 1 and 255 characters
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: NOT_FOUND
-              message: Resource not found
-              details:
-              - field: dashboard_id
-                description: Dashboard not found or not accessible by your organization
+  parameters:
+    DashboardId:
+      name: dashboard_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Dashboard resource ID (22-character ShortUUID)
+      example: abc123def456ghi789jklm
   schemas:
     ListDashboardsResponse:
       type: object
@@ -255,8 +208,9 @@ components:
           items:
             $ref: '#/components/schemas/DashboardResource'
         next_page_token:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Token for fetching next page (null if no more results)
     DashboardResource:
       type: object
@@ -271,14 +225,16 @@ components:
           description: Resource name in format `dashboards/{id}`
           example: dashboards/abc123def456ghi789jklm
         display_name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           maxLength: 255
           description: Human-readable dashboard name
           example: Production Metrics
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Free-text dashboard description
           example: Production monitoring metrics
         is_default:
@@ -294,8 +250,9 @@ components:
           description: Ordering position within the organization's dashboards
           example: 0
         config:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           additionalProperties: true
           description: Free-form JSON config blob (e.g. saved date preferences)
         create_time:
@@ -308,77 +265,6 @@ components:
           format: date-time
           description: Last update timestamp (ISO 8601)
           example: '2025-10-15T14:30:00Z'
-    UpdateDashboardResponse:
-      type: object
-      required:
-      - dashboard
-      properties:
-        dashboard:
-          $ref: '#/components/schemas/DashboardResource'
-    UpdateDashboardRequest:
-      type: object
-      description: All fields optional (PATCH semantics). Provided fields are updated; omitted or null fields are left unchanged. Setting is_default=true unsets any other default dashboard in the organization. config fully replaces the stored blob; to clear a value send an empty string (description) or an empty object (config) rather than null.
-      properties:
-        display_name:
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 255
-          description: Updated dashboard name
-        description:
-          type: string
-          nullable: true
-          maxLength: 1000
-          description: Updated free-text description (empty string clears it)
-        is_favorite:
-          type: boolean
-          nullable: true
-          description: Updated favorite flag
-        is_default:
-          type: boolean
-          nullable: true
-          description: Set true to make this the organization's default dashboard (unsets any other default)
-        position:
-          type: integer
-          nullable: true
-          minimum: 0
-          description: Updated ordering position
-        config:
-          type: object
-          nullable: true
-          additionalProperties: true
-          description: Replacement free-form JSON config blob (max 50000 bytes serialized)
-    CreateDashboardRequest:
-      type: object
-      required:
-      - display_name
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          maxLength: 255
-          description: Human-readable dashboard name
-          example: Production Metrics
-        description:
-          type: string
-          maxLength: 1000
-          description: Optional free-text description
-        is_favorite:
-          type: boolean
-          default: false
-          description: Mark the dashboard as a favorite
-        is_default:
-          type: boolean
-          nullable: true
-          description: Mark as the organization's default dashboard. Omit to auto-default the first dashboard in the organization; set true to make this the default (any existing default is unset).
-        position:
-          type: integer
-          minimum: 0
-          description: Ordering position. Omit to append to the end.
-        config:
-          type: object
-          additionalProperties: true
-          description: Free-form JSON config blob (max 50000 bytes serialized)
     ErrorResponse:
       type: object
       description: Standard error response
@@ -412,19 +298,52 @@ components:
                 type: object
                 properties:
                   field:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     description: Field that caused the error
                   description:
                     type: string
                     description: Detailed error description
-    CreateDashboardResponse:
+    UpdateDashboardRequest:
       type: object
-      required:
-      - dashboard
+      description: All fields optional (PATCH semantics). Provided fields are updated; omitted or null fields are left unchanged. Setting is_default=true unsets any other default dashboard in the organization. config fully replaces the stored blob; to clear a value send an empty string (description) or an empty object (config) rather than null.
       properties:
-        dashboard:
-          $ref: '#/components/schemas/DashboardResource'
+        display_name:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 255
+          description: Updated dashboard name
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 1000
+          description: Updated free-text description (empty string clears it)
+        is_favorite:
+          type:
+          - boolean
+          - 'null'
+          description: Updated favorite flag
+        is_default:
+          type:
+          - boolean
+          - 'null'
+          description: Set true to make this the organization's default dashboard (unsets any other default)
+        position:
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+          description: Updated ordering position
+        config:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          description: Replacement free-form JSON config blob (max 50000 bytes serialized)
     GetDashboardResponse:
       type: object
       required:
@@ -432,6 +351,104 @@ components:
       properties:
         dashboard:
           $ref: '#/components/schemas/DashboardResource'
+    UpdateDashboardResponse:
+      type: object
+      required:
+      - dashboard
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/DashboardResource'
+    CreateDashboardRequest:
+      type: object
+      required:
+      - display_name
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Human-readable dashboard name
+          example: Production Metrics
+        description:
+          type: string
+          maxLength: 1000
+          description: Optional free-text description
+        is_favorite:
+          type: boolean
+          default: false
+          description: Mark the dashboard as a favorite
+        is_default:
+          type:
+          - boolean
+          - 'null'
+          description: Mark as the organization's default dashboard. Omit to auto-default the first dashboard in the organization; set true to make this the default (any existing default is unset).
+        position:
+          type: integer
+          minimum: 0
+          description: Ordering position. Omit to append to the end.
+        config:
+          type: object
+          additionalProperties: true
+          description: Free-form JSON config blob (max 50000 bytes serialized)
+    CreateDashboardResponse:
+      type: object
+      required:
+      - dashboard
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/DashboardResource'
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: display_name
+                description: display_name must be between 1 and 255 characters
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Resource not found
+              details:
+              - field: dashboard_id
+                description: Dashboard not found or not accessible by your organization
   examples:
     ListDashboardsSuccess:
       summary: Successful list response
@@ -454,19 +471,10 @@ components:
           display_name: Production Metrics
           create_time: '2025-10-14T12:00:00Z'
           update_time: '2025-10-14T12:00:00Z'
-  parameters:
-    DashboardId:
-      name: dashboard_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Dashboard resource ID (22-character ShortUUID)
-      example: abc123def456ghi789jklm
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       in: header
-      name: x-api-key
+      name: X-API-Key
       description: API key for authentication
 x-visibility: external

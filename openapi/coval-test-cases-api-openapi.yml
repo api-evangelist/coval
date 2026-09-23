@@ -1,24 +1,20 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Coval Agents Test Cases API
+  title: Test Cases API
   version: 1.0.0
-  description: '
+  description: 'API for managing test cases - individual test inputs for evaluation.
 
-    Manage configurations for simulations and evaluations.
 
-    '
+    Test cases are standalone resources accessed at `/v1/test-cases`.'
   contact:
     name: Coval API Support
+    url: https://coval.dev
     email: support@coval.dev
-    url: https://docs.coval.ai
-  license:
-    name: Proprietary
-    url: https://coval.dev/terms
 servers:
 - url: https://api.coval.dev/v1
   description: Production API
 security:
-- ApiKeyAuth: []
+- apiKey: []
 tags:
 - name: Test Cases
   description: Operations for managing test cases
@@ -26,9 +22,7 @@ paths:
   /test-cases:
     get:
       summary: List test cases
-      description: 'List test cases for your organization.
-
-        '
+      description: List test cases for your organization.
       operationId: listTestCases
       tags:
       - Test Cases
@@ -186,9 +180,7 @@ paths:
           $ref: '#/components/responses/InternalError'
     delete:
       summary: Delete test case
-      description: 'Delete a test case permanently.
-
-        '
+      description: Delete a test case permanently.
       operationId: deleteTestCase
       tags:
       - Test Cases
@@ -300,6 +292,91 @@ components:
                     type: string
                     description: Description of the error
                     example: test_set_id is required
+    UpdateTestCaseRequest:
+      type: object
+      description: Update request. Only provided fields will be updated.
+      properties:
+        input_str:
+          type: string
+          minLength: 1
+          description: Input for the test case
+          example: What is the weather today?
+        test_set_id:
+          type: string
+          minLength: 8
+          maxLength: 8
+          description: Test set ID (can move to different test set)
+          example: newset12
+        expected_behaviors:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Expected behaviors (list of strings). This is the preferred field.
+          example:
+          - The weather is sunny.
+        expected_output_str:
+          type:
+          - string
+          - 'null'
+          description: 'DEPRECATED: Use expected_behaviors instead.
+
+            If provided and expected_behaviors is not, this value will be wrapped
+
+            in a list and used as expected_behaviors.
+
+            '
+          example: The weather is sunny.
+        expected_output_json:
+          type: object
+          description: Expected output as JSON object
+          additionalProperties: true
+        description:
+          type:
+          - string
+          - 'null'
+          description: Human-readable description
+          example: Updated description
+        input_type:
+          type:
+          - string
+          - 'null'
+          description: 'Type of input for the test case. When set to SCRIPT, the
+
+            simulation_metadata_input should contain a script_turns field
+
+            with ordered persona turn texts.
+
+            '
+          enum:
+          - SCENARIO
+          - TRANSCRIPT
+          - IVR
+          - AUDIO
+          - MANUAL
+          - SCRIPT
+          example: SCRIPT
+        simulation_metadata_input:
+          type: object
+          description: 'Metadata for simulation. Contents vary by input_type. When
+
+            input_type is SCRIPT, include a script_turns field (array of
+
+            strings) with the ordered lines for the persona to deliver.
+
+            '
+          additionalProperties: true
+        metric_input:
+          type: object
+          description: Input for metrics
+          additionalProperties: true
+        user_notes:
+          type:
+          - string
+          - 'null'
+          description: User notes
+          example: Updated notes
     CreateTestCaseRequest:
       type: object
       description: Request body for creating a test case
@@ -319,16 +396,18 @@ components:
           description: Test set ID (REQUIRED in body, not URL)
           example: abc12345
         expected_behaviors:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
           description: Expected behaviors (list of strings). This is the preferred field.
           example:
           - The weather is sunny.
         expected_output_str:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'DEPRECATED: Use expected_behaviors instead.
 
             If provided and expected_behaviors is not, this value will be wrapped
@@ -343,13 +422,15 @@ components:
           additionalProperties: true
           default: {}
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Human-readable description
           example: Test case for weather query
         input_type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'Type of input for the test case. Defaults to SCENARIO. When set
 
             to SCRIPT, the simulation_metadata_input should contain a
@@ -383,8 +464,9 @@ components:
           additionalProperties: true
           default: {}
         user_notes:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: User notes
           example: Created for regression testing
     TestCaseResource:
@@ -402,8 +484,9 @@ components:
           maxLength: 22
           example: abc123def456ghi789jklm
         test_set_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Test set ID (8-character ID)
           minLength: 8
           maxLength: 8
@@ -413,8 +496,9 @@ components:
           description: Input for the test case
           example: What is the weather today?
         expected_output_str:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Expected output string
           example: The weather is sunny with a high of 75 degrees.
         expected_output_json:
@@ -425,13 +509,15 @@ components:
             temperature: 75
             condition: sunny
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Human-readable description of the test case
           example: Test case for weather query with sunny conditions
         input_type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'Type of input for the test case. Defaults to SCENARIO. When set
 
             to SCRIPT, the simulation_metadata_input should contain a
@@ -474,8 +560,9 @@ components:
             - weather
             - temperature
         user_notes:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: User-provided notes about the test case
           example: Added for regression testing weather queries
         create_time:
@@ -484,95 +571,16 @@ components:
           description: Timestamp when test case was created
           example: '2025-10-14T12:00:00Z'
         update_time:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Timestamp when test case was last updated
           example: '2025-10-15T14:30:00Z'
-    UpdateTestCaseRequest:
-      type: object
-      description: Update request. Only provided fields will be updated.
-      properties:
-        input_str:
-          type: string
-          minLength: 1
-          description: Input for the test case
-          example: What is the weather today?
-        test_set_id:
-          type: string
-          minLength: 8
-          maxLength: 8
-          description: Test set ID (can move to different test set)
-          example: newset12
-        expected_behaviors:
-          type: array
-          items:
-            type: string
-          nullable: true
-          description: Expected behaviors (list of strings). This is the preferred field.
-          example:
-          - The weather is sunny.
-        expected_output_str:
-          type: string
-          nullable: true
-          description: 'DEPRECATED: Use expected_behaviors instead.
-
-            If provided and expected_behaviors is not, this value will be wrapped
-
-            in a list and used as expected_behaviors.
-
-            '
-          example: The weather is sunny.
-        expected_output_json:
-          type: object
-          description: Expected output as JSON object
-          additionalProperties: true
-        description:
-          type: string
-          nullable: true
-          description: Human-readable description
-          example: Updated description
-        input_type:
-          type: string
-          nullable: true
-          description: 'Type of input for the test case. When set to SCRIPT, the
-
-            simulation_metadata_input should contain a script_turns field
-
-            with ordered persona turn texts.
-
-            '
-          enum:
-          - SCENARIO
-          - TRANSCRIPT
-          - IVR
-          - AUDIO
-          - MANUAL
-          - SCRIPT
-          example: SCRIPT
-        simulation_metadata_input:
-          type: object
-          description: 'Metadata for simulation. Contents vary by input_type. When
-
-            input_type is SCRIPT, include a script_turns field (array of
-
-            strings) with the ordered lines for the persona to deliver.
-
-            '
-          additionalProperties: true
-        metric_input:
-          type: object
-          description: Input for metrics
-          additionalProperties: true
-        user_notes:
-          type: string
-          nullable: true
-          description: User notes
-          example: Updated notes
   securitySchemes:
-    ApiKeyAuth:
+    apiKey:
       type: apiKey
       in: header
-      name: x-api-key
-      description: API key for authentication
+      name: X-API-Key
+      description: Organization API key for authentication
 x-visibility: external

@@ -1,24 +1,20 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Coval Agents Test Sets API
+  title: Test Sets API
   version: 1.0.0
-  description: '
+  description: 'API for managing test sets - collections of test cases for evaluation.
 
-    Manage configurations for simulations and evaluations.
 
-    '
+    Test sets organize test cases and can define parameters for test case generation.'
   contact:
     name: Coval API Support
+    url: https://coval.dev
     email: support@coval.dev
-    url: https://docs.coval.ai
-  license:
-    name: Proprietary
-    url: https://coval.dev/terms
 servers:
 - url: https://api.coval.dev/v1
   description: Production API
 security:
-- ApiKeyAuth: []
+- apiKey: []
 tags:
 - name: Test Sets
   description: Operations for managing test sets
@@ -208,9 +204,7 @@ paths:
           $ref: '#/components/responses/InternalError'
     delete:
       summary: Delete test set
-      description: 'Delete a test set.
-
-        '
+      description: Delete a test set.
       operationId: deleteTestSet
       tags:
       - Test Sets
@@ -446,6 +440,347 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
+  schemas:
+    TestSetVersionResource:
+      type: object
+      description: A prior, displaced snapshot of a test set's content (config + test-case grid).
+      required:
+      - name
+      - ulid
+      - version_number
+      - change_type
+      - created_by
+      properties:
+        name:
+          type: string
+          description: Resource name
+          example: test-sets/abc12345/versions/01KKWQYSF737ZN6X1Q1RYX8M2D
+        ulid:
+          type: string
+          description: Version identifier (26-char ULID)
+          example: 01KKWQYSF737ZN6X1Q1RYX8M2D
+        version_number:
+          type: integer
+          description: Per-test-set monotonic version number, 1-based
+          example: 2
+        change_type:
+          type: string
+          description: How this version came about. A revert is a save whose new state mirrors an older version.
+          enum:
+          - save
+          - revert
+        label:
+          type:
+          - string
+          - 'null'
+          description: Optional user-supplied tag
+          example: v1.2 prod
+        test_set_metadata:
+          type: object
+          additionalProperties: true
+          description: Verbatim config snapshot
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Verbatim parameter-sweep snapshot
+        test_set_type:
+          type:
+          - string
+          - 'null'
+        test_cases:
+          type: array
+          description: Ordered snapshot of the test set's active rows at this version
+          items:
+            type: object
+            additionalProperties: true
+        created_by:
+          type: string
+          description: Who created this version (user ULID)
+        create_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: When this version became current
+    TestSetAgentResource:
+      type: object
+      description: An agent associated with a test set.
+      required:
+      - name
+      - agent_id
+      - display_name
+      properties:
+        name:
+          type: string
+          description: Resource name, "test-sets/{test_set_id}/agents/{agent_id}".
+          example: test-sets/abc12345/agents/abc123def456ghi789jklm
+        agent_id:
+          type: string
+          description: Agent identifier (22-char ShortUUID).
+          example: abc123def456ghi789jklm
+        display_name:
+          type: string
+          description: Human-readable agent name.
+          example: Support Bot
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameters
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    description: Field that caused the error
+                    example: slug
+                  description:
+                    type: string
+                    description: Description of the error
+                    example: slug already exists for this organization
+    CreateTestSetRequest:
+      type: object
+      description: Request body for creating a test set
+      required:
+      - display_name
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: Human-readable test set name
+          example: Customer Support Scenarios
+        slug:
+          type: string
+          maxLength: 100
+          description: URL-friendly identifier (auto-generated from display_name if not provided)
+          example: customer-support-scenarios
+        description:
+          type:
+          - string
+          - 'null'
+          description: Test set description
+          example: Test cases for customer support agent
+        test_set_type:
+          type: string
+          maxLength: 50
+          description: Test set type (e.g., DEFAULT, SCENARIO, TRANSCRIPT, WORKFLOW)
+          example: SCENARIO
+        test_set_metadata:
+          type: object
+          description: Additional test set configuration (JSON)
+          additionalProperties: true
+          default: {}
+          example:
+            category: support
+            priority: high
+        parameters:
+          type: object
+          description: Test case parameterization
+          additionalProperties: true
+          default: {}
+          example:
+            customer_name:
+            - Alice
+            - Bob
+            issue_type:
+            - billing
+            - technical
+        tags:
+          type:
+          - array
+          - 'null'
+          description: Tags to associate with this test set. Null or omitted creates the test set with no tags. Pass [] for an empty tag list.
+          items:
+            type: string
+          example:
+          - regression
+    ListTestSetAgentsResponse:
+      type: object
+      description: The agents currently associated with the test set.
+      required:
+      - agents
+      properties:
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestSetAgentResource'
+    AddTestSetAgentsRequest:
+      type: object
+      description: Associate one or more agents with the test set.
+      required:
+      - agent_ids
+      properties:
+        agent_ids:
+          type: array
+          description: Agent IDs (22-char ShortUUIDs) to associate. Already-associated IDs are a no-op, and unknown or inactive IDs are ignored; the response reflects the resulting association set.
+          minItems: 1
+          maxItems: 1000
+          items:
+            type: string
+            minLength: 1
+            maxLength: 22
+            pattern: ^[A-Za-z0-9]+$
+          example:
+          - abc123def456ghi789jklm
+    ListTestSetVersionsResponse:
+      type: object
+      description: Response for GET /v1/test-sets/{test_set_id}/versions (newest first)
+      required:
+      - versions
+      properties:
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestSetVersionResource'
+    TestSetResource:
+      type: object
+      description: 'Test set resource representation.
+
+        '
+      properties:
+        name:
+          type: string
+          description: Resource name in format `test-sets/{id}`
+          example: test-sets/abc12345
+        id:
+          type: string
+          description: Test set ID (8-character ID)
+          minLength: 8
+          maxLength: 8
+          example: abc12345
+        slug:
+          type: string
+          description: URL-friendly identifier (unique per organization)
+          example: customer-support-scenarios
+        display_name:
+          type: string
+          description: Human-readable test set name
+          example: Customer Support Scenarios
+        description:
+          type:
+          - string
+          - 'null'
+          description: Test set description
+          example: Test cases for customer support agent
+        test_set_type:
+          type:
+          - string
+          - 'null'
+          description: Test set type (e.g., DEFAULT, SCENARIO, TRANSCRIPT, WORKFLOW)
+          example: SCENARIO
+        test_set_metadata:
+          type: object
+          description: Additional test set configuration (JSON)
+          additionalProperties: true
+          example:
+            category: support
+            priority: high
+        parameters:
+          type: object
+          description: 'Test case parameterization (e.g., {"name": ["Alice", "Bob"]})'
+          additionalProperties: true
+          example:
+            customer_name:
+            - Alice
+            - Bob
+            issue_type:
+            - billing
+            - technical
+        test_case_count:
+          type: integer
+          description: Number of active test cases (GET endpoint only)
+          example: 42
+        tags:
+          type: array
+          description: Tags associated with this test set
+          items:
+            type: string
+          default: []
+          example:
+          - regression
+          - voice
+        create_time:
+          type: string
+          format: date-time
+          description: Timestamp when test set was created
+          example: '2025-10-14T12:00:00Z'
+        update_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when test set was last updated
+          example: '2025-10-15T14:30:00Z'
+    UpdateTestSetRequest:
+      type: object
+      description: Update request. Only provided fields will be updated.
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: Human-readable test set name
+          example: Updated Test Set Name
+        slug:
+          type: string
+          maxLength: 100
+          description: URL-friendly identifier
+          example: updated-slug
+        description:
+          type:
+          - string
+          - 'null'
+          description: Test set description
+          example: Updated description
+        test_set_type:
+          type: string
+          maxLength: 50
+          description: Test set type
+          example: WORKFLOW
+        test_set_metadata:
+          type: object
+          description: Additional configuration (null = don't update, {} = clear field)
+          additionalProperties: true
+          example:
+            category: support
+            updated: true
+        parameters:
+          type: object
+          description: Test case parameterization (null = don't update, {} = clear field)
+          additionalProperties: true
+          example:
+            name:
+            - Alice
+            - Bob
+        tags:
+          type:
+          - array
+          - 'null'
+          description: Tags to associate with this test set. Null or omitted leaves tags unchanged. Pass [] to clear all tags.
+          items:
+            type: string
+          example:
+          - regression
   responses:
     InternalError:
       description: Internal server error
@@ -498,341 +833,10 @@ components:
               details:
               - field: test_set_id
                 description: Test set 'abc12345' not found
-  schemas:
-    TestSetResource:
-      type: object
-      description: 'Test set resource representation.
-
-        '
-      properties:
-        name:
-          type: string
-          description: Resource name in format `test-sets/{id}`
-          example: test-sets/abc12345
-        id:
-          type: string
-          description: Test set ID (8-character ID)
-          minLength: 8
-          maxLength: 8
-          example: abc12345
-        slug:
-          type: string
-          description: URL-friendly identifier (unique per organization)
-          example: customer-support-scenarios
-        display_name:
-          type: string
-          description: Human-readable test set name
-          example: Customer Support Scenarios
-        description:
-          type: string
-          nullable: true
-          description: Test set description
-          example: Test cases for customer support agent
-        test_set_type:
-          type: string
-          nullable: true
-          description: Test set type (e.g., DEFAULT, SCENARIO, TRANSCRIPT, WORKFLOW)
-          example: SCENARIO
-        test_set_metadata:
-          type: object
-          description: Additional test set configuration (JSON)
-          additionalProperties: true
-          example:
-            category: support
-            priority: high
-        parameters:
-          type: object
-          description: 'Test case parameterization (e.g., {"name": ["Alice", "Bob"]})'
-          additionalProperties: true
-          example:
-            customer_name:
-            - Alice
-            - Bob
-            issue_type:
-            - billing
-            - technical
-        test_case_count:
-          type: integer
-          description: Number of active test cases (GET endpoint only)
-          example: 42
-        tags:
-          type: array
-          description: Tags associated with this test set
-          items:
-            type: string
-          default: []
-          example:
-          - regression
-          - voice
-        create_time:
-          type: string
-          format: date-time
-          description: Timestamp when test set was created
-          example: '2025-10-14T12:00:00Z'
-        update_time:
-          type: string
-          format: date-time
-          nullable: true
-          description: Timestamp when test set was last updated
-          example: '2025-10-15T14:30:00Z'
-    AddTestSetAgentsRequest:
-      type: object
-      description: Associate one or more agents with the test set.
-      required:
-      - agent_ids
-      properties:
-        agent_ids:
-          type: array
-          description: Agent IDs (22-char ShortUUIDs) to associate. Already-associated IDs are a no-op, and unknown or inactive IDs are ignored; the response reflects the resulting association set.
-          minItems: 1
-          maxItems: 1000
-          items:
-            type: string
-            minLength: 1
-            maxLength: 22
-            pattern: ^[A-Za-z0-9]+$
-          example:
-          - abc123def456ghi789jklm
-    TestSetVersionResource:
-      type: object
-      description: A prior, displaced snapshot of a test set's content (config + test-case grid).
-      required:
-      - name
-      - ulid
-      - version_number
-      - change_type
-      - created_by
-      properties:
-        name:
-          type: string
-          description: Resource name
-          example: test-sets/abc12345/versions/01KKWQYSF737ZN6X1Q1RYX8M2D
-        ulid:
-          type: string
-          description: Version identifier (26-char ULID)
-          example: 01KKWQYSF737ZN6X1Q1RYX8M2D
-        version_number:
-          type: integer
-          description: Per-test-set monotonic version number, 1-based
-          example: 2
-        change_type:
-          type: string
-          description: How this version came about. A revert is a save whose new state mirrors an older version.
-          enum:
-          - save
-          - revert
-        label:
-          type: string
-          nullable: true
-          description: Optional user-supplied tag
-          example: v1.2 prod
-        test_set_metadata:
-          type: object
-          additionalProperties: true
-          description: Verbatim config snapshot
-        parameters:
-          type: object
-          additionalProperties: true
-          description: Verbatim parameter-sweep snapshot
-        test_set_type:
-          type: string
-          nullable: true
-        test_cases:
-          type: array
-          description: Ordered snapshot of the test set's active rows at this version
-          items:
-            type: object
-            additionalProperties: true
-        created_by:
-          type: string
-          description: Who created this version (user ULID)
-        create_time:
-          type: string
-          format: date-time
-          nullable: true
-          description: When this version became current
-    TestSetAgentResource:
-      type: object
-      description: An agent associated with a test set.
-      required:
-      - name
-      - agent_id
-      - display_name
-      properties:
-        name:
-          type: string
-          description: Resource name, "test-sets/{test_set_id}/agents/{agent_id}".
-          example: test-sets/abc12345/agents/abc123def456ghi789jklm
-        agent_id:
-          type: string
-          description: Agent identifier (22-char ShortUUID).
-          example: abc123def456ghi789jklm
-        display_name:
-          type: string
-          description: Human-readable agent name.
-          example: Support Bot
-    UpdateTestSetRequest:
-      type: object
-      description: Update request. Only provided fields will be updated.
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          maxLength: 100
-          description: Human-readable test set name
-          example: Updated Test Set Name
-        slug:
-          type: string
-          maxLength: 100
-          description: URL-friendly identifier
-          example: updated-slug
-        description:
-          type: string
-          nullable: true
-          description: Test set description
-          example: Updated description
-        test_set_type:
-          type: string
-          maxLength: 50
-          description: Test set type
-          example: WORKFLOW
-        test_set_metadata:
-          type: object
-          description: Additional configuration (null = don't update, {} = clear field)
-          additionalProperties: true
-          example:
-            category: support
-            updated: true
-        parameters:
-          type: object
-          description: Test case parameterization (null = don't update, {} = clear field)
-          additionalProperties: true
-          example:
-            name:
-            - Alice
-            - Bob
-        tags:
-          type: array
-          nullable: true
-          description: Tags to associate with this test set. Null or omitted leaves tags unchanged. Pass [] to clear all tags.
-          items:
-            type: string
-          example:
-          - regression
-    ListTestSetAgentsResponse:
-      type: object
-      description: The agents currently associated with the test set.
-      required:
-      - agents
-      properties:
-        agents:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestSetAgentResource'
-    CreateTestSetRequest:
-      type: object
-      description: Request body for creating a test set
-      required:
-      - display_name
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          maxLength: 100
-          description: Human-readable test set name
-          example: Customer Support Scenarios
-        slug:
-          type: string
-          maxLength: 100
-          description: URL-friendly identifier (auto-generated from display_name if not provided)
-          example: customer-support-scenarios
-        description:
-          type: string
-          nullable: true
-          description: Test set description
-          example: Test cases for customer support agent
-        test_set_type:
-          type: string
-          maxLength: 50
-          description: Test set type (e.g., DEFAULT, SCENARIO, TRANSCRIPT, WORKFLOW)
-          example: SCENARIO
-        test_set_metadata:
-          type: object
-          description: Additional test set configuration (JSON)
-          additionalProperties: true
-          default: {}
-          example:
-            category: support
-            priority: high
-        parameters:
-          type: object
-          description: Test case parameterization
-          additionalProperties: true
-          default: {}
-          example:
-            customer_name:
-            - Alice
-            - Bob
-            issue_type:
-            - billing
-            - technical
-        tags:
-          type: array
-          nullable: true
-          description: Tags to associate with this test set. Null or omitted creates the test set with no tags. Pass [] for an empty tag list.
-          items:
-            type: string
-          example:
-          - regression
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          - details
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code
-              example: INVALID_ARGUMENT
-            message:
-              type: string
-              description: Human-readable error message
-              example: Invalid request parameters
-            details:
-              type: array
-              description: Detailed error information
-              items:
-                type: object
-                properties:
-                  field:
-                    type: string
-                    description: Field that caused the error
-                    example: slug
-                  description:
-                    type: string
-                    description: Description of the error
-                    example: slug already exists for this organization
-    ListTestSetVersionsResponse:
-      type: object
-      description: Response for GET /v1/test-sets/{test_set_id}/versions (newest first)
-      required:
-      - versions
-      properties:
-        versions:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestSetVersionResource'
   securitySchemes:
-    ApiKeyAuth:
+    apiKey:
       type: apiKey
       in: header
-      name: x-api-key
-      description: API key for authentication
+      name: X-API-Key
+      description: Organization API key for authentication
 x-visibility: external

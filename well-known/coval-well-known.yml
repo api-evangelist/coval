@@ -1,30 +1,33 @@
-generated: '2026-07-18'
-method: searched
-note: >-
-  No /.well-known/ discovery documents were served. api.coval.dev returns 403 (WAF) for all
-  probed paths; www/docs/app hosts return 404. No security.txt, OIDC, oauth-authorization-server,
-  api-catalog, or ai-plugin.json present. Recorded as an honest negative result — no WellKnown
-  or SecurityTxt pointer emitted.
-probes:
-  - host: api.coval.dev
-    documents:
-      - {path: /.well-known/security.txt, status: 403}
-      - {path: /.well-known/openid-configuration, status: 403}
-      - {path: /.well-known/oauth-authorization-server, status: 403}
-      - {path: /.well-known/api-catalog, status: 403}
-      - {path: /.well-known/ai-plugin.json, status: 403}
-  - host: www.coval.ai
-    documents:
-      - {path: /.well-known/security.txt, status: 404}
-      - {path: /.well-known/openid-configuration, status: 404}
-      - {path: /.well-known/oauth-authorization-server, status: 404}
-      - {path: /.well-known/api-catalog, status: 404}
-      - {path: /.well-known/ai-plugin.json, status: 404}
-  - host: docs.coval.ai
-    documents:
-      - {path: /.well-known/security.txt, status: 404}
-      - {path: /.well-known/api-catalog, status: 404}
-  - host: app.coval.dev
-    documents:
-      - {path: /.well-known/security.txt, status: 404}
-      - {path: /.well-known/openid-configuration, status: 404}
+generated: '2026-09-19'
+method: probed
+hosts:
+- host: https://mcp.coval.dev
+  documents:
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: coval-mcp-oauth-protected-resource.json
+    bytes: 736
+  path_echo_control: passed
+- host: https://clerk.coval.dev
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: coval-clerk-oauth-authorization-server.json
+    bytes: 1203
+  path_echo_control: passed
+x-mcp-probe:
+  probed: '2026-09-19'
+  issue: roadmap#321, roadmap#337
+  documents:
+  - host: https://mcp.coval.dev
+    path: /.well-known/oauth-protected-resource
+    file: coval-mcp-oauth-protected-resource.json
+  - host: https://clerk.coval.dev
+    path: /.well-known/oauth-authorization-server
+    file: coval-clerk-oauth-authorization-server.json
+  validated_on: resource (RFC 9728) / issuer (RFC 8414, OIDC)
+  negative_control: one per host; a 2xx JSON object at an impossible path discards the host
+note: 'MCP-host OAuth discovery added 2026-09-19 (roadmap#321/#337): the harvest visits a provider''s
+  primary hosts, and RFC 9728 protected-resource metadata lives on the MCP host, so these documents existed
+  and were invisible to the scorer. Fetched live and validated on `resource`/`issuer`; one negative control
+  per host.'

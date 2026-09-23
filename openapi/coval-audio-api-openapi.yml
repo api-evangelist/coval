@@ -1,12 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Coval Agents Audio API
+  title: Coval Conversations Audio API
   version: 1.0.0
-  description: '
-
-    Manage configurations for simulations and evaluations.
-
-    '
+  description: Submit and manage conversation evaluations.
   contact:
     name: Coval API Support
     email: support@coval.dev
@@ -28,9 +24,7 @@ paths:
       tags:
       - Audio
       summary: Upload audio
-      description: 'Issue an opaque `upload_id` and a short-lived presigned PUT URL for direct audio upload.
-
-        '
+      description: Issue an opaque `upload_id` and a short-lived presigned PUT URL for direct audio upload.
       operationId: createAudioUpload
       requestBody:
         required: false
@@ -74,9 +68,7 @@ paths:
       tags:
       - Audio
       summary: Get conversation audio
-      description: 'Retrieve a presigned URL for downloading conversation audio.
-
-        '
+      description: Retrieve a presigned URL for downloading conversation audio.
       operationId: getConversationAudio
       parameters:
       - name: conversation_id
@@ -132,50 +124,6 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
-    GetConversationAudioResponse:
-      type: object
-      required:
-      - audio_url
-      - conversation_id
-      - url_expires_in_seconds
-      properties:
-        audio_url:
-          type: string
-          format: uri
-          description: 'Presigned S3 URL for downloading audio file.
-
-
-            URL is valid for duration specified in url_expires_in_seconds.
-
-            No authentication required to access this URL.
-
-            '
-          example: https://coval-audio-prod.s3.us-east-2.amazonaws.com/audio/2025/11/03/gk3jK9mPq2xRt5vW8yZaBc.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&...
-        peaks_url:
-          type: string
-          format: uri
-          nullable: true
-          description: 'Presigned S3 URL for precomputed waveform peaks JSON (valid for 1 hour).
-
-            Contains an array of up to 800 [min, max] amplitude pairs for waveform visualization.
-
-            Null for older recordings without precomputed peaks. May return 404 if peaks
-
-            were not generated for this recording.
-
-            '
-          example: https://coval-audio-prod.s3.us-east-2.amazonaws.com/audio/2025/11/03/gk3jK9mPq2xRt5vW8yZaBc.peaks.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&...
-        conversation_id:
-          type: string
-          description: Conversation identifier
-          example: gk3jK9mPq2xRt5vW8yZaBc
-        url_expires_in_seconds:
-          type: integer
-          description: Number of seconds until presigned URL expires
-          example: 3600
-      description: 'Response containing presigned URL for audio download.
-
-        '
     CreateAudioUploadRequest:
       type: object
       properties:
@@ -240,6 +188,62 @@ components:
                 $ref: '#/components/schemas/ErrorDetail'
               description: Additional error details
               default: []
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type: string
+          description: Field that caused the error
+          example: transcript
+        description:
+          type: string
+          description: Detailed description of the error
+          example: At least one of transcript, audio, or audio_url must be provided
+    GetConversationAudioResponse:
+      type: object
+      required:
+      - audio_url
+      - conversation_id
+      - url_expires_in_seconds
+      properties:
+        audio_url:
+          type: string
+          format: uri
+          description: 'Presigned S3 URL for downloading audio file.
+
+
+            URL is valid for duration specified in url_expires_in_seconds.
+
+            No authentication required to access this URL.
+
+            '
+          example: https://coval-audio-prod.s3.us-east-2.amazonaws.com/audio/2025/11/03/gk3jK9mPq2xRt5vW8yZaBc.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&...
+        peaks_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: 'Presigned S3 URL for precomputed waveform peaks JSON (valid for 1 hour).
+
+            Contains an array of up to 800 [min, max] amplitude pairs for waveform visualization.
+
+            Null for older recordings without precomputed peaks. May return 404 if peaks
+
+            were not generated for this recording.
+
+            '
+          example: https://coval-audio-prod.s3.us-east-2.amazonaws.com/audio/2025/11/03/gk3jK9mPq2xRt5vW8yZaBc.peaks.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&...
+        conversation_id:
+          type: string
+          description: Conversation identifier
+          example: gk3jK9mPq2xRt5vW8yZaBc
+        url_expires_in_seconds:
+          type: integer
+          description: Number of seconds until presigned URL expires
+          example: 3600
+      description: 'Response containing presigned URL for audio download.
+
+        '
     CreateAudioUploadResponse:
       type: object
       required:
@@ -298,18 +302,18 @@ components:
       description: 'Response for `POST /v1/audio:upload`.
 
         '
-    ErrorDetail:
-      type: object
-      properties:
-        field:
-          type: string
-          description: Field that caused the error
-          example: transcript
-        description:
-          type: string
-          description: Detailed description of the error
-          example: At least one of transcript, audio, or audio_url must be provided
   responses:
+    Unauthenticated:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Invalid or missing API key
+              details: []
     InternalError:
       description: Internal server error
       content:
@@ -409,21 +413,12 @@ components:
                   details:
                   - field: audio_url
                     description: Audio file headers could not be read or are corrupted
-    Unauthenticated:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Invalid or missing API key
-              details: []
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       in: header
-      name: x-api-key
-      description: API key for authentication
+      name: X-API-Key
+      description: 'API key for authentication.
+
+        '
 x-visibility: external

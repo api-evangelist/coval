@@ -1,12 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Coval Agents Metric Outputs API
+  title: Coval Simulations Metric Outputs API
   version: 1.0.0
-  description: '
-
-    Manage configurations for simulations and evaluations.
-
-    '
+  description: Launch and manage voice simulations for AI agent testing.
   contact:
     name: Coval API Support
     email: support@coval.dev
@@ -111,7 +107,36 @@ paths:
     get:
       operationId: getMetric
       summary: Get simulation metric output(s)
-      description: "Retrieve metric output(s) for a simulation by ID. The path segment\naccepts two ID types and returns different response shapes:\n\n- **26-char MetricOutput ULID**: returns a single metric output as\n  `{ \"metric\": {...} }`.\n- **22-char Metric definition ID**: returns every output for that\n  metric on the simulation as `{ \"metric_outputs\": [...] }`.\n\nClients should branch on the input ID length they passed.\n\n**Retrieving test-metric results:** after calling\n`POST /v1/metrics/{metric_id}/test`, poll this endpoint using the same\nsimulation output ID you tested against as `simulation_id`, plus the\nreturned 26-char `metric_output_ulid`. The response includes a `status`\nfield (`IN QUEUE`, `IN PROGRESS`, `COMPLETED`, `FAILED`) — poll until it\nis terminal. Test-metric outputs belong to the simulation they ran\nagainst, so they are retrieved here, not via the conversations endpoint.\n"
+      description: 'Retrieve metric output(s) for a simulation by ID. The path segment
+
+        accepts two ID types and returns different response shapes:
+
+
+        - **26-char MetricOutput ULID**: returns a single metric output as
+
+        `{ "metric": {...} }`.
+
+        - **22-char Metric definition ID**: returns every output for that
+
+        metric on the simulation as `{ "metric_outputs": [...] }`.
+
+
+        Clients should branch on the input ID length they passed.
+
+
+        **Retrieving test-metric results:** after calling
+
+        `POST /v1/metrics/{metric_id}/test`, poll this endpoint using the same
+
+        simulation output ID you tested against as `simulation_id`, plus the
+
+        returned 26-char `metric_output_ulid`. The response includes a `status`
+
+        field (`IN QUEUE`, `IN PROGRESS`, `COMPLETED`, `FAILED`) — poll until it
+
+        is terminal. Test-metric outputs belong to the simulation they ran
+
+        against, so they are retrieved here, not via the conversations endpoint.'
       tags:
       - Metric Outputs
       security:
@@ -160,99 +185,6 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
-    SimpleMetricOutput:
-      type: object
-      required:
-      - metric_output_id
-      - metric_id
-      - status
-      properties:
-        metric_output_id:
-          type: string
-          minLength: 26
-          maxLength: 26
-          description: Unique metric output identifier (26-char ULID)
-          example: 01JCQR8Z9PQSTNVWXY12345678
-        metric_id:
-          type: string
-          description: Metric definition identifier
-          example: abc123xyz789
-        metric_version_ulid:
-          type: string
-          nullable: true
-          minLength: 26
-          maxLength: 26
-          description: ULID of the metric version this output was scored against (null for outputs produced before metric versioning landed).
-          example: 01JCQR8Z9PQSTNVWXY12345678
-        value:
-          description: Metric value (float, string, or list of strings). Can be null if not yet computed.
-          example: 0.85
-          oneOf:
-          - type: number
-          - type: string
-          - type: array
-            items:
-              type: string
-        status:
-          type: string
-          enum:
-          - IN QUEUE
-          - IN PROGRESS
-          - COMPLETED
-          - FAILED
-          description: Current status of the metric computation
-          example: COMPLETED
-        explanation:
-          type: string
-          nullable: true
-          description: The LLM judge's reasoning for this metric output, as a flat string. Null for metrics that produce no explanation (non-judge metrics) or when the output is not yet computed. This is a convenience surfacing of the reasoning that otherwise lives nested under result.llm.answer_explanation (or result.explanation); it is populated in both the list and single-output responses so callers do not have to request the full result object to read it.
-          example: The agent never confirmed the caller's address before ending the call.
-        subvalues_by_timestamp:
-          type: array
-          nullable: true
-          items:
-            $ref: '#/components/schemas/SubvalueByTimestamp'
-          description: Time-series metric values anchored to time ranges
-        result:
-          type: object
-          nullable: true
-          additionalProperties: true
-          description: 'Structured metric result. Its keys depend on the metric type — for example llm for LLM-judge metrics, or stats/count for numeric metrics. The llm key is present only for LLM-judge metrics: the judge''s reasoning is at result.llm.answer_explanation and the evaluation prompt at result.llm.prompt. Null for metrics that produce no structured result.'
-          example:
-            llm:
-              answer_explanation: The agent never confirmed the caller's address before ending the call.
-              prompt: Did the agent confirm the caller's address?
-        runtime_metadata:
-          type: object
-          nullable: true
-          additionalProperties: true
-          description: How the metric was computed at runtime, such as model version and trace context. Null when not recorded.
-    ErrorInfo:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          enum:
-          - INVALID_ARGUMENT
-          - UNAUTHENTICATED
-          - PERMISSION_DENIED
-          - NOT_FOUND
-          - FAILED_PRECONDITION
-          - INTERNAL
-          description: Machine-readable error code
-          example: INVALID_ARGUMENT
-        message:
-          type: string
-          description: Human-readable error message
-          example: Request validation failed
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          description: Detailed information about specific error fields
     MetricOutputCollection:
       type: object
       required:
@@ -276,6 +208,78 @@ components:
       properties:
         error:
           $ref: '#/components/schemas/ErrorInfo'
+    SimpleMetricOutput:
+      type: object
+      required:
+      - metric_output_id
+      - metric_id
+      - status
+      properties:
+        metric_output_id:
+          type: string
+          minLength: 26
+          maxLength: 26
+          description: Unique metric output identifier (26-char ULID)
+          example: 01JCQR8Z9PQSTNVWXY12345678
+        metric_id:
+          type: string
+          description: Metric definition identifier
+          example: abc123xyz789
+        metric_version_ulid:
+          type:
+          - string
+          - 'null'
+          minLength: 26
+          maxLength: 26
+          description: ULID of the metric version this output was scored against (null for outputs produced before metric versioning landed).
+          example: 01JCQR8Z9PQSTNVWXY12345678
+        value:
+          description: Metric value (float, string, or list of strings). Can be null if not yet computed.
+          example: 0.85
+          oneOf:
+          - type: number
+          - type: string
+          - type: array
+            items:
+              type: string
+        status:
+          type: string
+          enum:
+          - IN QUEUE
+          - IN PROGRESS
+          - COMPLETED
+          - FAILED
+          description: Current status of the metric computation
+          example: COMPLETED
+        explanation:
+          type:
+          - string
+          - 'null'
+          description: The LLM judge's reasoning for this metric output, as a flat string. Null for metrics that produce no explanation (non-judge metrics) or when the output is not yet computed. This is a convenience surfacing of the reasoning that otherwise lives nested under result.llm.answer_explanation (or result.explanation); it is populated in both the list and single-output responses so callers do not have to request the full result object to read it.
+          example: The agent never confirmed the caller's address before ending the call.
+        subvalues_by_timestamp:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SubvalueByTimestamp'
+          description: Time-series metric values anchored to time ranges
+        result:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          description: 'Structured metric result. Its keys depend on the metric type — for example llm for LLM-judge metrics, or stats/count for numeric metrics. The llm key is present only for LLM-judge metrics: the judge''s reasoning is at result.llm.answer_explanation and the evaluation prompt at result.llm.prompt. Null for metrics that produce no structured result.'
+          example:
+            llm:
+              answer_explanation: The agent never confirmed the caller's address before ending the call.
+              prompt: Did the agent confirm the caller's address?
+        runtime_metadata:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          description: How the metric was computed at runtime, such as model version and trace context. Null when not recorded.
     GetMetricOutputResponse:
       type: object
       required:
@@ -284,19 +288,6 @@ components:
       properties:
         metric:
           $ref: '#/components/schemas/SimpleMetricOutput'
-    ErrorDetail:
-      type: object
-      required:
-      - description
-      properties:
-        field:
-          type: string
-          description: The field that caused the error (if applicable)
-          example: agent_id
-        description:
-          type: string
-          description: Human-readable description of the error
-          example: Agent not found or not accessible by your organization
     SubvalueByTimestamp:
       type: object
       required:
@@ -331,15 +322,56 @@ components:
           default: ''
           example: ''
         role:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Speaker role for this interval (e.g. user, assistant)
           example: assistant
         message_index:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: 0-based transcript message index
           example: 3
+    ErrorDetail:
+      type: object
+      required:
+      - description
+      properties:
+        field:
+          type: string
+          description: The field that caused the error (if applicable)
+          example: agent_id
+        description:
+          type: string
+          description: Human-readable description of the error
+          example: Agent not found or not accessible by your organization
+    ErrorInfo:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          enum:
+          - INVALID_ARGUMENT
+          - UNAUTHENTICATED
+          - PERMISSION_DENIED
+          - NOT_FOUND
+          - FAILED_PRECONDITION
+          - INTERNAL
+          description: Machine-readable error code
+          example: INVALID_ARGUMENT
+        message:
+          type: string
+          description: Human-readable error message
+          example: Request validation failed
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          description: Detailed information about specific error fields
     ListMetricsResponse:
       type: object
       required:
@@ -367,19 +399,6 @@ components:
               message: Internal server error
               details:
               - description: An unexpected error occurred. Please contact support.
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Missing API Key
-              details:
-              - field: X-API-Key
-                description: X-API-Key header is required
     BadRequest:
       description: Request validation failed
       content:
@@ -393,6 +412,19 @@ components:
               details:
               - field: iteration_count
                 description: Value must be between 1 and 10
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Missing API Key
+              details:
+              - field: X-API-Key
+                description: X-API-Key header is required
     NotFound:
       description: Resource not found
       content:
@@ -410,6 +442,8 @@ components:
     ApiKeyAuth:
       type: apiKey
       in: header
-      name: x-api-key
-      description: API key for authentication
+      name: X-API-Key
+      description: 'API key for authentication.
+
+        '
 x-visibility: external

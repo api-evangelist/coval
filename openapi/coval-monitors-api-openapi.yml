@@ -1,12 +1,23 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Coval Agents Monitors API
+  title: Coval Monitors API
   version: 1.0.0
-  description: '
+  description: 'API for managing monitors — metric-based alerting rules that evaluate
 
-    Manage configurations for simulations and evaluations.
+    on run completion and dispatch notifications to configured channels.
 
-    '
+
+    Monitors support:
+
+    - Per-run metric checks (single value, run average, run fraction)
+
+    - AND/OR condition logic across multiple metrics
+
+    - Multi-channel notifications (Slack, email, webhook, human review)
+
+    - Cooldown/deduplication
+
+    - Custom message templates'
   contact:
     name: Coval API Support
     email: support@coval.dev
@@ -16,7 +27,6 @@ info:
     url: https://coval.dev/terms
 servers:
 - url: https://api.coval.dev/v1
-  description: Production API
 security:
 - ApiKeyAuth: []
 tags:
@@ -30,9 +40,7 @@ paths:
       description: 'Returns all active monitors for the authenticated organization.
 
 
-        Supports optional filtering by scope and pagination.
-
-        '
+        Supports optional filtering by scope and pagination.'
       tags:
       - Monitors
       parameters:
@@ -84,9 +92,7 @@ paths:
 
         without channels will still evaluate and log events but won''t dispatch
 
-        notifications.
-
-        '
+        notifications.'
       tags:
       - Monitors
       requestBody:
@@ -160,9 +166,7 @@ paths:
 
         When `conditions` or `channels` are provided, they **replace** the
 
-        existing set atomically (delete old, create new).
-
-        '
+        existing set atomically (delete old, create new).'
       tags:
       - Monitors
       parameters:
@@ -201,9 +205,7 @@ paths:
       summary: Delete a monitor
       description: 'Soft-deletes a monitor by setting its status to DELETED.
 
-        The monitor and its channels are deactivated but retained for audit.
-
-        '
+        The monitor and its channels are deactivated but retained for audit.'
       tags:
       - Monitors
       parameters:
@@ -232,9 +234,7 @@ paths:
 
         Use this to preview what would happen if the monitor evaluated
 
-        against a given run.
-
-        '
+        against a given run.'
       tags:
       - Monitors
       parameters:
@@ -265,72 +265,13 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
-  responses:
-    InternalError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: NOT_FOUND
-              message: Monitor not found
-              details:
-              - field: monitor_id
-                description: Monitor '01HZ0EXAMPLE00000000000000' not found
-    PermissionDenied:
-      description: Permission Denied
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: PERMISSION_DENIED
-              message: Insufficient permissions
-              details:
-              - field: permissions
-                description: 'Required scope: monitors:read'
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INVALID_ARGUMENT
-              message: Invalid request body
-              details:
-              - field: conditions
-                description: Value error, List should have at least 1 item after validation
   schemas:
+    MonitorMatchMode:
+      type: string
+      enum:
+      - ALL
+      - ANY
+      description: How multiple conditions are combined (AND vs OR)
     TestEvaluateRequest:
       type: object
       required:
@@ -339,61 +280,21 @@ components:
         run_id:
           type: string
           description: Run ID to evaluate the monitor against
-    ListMonitorsResponse:
-      type: object
-      required:
-      - monitors
-      - total_count
-      properties:
-        monitors:
-          type: array
-          items:
-            $ref: '#/components/schemas/MonitorResource'
-        next_page_token:
-          type: string
-          nullable: true
-          description: Token for fetching the next page (null if no more results)
-        total_count:
-          type: integer
-          description: Total count of monitors matching filter
-    ChannelType:
+    ConditionAggregation:
       type: string
       enum:
-      - SLACK
-      - EMAIL
-      - WEBHOOK
-      - HUMAN_REVIEW
-      description: Notification channel type
-    MonitorChannel:
-      type: object
-      required:
-      - ulid
-      - channel_type
-      - config
-      properties:
-        ulid:
-          type: string
-          pattern: ^[0-9A-Z]{26}$
-          description: Channel ULID
-        channel_type:
-          $ref: '#/components/schemas/ChannelType'
-        config:
-          type: object
-          description: 'Channel-specific configuration.
+      - SINGLE
+      - RUN_AVERAGE
+      - RUN_FRACTION
+      description: 'Aggregation mode for a condition.
 
+        - SINGLE: Per-simulation value (average across sim outputs)
 
-            **SLACK**: `{"channel_id": "C0123ABC", "channel_name": "#alerts"}`
+        - RUN_AVERAGE: Average from pre-computed run aggregate
 
+        - RUN_FRACTION: Fraction matching a string value in the run
 
-            **EMAIL**: `{"recipients": ["team@company.com"]}`
-
-
-            **WEBHOOK**: `{"url": "https://...", "method": "POST", "auth_token": "..."}`
-
-
-            **HUMAN_REVIEW**: `{"project_id": "...", "sample_rate": 0.1}`
-
-            '
+        '
     ErrorResponse:
       type: object
       required:
@@ -424,138 +325,11 @@ components:
                 type: object
                 properties:
                   field:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   description:
                     type: string
-    ConditionOperator:
-      type: string
-      enum:
-      - GT
-      - GTE
-      - LT
-      - LTE
-      - EQ
-      - NEQ
-      description: Comparison operator
-    CreateMonitorRequest:
-      type: object
-      required:
-      - name
-      - evaluation_type
-      - conditions
-      properties:
-        name:
-          type: string
-          maxLength: 200
-          description: Human-readable monitor name
-        description:
-          type: string
-          maxLength: 2000
-          default: ''
-        evaluation_type:
-          $ref: '#/components/schemas/MonitorEvaluationType'
-        scope:
-          $ref: '#/components/schemas/MonitorScope'
-        match_mode:
-          $ref: '#/components/schemas/MonitorMatchMode'
-        cooldown_seconds:
-          type: integer
-          minimum: 0
-          maximum: 86400
-          default: 0
-        custom_message_template:
-          type: string
-          nullable: true
-          maxLength: 5000
-        agent_ids:
-          type: array
-          nullable: true
-          items:
-            type: string
-        required_tags:
-          type: array
-          nullable: true
-          items:
-            type: string
-        scheduled_run_ids:
-          type: array
-          nullable: true
-          items:
-            type: string
-        conditions:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/ConditionInput'
-        channels:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChannelInput'
-          default: []
-    MonitorEvaluationType:
-      type: string
-      enum:
-      - ON_RUN_COMPLETE
-      description: When the monitor evaluates
-    MonitorScope:
-      type: string
-      enum:
-      - ALL
-      - MONITORING
-      - SIMULATION
-      description: Which runs the monitor applies to
-    MonitorCondition:
-      type: object
-      required:
-      - ulid
-      - metric_id
-      - aggregation
-      - operator
-      properties:
-        ulid:
-          type: string
-          pattern: ^[0-9A-Z]{26}$
-          description: Condition ULID
-        metric_id:
-          type: string
-          description: ULID of the metric to evaluate
-        aggregation:
-          $ref: '#/components/schemas/ConditionAggregation'
-        operator:
-          $ref: '#/components/schemas/ConditionOperator'
-        threshold_float:
-          type: number
-          nullable: true
-          description: Numeric threshold
-        threshold_string:
-          type: string
-          nullable: true
-          description: String threshold
-        window_size_days:
-          type: integer
-          nullable: true
-          minimum: 1
-          maximum: 365
-          description: Rolling window size in days
-        window_size_runs:
-          type: integer
-          nullable: true
-          minimum: 1
-          maximum: 10000
-          description: Rolling window size in runs
-        match_value:
-          type: string
-          nullable: true
-          description: String match value for fraction conditions
-        match_mode:
-          type: string
-          nullable: true
-          enum:
-          - exact
-          - contains
-          - contains_case_insensitive
-          description: String match mode
     TestEvaluateResponse:
       type: object
       required:
@@ -589,45 +363,18 @@ components:
         message:
           type: string
           description: Generated notification message
-    ConditionAggregation:
-      type: string
-      enum:
-      - SINGLE
-      - RUN_AVERAGE
-      - RUN_FRACTION
-      description: 'Aggregation mode for a condition.
-
-        - SINGLE: Per-simulation value (average across sim outputs)
-
-        - RUN_AVERAGE: Average from pre-computed run aggregate
-
-        - RUN_FRACTION: Fraction matching a string value in the run
-
-        '
-    ChannelInput:
+    MonitorCondition:
       type: object
       required:
-      - channel_type
-      - config
-      properties:
-        channel_type:
-          $ref: '#/components/schemas/ChannelType'
-        config:
-          type: object
-          description: Channel-specific configuration
-    MonitorMatchMode:
-      type: string
-      enum:
-      - ALL
-      - ANY
-      description: How multiple conditions are combined (AND vs OR)
-    ConditionInput:
-      type: object
-      required:
+      - ulid
       - metric_id
       - aggregation
       - operator
       properties:
+        ulid:
+          type: string
+          pattern: ^[0-9A-Z]{26}$
+          description: Condition ULID
         metric_id:
           type: string
           description: ULID of the metric to evaluate
@@ -636,79 +383,51 @@ components:
         operator:
           $ref: '#/components/schemas/ConditionOperator'
         threshold_float:
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
+          description: Numeric threshold
         threshold_string:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+          description: String threshold
         window_size_days:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           minimum: 1
           maximum: 365
+          description: Rolling window size in days
         window_size_runs:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           minimum: 1
           maximum: 10000
+          description: Rolling window size in runs
         match_value:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+          description: String match value for fraction conditions
         match_mode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           enum:
           - exact
           - contains
           - contains_case_insensitive
-    UpdateMonitorRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 200
-        description:
-          type: string
-          maxLength: 2000
-        evaluation_type:
-          $ref: '#/components/schemas/MonitorEvaluationType'
-        scope:
-          $ref: '#/components/schemas/MonitorScope'
-        match_mode:
-          $ref: '#/components/schemas/MonitorMatchMode'
-        cooldown_seconds:
-          type: integer
-          minimum: 0
-          maximum: 86400
-        custom_message_template:
-          type: string
-          nullable: true
-        agent_ids:
-          type: array
-          nullable: true
-          items:
-            type: string
-        required_tags:
-          type: array
-          nullable: true
-          items:
-            type: string
-        scheduled_run_ids:
-          type: array
-          nullable: true
-          items:
-            type: string
-        conditions:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/ConditionInput'
-          description: Replaces all existing conditions
-        channels:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChannelInput'
-          description: Replaces all existing channels
+          description: String match mode
+    ChannelType:
+      type: string
+      enum:
+      - SLACK
+      - EMAIL
+      - WEBHOOK
+      - HUMAN_REVIEW
+      description: Notification channel type
     MonitorResource:
       type: object
       required:
@@ -757,25 +476,29 @@ components:
           maximum: 86400
           description: Minimum seconds between triggers
         custom_message_template:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           maxLength: 5000
           description: Custom notification message template
         agent_ids:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           items:
             type: string
           description: Restrict to specific agent IDs
         required_tags:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           items:
             type: string
           description: Restrict to runs with these tags
         scheduled_run_ids:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           items:
             type: string
           description: Restrict to runs originating from these scheduled runs
@@ -783,9 +506,10 @@ components:
           type: integer
           description: Number of times this monitor has triggered
         last_triggered_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Last trigger timestamp
         conditions:
           type: array
@@ -805,6 +529,309 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
+    CreateMonitorRequest:
+      type: object
+      required:
+      - name
+      - evaluation_type
+      - conditions
+      properties:
+        name:
+          type: string
+          maxLength: 200
+          description: Human-readable monitor name
+        description:
+          type: string
+          maxLength: 2000
+          default: ''
+        evaluation_type:
+          $ref: '#/components/schemas/MonitorEvaluationType'
+        scope:
+          $ref: '#/components/schemas/MonitorScope'
+        match_mode:
+          $ref: '#/components/schemas/MonitorMatchMode'
+        cooldown_seconds:
+          type: integer
+          minimum: 0
+          maximum: 86400
+          default: 0
+        custom_message_template:
+          type:
+          - string
+          - 'null'
+          maxLength: 5000
+        agent_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        required_tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        scheduled_run_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        conditions:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/ConditionInput'
+        channels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelInput'
+          default: []
+    ListMonitorsResponse:
+      type: object
+      required:
+      - monitors
+      - total_count
+      properties:
+        monitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitorResource'
+        next_page_token:
+          type:
+          - string
+          - 'null'
+          description: Token for fetching the next page (null if no more results)
+        total_count:
+          type: integer
+          description: Total count of monitors matching filter
+    UpdateMonitorRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 200
+        description:
+          type: string
+          maxLength: 2000
+        evaluation_type:
+          $ref: '#/components/schemas/MonitorEvaluationType'
+        scope:
+          $ref: '#/components/schemas/MonitorScope'
+        match_mode:
+          $ref: '#/components/schemas/MonitorMatchMode'
+        cooldown_seconds:
+          type: integer
+          minimum: 0
+          maximum: 86400
+        custom_message_template:
+          type:
+          - string
+          - 'null'
+        agent_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        required_tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        scheduled_run_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        conditions:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/ConditionInput'
+          description: Replaces all existing conditions
+        channels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelInput'
+          description: Replaces all existing channels
+    MonitorEvaluationType:
+      type: string
+      enum:
+      - ON_RUN_COMPLETE
+      description: When the monitor evaluates
+    MonitorChannel:
+      type: object
+      required:
+      - ulid
+      - channel_type
+      - config
+      properties:
+        ulid:
+          type: string
+          pattern: ^[0-9A-Z]{26}$
+          description: Channel ULID
+        channel_type:
+          $ref: '#/components/schemas/ChannelType'
+        config:
+          type: object
+          description: 'Channel-specific configuration.
+
+
+            **SLACK**: `{"channel_id": "C0123ABC", "channel_name": "#alerts"}`
+
+
+            **EMAIL**: `{"recipients": ["team@company.com"]}`
+
+
+            **WEBHOOK**: `{"url": "https://...", "method": "POST", "auth_token": "..."}`
+
+
+            **HUMAN_REVIEW**: `{"project_id": "...", "sample_rate": 0.1}`
+
+            '
+    ChannelInput:
+      type: object
+      required:
+      - channel_type
+      - config
+      properties:
+        channel_type:
+          $ref: '#/components/schemas/ChannelType'
+        config:
+          type: object
+          description: Channel-specific configuration
+    ConditionInput:
+      type: object
+      required:
+      - metric_id
+      - aggregation
+      - operator
+      properties:
+        metric_id:
+          type: string
+          description: ULID of the metric to evaluate
+        aggregation:
+          $ref: '#/components/schemas/ConditionAggregation'
+        operator:
+          $ref: '#/components/schemas/ConditionOperator'
+        threshold_float:
+          type:
+          - number
+          - 'null'
+        threshold_string:
+          type:
+          - string
+          - 'null'
+        window_size_days:
+          type:
+          - integer
+          - 'null'
+          minimum: 1
+          maximum: 365
+        window_size_runs:
+          type:
+          - integer
+          - 'null'
+          minimum: 1
+          maximum: 10000
+        match_value:
+          type:
+          - string
+          - 'null'
+        match_mode:
+          type:
+          - string
+          - 'null'
+          enum:
+          - exact
+          - contains
+          - contains_case_insensitive
+    MonitorScope:
+      type: string
+      enum:
+      - ALL
+      - MONITORING
+      - SIMULATION
+      description: Which runs the monitor applies to
+    ConditionOperator:
+      type: string
+      enum:
+      - GT
+      - GTE
+      - LT
+      - LTE
+      - EQ
+      - NEQ
+      description: Comparison operator
+  responses:
+    PermissionDenied:
+      description: Permission Denied
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: 'Required scope: monitors:read'
+    InternalError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: conditions
+                description: Value error, List should have at least 1 item after validation
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Monitor not found
+              details:
+              - field: monitor_id
+                description: Monitor '01HZ0EXAMPLE00000000000000' not found
   examples:
     CreateMonitorSimple:
       summary: Simple threshold monitor
@@ -866,6 +893,6 @@ components:
     ApiKeyAuth:
       type: apiKey
       in: header
-      name: x-api-key
+      name: X-API-Key
       description: API key for authentication
 x-visibility: external

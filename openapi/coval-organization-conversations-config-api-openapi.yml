@@ -1,16 +1,16 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Coval Agents Organization Conversations Config API
+  title: Coval Organization Organization Conversations Config API
   version: 1.0.0
-  description: '
+  description: 'Read and update organization-level configuration. Currently exposes the
 
-    Manage configurations for simulations and evaluations.
+    conversation metrics config: the default metrics run on every conversation,
 
-    '
+    plus conditional rules that add metrics based on run metadata.'
   contact:
     name: Coval API Support
     email: support@coval.dev
-    url: https://docs.coval.ai
+    url: https://docs.coval.dev
   license:
     name: Proprietary
     url: https://coval.dev/terms
@@ -75,71 +75,53 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
-  responses:
-    InternalError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred while processing the organization request
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INVALID_ARGUMENT
-              message: Invalid request body
-              details:
-              - field: conditional_monitoring_metrics
-                description: Provide exactly one of 'metric' or 'metrics'.
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: x-api-key
-                description: API key is required in the x-api-key header
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: NOT_FOUND
-              message: Organization not found
-              details:
-              - description: Organization not found.
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: PERMISSION_DENIED
-              message: Insufficient permissions
-              details:
-              - field: permissions
-                description: The API key does not include the required organization permission.
   schemas:
+    MonitoringMetricsConfig:
+      type: object
+      description: The organization's conversation metrics configuration.
+      properties:
+        default_monitoring_metrics:
+          type: array
+          items:
+            type: string
+          description: Metric IDs run on every conversation.
+          example:
+          - 8EktrIgaVxn9LfxkIynagX
+        conditional_monitoring_metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitoringRule'
+          description: Rules that add metrics when run metadata matches.
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    UpdateMonitoringMetricsRequest:
+      type: object
+      additionalProperties: false
+      description: Partial update. Provide at least one of default_monitoring_metrics or conditional_monitoring_metrics; each field provided fully replaces the stored value.
+      properties:
+        default_monitoring_metrics:
+          type:
+          - array
+          - 'null'
+          maxItems: 500
+          items:
+            type: string
+          description: Metric IDs run on every conversation.
+          example:
+          - 8EktrIgaVxn9LfxkIynagX
+        conditional_monitoring_metrics:
+          type:
+          - array
+          - 'null'
+          maxItems: 500
+          items:
+            $ref: '#/components/schemas/MonitoringRule'
+          description: Rules that add metrics when run metadata matches.
     MonitoringRule:
       type: object
       additionalProperties: false
@@ -165,15 +147,17 @@ components:
           description: Rule kind. Only RUN_METADATA is supported.
           example: RUN_METADATA
         metric:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           minLength: 1
           maxLength: 4096
           description: Single metric ID to add when the rule matches. Provide exactly one of metric or metrics.
           example: 8EktrIgaVxn9LfxkIynagX
         metrics:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           minItems: 1
           maxItems: 500
           items:
@@ -217,62 +201,19 @@ components:
             items:
               type: string
           example: voice
-    UpdateMonitoringMetricsRequest:
-      type: object
-      additionalProperties: false
-      description: Partial update. Provide at least one of default_monitoring_metrics or conditional_monitoring_metrics; each field provided fully replaces the stored value.
-      properties:
-        default_monitoring_metrics:
-          type: array
-          nullable: true
-          maxItems: 500
-          items:
-            type: string
-          description: Metric IDs run on every conversation.
-          example:
-          - 8EktrIgaVxn9LfxkIynagX
-        conditional_monitoring_metrics:
-          type: array
-          nullable: true
-          maxItems: 500
-          items:
-            $ref: '#/components/schemas/MonitoringRule'
-          description: Rules that add metrics when run metadata matches.
     ErrorDetail:
       type: object
       properties:
         field:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Field that caused the error, when available.
           example: default_monitoring_metrics
         description:
           type: string
           description: Human-readable detail about the error.
           example: Provide at least one of 'default_monitoring_metrics' or 'conditional_monitoring_metrics'.
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-    MonitoringMetricsConfig:
-      type: object
-      description: The organization's conversation metrics configuration.
-      properties:
-        default_monitoring_metrics:
-          type: array
-          items:
-            type: string
-          description: Metric IDs run on every conversation.
-          example:
-          - 8EktrIgaVxn9LfxkIynagX
-        conditional_monitoring_metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/MonitoringRule'
-          description: Rules that add metrics when run metadata matches.
     Error:
       type: object
       required:
@@ -298,6 +239,70 @@ components:
           maxItems: 100
           items:
             $ref: '#/components/schemas/ErrorDetail'
+  responses:
+    InternalError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred while processing the organization request
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: conditional_monitoring_metrics
+                description: Provide exactly one of 'metric' or 'metrics'.
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Organization not found
+              details:
+              - description: Organization not found.
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: The API key does not include the required organization permission.
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: x-api-key
+                description: API key is required in the x-api-key header
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

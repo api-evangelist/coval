@@ -1,12 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Coval Agents API Keys API
+  title: Coval API Keys API
   version: 1.0.0
-  description: '
-
-    Manage configurations for simulations and evaluations.
-
-    '
+  description: Manage API keys for authenticating with the Coval platform.
   contact:
     name: Coval API Support
     email: support@coval.dev
@@ -242,6 +238,19 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   responses:
+    PermissionDenied:
+      description: API key lacks required permission scope
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: 'API key does not have required permission: api-keys:write'
     InternalError:
       description: Internal server error
       content:
@@ -267,205 +276,29 @@ components:
               details:
               - field: X-API-Key
                 description: Invalid or missing API key
-    PermissionDenied:
-      description: API key lacks required permission scope
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: PERMISSION_DENIED
-              message: Insufficient permissions
-              details:
-              - field: permissions
-                description: 'API key does not have required permission: api-keys:write'
-  examples:
-    UpdateApiKeySuspend:
-      summary: Suspend an API key
-      description: Temporarily disable a key. Can be reactivated later.
-      value:
-        status: SUSPENDED
-        reason: Temporarily disabling for security audit
-    InvalidTransitionError:
-      summary: Invalid status transition
-      value:
-        error:
-          code: INVALID_ARGUMENT
-          message: Invalid status transition
-          details:
-          - field: status
-            description: Cannot transition from REVOKED to ACTIVE. REVOKED is a terminal state.
-    ApiKeyCreated:
-      summary: API key created successfully (unmasked)
-      value:
-        api_key:
-          id: 01HX2ABC3DEF4GHI5JKL6MNO7P
-          organization_id: caf26438
-          api_key: coval_sk_prod_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6
-          key_type: SERVICE
-          status: ACTIVE
-          name: Production Service Key
-          description: Primary key for production backend service authentication
-          permissions: []
-          create_time: '2025-10-14T12:00:00Z'
-          update_time: null
-          last_used_at: null
-    CreateApiKeyMinimal:
-      summary: Create API key with defaults
-      description: Creates a SERVICE key with full access. All fields are optional.
-      value: {}
-    CreateApiKeyRestrictedPermissions:
-      summary: Create key with restricted permissions
-      description: Create a user key with specific permission scopes.
-      value:
-        name: Read-Only Key
-        description: Limited access key for reading runs, agents, and metrics
-        key_type: USER
-        permissions:
-        - runs:read
-        - agents:read
-        - metrics:read
-    CreateApiKeyWithName:
-      summary: Create named API key
-      description: Create a service key with a descriptive name.
-      value:
-        name: Production Service Key
-        description: Primary key for production backend service authentication
-    ApiKeyUpdated:
-      summary: API key status updated successfully (masked)
-      value:
-        api_key:
-          id: 01HX2ABC3DEF4GHI5JKL6MNO7P
-          organization_id: caf26438
-          api_key: '****-****-****-o5p6'
-          key_type: SERVICE
-          status: REVOKED
-          name: Production Service Key
-          description: Primary key for production backend service authentication
-          permissions: []
-          create_time: '2025-10-14T12:00:00Z'
-          update_time: '2025-10-23T16:45:00Z'
-          last_used_at: '2025-10-16T09:15:00Z'
-    NameTooLongError:
-      summary: Name exceeds maximum length
-      value:
-        error:
-          code: INVALID_ARGUMENT
-          message: Invalid request body
-          details:
-          - field: name
-            description: name must be at most 200 characters
-    UpdateApiKeyRevoke:
-      summary: Revoke an API key
-      description: Permanently revoke a key (terminal state, cannot be undone).
-      value:
-        status: REVOKED
-        reason: Key compromised, revoking as a precaution
-    ListApiKeysSuccess:
-      summary: Successful list response
-      value:
-        api_keys:
-        - id: 01HX2ABC3DEF4GHI5JKL6MNO7P
-          organization_id: caf26438
-          api_key: '****-****-****-o5p6'
-          key_type: SERVICE
-          status: ACTIVE
-          name: Production Service Key
-          description: Primary key for production backend service authentication
-          permissions: []
-          create_time: '2025-10-14T12:00:00Z'
-          update_time: '2025-10-15T14:30:00Z'
-          last_used_at: '2025-10-16T09:15:00Z'
-        - id: 01HX3DEF4GHI5JKL6MNO7PQR8S
-          organization_id: caf26438
-          api_key: '****-****-****-q9r0'
-          key_type: USER
-          status: ACTIVE
-          name: Staging Test Key
-          description: Key for staging environment testing
-          permissions:
-          - runs:read
-          - runs:write
-          create_time: '2025-10-13T08:00:00Z'
-          update_time: null
-          last_used_at: '2025-10-14T11:45:00Z'
-        next_page_token: eyJvZmZzZXQiOjIwfQ==
-        total_count: 42
-    ApiKeyNotFoundError:
-      summary: API key not found
-      value:
-        error:
-          code: NOT_FOUND
-          message: API key not found
-          details:
-          - field: api_key_id
-            description: API key not found or not accessible by your organization
-    InvalidKeyTypeError:
-      summary: Invalid key type
-      value:
-        error:
-          code: INVALID_ARGUMENT
-          message: Invalid request body
-          details:
-          - field: key_type
-            description: Input should be 'SERVICE' or 'USER'
-    InvalidStatusError:
-      summary: Invalid status value
-      value:
-        error:
-          code: INVALID_ARGUMENT
-          message: Invalid request body
-          details:
-          - field: status
-            description: Input should be 'ACTIVE', 'REVOKED', 'SUSPENDED', or 'EXPIRED'
-    UpdateApiKeyReactivate:
-      summary: Reactivate a suspended or expired key
-      description: Reactivate a key that was previously suspended or expired.
-      value:
-        status: ACTIVE
-        reason: Security audit complete, reactivating key
   schemas:
-    CreateApiKeyRequest:
+    UpdateApiKeyResponse:
       type: object
+      required:
+      - api_key
       properties:
-        name:
-          type: string
-          nullable: true
-          description: Human-readable name for the API key
-          maxLength: 200
-          example: Production Service Key
-        description:
-          type: string
-          nullable: true
-          description: Detailed description of the API key purpose
+        api_key:
+          $ref: '#/components/schemas/ApiKeyResource'
+    UpdateApiKeyRequest:
+      type: object
+      required:
+      - status
+      description: Update the status of an API key.
+      properties:
+        status:
+          $ref: '#/components/schemas/ApiKeyStatus'
+        reason:
+          type:
+          - string
+          - 'null'
+          description: Reason for the status change (for audit purposes)
           maxLength: 2000
-          example: Primary key for production backend service authentication
-        key_type:
-          allOf:
-          - $ref: '#/components/schemas/KeyType'
-          default: SERVICE
-        permissions:
-          type: array
-          description: Permission scopes to grant. Empty array (default) grants full access.
-          items:
-            $ref: '#/components/schemas/PermissionScope'
-          default: []
-          example: []
-    KeyType:
-      type: string
-      description: 'Type of API key.
-
-
-        - **SERVICE**: Machine-to-machine authentication for backend services and integrations
-
-        - **USER**: User-scoped key tied to individual user actions
-
-        '
-      enum:
-      - SERVICE
-      - USER
-      example: SERVICE
+          example: Key compromised, revoking as a precaution
     PermissionScope:
       type: string
       description: 'Permission scope. Format: resource:action, resource:*, or * for full access.
@@ -521,26 +354,6 @@ components:
       - reports:write
       - reports:delete
       - reports:*
-    ListApiKeysResponse:
-      type: object
-      required:
-      - api_keys
-      - total_count
-      properties:
-        api_keys:
-          type: array
-          description: List of API key resources (masked)
-          items:
-            $ref: '#/components/schemas/ApiKeyResource'
-        next_page_token:
-          type: string
-          nullable: true
-          description: Token for fetching next page (null if no more results)
-          example: eyJvZmZzZXQiOjIwfQ==
-        total_count:
-          type: integer
-          description: Total number of API keys matching the filter criteria
-          example: 42
     ErrorResponse:
       type: object
       description: Standard error response
@@ -575,28 +388,43 @@ components:
                 type: object
                 properties:
                   field:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     description: Field name that caused the error
                     example: status
                   description:
                     type: string
                     description: Detailed error description
                     example: Invalid status value
-    UpdateApiKeyRequest:
+    CreateApiKeyResponse:
       type: object
       required:
-      - status
-      description: Update the status of an API key.
+      - api_key
       properties:
-        status:
-          $ref: '#/components/schemas/ApiKeyStatus'
-        reason:
-          type: string
-          nullable: true
-          description: Reason for the status change (for audit purposes)
-          maxLength: 2000
-          example: Key compromised, revoking as a precaution
+        api_key:
+          $ref: '#/components/schemas/ApiKeyResourceUnmasked'
+    ListApiKeysResponse:
+      type: object
+      required:
+      - api_keys
+      - total_count
+      properties:
+        api_keys:
+          type: array
+          description: List of API key resources (masked)
+          items:
+            $ref: '#/components/schemas/ApiKeyResource'
+        next_page_token:
+          type:
+          - string
+          - 'null'
+          description: Token for fetching next page (null if no more results)
+          example: eyJvZmZzZXQiOjIwfQ==
+        total_count:
+          type: integer
+          description: Total number of API keys matching the filter criteria
+          example: 42
     ApiKeyResourceUnmasked:
       type: object
       description: API key resource with full key value. Only returned during creation.
@@ -619,14 +447,16 @@ components:
         status:
           $ref: '#/components/schemas/ApiKeyStatus'
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Human-readable name for the API key
           maxLength: 200
           example: Production Service Key
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Detailed description of the API key purpose
           maxLength: 2000
           example: Primary key for production backend service authentication
@@ -646,24 +476,81 @@ components:
           description: Creation timestamp (ISO 8601)
           example: '2025-10-14T12:00:00Z'
         update_time:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Last update timestamp (ISO 8601)
           example: null
         last_used_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Timestamp of last API key usage (ISO 8601)
           example: null
-    UpdateApiKeyResponse:
+    ApiKeyStatus:
+      type: string
+      description: 'Current status of the API key.
+
+
+        - **ACTIVE**: Key is active and can be used for authentication
+
+        - **REVOKED**: Key has been permanently revoked (terminal state)
+
+        - **SUSPENDED**: Key is temporarily disabled and can be reactivated
+
+        - **EXPIRED**: Key has expired and can be reactivated
+
+        '
+      enum:
+      - ACTIVE
+      - REVOKED
+      - SUSPENDED
+      - EXPIRED
+      example: ACTIVE
+    CreateApiKeyRequest:
       type: object
-      required:
-      - api_key
       properties:
-        api_key:
-          $ref: '#/components/schemas/ApiKeyResource'
+        name:
+          type:
+          - string
+          - 'null'
+          description: Human-readable name for the API key
+          maxLength: 200
+          example: Production Service Key
+        description:
+          type:
+          - string
+          - 'null'
+          description: Detailed description of the API key purpose
+          maxLength: 2000
+          example: Primary key for production backend service authentication
+        key_type:
+          allOf:
+          - $ref: '#/components/schemas/KeyType'
+          default: SERVICE
+        permissions:
+          type: array
+          description: Permission scopes to grant. Empty array (default) grants full access.
+          items:
+            $ref: '#/components/schemas/PermissionScope'
+          default: []
+          example: []
+    KeyType:
+      type: string
+      description: 'Type of API key.
+
+
+        - **SERVICE**: Machine-to-machine authentication for backend services and integrations
+
+        - **USER**: User-scoped key tied to individual user actions
+
+        '
+      enum:
+      - SERVICE
+      - USER
+      example: SERVICE
     ApiKeyResource:
       type: object
       description: API key resource. Key values are masked except during creation.
@@ -686,14 +573,16 @@ components:
         status:
           $ref: '#/components/schemas/ApiKeyStatus'
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Human-readable name for the API key
           maxLength: 200
           example: Production Service Key
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Detailed description of the API key purpose
           maxLength: 2000
           example: Primary key for production backend service authentication
@@ -713,48 +602,168 @@ components:
           description: Creation timestamp (ISO 8601)
           example: '2025-10-14T12:00:00Z'
         update_time:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Last update timestamp (ISO 8601)
           example: '2025-10-15T14:30:00Z'
         last_used_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Timestamp of last API key usage (ISO 8601)
           example: '2025-10-16T09:15:00Z'
-    ApiKeyStatus:
-      type: string
-      description: 'Current status of the API key.
-
-
-        - **ACTIVE**: Key is active and can be used for authentication
-
-        - **REVOKED**: Key has been permanently revoked (terminal state)
-
-        - **SUSPENDED**: Key is temporarily disabled and can be reactivated
-
-        - **EXPIRED**: Key has expired and can be reactivated
-
-        '
-      enum:
-      - ACTIVE
-      - REVOKED
-      - SUSPENDED
-      - EXPIRED
-      example: ACTIVE
-    CreateApiKeyResponse:
-      type: object
-      required:
-      - api_key
-      properties:
+  examples:
+    NameTooLongError:
+      summary: Name exceeds maximum length
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: name
+            description: name must be at most 200 characters
+    ApiKeyUpdated:
+      summary: API key status updated successfully (masked)
+      value:
         api_key:
-          $ref: '#/components/schemas/ApiKeyResourceUnmasked'
+          id: 01HX2ABC3DEF4GHI5JKL6MNO7P
+          organization_id: caf26438
+          api_key: '****-****-****-o5p6'
+          key_type: SERVICE
+          status: REVOKED
+          name: Production Service Key
+          description: Primary key for production backend service authentication
+          permissions: []
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: '2025-10-23T16:45:00Z'
+          last_used_at: '2025-10-16T09:15:00Z'
+    UpdateApiKeySuspend:
+      summary: Suspend an API key
+      description: Temporarily disable a key. Can be reactivated later.
+      value:
+        status: SUSPENDED
+        reason: Temporarily disabling for security audit
+    InvalidStatusError:
+      summary: Invalid status value
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: status
+            description: Input should be 'ACTIVE', 'REVOKED', 'SUSPENDED', or 'EXPIRED'
+    CreateApiKeyWithName:
+      summary: Create named API key
+      description: Create a service key with a descriptive name.
+      value:
+        name: Production Service Key
+        description: Primary key for production backend service authentication
+    UpdateApiKeyRevoke:
+      summary: Revoke an API key
+      description: Permanently revoke a key (terminal state, cannot be undone).
+      value:
+        status: REVOKED
+        reason: Key compromised, revoking as a precaution
+    ListApiKeysSuccess:
+      summary: Successful list response
+      value:
+        api_keys:
+        - id: 01HX2ABC3DEF4GHI5JKL6MNO7P
+          organization_id: caf26438
+          api_key: '****-****-****-o5p6'
+          key_type: SERVICE
+          status: ACTIVE
+          name: Production Service Key
+          description: Primary key for production backend service authentication
+          permissions: []
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: '2025-10-15T14:30:00Z'
+          last_used_at: '2025-10-16T09:15:00Z'
+        - id: 01HX3DEF4GHI5JKL6MNO7PQR8S
+          organization_id: caf26438
+          api_key: '****-****-****-q9r0'
+          key_type: USER
+          status: ACTIVE
+          name: Staging Test Key
+          description: Key for staging environment testing
+          permissions:
+          - runs:read
+          - runs:write
+          create_time: '2025-10-13T08:00:00Z'
+          update_time: null
+          last_used_at: '2025-10-14T11:45:00Z'
+        next_page_token: eyJvZmZzZXQiOjIwfQ==
+        total_count: 42
+    UpdateApiKeyReactivate:
+      summary: Reactivate a suspended or expired key
+      description: Reactivate a key that was previously suspended or expired.
+      value:
+        status: ACTIVE
+        reason: Security audit complete, reactivating key
+    ApiKeyCreated:
+      summary: API key created successfully (unmasked)
+      value:
+        api_key:
+          id: 01HX2ABC3DEF4GHI5JKL6MNO7P
+          organization_id: caf26438
+          api_key: coval_sk_prod_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6
+          key_type: SERVICE
+          status: ACTIVE
+          name: Production Service Key
+          description: Primary key for production backend service authentication
+          permissions: []
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: null
+          last_used_at: null
+    CreateApiKeyMinimal:
+      summary: Create API key with defaults
+      description: Creates a SERVICE key with full access. All fields are optional.
+      value: {}
+    InvalidTransitionError:
+      summary: Invalid status transition
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid status transition
+          details:
+          - field: status
+            description: Cannot transition from REVOKED to ACTIVE. REVOKED is a terminal state.
+    CreateApiKeyRestrictedPermissions:
+      summary: Create key with restricted permissions
+      description: Create a user key with specific permission scopes.
+      value:
+        name: Read-Only Key
+        description: Limited access key for reading runs, agents, and metrics
+        key_type: USER
+        permissions:
+        - runs:read
+        - agents:read
+        - metrics:read
+    ApiKeyNotFoundError:
+      summary: API key not found
+      value:
+        error:
+          code: NOT_FOUND
+          message: API key not found
+          details:
+          - field: api_key_id
+            description: API key not found or not accessible by your organization
+    InvalidKeyTypeError:
+      summary: Invalid key type
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: key_type
+            description: Input should be 'SERVICE' or 'USER'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       in: header
-      name: x-api-key
+      name: X-API-Key
       description: API key for authentication
 x-visibility: external

@@ -1,12 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Coval Agents Runs API
+  title: Coval Runs API
   version: 1.0.0
-  description: '
-
-    Manage configurations for simulations and evaluations.
-
-    '
+  description: Launch and manage simulation runs for AI agent testing.
   contact:
     name: Coval API Support
     email: support@coval.dev
@@ -27,9 +23,7 @@ paths:
     get:
       operationId: listRuns
       summary: List runs
-      description: 'Retrieve a paginated list of simulation runs with optional filtering and sorting.
-
-        '
+      description: Retrieve a paginated list of simulation runs with optional filtering and sorting.
       tags:
       - Runs
       security:
@@ -118,9 +112,7 @@ paths:
     post:
       operationId: launchRun
       summary: Launch run
-      description: 'Launch a new simulation run to evaluate an agent against test cases using a persona.
-
-        '
+      description: Launch a new simulation run to evaluate an agent against test cases using a persona.
       tags:
       - Runs
       security:
@@ -247,9 +239,7 @@ paths:
     get:
       operationId: getRun
       summary: Get run
-      description: 'Retrieve detailed information about a specific simulation run.
-
-        '
+      description: Retrieve detailed information about a specific simulation run.
       tags:
       - Runs
       security:
@@ -335,9 +325,7 @@ paths:
     delete:
       operationId: deleteRun
       summary: Delete run
-      description: 'Delete or cancel a simulation run based on its current status.
-
-        '
+      description: Delete or cancel a simulation run based on its current status.
       tags:
       - Runs
       security:
@@ -372,9 +360,7 @@ paths:
       summary: Update run
       description: 'Replace the tag set for an existing simulation run.
 
-        Provide an empty list to clear all tags.
-
-        '
+        Provide an empty list to clear all tags.'
       tags:
       - Runs
       security:
@@ -430,57 +416,27 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
-    Results:
+    UpdateRunRequest:
       type: object
-      nullable: true
-      description: Results summary (only for COMPLETED runs)
       required:
-      - output_ids
-      - metrics
+      - tags
       properties:
-        output_ids:
+        tags:
           type: array
           items:
             type: string
-          description: IDs of simulation outputs (test case results)
+            maxLength: 200
+          maxItems: 20
+          description: 'Full replacement list of run tags. Duplicate tags are automatically
+
+            removed. Leading/trailing whitespace is stripped. Provide an empty
+
+            list to clear all tags.
+
+            '
           example:
-          - sim_output_abc123
-          - sim_output_def456
-        metrics:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/MetricSummary'
-          description: Aggregated metric results
-          example:
-            availability:
-              mean: 0.95
-              min: 0.85
-              max: 1.0
-    Progress:
-      type: object
-      description: Progress information for the run
-      required:
-      - total_test_cases
-      - completed_test_cases
-      - failed_test_cases
-      - in_progress_test_cases
-      properties:
-        total_test_cases:
-          type: integer
-          description: Total number of test cases
-          example: 10
-        completed_test_cases:
-          type: integer
-          description: Number of completed test cases
-          example: 8
-        failed_test_cases:
-          type: integer
-          description: Number of failed test cases
-          example: 1
-        in_progress_test_cases:
-          type: integer
-          description: Number of test cases currently running
-          example: 1
+          - baseline
+          - production
     LaunchRunResponse:
       type: object
       required:
@@ -488,59 +444,6 @@ components:
       properties:
         run:
           $ref: '#/components/schemas/Run'
-    LaunchMetadata:
-      type: object
-      description: Metadata for tracking and organization purposes.
-      properties:
-        customer:
-          type: object
-          additionalProperties: true
-          description: Custom customer metadata for tracking and organization
-          example:
-            campaign_id: summer_2025
-            environment: production
-        created_by:
-          type: string
-          description: Identifier for who/what created this simulation
-          example: user@example.com
-        display_name:
-          type: string
-          maxLength: 200
-          description: 'Human-readable name for the run. If not provided, a timestamp-based
-
-            name is auto-generated (e.g., "Simulation Run 2025-10-14 12:00").
-
-            '
-          example: Q4 Voice Agent Regression Test
-        tags:
-          type: array
-          items:
-            type: string
-            maxLength: 200
-          maxItems: 20
-          nullable: true
-          description: 'Tags for categorizing and filtering runs. Each tag max 200 characters,
-
-            max 20 tags. Duplicate tags are automatically removed. Leading/trailing
-
-            whitespace is stripped.
-
-            '
-          example:
-          - regression
-          - v2.1
-          - nightly
-    ErrorDetail:
-      type: object
-      properties:
-        field:
-          type: string
-          description: The field that caused the error (if applicable)
-          example: agent_id
-        description:
-          type: string
-          description: Human-readable description of the error
-          example: Agent 'gk3jK9mPq2xRt5vW8yZaBc' does not exist or is not accessible by your organization
     Run:
       type: object
       required:
@@ -560,8 +463,9 @@ components:
           description: Unique identifier for this simulation run
           example: 8EktrIgaVxn9LfxkIynagX
         display_name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Human-readable name for the run, set via `metadata.display_name` at launch.
           example: Nightly regression – checkout flow
         status:
@@ -587,18 +491,21 @@ components:
           description: Timestamp when the run was last updated (ISO 8601)
           example: '2025-10-14T12:15:00Z'
         agent_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: ID of the agent being tested
           example: gk3jK9mPq2xRt5vW8yZaBc
         persona_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: ID of the simulated persona used
           example: hL4kL0nQr3ySt6vX9zAcDd
         test_set_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: ID of the test set containing test cases
           example: aB1cD2eF
         tags:
@@ -623,52 +530,11 @@ components:
             campaign_id: q4_2025
             environment: production
         error:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Error message if status is FAILED
           example: Agent connection timeout
-    MetricSummary:
-      type: object
-      description: Aggregated metric statistics
-      required:
-      - mean
-      properties:
-        mean:
-          type: number
-          format: float
-          description: Mean value across all test cases
-          example: 0.95
-        min:
-          type: number
-          format: float
-          description: Minimum value
-          example: 0.85
-        max:
-          type: number
-          format: float
-          description: Maximum value
-          example: 1.0
-    UpdateRunRequest:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          type: array
-          items:
-            type: string
-            maxLength: 200
-          maxItems: 20
-          description: 'Full replacement list of run tags. Duplicate tags are automatically
-
-            removed. Leading/trailing whitespace is stripped. Provide an empty
-
-            list to clear all tags.
-
-            '
-          example:
-          - baseline
-          - production
     Error:
       type: object
       required:
@@ -693,72 +559,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ErrorDetail'
-    LaunchOptions:
-      type: object
-      description: Execution options for launching simulations.
-      properties:
-        iteration_count:
-          type: integer
-          minimum: 1
-          maximum: 50
-          default: 1
-          description: Number of times to run each test case.
-          example: 3
-        concurrency:
-          type: integer
-          minimum: 1
-          maximum: 100
-          default: 1
-          description: Number of simulations to run concurrently.
-          example: 5
-        sub_sample_size:
-          type: integer
-          minimum: 0
-          default: 0
-          description: 'Number of test cases to randomly sample from the test set.
-
-            Set to 0 (default) to use all test cases. When set to a positive value,
-
-            a random subset of that size will be selected for the run.
-
-            '
-          example: 10
-        sub_sample_seed:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 2147483647
-          nullable: true
-          default: null
-          description: 'Random seed for reproducible sub-sampling. Providing the same seed
-
-            with the same sub_sample_size will select the same test cases.
-
-            Only used when sub_sample_size > 0. If null, a random seed is used.
-
-            Valid range: 0 to 2,147,483,647 (2^31 - 1).
-
-            '
-          example: 847293
-        test_case_ids:
-          type: array
-          items:
-            type: string
-          minItems: 1
-          maxItems: 100
-          nullable: true
-          default: null
-          description: 'Specific test case IDs to run. When provided, only these test cases
-
-            will be executed. All IDs must belong to the specified test set and
-
-            be active. Mutually exclusive with `sub_sample_size`.
-
-            '
-          example:
-          - kP7mN3qStUvWxYzAbCdEfG
-          - lQ8nO4rTuVwXyZaBcDeFgH
-          - mR9oP5sUvWxYzAbCdEfGhI
     LaunchRunRequest:
       type: object
       required:
@@ -795,10 +595,11 @@ components:
           - iM5lM1oRs4zTu7wY0aBdEe
           - jN6mN2pSt5aUv8xZ1bCeFf
         mutation_id:
-          type: string
+          type:
+          - string
+          - 'null'
           minLength: 26
           maxLength: 26
-          nullable: true
           description: 'Single mutation ID to run in addition to the base agent.
 
             Mutually exclusive with `mutation_ids`. The base agent always runs.
@@ -841,6 +642,201 @@ components:
           $ref: '#/components/schemas/LaunchOptions'
         metadata:
           $ref: '#/components/schemas/LaunchMetadata'
+    LaunchMetadata:
+      type: object
+      description: Metadata for tracking and organization purposes.
+      properties:
+        customer:
+          type: object
+          additionalProperties: true
+          description: Custom customer metadata for tracking and organization
+          example:
+            campaign_id: summer_2025
+            environment: production
+        created_by:
+          type: string
+          description: Identifier for who/what created this simulation
+          example: user@example.com
+        display_name:
+          type: string
+          maxLength: 200
+          description: 'Human-readable name for the run. If not provided, a timestamp-based
+
+            name is auto-generated (e.g., "Simulation Run 2025-10-14 12:00").
+
+            '
+          example: Q4 Voice Agent Regression Test
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            maxLength: 200
+          maxItems: 20
+          description: 'Tags for categorizing and filtering runs. Each tag max 200 characters,
+
+            max 20 tags. Duplicate tags are automatically removed. Leading/trailing
+
+            whitespace is stripped.
+
+            '
+          example:
+          - regression
+          - v2.1
+          - nightly
+    Progress:
+      type: object
+      description: Progress information for the run
+      required:
+      - total_test_cases
+      - completed_test_cases
+      - failed_test_cases
+      - in_progress_test_cases
+      properties:
+        total_test_cases:
+          type: integer
+          description: Total number of test cases
+          example: 10
+        completed_test_cases:
+          type: integer
+          description: Number of completed test cases
+          example: 8
+        failed_test_cases:
+          type: integer
+          description: Number of failed test cases
+          example: 1
+        in_progress_test_cases:
+          type: integer
+          description: Number of test cases currently running
+          example: 1
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type: string
+          description: The field that caused the error (if applicable)
+          example: agent_id
+        description:
+          type: string
+          description: Human-readable description of the error
+          example: Agent 'gk3jK9mPq2xRt5vW8yZaBc' does not exist or is not accessible by your organization
+    LaunchOptions:
+      type: object
+      description: Execution options for launching simulations.
+      properties:
+        iteration_count:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 1
+          description: Number of times to run each test case.
+          example: 3
+        concurrency:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 1
+          description: Number of simulations to run concurrently.
+          example: 5
+        sub_sample_size:
+          type: integer
+          minimum: 0
+          default: 0
+          description: 'Number of test cases to randomly sample from the test set.
+
+            Set to 0 (default) to use all test cases. When set to a positive value,
+
+            a random subset of that size will be selected for the run.
+
+            '
+          example: 10
+        sub_sample_seed:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+          default: null
+          description: 'Random seed for reproducible sub-sampling. Providing the same seed
+
+            with the same sub_sample_size will select the same test cases.
+
+            Only used when sub_sample_size > 0. If null, a random seed is used.
+
+            Valid range: 0 to 2,147,483,647 (2^31 - 1).
+
+            '
+          example: 847293
+        test_case_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          minItems: 1
+          maxItems: 100
+          default: null
+          description: 'Specific test case IDs to run. When provided, only these test cases
+
+            will be executed. All IDs must belong to the specified test set and
+
+            be active. Mutually exclusive with `sub_sample_size`.
+
+            '
+          example:
+          - kP7mN3qStUvWxYzAbCdEfG
+          - lQ8nO4rTuVwXyZaBcDeFgH
+          - mR9oP5sUvWxYzAbCdEfGhI
+    MetricSummary:
+      type: object
+      description: Aggregated metric statistics
+      required:
+      - mean
+      properties:
+        mean:
+          type: number
+          format: float
+          description: Mean value across all test cases
+          example: 0.95
+        min:
+          type: number
+          format: float
+          description: Minimum value
+          example: 0.85
+        max:
+          type: number
+          format: float
+          description: Maximum value
+          example: 1.0
+    Results:
+      type:
+      - object
+      - 'null'
+      description: Results summary (only for COMPLETED runs)
+      required:
+      - output_ids
+      - metrics
+      properties:
+        output_ids:
+          type: array
+          items:
+            type: string
+          description: IDs of simulation outputs (test case results)
+          example:
+          - sim_output_abc123
+          - sim_output_def456
+        metrics:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MetricSummary'
+          description: Aggregated metric results
+          example:
+            availability:
+              mean: 0.95
+              min: 0.85
+              max: 1.0
   responses:
     InternalError:
       description: Internal Server Error
@@ -859,41 +855,6 @@ components:
               message: Internal server error
               details:
               - description: An unexpected error occurred. Please contact support.
-    ServiceUnavailable:
-      description: Service temporarily unavailable
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - error
-            properties:
-              error:
-                $ref: '#/components/schemas/Error'
-          example:
-            error:
-              code: INTERNAL
-              message: Service temporarily unavailable
-              details:
-              - description: Database routing is temporarily unavailable. Please retry.
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - error
-            properties:
-              error:
-                $ref: '#/components/schemas/Error'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Invalid or missing API key
-              details:
-              - field: X-API-Key
-                description: API key is required in the X-API-Key header
     BadRequest:
       description: Bad Request
       content:
@@ -929,6 +890,41 @@ components:
               message: Access denied
               details:
               - description: Your organization does not have access to this resource
+    ServiceUnavailable:
+      description: Service temporarily unavailable
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: INTERNAL
+              message: Service temporarily unavailable
+              details:
+              - description: Database routing is temporarily unavailable. Please retry.
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Invalid or missing API key
+              details:
+              - field: X-API-Key
+                description: API key is required in the X-API-Key header
     NotFound:
       description: Not Found
       content:
@@ -951,6 +947,6 @@ components:
     ApiKeyAuth:
       type: apiKey
       in: header
-      name: x-api-key
+      name: X-API-Key
       description: API key for authentication
 x-visibility: external

@@ -1,12 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Coval Agents Review Annotations API
+  title: Coval Reviews Review Annotations API
   version: 1.0.0
-  description: '
-
-    Manage configurations for simulations and evaluations.
-
-    '
+  description: Manage human review annotations and projects for AI evaluation quality assurance.
   contact:
     name: Coval API Support
     email: support@coval.dev
@@ -186,9 +182,7 @@ paths:
       summary: Update review annotation
       description: 'Partially update a review annotation.
 
-        Providing a ground truth value auto-sets `completion_status` to `COMPLETED`.
-
-        '
+        Providing a ground truth value auto-sets `completion_status` to `COMPLETED`.'
       tags:
       - Review Annotations
       security:
@@ -331,148 +325,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
-  responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
-    Forbidden:
-      description: Insufficient permissions
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: PERMISSION_DENIED
-              message: Insufficient permissions
-              details:
-              - field: permissions
-                description: The API key does not include the required reviews permission.
-    ServiceUnavailable:
-      description: Service temporarily unavailable
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Service temporarily unavailable
-              details:
-              - description: Database routing is temporarily unavailable. Please retry.
-    Unauthorized:
-      description: Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: NOT_FOUND
-              message: Resource not found
-              details:
-              - field: annotation_id
-                description: Annotation not found or not accessible by your organization
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INVALID_ARGUMENT
-              message: Invalid request body
-              details:
-              - field: simulation_output_id
-                description: simulation_output_id is required
   schemas:
-    UpdateReviewAnnotationResponse:
-      type: object
-      required:
-      - review_annotation
-      properties:
-        review_annotation:
-          $ref: '#/components/schemas/ReviewAnnotationResource'
-    GetMetricHealthStatsResponse:
-      type: object
-      required:
-      - conversations
-      - annotations
-      - agreement_rate
-      - agreements
-      - disagreements
-      - human_agreement
-      properties:
-        conversations:
-          type: integer
-        annotations:
-          type: integer
-        agreement_rate:
-          type: number
-        agreements:
-          type: integer
-        disagreements:
-          type: integer
-        human_agreement:
-          $ref: '#/components/schemas/HumanAgreementStatsResource'
-    ListReviewAnnotationsResponse:
-      type: object
-      required:
-      - review_annotations
-      properties:
-        review_annotations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReviewAnnotationResource'
-        next_page_token:
-          type: string
-          nullable: true
-          description: Opaque token for fetching the next page
-    HumanAgreementStatsResource:
-      type: object
-      required:
-      - human_agreement_rate
-      - human_agreement_total
-      - human_agreements
-      - human_disagreements
-      properties:
-        human_agreement_rate:
-          type: number
-        human_agreement_total:
-          type: integer
-        human_agreements:
-          type: integer
-        human_disagreements:
-          type: integer
-    AnnotationStatus:
-      type: string
-      enum:
-      - ACTIVE
-      - ARCHIVED
-      description: 'Annotation lifecycle status: ACTIVE (default) or ARCHIVED'
     ErrorResponse:
       type: object
       properties:
@@ -494,120 +347,13 @@ components:
                 type: object
                 properties:
                   field:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                     description: Field that caused the error
                   description:
                     type: string
                     description: Detailed error description
-    ReviewMetricOutputForAnnotationResource:
-      type: object
-      required:
-      - created_at
-      properties:
-        output_type:
-          type: string
-          nullable: true
-        float_value:
-          type: number
-          nullable: true
-        string_value:
-          type: string
-          nullable: true
-        set_value:
-          type: array
-          nullable: true
-          items:
-            type: string
-        error_status:
-          type: string
-          nullable: true
-        created_at:
-          type: string
-          format: date-time
-        explanation:
-          type: string
-          nullable: true
-        result_json:
-          nullable: true
-        subvalues_by_timestamp:
-          nullable: true
-        metric_version_number:
-          type: integer
-          nullable: true
-        metric_version_ulid:
-          type: string
-          nullable: true
-    UpdateReviewAnnotationRequest:
-      type: object
-      properties:
-        ground_truth_float_value:
-          type: number
-          format: float
-          nullable: true
-          description: Ground truth numeric value (auto-completes annotation)
-        ground_truth_string_value:
-          type: string
-          nullable: true
-          description: Ground truth string value (auto-completes annotation)
-        ground_truth_subvalues_by_timestamp:
-          type: array
-          nullable: true
-          items:
-            type: object
-          description: Ground truth subvalues
-        reviewer_notes:
-          type: string
-          nullable: true
-          description: Reviewer notes
-        priority:
-          $ref: '#/components/schemas/AnnotationPriority'
-        assignee:
-          type: string
-          nullable: true
-          description: Reassign to a different reviewer
-    GetAnnotationsWithMetricOutputsRequest:
-      type: object
-      additionalProperties: false
-      properties:
-        metric_id:
-          type: string
-          nullable: true
-        metric_ids:
-          type: array
-          nullable: true
-          maxItems: 10000
-          items:
-            type: string
-        simulation_output_ids:
-          type: array
-          nullable: true
-          maxItems: 10000
-          items:
-            type: string
-        project_ids:
-          type: array
-          nullable: true
-          maxItems: 1000
-          items:
-            type: string
-        filter_archived:
-          type: boolean
-          default: false
-        include_metric_output_details:
-          type: boolean
-          default: true
-        include_audio_lengths:
-          type: boolean
-          default: true
-        page_size:
-          type: integer
-          nullable: true
-          minimum: 1
-          maximum: 1000
-        page_token:
-          type: string
-          nullable: true
     GetReviewAnnotationResponse:
       type: object
       required:
@@ -615,6 +361,20 @@ components:
       properties:
         review_annotation:
           $ref: '#/components/schemas/ReviewAnnotationResource'
+    ListReviewAnnotationsResponse:
+      type: object
+      required:
+      - review_annotations
+      properties:
+        review_annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewAnnotationResource'
+        next_page_token:
+          type:
+          - string
+          - 'null'
+          description: Opaque token for fetching the next page
     CreateReviewAnnotationRequest:
       type: object
       required:
@@ -635,23 +395,27 @@ components:
           minLength: 1
           description: Email of the reviewer to assign
         ground_truth_float_value:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
           description: Optional ground truth numeric value (auto-completes annotation)
         ground_truth_string_value:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Optional ground truth string value (auto-completes annotation)
         ground_truth_subvalues_by_timestamp:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           items:
             type: object
           description: Optional ground truth subvalues
         reviewer_notes:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Optional reviewer notes
         priority:
           $ref: '#/components/schemas/AnnotationPriority'
@@ -679,25 +443,160 @@ components:
         audio_lengths_by_simulation_output_id:
           type: object
           additionalProperties:
-            type: number
-            nullable: true
+            type:
+            - number
+            - 'null'
         next_page_token:
-          type: string
-          nullable: true
-    CreateReviewAnnotationResponse:
+          type:
+          - string
+          - 'null'
+    HumanAgreementStatsResource:
       type: object
       required:
-      - review_annotation
+      - human_agreement_rate
+      - human_agreement_total
+      - human_agreements
+      - human_disagreements
       properties:
-        review_annotation:
-          $ref: '#/components/schemas/ReviewAnnotationResource'
-    AnnotationPriority:
+        human_agreement_rate:
+          type: number
+        human_agreement_total:
+          type: integer
+        human_agreements:
+          type: integer
+        human_disagreements:
+          type: integer
+    AnnotationStatus:
       type: string
       enum:
-      - PRIORITY_PRIMARY
-      - PRIORITY_STANDARD
-      default: PRIORITY_STANDARD
-      description: Annotation priority level
+      - ACTIVE
+      - ARCHIVED
+      description: 'Annotation lifecycle status: ACTIVE (default) or ARCHIVED'
+    GetAnnotationsWithMetricOutputsRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        metric_id:
+          type:
+          - string
+          - 'null'
+        metric_ids:
+          type:
+          - array
+          - 'null'
+          maxItems: 10000
+          items:
+            type: string
+        simulation_output_ids:
+          type:
+          - array
+          - 'null'
+          maxItems: 10000
+          items:
+            type: string
+        project_ids:
+          type:
+          - array
+          - 'null'
+          maxItems: 1000
+          items:
+            type: string
+        filter_archived:
+          type: boolean
+          default: false
+        include_metric_output_details:
+          type: boolean
+          default: true
+        include_audio_lengths:
+          type: boolean
+          default: true
+        page_size:
+          type:
+          - integer
+          - 'null'
+          minimum: 1
+          maximum: 1000
+        page_token:
+          type:
+          - string
+          - 'null'
+    ReviewMetricOutputForAnnotationResource:
+      type: object
+      required:
+      - created_at
+      properties:
+        output_type:
+          type:
+          - string
+          - 'null'
+        float_value:
+          type:
+          - number
+          - 'null'
+        string_value:
+          type:
+          - string
+          - 'null'
+        set_value:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        error_status:
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+        explanation:
+          type:
+          - string
+          - 'null'
+        result_json: {}
+        subvalues_by_timestamp: {}
+        metric_version_number:
+          type:
+          - integer
+          - 'null'
+        metric_version_ulid:
+          type:
+          - string
+          - 'null'
+    UpdateReviewAnnotationRequest:
+      type: object
+      properties:
+        ground_truth_float_value:
+          type:
+          - number
+          - 'null'
+          format: float
+          description: Ground truth numeric value (auto-completes annotation)
+        ground_truth_string_value:
+          type:
+          - string
+          - 'null'
+          description: Ground truth string value (auto-completes annotation)
+        ground_truth_subvalues_by_timestamp:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+          description: Ground truth subvalues
+        reviewer_notes:
+          type:
+          - string
+          - 'null'
+          description: Reviewer notes
+        priority:
+          $ref: '#/components/schemas/AnnotationPriority'
+        assignee:
+          type:
+          - string
+          - 'null'
+          description: Reassign to a different reviewer
     ReviewAnnotationResource:
       type: object
       description: A single review annotation resource.
@@ -731,23 +630,27 @@ components:
           type: string
           description: Email of the assigned reviewer
         ground_truth_float_value:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
           description: Reviewer-provided ground truth numeric value
         ground_truth_string_value:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Reviewer-provided ground truth string value
         ground_truth_subvalues_by_timestamp:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           description: Reviewer-provided ground truth subvalues keyed by timestamp
           items:
             type: object
         reviewer_notes:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Free-text reviewer notes
         status:
           $ref: '#/components/schemas/AnnotationStatus'
@@ -763,12 +666,132 @@ components:
           type: string
           format: date-time
           description: Last update timestamp (ISO 8601)
+    GetMetricHealthStatsResponse:
+      type: object
+      required:
+      - conversations
+      - annotations
+      - agreement_rate
+      - agreements
+      - disagreements
+      - human_agreement
+      properties:
+        conversations:
+          type: integer
+        annotations:
+          type: integer
+        agreement_rate:
+          type: number
+        agreements:
+          type: integer
+        disagreements:
+          type: integer
+        human_agreement:
+          $ref: '#/components/schemas/HumanAgreementStatsResource'
     CompletionStatus:
       type: string
       enum:
       - PENDING
       - COMPLETED
       description: 'Annotation completion status: PENDING or COMPLETED'
+    AnnotationPriority:
+      type: string
+      enum:
+      - PRIORITY_PRIMARY
+      - PRIORITY_STANDARD
+      default: PRIORITY_STANDARD
+      description: Annotation priority level
+    CreateReviewAnnotationResponse:
+      type: object
+      required:
+      - review_annotation
+      properties:
+        review_annotation:
+          $ref: '#/components/schemas/ReviewAnnotationResource'
+    UpdateReviewAnnotationResponse:
+      type: object
+      required:
+      - review_annotation
+      properties:
+        review_annotation:
+          $ref: '#/components/schemas/ReviewAnnotationResource'
+  responses:
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: The API key does not include the required reviews permission.
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: simulation_output_id
+                description: simulation_output_id is required
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Resource not found
+              details:
+              - field: annotation_id
+                description: Annotation not found or not accessible by your organization
+    ServiceUnavailable:
+      description: Service temporarily unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Service temporarily unavailable
+              details:
+              - description: Database routing is temporarily unavailable. Please retry.
   examples:
     ListAnnotationsSuccess:
       summary: Successful annotation list response
@@ -792,6 +815,6 @@ components:
     ApiKeyAuth:
       type: apiKey
       in: header
-      name: x-api-key
-      description: API key for authentication
+      name: X-API-Key
+      description: Organization API key for authentication
 x-visibility: external
