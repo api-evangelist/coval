@@ -86,58 +86,6 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
-  responses:
-    PermissionDenied:
-      description: Permission Denied
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: PERMISSION_DENIED
-              message: Insufficient permissions
-              details:
-              - field: permissions
-                description: 'Required scope: monitors:read'
-    InternalError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: NOT_FOUND
-              message: Monitor not found
-              details:
-              - field: monitor_id
-                description: Monitor '01HZ0EXAMPLE00000000000000' not found
   schemas:
     MonitorEventOutcome:
       type: string
@@ -147,41 +95,22 @@ components:
       - SUPPRESSED
       - ERROR
       description: Outcome of a monitor evaluation
-    ErrorResponse:
+    ListMonitorEventsResponse:
       type: object
       required:
-      - error
+      - events
+      - total_count
       properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          - details
-          properties:
-            code:
-              type: string
-              enum:
-              - INVALID_ARGUMENT
-              - UNAUTHENTICATED
-              - PERMISSION_DENIED
-              - NOT_FOUND
-              - ALREADY_EXISTS
-              - INTERNAL
-            message:
-              type: string
-              description: Human-readable error message
-            details:
-              type: array
-              items:
-                type: object
-                properties:
-                  field:
-                    type:
-                    - string
-                    - 'null'
-                  description:
-                    type: string
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitorEventResource'
+        next_page_token:
+          type:
+          - string
+          - 'null'
+        total_count:
+          type: integer
     MonitorEventResource:
       type: object
       required:
@@ -252,22 +181,93 @@ components:
           type: string
           format: date-time
           description: Event creation timestamp
-    ListMonitorEventsResponse:
+    ErrorResponse:
       type: object
       required:
-      - events
-      - total_count
+      - error
       properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/MonitorEventResource'
-        next_page_token:
-          type:
-          - string
-          - 'null'
-        total_count:
-          type: integer
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - PERMISSION_DENIED
+              - NOT_FOUND
+              - ALREADY_EXISTS
+              - INTERNAL
+            message:
+              type: string
+              description: Human-readable error message
+            details:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type:
+                    - string
+                    - 'null'
+                  description:
+                    type: string
+  responses:
+    InternalError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
+    PermissionDenied:
+      description: Permission Denied
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: 'Required scope: monitors:read'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Monitor not found
+              details:
+              - field: monitor_id
+                description: Monitor '01HZ0EXAMPLE00000000000000' not found
   parameters:
     MonitorId:
       name: monitor_id

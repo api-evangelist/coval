@@ -326,34 +326,39 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
-    ErrorResponse:
+    UpdateReviewAnnotationRequest:
       type: object
       properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-              description: Error code
-              example: INVALID_ARGUMENT
-            message:
-              type: string
-              description: Human-readable error message
-              example: Invalid request parameter
-            details:
-              type: array
-              description: Detailed error information
-              items:
-                type: object
-                properties:
-                  field:
-                    type:
-                    - string
-                    - 'null'
-                    description: Field that caused the error
-                  description:
-                    type: string
-                    description: Detailed error description
+        ground_truth_float_value:
+          type:
+          - number
+          - 'null'
+          format: float
+          description: Ground truth numeric value (auto-completes annotation)
+        ground_truth_string_value:
+          type:
+          - string
+          - 'null'
+          description: Ground truth string value (auto-completes annotation)
+        ground_truth_subvalues_by_timestamp:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+          description: Ground truth subvalues
+        reviewer_notes:
+          type:
+          - string
+          - 'null'
+          description: Reviewer notes
+        priority:
+          $ref: '#/components/schemas/AnnotationPriority'
+        assignee:
+          type:
+          - string
+          - 'null'
+          description: Reassign to a different reviewer
     GetReviewAnnotationResponse:
       type: object
       required:
@@ -375,6 +380,54 @@ components:
           - string
           - 'null'
           description: Opaque token for fetching the next page
+    GetMetricHealthStatsResponse:
+      type: object
+      required:
+      - conversations
+      - annotations
+      - agreement_rate
+      - agreements
+      - disagreements
+      - human_agreement
+      properties:
+        conversations:
+          type: integer
+        annotations:
+          type: integer
+        agreement_rate:
+          type: number
+        agreements:
+          type: integer
+        disagreements:
+          type: integer
+        human_agreement:
+          $ref: '#/components/schemas/HumanAgreementStatsResource'
+    UpdateReviewAnnotationResponse:
+      type: object
+      required:
+      - review_annotation
+      properties:
+        review_annotation:
+          $ref: '#/components/schemas/ReviewAnnotationResource'
+    AnnotationStatus:
+      type: string
+      enum:
+      - ACTIVE
+      - ARCHIVED
+      description: 'Annotation lifecycle status: ACTIVE (default) or ARCHIVED'
+    CreateReviewAnnotationResponse:
+      type: object
+      required:
+      - review_annotation
+      properties:
+        review_annotation:
+          $ref: '#/components/schemas/ReviewAnnotationResource'
+    CompletionStatus:
+      type: string
+      enum:
+      - PENDING
+      - COMPLETED
+      description: 'Annotation completion status: PENDING or COMPLETED'
     CreateReviewAnnotationRequest:
       type: object
       required:
@@ -450,28 +503,34 @@ components:
           type:
           - string
           - 'null'
-    HumanAgreementStatsResource:
+    ErrorResponse:
       type: object
-      required:
-      - human_agreement_rate
-      - human_agreement_total
-      - human_agreements
-      - human_disagreements
       properties:
-        human_agreement_rate:
-          type: number
-        human_agreement_total:
-          type: integer
-        human_agreements:
-          type: integer
-        human_disagreements:
-          type: integer
-    AnnotationStatus:
-      type: string
-      enum:
-      - ACTIVE
-      - ARCHIVED
-      description: 'Annotation lifecycle status: ACTIVE (default) or ARCHIVED'
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameter
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type:
+                    - string
+                    - 'null'
+                    description: Field that caused the error
+                  description:
+                    type: string
+                    description: Detailed error description
     GetAnnotationsWithMetricOutputsRequest:
       type: object
       additionalProperties: false
@@ -520,83 +579,6 @@ components:
           type:
           - string
           - 'null'
-    ReviewMetricOutputForAnnotationResource:
-      type: object
-      required:
-      - created_at
-      properties:
-        output_type:
-          type:
-          - string
-          - 'null'
-        float_value:
-          type:
-          - number
-          - 'null'
-        string_value:
-          type:
-          - string
-          - 'null'
-        set_value:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        error_status:
-          type:
-          - string
-          - 'null'
-        created_at:
-          type: string
-          format: date-time
-        explanation:
-          type:
-          - string
-          - 'null'
-        result_json: {}
-        subvalues_by_timestamp: {}
-        metric_version_number:
-          type:
-          - integer
-          - 'null'
-        metric_version_ulid:
-          type:
-          - string
-          - 'null'
-    UpdateReviewAnnotationRequest:
-      type: object
-      properties:
-        ground_truth_float_value:
-          type:
-          - number
-          - 'null'
-          format: float
-          description: Ground truth numeric value (auto-completes annotation)
-        ground_truth_string_value:
-          type:
-          - string
-          - 'null'
-          description: Ground truth string value (auto-completes annotation)
-        ground_truth_subvalues_by_timestamp:
-          type:
-          - array
-          - 'null'
-          items:
-            type: object
-          description: Ground truth subvalues
-        reviewer_notes:
-          type:
-          - string
-          - 'null'
-          description: Reviewer notes
-        priority:
-          $ref: '#/components/schemas/AnnotationPriority'
-        assignee:
-          type:
-          - string
-          - 'null'
-          description: Reassign to a different reviewer
     ReviewAnnotationResource:
       type: object
       description: A single review annotation resource.
@@ -666,34 +648,6 @@ components:
           type: string
           format: date-time
           description: Last update timestamp (ISO 8601)
-    GetMetricHealthStatsResponse:
-      type: object
-      required:
-      - conversations
-      - annotations
-      - agreement_rate
-      - agreements
-      - disagreements
-      - human_agreement
-      properties:
-        conversations:
-          type: integer
-        annotations:
-          type: integer
-        agreement_rate:
-          type: number
-        agreements:
-          type: integer
-        disagreements:
-          type: integer
-        human_agreement:
-          $ref: '#/components/schemas/HumanAgreementStatsResource'
-    CompletionStatus:
-      type: string
-      enum:
-      - PENDING
-      - COMPLETED
-      description: 'Annotation completion status: PENDING or COMPLETED'
     AnnotationPriority:
       type: string
       enum:
@@ -701,20 +655,66 @@ components:
       - PRIORITY_STANDARD
       default: PRIORITY_STANDARD
       description: Annotation priority level
-    CreateReviewAnnotationResponse:
+    HumanAgreementStatsResource:
       type: object
       required:
-      - review_annotation
+      - human_agreement_rate
+      - human_agreement_total
+      - human_agreements
+      - human_disagreements
       properties:
-        review_annotation:
-          $ref: '#/components/schemas/ReviewAnnotationResource'
-    UpdateReviewAnnotationResponse:
+        human_agreement_rate:
+          type: number
+        human_agreement_total:
+          type: integer
+        human_agreements:
+          type: integer
+        human_disagreements:
+          type: integer
+    ReviewMetricOutputForAnnotationResource:
       type: object
       required:
-      - review_annotation
+      - created_at
       properties:
-        review_annotation:
-          $ref: '#/components/schemas/ReviewAnnotationResource'
+        output_type:
+          type:
+          - string
+          - 'null'
+        float_value:
+          type:
+          - number
+          - 'null'
+        string_value:
+          type:
+          - string
+          - 'null'
+        set_value:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        error_status:
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+        explanation:
+          type:
+          - string
+          - 'null'
+        result_json: {}
+        subvalues_by_timestamp: {}
+        metric_version_number:
+          type:
+          - integer
+          - 'null'
+        metric_version_ulid:
+          type:
+          - string
+          - 'null'
   responses:
     Forbidden:
       description: Insufficient permissions
@@ -741,6 +741,18 @@ components:
               message: Internal server error
               details:
               - description: An unexpected error occurred
+    ServiceUnavailable:
+      description: Service temporarily unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Service temporarily unavailable
+              details:
+              - description: Database routing is temporarily unavailable. Please retry.
     BadRequest:
       description: Invalid request
       content:
@@ -780,18 +792,6 @@ components:
               details:
               - field: annotation_id
                 description: Annotation not found or not accessible by your organization
-    ServiceUnavailable:
-      description: Service temporarily unavailable
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Service temporarily unavailable
-              details:
-              - description: Database routing is temporarily unavailable. Please retry.
   examples:
     ListAnnotationsSuccess:
       summary: Successful annotation list response

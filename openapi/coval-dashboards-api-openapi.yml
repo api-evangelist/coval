@@ -188,30 +188,154 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
-  parameters:
-    DashboardId:
-      name: dashboard_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Dashboard resource ID (22-character ShortUUID)
-      example: abc123def456ghi789jklm
-  schemas:
-    ListDashboardsResponse:
-      type: object
-      required:
-      - dashboards
-      properties:
+  examples:
+    DashboardCreated:
+      summary: Dashboard created
+      value:
+        dashboard:
+          name: dashboards/abc123def456ghi789jklm
+          display_name: Production Metrics
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: '2025-10-14T12:00:00Z'
+    ListDashboardsSuccess:
+      summary: Successful list response
+      value:
         dashboards:
-          type: array
-          items:
-            $ref: '#/components/schemas/DashboardResource'
-        next_page_token:
+        - name: dashboards/abc123def456ghi789jklm
+          display_name: Production Metrics
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: '2025-10-15T14:30:00Z'
+        - name: dashboards/xyz789abc012def345ghij
+          display_name: Voice Agent Quality
+          create_time: '2025-10-13T08:00:00Z'
+          update_time: '2025-10-13T08:00:00Z'
+        next_page_token: null
+  schemas:
+    UpdateDashboardRequest:
+      type: object
+      description: All fields optional (PATCH semantics). Provided fields are updated; omitted or null fields are left unchanged. Setting is_default=true unsets any other default dashboard in the organization. config fully replaces the stored blob; to clear a value send an empty string (description) or an empty object (config) rather than null.
+      properties:
+        display_name:
           type:
           - string
           - 'null'
-          description: Token for fetching next page (null if no more results)
+          minLength: 1
+          maxLength: 255
+          description: Updated dashboard name
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 1000
+          description: Updated free-text description (empty string clears it)
+        is_favorite:
+          type:
+          - boolean
+          - 'null'
+          description: Updated favorite flag
+        is_default:
+          type:
+          - boolean
+          - 'null'
+          description: Set true to make this the organization's default dashboard (unsets any other default)
+        position:
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+          description: Updated ordering position
+        config:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          description: Replacement free-form JSON config blob (max 50000 bytes serialized)
+    UpdateDashboardResponse:
+      type: object
+      required:
+      - dashboard
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/DashboardResource'
+    CreateDashboardResponse:
+      type: object
+      required:
+      - dashboard
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/DashboardResource'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              description: Error code
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - NOT_FOUND
+              - INTERNAL
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameter
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type:
+                    - string
+                    - 'null'
+                    description: Field that caused the error
+                  description:
+                    type: string
+                    description: Detailed error description
+    CreateDashboardRequest:
+      type: object
+      required:
+      - display_name
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Human-readable dashboard name
+          example: Production Metrics
+        description:
+          type: string
+          maxLength: 1000
+          description: Optional free-text description
+        is_favorite:
+          type: boolean
+          default: false
+          description: Mark the dashboard as a favorite
+        is_default:
+          type:
+          - boolean
+          - 'null'
+          description: Mark as the organization's default dashboard. Omit to auto-default the first dashboard in the organization; set true to make this the default (any existing default is unset).
+        position:
+          type: integer
+          minimum: 0
+          description: Ordering position. Omit to append to the end.
+        config:
+          type: object
+          additionalProperties: true
+          description: Free-form JSON config blob (max 50000 bytes serialized)
     DashboardResource:
       type: object
       description: Dashboard resource
@@ -265,132 +389,21 @@ components:
           format: date-time
           description: Last update timestamp (ISO 8601)
           example: '2025-10-15T14:30:00Z'
-    ErrorResponse:
+    ListDashboardsResponse:
       type: object
-      description: Standard error response
       required:
-      - error
+      - dashboards
       properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          - details
-          properties:
-            code:
-              type: string
-              description: Error code
-              enum:
-              - INVALID_ARGUMENT
-              - UNAUTHENTICATED
-              - NOT_FOUND
-              - INTERNAL
-              example: INVALID_ARGUMENT
-            message:
-              type: string
-              description: Human-readable error message
-              example: Invalid request parameter
-            details:
-              type: array
-              description: Detailed error information
-              items:
-                type: object
-                properties:
-                  field:
-                    type:
-                    - string
-                    - 'null'
-                    description: Field that caused the error
-                  description:
-                    type: string
-                    description: Detailed error description
-    UpdateDashboardRequest:
-      type: object
-      description: All fields optional (PATCH semantics). Provided fields are updated; omitted or null fields are left unchanged. Setting is_default=true unsets any other default dashboard in the organization. config fully replaces the stored blob; to clear a value send an empty string (description) or an empty object (config) rather than null.
-      properties:
-        display_name:
+        dashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardResource'
+        next_page_token:
           type:
           - string
           - 'null'
-          minLength: 1
-          maxLength: 255
-          description: Updated dashboard name
-        description:
-          type:
-          - string
-          - 'null'
-          maxLength: 1000
-          description: Updated free-text description (empty string clears it)
-        is_favorite:
-          type:
-          - boolean
-          - 'null'
-          description: Updated favorite flag
-        is_default:
-          type:
-          - boolean
-          - 'null'
-          description: Set true to make this the organization's default dashboard (unsets any other default)
-        position:
-          type:
-          - integer
-          - 'null'
-          minimum: 0
-          description: Updated ordering position
-        config:
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
-          description: Replacement free-form JSON config blob (max 50000 bytes serialized)
+          description: Token for fetching next page (null if no more results)
     GetDashboardResponse:
-      type: object
-      required:
-      - dashboard
-      properties:
-        dashboard:
-          $ref: '#/components/schemas/DashboardResource'
-    UpdateDashboardResponse:
-      type: object
-      required:
-      - dashboard
-      properties:
-        dashboard:
-          $ref: '#/components/schemas/DashboardResource'
-    CreateDashboardRequest:
-      type: object
-      required:
-      - display_name
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          maxLength: 255
-          description: Human-readable dashboard name
-          example: Production Metrics
-        description:
-          type: string
-          maxLength: 1000
-          description: Optional free-text description
-        is_favorite:
-          type: boolean
-          default: false
-          description: Mark the dashboard as a favorite
-        is_default:
-          type:
-          - boolean
-          - 'null'
-          description: Mark as the organization's default dashboard. Omit to auto-default the first dashboard in the organization; set true to make this the default (any existing default is unset).
-        position:
-          type: integer
-          minimum: 0
-          description: Ordering position. Omit to append to the end.
-        config:
-          type: object
-          additionalProperties: true
-          description: Free-form JSON config blob (max 50000 bytes serialized)
-    CreateDashboardResponse:
       type: object
       required:
       - dashboard
@@ -449,28 +462,15 @@ components:
               details:
               - field: dashboard_id
                 description: Dashboard not found or not accessible by your organization
-  examples:
-    ListDashboardsSuccess:
-      summary: Successful list response
-      value:
-        dashboards:
-        - name: dashboards/abc123def456ghi789jklm
-          display_name: Production Metrics
-          create_time: '2025-10-14T12:00:00Z'
-          update_time: '2025-10-15T14:30:00Z'
-        - name: dashboards/xyz789abc012def345ghij
-          display_name: Voice Agent Quality
-          create_time: '2025-10-13T08:00:00Z'
-          update_time: '2025-10-13T08:00:00Z'
-        next_page_token: null
-    DashboardCreated:
-      summary: Dashboard created
-      value:
-        dashboard:
-          name: dashboards/abc123def456ghi789jklm
-          display_name: Production Metrics
-          create_time: '2025-10-14T12:00:00Z'
-          update_time: '2025-10-14T12:00:00Z'
+  parameters:
+    DashboardId:
+      name: dashboard_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Dashboard resource ID (22-character ShortUUID)
+      example: abc123def456ghi789jklm
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

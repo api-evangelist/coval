@@ -345,52 +345,20 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
-    ErrorResponse:
+    ListSimulationsResponse:
       type: object
       required:
-      - error
+      - simulations
       properties:
-        error:
-          $ref: '#/components/schemas/ErrorInfo'
-    TranscriptMessage:
-      type: object
-      required:
-      - role
-      - content
-      properties:
-        role:
+        simulations:
+          type: array
+          items:
+            $ref: '#/components/schemas/SimulationResource'
+          description: Array of simulation resources (summary view without results)
+        next_page_token:
           type: string
-          description: Message role (user, assistant, system)
-          example: assistant
-        content:
-          description: Message content (can be string or structured object)
-          oneOf:
-          - type: string
-          - type: object
-          example: Hello! How can I help you today?
-        start_timestamp:
-          type: string
-          description: Start timestamp in seconds
-          example: '0.0'
-        end_timestamp:
-          type: string
-          description: End timestamp in seconds
-          example: '2.5'
-        start_offset:
-          type: integer
-          description: Start offset in milliseconds
-          example: 0
-        end_offset:
-          type: integer
-          description: End offset in milliseconds
-          example: 2500
-    GetSimulationResponse:
-      type: object
-      required:
-      - simulation
-      properties:
-        simulation:
-          $ref: '#/components/schemas/SimulationResourceFull'
+          description: Token for fetching next page of results (if more exist)
+          example: eyJvZmZzZXQiOiA1MH0=
     ErrorDetail:
       type: object
       required:
@@ -404,43 +372,14 @@ components:
           type: string
           description: Human-readable description of the error
           example: Agent not found or not accessible by your organization
-    ResimulateSimulationResponse:
+    UpdateSimulationResponse:
       type: object
       required:
-      - simulation_id
-      - run_id
-      - queued
-      - message
+      - simulation
       properties:
-        simulation_id:
-          type: string
-          description: The simulation that was queued for rerun
-          example: 4bgnvEcWRtj5HbtfEujWdT
-        run_id:
-          type: string
-          description: The parent run that owns the simulation
-          example: 3zfmuDbVQsi4GaseDtiVcS
-        queued:
-          type: boolean
-          description: Whether the resimulation job was queued successfully
-          example: true
-        message:
-          type: string
-          description: Human-readable summary of rerun behavior
-          example: Simulation rerun queued. The latest database-backed versions of the agent, persona, test set, test case, metrics, and mutation config will be reloaded before execution, and the current simulation result will be overwritten.
-    SimulationResourceFull:
-      allOf:
-      - $ref: '#/components/schemas/SimulationResource'
-      - type: object
-        properties:
-          transcript:
-            type:
-            - array
-            - 'null'
-            items:
-              $ref: '#/components/schemas/TranscriptMessage'
-            description: Full conversation transcript (only included in GET, not LIST)
-    WebsocketEndpoint:
+        simulation:
+          $ref: '#/components/schemas/SimulationResourceFull'
+    PhoneEndpoint:
       type: object
       required:
       - type
@@ -449,27 +388,12 @@ components:
         type:
           type: string
           enum:
-          - websocket
+          - phone
           description: Endpoint kind discriminator
         value:
           type: string
-          description: WebSocket URL
-          example: wss://agent.example.com/stream
-    UpdateSimulationRequest:
-      type: object
-      description: Partial update request for a simulation (PATCH semantics)
-      properties:
-        is_public:
-          type:
-          - boolean
-          - 'null'
-          description: Toggle public visibility of the simulation
-        notes:
-          type:
-          - string
-          - 'null'
-          maxLength: 500
-          description: Update notes for the simulation
+          description: Phone number in E.164 format
+          example: '+15551234567'
     GetAudioURLResponse:
       type: object
       required:
@@ -505,26 +429,6 @@ components:
           type: integer
           description: URL expiration time in seconds (3600 = 1 hour)
           example: 3600
-    RerunMetricsResponse:
-      type: object
-      required:
-      - results
-      - queued_count
-      - failed_count
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/RerunMetricsResultItem'
-          description: One entry per requested simulation, in request order.
-        queued_count:
-          type: integer
-          description: Number of simulations successfully queued.
-          example: 2
-        failed_count:
-          type: integer
-          description: Number of simulations that could not be queued.
-          example: 0
     RerunMetricsResultItem:
       type: object
       required:
@@ -546,70 +450,51 @@ components:
           - string
           - 'null'
           description: Human-readable reason the simulation was not queued (null when QUEUED).
-    RerunMetricsRequest:
+    SimulationResourceFull:
+      allOf:
+      - $ref: '#/components/schemas/SimulationResource'
+      - type: object
+        properties:
+          transcript:
+            type:
+            - array
+            - 'null'
+            items:
+              $ref: '#/components/schemas/TranscriptMessage'
+            description: Full conversation transcript (only included in GET, not LIST)
+    ErrorInfo:
       type: object
       required:
-      - simulation_ids
-      - metric_ids
+      - code
+      - message
       properties:
-        simulation_ids:
-          type: array
-          description: Simulation IDs (22-character ShortUUIDs) to re-score. Up to 100 per call.
-          minItems: 1
-          maxItems: 100
-          items:
-            type: string
-            minLength: 22
-            maxLength: 22
-          example:
-          - 4bgnvEcWRtj5HbtfEujWdT
-        metric_ids:
-          type: array
-          description: Metric IDs (22-character ShortUUIDs) to run against every simulation. Up to 500 per call.
-          minItems: 1
-          maxItems: 500
-          items:
-            type: string
-            minLength: 22
-            maxLength: 22
-          example:
-          - 29BlkepvvX19ebbLDB0y6Q
-        dev_id:
-          type: string
-          description: Optional developer routing id; only applied when the endpoint runs in the dev environment (ignored in production).
-          example: loren
-    ListSimulationsResponse:
-      type: object
-      required:
-      - simulations
-      properties:
-        simulations:
-          type: array
-          items:
-            $ref: '#/components/schemas/SimulationResource'
-          description: Array of simulation resources (summary view without results)
-        next_page_token:
-          type: string
-          description: Token for fetching next page of results (if more exist)
-          example: eyJvZmZzZXQiOiA1MH0=
-    PhoneEndpoint:
-      type: object
-      required:
-      - type
-      - value
-      properties:
-        type:
+        code:
           type: string
           enum:
-          - phone
-          description: Endpoint kind discriminator
-        value:
+          - INVALID_ARGUMENT
+          - UNAUTHENTICATED
+          - PERMISSION_DENIED
+          - NOT_FOUND
+          - FAILED_PRECONDITION
+          - INTERNAL
+          description: Machine-readable error code
+          example: INVALID_ARGUMENT
+        message:
           type: string
-          description: Phone number in E.164 format
-          example: '+15551234567'
-    ResimulateSimulationRequest:
+          description: Human-readable error message
+          example: Request validation failed
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          description: Detailed information about specific error fields
+    GetSimulationResponse:
       type: object
-      description: Request body for resimulating a simulation. Currently no user-facing fields; the body may be empty or omitted.
+      required:
+      - simulation
+      properties:
+        simulation:
+          $ref: '#/components/schemas/SimulationResourceFull'
     SimulationResource:
       type: object
       required:
@@ -727,6 +612,154 @@ components:
           type: boolean
           description: Whether the simulation is shared via a public link. Settable via PATCH /simulations/{simulation_id}.
           example: false
+    TranscriptMessage:
+      type: object
+      required:
+      - role
+      - content
+      properties:
+        role:
+          type: string
+          description: Message role (user, assistant, system)
+          example: assistant
+        content:
+          description: Message content (can be string or structured object)
+          oneOf:
+          - type: string
+          - type: object
+          example: Hello! How can I help you today?
+        start_timestamp:
+          type: string
+          description: Start timestamp in seconds
+          example: '0.0'
+        end_timestamp:
+          type: string
+          description: End timestamp in seconds
+          example: '2.5'
+        start_offset:
+          type: integer
+          description: Start offset in milliseconds
+          example: 0
+        end_offset:
+          type: integer
+          description: End offset in milliseconds
+          example: 2500
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorInfo'
+    UpdateSimulationRequest:
+      type: object
+      description: Partial update request for a simulation (PATCH semantics)
+      properties:
+        is_public:
+          type:
+          - boolean
+          - 'null'
+          description: Toggle public visibility of the simulation
+        notes:
+          type:
+          - string
+          - 'null'
+          maxLength: 500
+          description: Update notes for the simulation
+    RerunMetricsResponse:
+      type: object
+      required:
+      - results
+      - queued_count
+      - failed_count
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RerunMetricsResultItem'
+          description: One entry per requested simulation, in request order.
+        queued_count:
+          type: integer
+          description: Number of simulations successfully queued.
+          example: 2
+        failed_count:
+          type: integer
+          description: Number of simulations that could not be queued.
+          example: 0
+    RerunMetricsRequest:
+      type: object
+      required:
+      - simulation_ids
+      - metric_ids
+      properties:
+        simulation_ids:
+          type: array
+          description: Simulation IDs (22-character ShortUUIDs) to re-score. Up to 100 per call.
+          minItems: 1
+          maxItems: 100
+          items:
+            type: string
+            minLength: 22
+            maxLength: 22
+          example:
+          - 4bgnvEcWRtj5HbtfEujWdT
+        metric_ids:
+          type: array
+          description: Metric IDs (22-character ShortUUIDs) to run against every simulation. Up to 500 per call.
+          minItems: 1
+          maxItems: 500
+          items:
+            type: string
+            minLength: 22
+            maxLength: 22
+          example:
+          - 29BlkepvvX19ebbLDB0y6Q
+        dev_id:
+          type: string
+          description: Optional developer routing id; only applied when the endpoint runs in the dev environment (ignored in production).
+          example: loren
+    WebsocketEndpoint:
+      type: object
+      required:
+      - type
+      - value
+      properties:
+        type:
+          type: string
+          enum:
+          - websocket
+          description: Endpoint kind discriminator
+        value:
+          type: string
+          description: WebSocket URL
+          example: wss://agent.example.com/stream
+    ResimulateSimulationResponse:
+      type: object
+      required:
+      - simulation_id
+      - run_id
+      - queued
+      - message
+      properties:
+        simulation_id:
+          type: string
+          description: The simulation that was queued for rerun
+          example: 4bgnvEcWRtj5HbtfEujWdT
+        run_id:
+          type: string
+          description: The parent run that owns the simulation
+          example: 3zfmuDbVQsi4GaseDtiVcS
+        queued:
+          type: boolean
+          description: Whether the resimulation job was queued successfully
+          example: true
+        message:
+          type: string
+          description: Human-readable summary of rerun behavior
+          example: Simulation rerun queued. The latest database-backed versions of the agent, persona, test set, test case, metrics, and mutation config will be reloaded before execution, and the current simulation result will be overwritten.
+    ResimulateSimulationRequest:
+      type: object
+      description: Request body for resimulating a simulation. Currently no user-facing fields; the body may be empty or omitted.
     SipEndpoint:
       type: object
       required:
@@ -742,39 +775,6 @@ components:
           type: string
           description: SIP URI
           example: sip:agent@voip.example.com
-    UpdateSimulationResponse:
-      type: object
-      required:
-      - simulation
-      properties:
-        simulation:
-          $ref: '#/components/schemas/SimulationResourceFull'
-    ErrorInfo:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          enum:
-          - INVALID_ARGUMENT
-          - UNAUTHENTICATED
-          - PERMISSION_DENIED
-          - NOT_FOUND
-          - FAILED_PRECONDITION
-          - INTERNAL
-          description: Machine-readable error code
-          example: INVALID_ARGUMENT
-        message:
-          type: string
-          description: Human-readable error message
-          example: Request validation failed
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          description: Detailed information about specific error fields
   responses:
     Forbidden:
       description: Insufficient permissions
@@ -789,6 +789,19 @@ components:
               details:
               - field: permissions
                 description: API key does not include required scope
+    FailedPrecondition:
+      description: Request is valid but the simulation cannot currently be rerun
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: FAILED_PRECONDITION
+              message: Simulation cannot be rerun
+              details:
+              - field: simulation_id
+                description: Simulation '4bgnvEcWRtj5HbtfEujWdT' is currently active with status 'IN PROGRESS' and cannot be rerun
     InternalError:
       description: Internal server error
       content:
@@ -801,6 +814,18 @@ components:
               message: Internal server error
               details:
               - description: An unexpected error occurred. Please contact support.
+    ServiceUnavailable:
+      description: Service temporarily unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Service temporarily unavailable
+              details:
+              - description: Database routing is temporarily unavailable. Please retry.
     BadRequest:
       description: Request validation failed
       content:
@@ -840,31 +865,6 @@ components:
               details:
               - field: agent_id
                 description: Agent 'gk3jK9mPq2xRt5vW8yZaBc' does not exist
-    FailedPrecondition:
-      description: Request is valid but the simulation cannot currently be rerun
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: FAILED_PRECONDITION
-              message: Simulation cannot be rerun
-              details:
-              - field: simulation_id
-                description: Simulation '4bgnvEcWRtj5HbtfEujWdT' is currently active with status 'IN PROGRESS' and cannot be rerun
-    ServiceUnavailable:
-      description: Service temporarily unavailable
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Service temporarily unavailable
-              details:
-              - description: Database routing is temporarily unavailable. Please retry.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
