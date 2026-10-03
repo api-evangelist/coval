@@ -995,144 +995,7 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
-    SubmitConversationResponse:
-      type: object
-      required:
-      - conversation
-      properties:
-        conversation:
-          $ref: '#/components/schemas/ConversationResource'
-    ErrorDetail:
-      type: object
-      properties:
-        field:
-          type: string
-          description: Field that caused the error
-          example: transcript
-        description:
-          type: string
-          description: Detailed description of the error
-          example: At least one of transcript, audio, or audio_url must be provided
-    SimpleMetricOutput:
-      type: object
-      required:
-      - metric_output_id
-      - metric_id
-      - status
-      properties:
-        metric_output_id:
-          type: string
-          description: Unique metric output identifier (26-char ULID)
-          minLength: 26
-          maxLength: 26
-          example: 01JCQR8Z9PQSTNVWXY12345678
-        metric_id:
-          type: string
-          description: Metric definition identifier (22-char ID)
-          minLength: 22
-          maxLength: 26
-          example: 29BlkepvvX19ebbLDB0y6Q
-        metric_version_ulid:
-          type:
-          - string
-          - 'null'
-          minLength: 26
-          maxLength: 26
-          description: ULID of the metric version this output was scored against (null for outputs produced before metric versioning landed)
-          example: 01JCQR8Z9PQSTNVWXY12345678
-        value:
-          description: 'Metric value (can be float, string, or list of strings depending on metric type, or null if failed)
-
-            '
-          anyOf:
-          - type: number
-          - type: string
-          - type: array
-            items:
-              type: string
-          example: 2.35
-        status:
-          type: string
-          enum:
-          - IN QUEUE
-          - IN PROGRESS
-          - COMPLETED
-          - FAILED
-          description: Status of metric computation
-          example: COMPLETED
-        explanation:
-          type:
-          - string
-          - 'null'
-          description: The LLM judge's reasoning for this metric output, as a flat string. Null for metrics that produce no explanation (non-judge metrics) or when the output is not yet computed. This is a convenience surfacing of the reasoning that otherwise lives nested under result.llm.answer_explanation (or result.explanation); it is populated in both the list and single-output responses so callers do not have to request the full result object to read it.
-          example: The agent never confirmed the caller's address before ending the call.
-        result:
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
-          description: Structured metric result. Its keys depend on the metric type — for LLM-judge metrics the judge's reasoning is at result.llm.answer_explanation and the evaluation prompt at result.llm.prompt. Null for metrics that produce no structured result.
-          example:
-            llm:
-              answer_explanation: The agent never confirmed the caller's address before ending the call.
-              prompt: Did the agent confirm the caller's address?
-      description: 'Simplified metric output for conversations API.
-
-        '
-    GetConversationMetricResponse:
-      type: object
-      required:
-      - metric
-      properties:
-        metric:
-          allOf:
-          - $ref: '#/components/schemas/SimpleMetricOutput'
-          description: Single metric output (returned when {metric_output_id} is a 26-char ULID)
-    ConversationStatus:
-      type: string
-      enum:
-      - PENDING
-      - IN_QUEUE
-      - IN_PROGRESS
-      - COMPLETED
-      - FAILED
-      - CANCELLED
-      - DELETED
-      description: 'Current status of conversation evaluation.
-
-
-        **Lifecycle:**
-
-        - PENDING: Submitted, awaiting queue
-
-        - IN_QUEUE: In run-setup-queue, awaiting worker
-
-        - IN_PROGRESS: Evaluation running
-
-        - COMPLETED: Successfully completed
-
-        - FAILED: Encountered error
-
-        - CANCELLED: User cancelled (via DELETE on PENDING/IN_PROGRESS)
-
-        - DELETED: Deleted(via DELETE on COMPLETED/FAILED)
-
-        '
-    DeleteConversationResponse:
-      type: object
-      required:
-      - conversation
-      properties:
-        conversation:
-          allOf:
-          - $ref: '#/components/schemas/ConversationResource'
-          description: 'Conversation resource with updated status.
-
-
-            Status will be either CANCELLED or DELETED depending on original status.
-
-            '
-    PhoneEndpoint:
+    SipEndpoint:
       type: object
       required:
       - type
@@ -1141,191 +1004,12 @@ components:
         type:
           type: string
           enum:
-          - phone
+          - sip
           description: Endpoint kind discriminator
         value:
           type: string
-          description: Phone number in E.164 format
-          example: '+15551234567'
-    GetConversationResponse:
-      type: object
-      required:
-      - conversation
-      properties:
-        conversation:
-          $ref: '#/components/schemas/ConversationResource'
-    ListConversationsResponse:
-      type: object
-      required:
-      - conversations
-      properties:
-        conversations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConversationResource'
-          description: List of conversations (max page_size items)
-        next_page_token:
-          type:
-          - string
-          - 'null'
-          description: 'Token for retrieving next page.
-
-
-            null indicates last page.
-
-            Pass this value in page_token query parameter for next page.
-
-            '
-          example: eyJvZmZzZXQiOiA1MH0=
-    ToolCall:
-      type: object
-      required:
-      - id
-      - type
-      - function
-      properties:
-        id:
-          type: string
-          description: 'Unique identifier for this tool call.
-
-
-            This ID is used to match tool responses back to their corresponding calls.
-
-            '
-          example: call_abc123
-        type:
-          type: string
-          enum:
-          - function
-          description: Type of tool call (currently only 'function' is supported)
-          example: function
-        function:
-          $ref: '#/components/schemas/ToolCallFunction'
-      description: 'A tool call made by the assistant during a conversation.
-
-
-        Follows the OpenAI tool call format for compatibility with ChatGPT, GPT-4, and other LLM APIs.
-
-        '
-    TranscriptMessage:
-      type: object
-      required:
-      - role
-      properties:
-        role:
-          type: string
-          enum:
-          - user
-          - assistant
-          - system
-          - tool
-          description: 'Speaker role in the conversation.
-
-
-            - `user`: The human user or customer
-
-            - `assistant`: The AI assistant or agent
-
-            - `system`: System instructions (typically at conversation start)
-
-            - `tool`: Tool/function response (must include `tool_call_id`)
-
-            '
-          example: user
-        content:
-          type:
-          - string
-          - 'null'
-          description: 'Message content (primary field).
-
-
-            Can be `null` for assistant messages that only contain tool calls.
-
-            '
-          example: I'd like to check my account balance
-        message:
-          type: string
-          description: Message content (alternative to content, for compatibility)
-          example: I'd like to check my account balance
-        tool_calls:
-          type: array
-          items:
-            $ref: '#/components/schemas/ToolCall'
-          description: 'Tool calls made by the assistant in this message.
-
-
-            **Only valid for `role: assistant`.**
-
-
-            When an assistant message contains tool calls, the `content` field may be `null` or empty.
-
-            Each tool call must have a unique `id` that will be referenced by the corresponding tool response.
-
-            '
-          example:
-          - id: call_abc123
-            type: function
-            function:
-              name: get_weather
-              arguments: '{"location": "San Francisco"}'
-        tool_call_id:
-          type: string
-          description: 'ID of the tool call this message responds to.
-
-
-            **Required when `role: tool`.**
-
-
-            Must match the `id` of a tool call from a previous assistant message.
-
-            '
-          example: call_abc123
-        start_time:
-          type: number
-          format: float
-          description: 'When this message started, in seconds from the beginning of the conversation.
-
-
-            **Required for audio-based metrics** (latency, interruption rate) when both transcript and audio are provided.
-
-            Without this field, the audio will be retranscribed to extract timing information.
-
-            '
-          example: 0.0
-        end_time:
-          type: number
-          format: float
-          description: 'When this message ended, in seconds from the beginning of the conversation.
-
-
-            **Required for audio-based metrics** (latency, interruption rate) when both transcript and audio are provided.
-
-            Without this field, the audio will be retranscribed to extract timing information.
-
-            '
-          example: 3.5
-        timestamp:
-          type: string
-          format: date-time
-          description: When this message was spoken (ISO 8601 datetime)
-          example: '2025-11-03T14:32:15Z'
-        firstWordStart:
-          type: number
-          format: float
-          description: 'Alternative field for start offset in seconds from conversation start.
-
-
-            Use either start_time/end_time OR firstWordStart/lastWordEnd, not both.'
-          example: 0.5
-        lastWordEnd:
-          type: number
-          format: float
-          description: 'Alternative field for end offset in seconds from conversation start.
-
-
-            Use either start_time/end_time OR firstWordStart/lastWordEnd, not both.'
-          example: 2.3
-      description: "A single message in a conversation transcript.\n\n**Content Requirements:**\n- For `user`, `system`, and `tool` roles: Either `content` or `message` must be provided\n- For `assistant` role: Either `content`, `message`, or `tool_calls` must be provided\n- Supports OpenAI message format including tool calls\n\n**Tool Call Flow:**\n1. Assistant sends message with `tool_calls` array (content may be null)\n2. Each tool call has a unique `id` and function details\n3. Tool responses use `role: tool` with matching `tool_call_id`\n\n**Timing Information:**\n- `start_time` and `end_time` are measured in seconds from the start of the audio (e.g., 0.0, 3.5, 7.2)\n- Both `start_time` and `end_time` are **required** if:\n  - You submit both `transcript` AND `audio`/`audio_url`\n  - You want audio-based metrics (latency, interruption rate, audio duration)\n  - You want to avoid audio retranscription\n- If timing fields are omitted when audio is present, the system will automatically transcribe and diarize the audio to extract timing information\n- `timestamp` (ISO 8601) is separate and used only for external system correlation"
+          description: SIP URI
+          example: sip:agent@voip.example.com
     ErrorResponse:
       type: object
       required:
@@ -1358,283 +1042,17 @@ components:
                 $ref: '#/components/schemas/ErrorDetail'
               description: Additional error details
               default: []
-    ConversationResource:
+    ErrorDetail:
       type: object
       properties:
-        name:
+        field:
           type: string
-          description: Resource name in format "conversations/{conversation_id}"
-          example: conversations/gk3jK9mPq2xRt5vW8yZaBc
-        conversation_id:
+          description: Field that caused the error
+          example: transcript
+        description:
           type: string
-          description: Unique conversation identifier (22-26 characters)
-          minLength: 22
-          maxLength: 26
-          example: gk3jK9mPq2xRt5vW8yZaBc
-        status:
-          $ref: '#/components/schemas/ConversationStatus'
-        create_time:
-          type: string
-          format: date-time
-          description: When conversation was submitted (ISO 8601)
-          example: '2025-11-03T14:32:30Z'
-        external_conversation_id:
-          type: string
-          description: External conversation ID from customer system
-          example: external-call-7x8z9a
-        occurred_at:
-          type: string
-          format: date-time
-          description: When the conversation actually occurred (ISO 8601)
-          example: '2025-11-03T14:32:00Z'
-        has_audio:
-          type: boolean
-          description: 'Whether audio is available for this conversation.
-
-
-            Use GET /v1/conversations/{id}/audio to retrieve presigned URL.
-
-            '
-          example: true
-        agent_id:
-          type:
-          - string
-          - 'null'
-          pattern: ^[23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{22}$
-          description: Agent resource ID (22-character ShortUUID), if one was provided at submission
-          example: null
-        persona_id:
-          type:
-          - string
-          - 'null'
-          description: Reference to persona resource (typically null for monitoring)
-          example: null
-        source:
-          description: The caller/initiating side of the conversation; null when not addressable. Only included in single-resource GET, not LIST.
-          type:
-          - object
-          - 'null'
-          oneOf:
-          - $ref: '#/components/schemas/PhoneEndpoint'
-          - $ref: '#/components/schemas/SipEndpoint'
-          - $ref: '#/components/schemas/WebsocketEndpoint'
-          discriminator:
-            propertyName: type
-        destination:
-          description: The agent side of the conversation; null when not addressable. Only included in single-resource GET, not LIST.
-          type:
-          - object
-          - 'null'
-          oneOf:
-          - $ref: '#/components/schemas/PhoneEndpoint'
-          - $ref: '#/components/schemas/SipEndpoint'
-          - $ref: '#/components/schemas/WebsocketEndpoint'
-          discriminator:
-            propertyName: type
-        progress:
-          allOf:
-          - $ref: '#/components/schemas/ConversationProgress'
-          description: Progress tracking (included when include_progress=true)
-        metadata:
-          type: object
-          additionalProperties: true
-          description: Customer-provided metadata
-          example:
-            campaign: q4-support
-            channel: phone
-        tags:
-          type: array
-          items:
-            type: string
-          description: Tags applied to this conversation
-          example:
-          - restaurant
-          - support-tier-1
-        metric_ids:
-          type: array
-          items:
-            type: string
-            minLength: 22
-            maxLength: 26
-          description: 'List of metric IDs configured for this conversation.
-
-
-            Use GET /v1/conversations/{id}/metrics to retrieve computed metric values.
-
-            '
-          example:
-          - 29BlkepvvX19ebbLDB0y6Q
-          - mymKvEg6ZA65srXbTX5wSM
-          - fstokU4ev5UmT8sUBexiwV
-        metric_outputs:
-          type:
-          - array
-          - 'null'
-          description: 'Full outputs matching the requested metric_id. Present only when the list
-
-            request sets include=metric_outputs; omitted from the default summary view.
-
-            '
-          items:
-            $ref: '#/components/schemas/MetricOutputResource'
-        error:
-          type:
-          - string
-          - 'null'
-          description: Error message (only present if status=FAILED)
-          example: null
-      description: 'Conversation resource object.
-
-        '
-    ToolCallFunction:
-      type: object
-      required:
-      - name
-      - arguments
-      properties:
-        name:
-          type: string
-          description: The name of the function to call
-          example: get_weather
-        arguments:
-          type: string
-          description: 'JSON string containing the function arguments.
-
-
-            **Note:** This is a JSON-encoded string, not a raw object.
-
-            '
-          example: '{"location": "San Francisco", "unit": "celsius"}'
-      description: 'Function details for a tool call.
-
-
-        The `arguments` field contains a JSON-encoded string of the function parameters.
-
-        '
-    MetricOutputResource:
-      type: object
-      required:
-      - metric_output_id
-      - metric_id
-      - status
-      properties:
-        metric_output_id:
-          type: string
-          description: Unique metric output identifier (26-char ULID)
-          minLength: 26
-          maxLength: 26
-          example: 01JCQR8Z9PQSTNVWXY12345678
-        metric_id:
-          type: string
-          description: Metric definition identifier (22-char ID)
-          minLength: 22
-          maxLength: 26
-          example: 29BlkepvvX19ebbLDB0y6Q
-        metric_version_ulid:
-          type:
-          - string
-          - 'null'
-          minLength: 26
-          maxLength: 26
-          description: ULID of the metric version this output was scored against (null for outputs produced before metric versioning landed)
-          example: 01JCQR8Z9PQSTNVWXY12345678
-        value:
-          description: 'Metric value (can be float, string, or list of strings depending on metric type, or null if failed)
-
-            '
-          anyOf:
-          - type: number
-          - type: string
-          - type: array
-            items:
-              type: string
-          example: 2.35
-        status:
-          type: string
-          enum:
-          - IN QUEUE
-          - IN PROGRESS
-          - COMPLETED
-          - FAILED
-          description: Status of metric computation
-          example: COMPLETED
-        explanation:
-          type:
-          - string
-          - 'null'
-          description: The LLM judge's reasoning for this metric output, as a flat string. Null for metrics that produce no explanation (non-judge metrics) or when the output is not yet computed. This is a convenience surfacing of the reasoning that otherwise lives nested under result.llm.answer_explanation (or result.explanation); it is populated in both the list and single-output responses so callers do not have to request the full result object to read it.
-          example: The agent never confirmed the caller's address before ending the call.
-        result:
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
-          description: Structured metric result. Its keys depend on the metric type — for LLM-judge metrics the judge's reasoning is at result.llm.answer_explanation and the evaluation prompt at result.llm.prompt. Null for metrics that produce no structured result.
-          example:
-            llm:
-              answer_explanation: The agent never confirmed the caller's address before ending the call.
-              prompt: Did the agent confirm the caller's address?
-      description: 'Simplified metric output for conversations API.
-
-        '
-    MetricBreakdownRow:
-      type: object
-      required:
-      - metadata_value
-      - count
-      properties:
-        metadata_value:
-          type: string
-          description: The customer_metadata value for this group (for example, a vendor)
-          example: decagon
-        value:
-          type:
-          - number
-          - 'null'
-          description: 'Aggregate value: success rate in [0,1] for aggregation=success, else the numeric mean'
-          example: 0.93
-        count:
-          type: integer
-          description: Number of scored monitoring conversations in this group
-          example: 412
-    MetricBreakdownResponse:
-      type: object
-      required:
-      - view
-      - metric_id
-      - group_by_metadata
-      - aggregation
-      - breakdown
-      - total_count
-      properties:
-        view:
-          type: string
-          enum:
-          - metric_breakdown
-          description: Response discriminator for the metric breakdown view
-        metric_id:
-          type: string
-          description: The metric the breakdown was computed for
-          example: 29BlkepvvX19ebbLDB0y6Q
-        group_by_metadata:
-          type: string
-          description: The customer_metadata key the breakdown is grouped by
-          example: nlp_provider
-        aggregation:
-          type: string
-          enum:
-          - success
-          - avg
-          description: Aggregation applied to the metric
-        breakdown:
-          type: array
-          description: One row per metadata value, ordered by count descending
-          items:
-            $ref: '#/components/schemas/MetricBreakdownRow'
-        total_count:
-          type: integer
-          description: Total scored monitoring conversations across all groups
-          example: 789
+          description: Detailed description of the error
+          example: At least one of transcript, audio, or audio_url must be provided
     SubmitConversationRequest:
       type: object
       properties:
@@ -1792,26 +1210,45 @@ components:
             '
           example: gk3jK9mPq2xRt5vW8yZaBc
       description: "Request to submit a conversation for monitoring evaluation.\n\n**Requirements:**\n- At least one of: `transcript`, `audio_url`, or `upload_id` must be provided\n- `audio_url` and `upload_id` are mutually exclusive\n\n**Payload Size Limit:** The combined queued payload is subject to a 256 KB limit (including large `metadata` values); oversized payloads return 413 `PAYLOAD_TOO_LARGE`.\n\n**Best Practices:**\n- Provide both transcript and audio_url (or upload_id) when available (enables audio metrics)\n- **Include `start_time` and `end_time` in transcript messages when submitting audio_url** to avoid automatic retranscription\n- Include `external_conversation_id` for correlation with external systems\n- Add metadata for conditional metrics and analytics\n\n**Audio + Transcript Behavior:**\n- If you submit both `transcript` and `audio_url`:\n  - **WITH timing** (`start_time`/`end_time` on each message): Transcript is used as-is, audio metrics computed from timing\n  - **WITHOUT timing**: Audio is automatically transcribed and diarized, provided transcript is ignored for metrics\n"
-    ConversationProgress:
+    MetricBreakdownResponse:
       type: object
+      required:
+      - view
+      - metric_id
+      - group_by_metadata
+      - aggregation
+      - breakdown
+      - total_count
       properties:
-        total_metrics:
+        view:
+          type: string
+          enum:
+          - metric_breakdown
+          description: Response discriminator for the metric breakdown view
+        metric_id:
+          type: string
+          description: The metric the breakdown was computed for
+          example: 29BlkepvvX19ebbLDB0y6Q
+        group_by_metadata:
+          type: string
+          description: The customer_metadata key the breakdown is grouped by
+          example: nlp_provider
+        aggregation:
+          type: string
+          enum:
+          - success
+          - avg
+          description: Aggregation applied to the metric
+        breakdown:
+          type: array
+          description: One row per metadata value, ordered by count descending
+          items:
+            $ref: '#/components/schemas/MetricBreakdownRow'
+        total_count:
           type: integer
-          description: Total number of metrics being evaluated
-          example: 5
-        completed_metrics:
-          type: integer
-          description: Number of metrics completed successfully
-          example: 5
-        failed_metrics:
-          type: integer
-          description: Number of metrics that failed evaluation
-          example: 0
-        in_progress_metrics:
-          type: integer
-          description: Number of metrics currently running
-          example: 0
-    WebsocketEndpoint:
+          description: Total scored monitoring conversations across all groups
+          example: 789
+    PhoneEndpoint:
       type: object
       required:
       - type
@@ -1820,43 +1257,87 @@ components:
         type:
           type: string
           enum:
-          - websocket
+          - phone
           description: Endpoint kind discriminator
         value:
           type: string
-          description: WebSocket URL
-          example: wss://agent.example.com/stream
-    ListConversationMetricsResponse:
+          description: Phone number in E.164 format
+          example: '+15551234567'
+    SimpleMetricOutput:
       type: object
       required:
-      - metrics
+      - metric_output_id
+      - metric_id
+      - status
       properties:
-        metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/SimpleMetricOutput'
-          description: List of simplified metric outputs
-        next_page_token:
+        metric_output_id:
+          type: string
+          description: Unique metric output identifier (26-char ULID)
+          minLength: 26
+          maxLength: 26
+          example: 01JCQR8Z9PQSTNVWXY12345678
+        metric_id:
+          type: string
+          description: Metric definition identifier (22-char ID)
+          minLength: 22
+          maxLength: 26
+          example: 29BlkepvvX19ebbLDB0y6Q
+        metric_version_ulid:
           type:
           - string
           - 'null'
-          description: Pagination token for next page (null if no more results)
-          example: eyJvZmZzZXQiOiAxMDB9
-    SipEndpoint:
-      type: object
-      required:
-      - type
-      - value
-      properties:
-        type:
+          minLength: 26
+          maxLength: 26
+          description: ULID of the metric version this output was scored against (null for outputs produced before metric versioning landed)
+          example: 01JCQR8Z9PQSTNVWXY12345678
+        value:
+          description: 'Metric value (can be float, string, or list of strings depending on metric type, or null if failed)
+
+            '
+          anyOf:
+          - type: number
+          - type: string
+          - type: array
+            items:
+              type: string
+          example: 2.35
+        status:
           type: string
           enum:
-          - sip
-          description: Endpoint kind discriminator
-        value:
-          type: string
-          description: SIP URI
-          example: sip:agent@voip.example.com
+          - IN QUEUE
+          - IN PROGRESS
+          - COMPLETED
+          - FAILED
+          description: Status of metric computation
+          example: COMPLETED
+        explanation:
+          type:
+          - string
+          - 'null'
+          description: The LLM judge's reasoning for this metric output, as a flat string. Null for metrics that produce no explanation (non-judge metrics) or when the output is not yet computed. This is a convenience surfacing of the reasoning that otherwise lives nested under result.llm.answer_explanation (or result.explanation); it is populated in both the list and single-output responses so callers do not have to request the full result object to read it.
+          example: The agent never confirmed the caller's address before ending the call.
+        result:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          description: Structured metric result. Its keys depend on the metric type — for LLM-judge metrics the judge's reasoning is at result.llm.answer_explanation and the evaluation prompt at result.llm.prompt. Null for metrics that produce no structured result.
+          example:
+            llm:
+              answer_explanation: The agent never confirmed the caller's address before ending the call.
+              prompt: Did the agent confirm the caller's address?
+      description: 'Simplified metric output for conversations API.
+
+        '
+    GetConversationMetricResponse:
+      type: object
+      required:
+      - metric
+      properties:
+        metric:
+          allOf:
+          - $ref: '#/components/schemas/SimpleMetricOutput'
+          description: Single metric output (returned when {metric_output_id} is a 26-char ULID)
     PatchConversationRequest:
       type: object
       properties:
@@ -1901,6 +1382,218 @@ components:
         be PATCHed.
 
         '
+    ConversationProgress:
+      type: object
+      properties:
+        total_metrics:
+          type: integer
+          description: Total number of metrics being evaluated
+          example: 5
+        completed_metrics:
+          type: integer
+          description: Number of metrics completed successfully
+          example: 5
+        failed_metrics:
+          type: integer
+          description: Number of metrics that failed evaluation
+          example: 0
+        in_progress_metrics:
+          type: integer
+          description: Number of metrics currently running
+          example: 0
+    MetricOutputResource:
+      type: object
+      required:
+      - metric_output_id
+      - metric_id
+      - status
+      properties:
+        metric_output_id:
+          type: string
+          description: Unique metric output identifier (26-char ULID)
+          minLength: 26
+          maxLength: 26
+          example: 01JCQR8Z9PQSTNVWXY12345678
+        metric_id:
+          type: string
+          description: Metric definition identifier (22-char ID)
+          minLength: 22
+          maxLength: 26
+          example: 29BlkepvvX19ebbLDB0y6Q
+        metric_version_ulid:
+          type:
+          - string
+          - 'null'
+          minLength: 26
+          maxLength: 26
+          description: ULID of the metric version this output was scored against (null for outputs produced before metric versioning landed)
+          example: 01JCQR8Z9PQSTNVWXY12345678
+        value:
+          description: 'Metric value (can be float, string, or list of strings depending on metric type, or null if failed)
+
+            '
+          anyOf:
+          - type: number
+          - type: string
+          - type: array
+            items:
+              type: string
+          example: 2.35
+        status:
+          type: string
+          enum:
+          - IN QUEUE
+          - IN PROGRESS
+          - COMPLETED
+          - FAILED
+          description: Status of metric computation
+          example: COMPLETED
+        explanation:
+          type:
+          - string
+          - 'null'
+          description: The LLM judge's reasoning for this metric output, as a flat string. Null for metrics that produce no explanation (non-judge metrics) or when the output is not yet computed. This is a convenience surfacing of the reasoning that otherwise lives nested under result.llm.answer_explanation (or result.explanation); it is populated in both the list and single-output responses so callers do not have to request the full result object to read it.
+          example: The agent never confirmed the caller's address before ending the call.
+        result:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          description: Structured metric result. Its keys depend on the metric type — for LLM-judge metrics the judge's reasoning is at result.llm.answer_explanation and the evaluation prompt at result.llm.prompt. Null for metrics that produce no structured result.
+          example:
+            llm:
+              answer_explanation: The agent never confirmed the caller's address before ending the call.
+              prompt: Did the agent confirm the caller's address?
+      description: 'Simplified metric output for conversations API.
+
+        '
+    WebsocketEndpoint:
+      type: object
+      required:
+      - type
+      - value
+      properties:
+        type:
+          type: string
+          enum:
+          - websocket
+          description: Endpoint kind discriminator
+        value:
+          type: string
+          description: WebSocket URL
+          example: wss://agent.example.com/stream
+    MetricBreakdownRow:
+      type: object
+      required:
+      - metadata_value
+      - count
+      properties:
+        metadata_value:
+          type: string
+          description: The customer_metadata value for this group (for example, a vendor)
+          example: decagon
+        value:
+          type:
+          - number
+          - 'null'
+          description: 'Aggregate value: success rate in [0,1] for aggregation=success, else the numeric mean'
+          example: 0.93
+        count:
+          type: integer
+          description: Number of scored monitoring conversations in this group
+          example: 412
+    GetConversationResponse:
+      type: object
+      required:
+      - conversation
+      properties:
+        conversation:
+          $ref: '#/components/schemas/ConversationResource'
+    ToolCall:
+      type: object
+      required:
+      - id
+      - type
+      - function
+      properties:
+        id:
+          type: string
+          description: 'Unique identifier for this tool call.
+
+
+            This ID is used to match tool responses back to their corresponding calls.
+
+            '
+          example: call_abc123
+        type:
+          type: string
+          enum:
+          - function
+          description: Type of tool call (currently only 'function' is supported)
+          example: function
+        function:
+          $ref: '#/components/schemas/ToolCallFunction'
+      description: 'A tool call made by the assistant during a conversation.
+
+
+        Follows the OpenAI tool call format for compatibility with ChatGPT, GPT-4, and other LLM APIs.
+
+        '
+    ConversationStatus:
+      type: string
+      enum:
+      - PENDING
+      - IN_QUEUE
+      - IN_PROGRESS
+      - COMPLETED
+      - FAILED
+      - CANCELLED
+      - DELETED
+      description: 'Current status of conversation evaluation.
+
+
+        **Lifecycle:**
+
+        - PENDING: Submitted, awaiting queue
+
+        - IN_QUEUE: In run-setup-queue, awaiting worker
+
+        - IN_PROGRESS: Evaluation running
+
+        - COMPLETED: Successfully completed
+
+        - FAILED: Encountered error
+
+        - CANCELLED: User cancelled (via DELETE on PENDING/IN_PROGRESS)
+
+        - DELETED: Deleted(via DELETE on COMPLETED/FAILED)
+
+        '
+    ToolCallFunction:
+      type: object
+      required:
+      - name
+      - arguments
+      properties:
+        name:
+          type: string
+          description: The name of the function to call
+          example: get_weather
+        arguments:
+          type: string
+          description: 'JSON string containing the function arguments.
+
+
+            **Note:** This is a JSON-encoded string, not a raw object.
+
+            '
+          example: '{"location": "San Francisco", "unit": "celsius"}'
+      description: 'Function details for a tool call.
+
+
+        The `arguments` field contains a JSON-encoded string of the function parameters.
+
+        '
     MetricOutputCollection:
       type: object
       required:
@@ -1917,20 +1610,314 @@ components:
             definition ID.
 
             '
-  responses:
-    PayloadTooLarge:
-      description: Request payload exceeds size limit
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    ListConversationMetricsResponse:
+      type: object
+      required:
+      - metrics
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/SimpleMetricOutput'
+          description: List of simplified metric outputs
+        next_page_token:
+          type:
+          - string
+          - 'null'
+          description: Pagination token for next page (null if no more results)
+          example: eyJvZmZzZXQiOiAxMDB9
+    TranscriptMessage:
+      type: object
+      required:
+      - role
+      properties:
+        role:
+          type: string
+          enum:
+          - user
+          - assistant
+          - system
+          - tool
+          description: 'Speaker role in the conversation.
+
+
+            - `user`: The human user or customer
+
+            - `assistant`: The AI assistant or agent
+
+            - `system`: System instructions (typically at conversation start)
+
+            - `tool`: Tool/function response (must include `tool_call_id`)
+
+            '
+          example: user
+        content:
+          type:
+          - string
+          - 'null'
+          description: 'Message content (primary field).
+
+
+            Can be `null` for assistant messages that only contain tool calls.
+
+            '
+          example: I'd like to check my account balance
+        message:
+          type: string
+          description: Message content (alternative to content, for compatibility)
+          example: I'd like to check my account balance
+        tool_calls:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolCall'
+          description: 'Tool calls made by the assistant in this message.
+
+
+            **Only valid for `role: assistant`.**
+
+
+            When an assistant message contains tool calls, the `content` field may be `null` or empty.
+
+            Each tool call must have a unique `id` that will be referenced by the corresponding tool response.
+
+            '
           example:
-            error:
-              code: PAYLOAD_TOO_LARGE
-              message: Request payload exceeds maximum size limit
-              details:
-              - field: metadata
-                description: Request payload exceeds maximum size limit. Consider reducing metadata size.
+          - id: call_abc123
+            type: function
+            function:
+              name: get_weather
+              arguments: '{"location": "San Francisco"}'
+        tool_call_id:
+          type: string
+          description: 'ID of the tool call this message responds to.
+
+
+            **Required when `role: tool`.**
+
+
+            Must match the `id` of a tool call from a previous assistant message.
+
+            '
+          example: call_abc123
+        start_time:
+          type: number
+          format: float
+          description: 'When this message started, in seconds from the beginning of the conversation.
+
+
+            **Required for audio-based metrics** (latency, interruption rate) when both transcript and audio are provided.
+
+            Without this field, the audio will be retranscribed to extract timing information.
+
+            '
+          example: 0.0
+        end_time:
+          type: number
+          format: float
+          description: 'When this message ended, in seconds from the beginning of the conversation.
+
+
+            **Required for audio-based metrics** (latency, interruption rate) when both transcript and audio are provided.
+
+            Without this field, the audio will be retranscribed to extract timing information.
+
+            '
+          example: 3.5
+        timestamp:
+          type: string
+          format: date-time
+          description: When this message was spoken (ISO 8601 datetime)
+          example: '2025-11-03T14:32:15Z'
+        firstWordStart:
+          type: number
+          format: float
+          description: 'Alternative field for start offset in seconds from conversation start.
+
+
+            Use either start_time/end_time OR firstWordStart/lastWordEnd, not both.'
+          example: 0.5
+        lastWordEnd:
+          type: number
+          format: float
+          description: 'Alternative field for end offset in seconds from conversation start.
+
+
+            Use either start_time/end_time OR firstWordStart/lastWordEnd, not both.'
+          example: 2.3
+      description: "A single message in a conversation transcript.\n\n**Content Requirements:**\n- For `user`, `system`, and `tool` roles: Either `content` or `message` must be provided\n- For `assistant` role: Either `content`, `message`, or `tool_calls` must be provided\n- Supports OpenAI message format including tool calls\n\n**Tool Call Flow:**\n1. Assistant sends message with `tool_calls` array (content may be null)\n2. Each tool call has a unique `id` and function details\n3. Tool responses use `role: tool` with matching `tool_call_id`\n\n**Timing Information:**\n- `start_time` and `end_time` are measured in seconds from the start of the audio (e.g., 0.0, 3.5, 7.2)\n- Both `start_time` and `end_time` are **required** if:\n  - You submit both `transcript` AND `audio`/`audio_url`\n  - You want audio-based metrics (latency, interruption rate, audio duration)\n  - You want to avoid audio retranscription\n- If timing fields are omitted when audio is present, the system will automatically transcribe and diarize the audio to extract timing information\n- `timestamp` (ISO 8601) is separate and used only for external system correlation"
+    DeleteConversationResponse:
+      type: object
+      required:
+      - conversation
+      properties:
+        conversation:
+          allOf:
+          - $ref: '#/components/schemas/ConversationResource'
+          description: 'Conversation resource with updated status.
+
+
+            Status will be either CANCELLED or DELETED depending on original status.
+
+            '
+    ListConversationsResponse:
+      type: object
+      required:
+      - conversations
+      properties:
+        conversations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversationResource'
+          description: List of conversations (max page_size items)
+        next_page_token:
+          type:
+          - string
+          - 'null'
+          description: 'Token for retrieving next page.
+
+
+            null indicates last page.
+
+            Pass this value in page_token query parameter for next page.
+
+            '
+          example: eyJvZmZzZXQiOiA1MH0=
+    SubmitConversationResponse:
+      type: object
+      required:
+      - conversation
+      properties:
+        conversation:
+          $ref: '#/components/schemas/ConversationResource'
+    ConversationResource:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Resource name in format "conversations/{conversation_id}"
+          example: conversations/gk3jK9mPq2xRt5vW8yZaBc
+        conversation_id:
+          type: string
+          description: Unique conversation identifier (22-26 characters)
+          minLength: 22
+          maxLength: 26
+          example: gk3jK9mPq2xRt5vW8yZaBc
+        status:
+          $ref: '#/components/schemas/ConversationStatus'
+        create_time:
+          type: string
+          format: date-time
+          description: When conversation was submitted (ISO 8601)
+          example: '2025-11-03T14:32:30Z'
+        external_conversation_id:
+          type: string
+          description: External conversation ID from customer system
+          example: external-call-7x8z9a
+        occurred_at:
+          type: string
+          format: date-time
+          description: When the conversation actually occurred (ISO 8601)
+          example: '2025-11-03T14:32:00Z'
+        has_audio:
+          type: boolean
+          description: 'Whether audio is available for this conversation.
+
+
+            Use GET /v1/conversations/{id}/audio to retrieve presigned URL.
+
+            '
+          example: true
+        agent_id:
+          type:
+          - string
+          - 'null'
+          pattern: ^[23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{22}$
+          description: Agent resource ID (22-character ShortUUID), if one was provided at submission
+          example: null
+        persona_id:
+          type:
+          - string
+          - 'null'
+          description: Reference to persona resource (typically null for monitoring)
+          example: null
+        source:
+          description: The caller/initiating side of the conversation; null when not addressable. Only included in single-resource GET, not LIST.
+          type:
+          - object
+          - 'null'
+          oneOf:
+          - $ref: '#/components/schemas/PhoneEndpoint'
+          - $ref: '#/components/schemas/SipEndpoint'
+          - $ref: '#/components/schemas/WebsocketEndpoint'
+          discriminator:
+            propertyName: type
+        destination:
+          description: The agent side of the conversation; null when not addressable. Only included in single-resource GET, not LIST.
+          type:
+          - object
+          - 'null'
+          oneOf:
+          - $ref: '#/components/schemas/PhoneEndpoint'
+          - $ref: '#/components/schemas/SipEndpoint'
+          - $ref: '#/components/schemas/WebsocketEndpoint'
+          discriminator:
+            propertyName: type
+        progress:
+          allOf:
+          - $ref: '#/components/schemas/ConversationProgress'
+          description: Progress tracking (included when include_progress=true)
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Customer-provided metadata
+          example:
+            campaign: q4-support
+            channel: phone
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags applied to this conversation
+          example:
+          - restaurant
+          - support-tier-1
+        metric_ids:
+          type: array
+          items:
+            type: string
+            minLength: 22
+            maxLength: 26
+          description: 'List of metric IDs configured for this conversation.
+
+
+            Use GET /v1/conversations/{id}/metrics to retrieve computed metric values.
+
+            '
+          example:
+          - 29BlkepvvX19ebbLDB0y6Q
+          - mymKvEg6ZA65srXbTX5wSM
+          - fstokU4ev5UmT8sUBexiwV
+        metric_outputs:
+          type:
+          - array
+          - 'null'
+          description: 'Full outputs matching the requested metric_id. Present only when the list
+
+            request sets include=metric_outputs; omitted from the default summary view.
+
+            '
+          items:
+            $ref: '#/components/schemas/MetricOutputResource'
+        error:
+          type:
+          - string
+          - 'null'
+          description: Error message (only present if status=FAILED)
+          example: null
+      description: 'Conversation resource object.
+
+        '
+  responses:
     InternalError:
       description: Internal server error
       content:
@@ -1942,6 +1929,38 @@ components:
               code: INTERNAL_ERROR
               message: An internal error occurred while processing the request
               details: []
+    Unauthenticated:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Invalid or missing API key
+              details: []
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            conversationNotFound:
+              summary: Conversation not found
+              value:
+                error:
+                  code: NOT_FOUND
+                  message: Conversation not found
+                  details: []
+            simulationAccess:
+              summary: Attempted to access simulation
+              value:
+                error:
+                  code: NOT_FOUND
+                  message: Conversation not found
+                  details: []
     InvalidArgument:
       description: Invalid request arguments
       content:
@@ -2030,38 +2049,19 @@ components:
                   details:
                   - field: audio_url
                     description: Audio file headers could not be read or are corrupted
-    Unauthenticated:
-      description: Missing or invalid API key
+    PayloadTooLarge:
+      description: Request payload exceeds size limit
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           example:
             error:
-              code: UNAUTHENTICATED
-              message: Invalid or missing API key
-              details: []
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            conversationNotFound:
-              summary: Conversation not found
-              value:
-                error:
-                  code: NOT_FOUND
-                  message: Conversation not found
-                  details: []
-            simulationAccess:
-              summary: Attempted to access simulation
-              value:
-                error:
-                  code: NOT_FOUND
-                  message: Conversation not found
-                  details: []
+              code: PAYLOAD_TOO_LARGE
+              message: Request payload exceeds maximum size limit
+              details:
+              - field: metadata
+                description: Request payload exceeds maximum size limit. Consider reducing metadata size.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

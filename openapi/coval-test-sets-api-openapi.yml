@@ -441,26 +441,6 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
-    TestSetAgentResource:
-      type: object
-      description: An agent associated with a test set.
-      required:
-      - name
-      - agent_id
-      - display_name
-      properties:
-        name:
-          type: string
-          description: Resource name, "test-sets/{test_set_id}/agents/{agent_id}".
-          example: test-sets/abc12345/agents/abc123def456ghi789jklm
-        agent_id:
-          type: string
-          description: Agent identifier (22-char ShortUUID).
-          example: abc123def456ghi789jklm
-        display_name:
-          type: string
-          description: Human-readable agent name.
-          example: Support Bot
     AddTestSetAgentsRequest:
       type: object
       description: Associate one or more agents with the test set.
@@ -479,6 +459,219 @@ components:
             pattern: ^[A-Za-z0-9]+$
           example:
           - abc123def456ghi789jklm
+    ListTestSetAgentsResponse:
+      type: object
+      description: The agents currently associated with the test set.
+      required:
+      - agents
+      properties:
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestSetAgentResource'
+    CreateTestSetRequest:
+      type: object
+      description: Request body for creating a test set
+      required:
+      - display_name
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: Human-readable test set name
+          example: Customer Support Scenarios
+        slug:
+          type: string
+          maxLength: 100
+          description: URL-friendly identifier (auto-generated from display_name if not provided)
+          example: customer-support-scenarios
+        description:
+          type:
+          - string
+          - 'null'
+          description: Test set description
+          example: Test cases for customer support agent
+        test_set_type:
+          type: string
+          maxLength: 50
+          description: Test set type (e.g., DEFAULT, SCENARIO, TRANSCRIPT, WORKFLOW)
+          example: SCENARIO
+        test_set_metadata:
+          type: object
+          description: Additional test set configuration (JSON)
+          additionalProperties: true
+          default: {}
+          example:
+            category: support
+            priority: high
+        parameters:
+          type: object
+          description: Test case parameterization
+          additionalProperties: true
+          default: {}
+          example:
+            customer_name:
+            - Alice
+            - Bob
+            issue_type:
+            - billing
+            - technical
+        tags:
+          type:
+          - array
+          - 'null'
+          description: Tags to associate with this test set. Null or omitted creates the test set with no tags. Pass [] for an empty tag list.
+          items:
+            type: string
+          example:
+          - regression
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameters
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    description: Field that caused the error
+                    example: slug
+                  description:
+                    type: string
+                    description: Description of the error
+                    example: slug already exists for this organization
+    UpdateTestSetRequest:
+      type: object
+      description: Update request. Only provided fields will be updated.
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: Human-readable test set name
+          example: Updated Test Set Name
+        slug:
+          type: string
+          maxLength: 100
+          description: URL-friendly identifier
+          example: updated-slug
+        description:
+          type:
+          - string
+          - 'null'
+          description: Test set description
+          example: Updated description
+        test_set_type:
+          type: string
+          maxLength: 50
+          description: Test set type
+          example: WORKFLOW
+        test_set_metadata:
+          type: object
+          description: Additional configuration (null = don't update, {} = clear field)
+          additionalProperties: true
+          example:
+            category: support
+            updated: true
+        parameters:
+          type: object
+          description: Test case parameterization (null = don't update, {} = clear field)
+          additionalProperties: true
+          example:
+            name:
+            - Alice
+            - Bob
+        tags:
+          type:
+          - array
+          - 'null'
+          description: Tags to associate with this test set. Null or omitted leaves tags unchanged. Pass [] to clear all tags.
+          items:
+            type: string
+          example:
+          - regression
+    TestSetVersionResource:
+      type: object
+      description: A prior, displaced snapshot of a test set's content (config + test-case grid).
+      required:
+      - name
+      - ulid
+      - version_number
+      - change_type
+      - created_by
+      properties:
+        name:
+          type: string
+          description: Resource name
+          example: test-sets/abc12345/versions/01KKWQYSF737ZN6X1Q1RYX8M2D
+        ulid:
+          type: string
+          description: Version identifier (26-char ULID)
+          example: 01KKWQYSF737ZN6X1Q1RYX8M2D
+        version_number:
+          type: integer
+          description: Per-test-set monotonic version number, 1-based
+          example: 2
+        change_type:
+          type: string
+          description: How this version came about. A revert is a save whose new state mirrors an older version.
+          enum:
+          - save
+          - revert
+        label:
+          type:
+          - string
+          - 'null'
+          description: Optional user-supplied tag
+          example: v1.2 prod
+        test_set_metadata:
+          type: object
+          additionalProperties: true
+          description: Verbatim config snapshot
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Verbatim parameter-sweep snapshot
+        test_set_type:
+          type:
+          - string
+          - 'null'
+        test_cases:
+          type: array
+          description: Ordered snapshot of the test set's active rows at this version
+          items:
+            type: object
+            additionalProperties: true
+        created_by:
+          type: string
+          description: Who created this version (user ULID)
+        create_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: When this version became current
     TestSetResource:
       type: object
       description: 'Test set resource representation.
@@ -558,6 +751,26 @@ components:
           format: date-time
           description: Timestamp when test set was last updated
           example: '2025-10-15T14:30:00Z'
+    TestSetAgentResource:
+      type: object
+      description: An agent associated with a test set.
+      required:
+      - name
+      - agent_id
+      - display_name
+      properties:
+        name:
+          type: string
+          description: Resource name, "test-sets/{test_set_id}/agents/{agent_id}".
+          example: test-sets/abc12345/agents/abc123def456ghi789jklm
+        agent_id:
+          type: string
+          description: Agent identifier (22-char ShortUUID).
+          example: abc123def456ghi789jklm
+        display_name:
+          type: string
+          description: Human-readable agent name.
+          example: Support Bot
     ListTestSetVersionsResponse:
       type: object
       description: Response for GET /v1/test-sets/{test_set_id}/versions (newest first)
@@ -568,232 +781,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TestSetVersionResource'
-    CreateTestSetRequest:
-      type: object
-      description: Request body for creating a test set
-      required:
-      - display_name
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          maxLength: 100
-          description: Human-readable test set name
-          example: Customer Support Scenarios
-        slug:
-          type: string
-          maxLength: 100
-          description: URL-friendly identifier (auto-generated from display_name if not provided)
-          example: customer-support-scenarios
-        description:
-          type:
-          - string
-          - 'null'
-          description: Test set description
-          example: Test cases for customer support agent
-        test_set_type:
-          type: string
-          maxLength: 50
-          description: Test set type (e.g., DEFAULT, SCENARIO, TRANSCRIPT, WORKFLOW)
-          example: SCENARIO
-        test_set_metadata:
-          type: object
-          description: Additional test set configuration (JSON)
-          additionalProperties: true
-          default: {}
-          example:
-            category: support
-            priority: high
-        parameters:
-          type: object
-          description: Test case parameterization
-          additionalProperties: true
-          default: {}
-          example:
-            customer_name:
-            - Alice
-            - Bob
-            issue_type:
-            - billing
-            - technical
-        tags:
-          type:
-          - array
-          - 'null'
-          description: Tags to associate with this test set. Null or omitted creates the test set with no tags. Pass [] for an empty tag list.
-          items:
-            type: string
-          example:
-          - regression
-    UpdateTestSetRequest:
-      type: object
-      description: Update request. Only provided fields will be updated.
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          maxLength: 100
-          description: Human-readable test set name
-          example: Updated Test Set Name
-        slug:
-          type: string
-          maxLength: 100
-          description: URL-friendly identifier
-          example: updated-slug
-        description:
-          type:
-          - string
-          - 'null'
-          description: Test set description
-          example: Updated description
-        test_set_type:
-          type: string
-          maxLength: 50
-          description: Test set type
-          example: WORKFLOW
-        test_set_metadata:
-          type: object
-          description: Additional configuration (null = don't update, {} = clear field)
-          additionalProperties: true
-          example:
-            category: support
-            updated: true
-        parameters:
-          type: object
-          description: Test case parameterization (null = don't update, {} = clear field)
-          additionalProperties: true
-          example:
-            name:
-            - Alice
-            - Bob
-        tags:
-          type:
-          - array
-          - 'null'
-          description: Tags to associate with this test set. Null or omitted leaves tags unchanged. Pass [] to clear all tags.
-          items:
-            type: string
-          example:
-          - regression
-    ListTestSetAgentsResponse:
-      type: object
-      description: The agents currently associated with the test set.
-      required:
-      - agents
-      properties:
-        agents:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestSetAgentResource'
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          - details
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code
-              example: INVALID_ARGUMENT
-            message:
-              type: string
-              description: Human-readable error message
-              example: Invalid request parameters
-            details:
-              type: array
-              description: Detailed error information
-              items:
-                type: object
-                properties:
-                  field:
-                    type: string
-                    description: Field that caused the error
-                    example: slug
-                  description:
-                    type: string
-                    description: Description of the error
-                    example: slug already exists for this organization
-    TestSetVersionResource:
-      type: object
-      description: A prior, displaced snapshot of a test set's content (config + test-case grid).
-      required:
-      - name
-      - ulid
-      - version_number
-      - change_type
-      - created_by
-      properties:
-        name:
-          type: string
-          description: Resource name
-          example: test-sets/abc12345/versions/01KKWQYSF737ZN6X1Q1RYX8M2D
-        ulid:
-          type: string
-          description: Version identifier (26-char ULID)
-          example: 01KKWQYSF737ZN6X1Q1RYX8M2D
-        version_number:
-          type: integer
-          description: Per-test-set monotonic version number, 1-based
-          example: 2
-        change_type:
-          type: string
-          description: How this version came about. A revert is a save whose new state mirrors an older version.
-          enum:
-          - save
-          - revert
-        label:
-          type:
-          - string
-          - 'null'
-          description: Optional user-supplied tag
-          example: v1.2 prod
-        test_set_metadata:
-          type: object
-          additionalProperties: true
-          description: Verbatim config snapshot
-        parameters:
-          type: object
-          additionalProperties: true
-          description: Verbatim parameter-sweep snapshot
-        test_set_type:
-          type:
-          - string
-          - 'null'
-        test_cases:
-          type: array
-          description: Ordered snapshot of the test set's active rows at this version
-          items:
-            type: object
-            additionalProperties: true
-        created_by:
-          type: string
-          description: Who created this version (user ULID)
-        create_time:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: When this version became current
   responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred while processing the request
     BadRequest:
       description: Invalid request parameters
       content:
@@ -807,19 +795,6 @@ components:
               details:
               - field: display_name
                 description: display_name is required and cannot be empty
-    Unauthorized:
-      description: Authentication failed or missing API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
     NotFound:
       description: Resource not found or doesn't belong to organization
       content:
@@ -833,6 +808,31 @@ components:
               details:
               - field: test_set_id
                 description: Test set 'abc12345' not found
+    Unauthorized:
+      description: Authentication failed or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred while processing the request
   securitySchemes:
     apiKey:
       type: apiKey

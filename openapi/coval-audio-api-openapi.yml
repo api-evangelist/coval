@@ -124,6 +124,49 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+              description: Error code
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - NOT_FOUND
+              - ALREADY_EXISTS
+              - PAYLOAD_TOO_LARGE
+              - INTERNAL_ERROR
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Missing required input data
+            details:
+              type: array
+              items:
+                $ref: '#/components/schemas/ErrorDetail'
+              description: Additional error details
+              default: []
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type: string
+          description: Field that caused the error
+          example: transcript
+        description:
+          type: string
+          description: Detailed description of the error
+          example: At least one of transcript, audio, or audio_url must be provided
     CreateAudioUploadResponse:
       type: object
       required:
@@ -259,72 +302,7 @@ components:
       description: 'Response containing presigned URL for audio download.
 
         '
-    ErrorDetail:
-      type: object
-      properties:
-        field:
-          type: string
-          description: Field that caused the error
-          example: transcript
-        description:
-          type: string
-          description: Detailed description of the error
-          example: At least one of transcript, audio, or audio_url must be provided
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          properties:
-            code:
-              type: string
-              description: Error code
-              enum:
-              - INVALID_ARGUMENT
-              - UNAUTHENTICATED
-              - NOT_FOUND
-              - ALREADY_EXISTS
-              - PAYLOAD_TOO_LARGE
-              - INTERNAL_ERROR
-              example: INVALID_ARGUMENT
-            message:
-              type: string
-              description: Human-readable error message
-              example: Missing required input data
-            details:
-              type: array
-              items:
-                $ref: '#/components/schemas/ErrorDetail'
-              description: Additional error details
-              default: []
   responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL_ERROR
-              message: An internal error occurred while processing the request
-              details: []
-    Unauthenticated:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Invalid or missing API key
-              details: []
     InvalidArgument:
       description: Invalid request arguments
       content:
@@ -413,6 +391,28 @@ components:
                   details:
                   - field: audio_url
                     description: Audio file headers could not be read or are corrupted
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL_ERROR
+              message: An internal error occurred while processing the request
+              details: []
+    Unauthenticated:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Invalid or missing API key
+              details: []
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

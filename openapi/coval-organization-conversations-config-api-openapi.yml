@@ -75,71 +75,14 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
-  responses:
-    InternalError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred while processing the organization request
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INVALID_ARGUMENT
-              message: Invalid request body
-              details:
-              - field: conditional_monitoring_metrics
-                description: Provide exactly one of 'metric' or 'metrics'.
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: x-api-key
-                description: API key is required in the x-api-key header
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: NOT_FOUND
-              message: Organization not found
-              details:
-              - description: Organization not found.
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: PERMISSION_DENIED
-              message: Insufficient permissions
-              details:
-              - field: permissions
-                description: The API key does not include the required organization permission.
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
     MonitoringRule:
       type: object
       additionalProperties: false
@@ -219,6 +162,19 @@ components:
             items:
               type: string
           example: voice
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type:
+          - string
+          - 'null'
+          description: Field that caused the error, when available.
+          example: default_monitoring_metrics
+        description:
+          type: string
+          description: Human-readable detail about the error.
+          example: Provide at least one of 'default_monitoring_metrics' or 'conditional_monitoring_metrics'.
     Error:
       type: object
       required:
@@ -244,26 +200,6 @@ components:
           maxItems: 100
           items:
             $ref: '#/components/schemas/ErrorDetail'
-    ErrorDetail:
-      type: object
-      properties:
-        field:
-          type:
-          - string
-          - 'null'
-          description: Field that caused the error, when available.
-          example: default_monitoring_metrics
-        description:
-          type: string
-          description: Human-readable detail about the error.
-          example: Provide at least one of 'default_monitoring_metrics' or 'conditional_monitoring_metrics'.
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
     UpdateMonitoringMetricsRequest:
       type: object
       additionalProperties: false
@@ -303,6 +239,70 @@ components:
           items:
             $ref: '#/components/schemas/MonitoringRule'
           description: Rules that add metrics when run metadata matches.
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: conditional_monitoring_metrics
+                description: Provide exactly one of 'metric' or 'metrics'.
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Organization not found
+              details:
+              - description: Organization not found.
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: x-api-key
+                description: API key is required in the x-api-key header
+    InternalError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred while processing the organization request
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: The API key does not include the required organization permission.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -276,76 +276,6 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
-    ListTagsResponse:
-      type: object
-      required:
-      - tags
-      properties:
-        tags:
-          type: array
-          description: List of tag resources
-          items:
-            $ref: '#/components/schemas/TagResource'
-        next_page_token:
-          type:
-          - string
-          - 'null'
-          description: Token for fetching next page (null if no more results)
-          example: eyJvZmZzZXQiOjUwfQ==
-    UpdateTagResponse:
-      type: object
-      required:
-      - tag
-      properties:
-        tag:
-          $ref: '#/components/schemas/TagResource'
-    TagResource:
-      type: object
-      description: Tag resource. Tags are used to organize agents, personas, test sets, metrics, and run templates.
-      properties:
-        name:
-          type: string
-          description: Resource name in format "tags/{tag_id}"
-          example: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
-        id:
-          type: string
-          description: Tag resource ID
-          example: 01HX2ABC3DEF4GHI5JKL6MNO7P
-        tag_name:
-          type: string
-          description: Lowercase tag display name
-          example: production
-        color:
-          type:
-          - string
-          - 'null'
-          description: Hex color code (#RGB,
-          example: '#3b82f6'
-        create_time:
-          type: string
-          format: date-time
-          description: Creation timestamp (ISO 8601)
-          example: '2025-10-14T12:00:00Z'
-        created_by:
-          type:
-          - string
-          - 'null'
-          description: Email of the user who created the tag
-          example: engineer@example.com
-    GetTagResponse:
-      type: object
-      required:
-      - tag
-      properties:
-        tag:
-          $ref: '#/components/schemas/TagResource'
-    CreateTagResponse:
-      type: object
-      required:
-      - tag
-      properties:
-        tag:
-          $ref: '#/components/schemas/TagResource'
     ErrorResponse:
       type: object
       description: Standard error response
@@ -397,6 +327,39 @@ components:
       properties:
         tag:
           $ref: '#/components/schemas/TagResource'
+    TagResource:
+      type: object
+      description: Tag resource. Tags are used to organize agents, personas, test sets, metrics, and run templates.
+      properties:
+        name:
+          type: string
+          description: Resource name in format "tags/{tag_id}"
+          example: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
+        id:
+          type: string
+          description: Tag resource ID
+          example: 01HX2ABC3DEF4GHI5JKL6MNO7P
+        tag_name:
+          type: string
+          description: Lowercase tag display name
+          example: production
+        color:
+          type:
+          - string
+          - 'null'
+          description: Hex color code (#RGB,
+          example: '#3b82f6'
+        create_time:
+          type: string
+          format: date-time
+          description: Creation timestamp (ISO 8601)
+          example: '2025-10-14T12:00:00Z'
+        created_by:
+          type:
+          - string
+          - 'null'
+          description: Email of the user who created the tag
+          example: engineer@example.com
     UpdateTagRequest:
       type: object
       description: Partial update request. Only provided fields are updated.
@@ -437,30 +400,61 @@ components:
           pattern: ^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$
           description: Optional hex color code (#RGB,
           example: '#3b82f6'
+    ListTagsResponse:
+      type: object
+      required:
+      - tags
+      properties:
+        tags:
+          type: array
+          description: List of tag resources
+          items:
+            $ref: '#/components/schemas/TagResource'
+        next_page_token:
+          type:
+          - string
+          - 'null'
+          description: Token for fetching next page (null if no more results)
+          example: eyJvZmZzZXQiOjUwfQ==
+    UpdateTagResponse:
+      type: object
+      required:
+      - tag
+      properties:
+        tag:
+          $ref: '#/components/schemas/TagResource'
+    GetTagResponse:
+      type: object
+      required:
+      - tag
+      properties:
+        tag:
+          $ref: '#/components/schemas/TagResource'
+    CreateTagResponse:
+      type: object
+      required:
+      - tag
+      properties:
+        tag:
+          $ref: '#/components/schemas/TagResource'
   examples:
-    EmptyTagNameError:
-      summary: Empty tag name
+    DuplicateTagError:
+      summary: Tag name already exists
       value:
         error:
-          code: INVALID_ARGUMENT
-          message: Invalid request body
+          code: ALREADY_EXISTS
+          message: Tag already exists
           details:
           - field: tag_name
-            description: tag name cannot be empty
-    UpdateTagRename:
-      summary: Rename a tag
+            description: An active tag named 'production' already exists in your organization
+    UpdateTagRecolor:
+      summary: Change tag color
       value:
-        tag_name: staging
-    TagDeleted:
-      summary: Tag deleted successfully
+        color: '#f59e0b'
+    CreateTagMinimal:
+      summary: Create tag with name only
       value:
-        tag:
-          name: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
-          id: 01HX2ABC3DEF4GHI5JKL6MNO7P
-          tag_name: production
-          color: '#3b82f6'
-          create_time: '2025-10-14T12:00:00Z'
-          created_by: engineer@example.com
+        tag_name: production
     TagNotFoundError:
       summary: Tag not found
       value:
@@ -470,14 +464,14 @@ components:
           details:
           - field: tag_id
             description: Tag not found or not accessible by your organization
-    TagUpdated:
-      summary: Tag updated successfully
+    TagDeleted:
+      summary: Tag deleted successfully
       value:
         tag:
           name: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
           id: 01HX2ABC3DEF4GHI5JKL6MNO7P
-          tag_name: staging
-          color: '#f59e0b'
+          tag_name: production
+          color: '#3b82f6'
           create_time: '2025-10-14T12:00:00Z'
           created_by: engineer@example.com
     InvalidColorError:
@@ -489,30 +483,6 @@ components:
           details:
           - field: color
             description: color must be a hex string like '#RRGGBB' or '#RRGGBBAA'; got 'blue'
-    GetTagSuccess:
-      summary: Successful get response
-      value:
-        tag:
-          name: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
-          id: 01HX2ABC3DEF4GHI5JKL6MNO7P
-          tag_name: production
-          color: '#3b82f6'
-          create_time: '2025-10-14T12:00:00Z'
-          created_by: engineer@example.com
-    DuplicateTagError:
-      summary: Tag name already exists
-      value:
-        error:
-          code: ALREADY_EXISTS
-          message: Tag already exists
-          details:
-          - field: tag_name
-            description: An active tag named 'production' already exists in your organization
-    CreateTagWithColor:
-      summary: Create tag with name and color
-      value:
-        tag_name: Production
-        color: '#3b82f6'
     ListTagsSuccess:
       summary: Successful list response
       value:
@@ -530,10 +500,16 @@ components:
           create_time: '2025-10-13T08:00:00Z'
           created_by: engineer@example.com
         next_page_token: null
-    CreateTagMinimal:
-      summary: Create tag with name only
+    GetTagSuccess:
+      summary: Successful get response
       value:
-        tag_name: production
+        tag:
+          name: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
+          id: 01HX2ABC3DEF4GHI5JKL6MNO7P
+          tag_name: production
+          color: '#3b82f6'
+          create_time: '2025-10-14T12:00:00Z'
+          created_by: engineer@example.com
     TagCreated:
       summary: Tag created successfully
       value:
@@ -544,10 +520,34 @@ components:
           color: '#3b82f6'
           create_time: '2025-10-14T12:00:00Z'
           created_by: engineer@example.com
-    UpdateTagRecolor:
-      summary: Change tag color
+    UpdateTagRename:
+      summary: Rename a tag
       value:
-        color: '#f59e0b'
+        tag_name: staging
+    CreateTagWithColor:
+      summary: Create tag with name and color
+      value:
+        tag_name: Production
+        color: '#3b82f6'
+    TagUpdated:
+      summary: Tag updated successfully
+      value:
+        tag:
+          name: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
+          id: 01HX2ABC3DEF4GHI5JKL6MNO7P
+          tag_name: staging
+          color: '#f59e0b'
+          create_time: '2025-10-14T12:00:00Z'
+          created_by: engineer@example.com
+    EmptyTagNameError:
+      summary: Empty tag name
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: tag_name
+            description: tag name cannot be empty
   responses:
     InternalError:
       description: Internal server error

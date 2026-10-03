@@ -201,17 +201,6 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
-    MetricFilterOperator:
-      type: string
-      description: Comparison operator for metric filters
-      enum:
-      - '>'
-      - <
-      - '>='
-      - <=
-      - '='
-      - '!='
-      example: '>='
     VisualizationType:
       type: string
       description: Chart visualization style
@@ -224,13 +213,96 @@ components:
       - histogram
       - top-list
       example: line
-    GetWidgetResponse:
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              description: Error code
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - NOT_FOUND
+              - INTERNAL
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameter
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type:
+                    - string
+                    - 'null'
+                    description: Field that caused the error
+                  description:
+                    type: string
+                    description: Detailed error description
+    TableWidgetConfig:
+      type: object
+      description: Configuration for table-type widgets
+      properties:
+        metricIds:
+          type: array
+          items:
+            type: string
+          description: IDs of metrics to display (max 50)
+          maxItems: 50
+        monitoring:
+          $ref: '#/components/schemas/DataSourceType'
+        aggregation:
+          $ref: '#/components/schemas/AggregationType'
+        groupBy:
+          $ref: '#/components/schemas/GroupByType'
+        filters:
+          $ref: '#/components/schemas/FilterConfig'
+        metricFilter:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricFilter'
+          description: Metric value filters (max 50)
+    MetricOutputType:
+      type: string
+      description: Output type of the metric values
+      enum:
+      - string
+      - float
+      example: float
+    ListWidgetsResponse:
       type: object
       required:
-      - widget
+      - widgets
       properties:
-        widget:
-          $ref: '#/components/schemas/WidgetResource'
+        widgets:
+          type: array
+          items:
+            $ref: '#/components/schemas/WidgetResource'
+        next_page_token:
+          type:
+          - string
+          - 'null'
+          description: Token for fetching next page (null if no more results)
+    WidgetConfig:
+      anyOf:
+      - $ref: '#/components/schemas/ChartWidgetConfig'
+      - $ref: '#/components/schemas/TableWidgetConfig'
+      - $ref: '#/components/schemas/TextWidgetConfig'
+      description: Widget configuration, structure depends on widget type
     GroupByType:
       type: string
       description: Field to group metric results by
@@ -241,13 +313,154 @@ components:
       - template
       - test_set
       example: agent
-    UpdateWidgetResponse:
+    CreateWidgetResponse:
       type: object
       required:
       - widget
       properties:
         widget:
           $ref: '#/components/schemas/WidgetResource'
+    TextWidgetConfig:
+      type: object
+      description: Configuration for text-type widgets
+      properties:
+        text:
+          type: string
+          maxLength: 10000
+          description: Free-form text content
+    DataSourceType:
+      type: string
+      description: Data source for the widget
+      enum:
+      - Monitoring
+      - Simulations
+      example: Monitoring
+    AggregationType:
+      type: string
+      description: Aggregation function for metric data
+      enum:
+      - sum
+      - count
+      - avg
+      - max
+      - min
+      - success
+      - p90
+      - p95
+      - p99
+      example: avg
+    GetWidgetResponse:
+      type: object
+      required:
+      - widget
+      properties:
+        widget:
+          $ref: '#/components/schemas/WidgetResource'
+    WidgetType:
+      type: string
+      description: 'Type of widget.
+
+
+        - **chart**: Visualization widget (line, bar, area, pie, histogram, statistic, top-list)
+
+        - **table**: Tabular data widget with multiple metrics
+
+        - **text**: Free-form text/markdown widget
+
+        '
+      enum:
+      - chart
+      - table
+      - text
+      example: chart
+    MetricFilter:
+      type: object
+      description: Filter condition applied to metric values
+      required:
+      - metricId
+      - operator
+      - value
+      - metricOutputType
+      properties:
+        metricId:
+          type: string
+          description: ID of the metric to filter on
+        operator:
+          $ref: '#/components/schemas/MetricFilterOperator'
+        value:
+          oneOf:
+          - type: number
+          - type: string
+          description: Threshold value for the filter
+        metricOutputType:
+          $ref: '#/components/schemas/MetricOutputType'
+    WidgetResource:
+      type: object
+      description: Widget resource
+      required:
+      - name
+      - type
+      - create_time
+      - update_time
+      properties:
+        name:
+          type: string
+          description: Resource name in format `dashboards/{dashboard_id}/widgets/{id}`
+          example: dashboards/abc123def456ghi789jklm/widgets/wgt456xyz789abc012defg
+        display_name:
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          description: Human-readable widget name
+          example: Response Time Chart
+        type:
+          description: Widget type.
+          allOf:
+          - $ref: '#/components/schemas/WidgetType'
+        grid_x:
+          type:
+          - integer
+          - 'null'
+          description: Grid column position
+        grid_y:
+          type:
+          - integer
+          - 'null'
+          description: Grid row position
+        grid_w:
+          type:
+          - integer
+          - 'null'
+          description: Grid column span
+        grid_h:
+          type:
+          - integer
+          - 'null'
+          description: Grid row span
+        config:
+          $ref: '#/components/schemas/WidgetConfig'
+        create_time:
+          type: string
+          format: date-time
+          description: Creation timestamp (ISO 8601)
+          example: '2025-10-14T12:00:00Z'
+        update_time:
+          type: string
+          format: date-time
+          description: Last update timestamp (ISO 8601)
+          example: '2025-10-15T14:30:00Z'
+    MetricFilterOperator:
+      type: string
+      description: Comparison operator for metric filters
+      enum:
+      - '>'
+      - <
+      - '>='
+      - <=
+      - '='
+      - '!='
+      example: '>='
     ChartWidgetConfig:
       type: object
       description: Configuration for chart-type widgets
@@ -336,6 +549,76 @@ components:
           items:
             $ref: '#/components/schemas/MetricFilter'
           description: Metric value filters (max 50)
+    CreateWidgetRequest:
+      type: object
+      required:
+      - display_name
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Human-readable widget name
+        type:
+          description: 'Widget type. Optional; defaults to `chart` when omitted.
+
+            '
+          allOf:
+          - $ref: '#/components/schemas/WidgetType'
+        grid_x:
+          type:
+          - integer
+          - 'null'
+          description: Grid column position
+        grid_y:
+          type:
+          - integer
+          - 'null'
+          description: Grid row position
+        grid_w:
+          type:
+          - integer
+          - 'null'
+          description: Grid column span
+        grid_h:
+          type:
+          - integer
+          - 'null'
+          description: Grid row span
+        config:
+          $ref: '#/components/schemas/WidgetConfig'
+    UpdateWidgetRequest:
+      type: object
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Updated widget name
+        type:
+          $ref: '#/components/schemas/WidgetType'
+        grid_x:
+          type:
+          - integer
+          - 'null'
+          description: Grid column position
+        grid_y:
+          type:
+          - integer
+          - 'null'
+          description: Grid row position
+        grid_w:
+          type:
+          - integer
+          - 'null'
+          description: Grid column span
+        grid_h:
+          type:
+          - integer
+          - 'null'
+          description: Grid row span
+        config:
+          $ref: '#/components/schemas/WidgetConfig'
     FilterConfig:
       type: object
       description: Scope filters to narrow widget data
@@ -375,326 +658,14 @@ components:
           items:
             type: object
           description: Metadata-based filters
-    WidgetConfig:
-      anyOf:
-      - $ref: '#/components/schemas/ChartWidgetConfig'
-      - $ref: '#/components/schemas/TableWidgetConfig'
-      - $ref: '#/components/schemas/TextWidgetConfig'
-      description: Widget configuration, structure depends on widget type
-    WidgetType:
-      type: string
-      description: 'Type of widget.
-
-
-        - **chart**: Visualization widget (line, bar, area, pie, histogram, statistic, top-list)
-
-        - **table**: Tabular data widget with multiple metrics
-
-        - **text**: Free-form text/markdown widget
-
-        '
-      enum:
-      - chart
-      - table
-      - text
-      example: chart
-    TextWidgetConfig:
-      type: object
-      description: Configuration for text-type widgets
-      properties:
-        text:
-          type: string
-          maxLength: 10000
-          description: Free-form text content
-    CreateWidgetRequest:
-      type: object
-      required:
-      - display_name
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          maxLength: 255
-          description: Human-readable widget name
-        type:
-          description: 'Widget type. Optional; defaults to `chart` when omitted.
-
-            '
-          allOf:
-          - $ref: '#/components/schemas/WidgetType'
-        grid_x:
-          type:
-          - integer
-          - 'null'
-          description: Grid column position
-        grid_y:
-          type:
-          - integer
-          - 'null'
-          description: Grid row position
-        grid_w:
-          type:
-          - integer
-          - 'null'
-          description: Grid column span
-        grid_h:
-          type:
-          - integer
-          - 'null'
-          description: Grid row span
-        config:
-          $ref: '#/components/schemas/WidgetConfig'
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          - details
-          properties:
-            code:
-              type: string
-              description: Error code
-              enum:
-              - INVALID_ARGUMENT
-              - UNAUTHENTICATED
-              - NOT_FOUND
-              - INTERNAL
-              example: INVALID_ARGUMENT
-            message:
-              type: string
-              description: Human-readable error message
-              example: Invalid request parameter
-            details:
-              type: array
-              description: Detailed error information
-              items:
-                type: object
-                properties:
-                  field:
-                    type:
-                    - string
-                    - 'null'
-                    description: Field that caused the error
-                  description:
-                    type: string
-                    description: Detailed error description
-    CreateWidgetResponse:
+    UpdateWidgetResponse:
       type: object
       required:
       - widget
       properties:
         widget:
           $ref: '#/components/schemas/WidgetResource'
-    TableWidgetConfig:
-      type: object
-      description: Configuration for table-type widgets
-      properties:
-        metricIds:
-          type: array
-          items:
-            type: string
-          description: IDs of metrics to display (max 50)
-          maxItems: 50
-        monitoring:
-          $ref: '#/components/schemas/DataSourceType'
-        aggregation:
-          $ref: '#/components/schemas/AggregationType'
-        groupBy:
-          $ref: '#/components/schemas/GroupByType'
-        filters:
-          $ref: '#/components/schemas/FilterConfig'
-        metricFilter:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricFilter'
-          description: Metric value filters (max 50)
-    MetricOutputType:
-      type: string
-      description: Output type of the metric values
-      enum:
-      - string
-      - float
-      example: float
-    DataSourceType:
-      type: string
-      description: Data source for the widget
-      enum:
-      - Monitoring
-      - Simulations
-      example: Monitoring
-    UpdateWidgetRequest:
-      type: object
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          maxLength: 255
-          description: Updated widget name
-        type:
-          $ref: '#/components/schemas/WidgetType'
-        grid_x:
-          type:
-          - integer
-          - 'null'
-          description: Grid column position
-        grid_y:
-          type:
-          - integer
-          - 'null'
-          description: Grid row position
-        grid_w:
-          type:
-          - integer
-          - 'null'
-          description: Grid column span
-        grid_h:
-          type:
-          - integer
-          - 'null'
-          description: Grid row span
-        config:
-          $ref: '#/components/schemas/WidgetConfig'
-    AggregationType:
-      type: string
-      description: Aggregation function for metric data
-      enum:
-      - sum
-      - count
-      - avg
-      - max
-      - min
-      - success
-      - p90
-      - p95
-      - p99
-      example: avg
-    WidgetResource:
-      type: object
-      description: Widget resource
-      required:
-      - name
-      - type
-      - create_time
-      - update_time
-      properties:
-        name:
-          type: string
-          description: Resource name in format `dashboards/{dashboard_id}/widgets/{id}`
-          example: dashboards/abc123def456ghi789jklm/widgets/wgt456xyz789abc012defg
-        display_name:
-          type:
-          - string
-          - 'null'
-          maxLength: 255
-          description: Human-readable widget name
-          example: Response Time Chart
-        type:
-          description: Widget type.
-          allOf:
-          - $ref: '#/components/schemas/WidgetType'
-        grid_x:
-          type:
-          - integer
-          - 'null'
-          description: Grid column position
-        grid_y:
-          type:
-          - integer
-          - 'null'
-          description: Grid row position
-        grid_w:
-          type:
-          - integer
-          - 'null'
-          description: Grid column span
-        grid_h:
-          type:
-          - integer
-          - 'null'
-          description: Grid row span
-        config:
-          $ref: '#/components/schemas/WidgetConfig'
-        create_time:
-          type: string
-          format: date-time
-          description: Creation timestamp (ISO 8601)
-          example: '2025-10-14T12:00:00Z'
-        update_time:
-          type: string
-          format: date-time
-          description: Last update timestamp (ISO 8601)
-          example: '2025-10-15T14:30:00Z'
-    MetricFilter:
-      type: object
-      description: Filter condition applied to metric values
-      required:
-      - metricId
-      - operator
-      - value
-      - metricOutputType
-      properties:
-        metricId:
-          type: string
-          description: ID of the metric to filter on
-        operator:
-          $ref: '#/components/schemas/MetricFilterOperator'
-        value:
-          oneOf:
-          - type: number
-          - type: string
-          description: Threshold value for the filter
-        metricOutputType:
-          $ref: '#/components/schemas/MetricOutputType'
-    ListWidgetsResponse:
-      type: object
-      required:
-      - widgets
-      properties:
-        widgets:
-          type: array
-          items:
-            $ref: '#/components/schemas/WidgetResource'
-        next_page_token:
-          type:
-          - string
-          - 'null'
-          description: Token for fetching next page (null if no more results)
-  parameters:
-    DashboardId:
-      name: dashboard_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Dashboard resource ID (22-character ShortUUID)
-      example: abc123def456ghi789jklm
-    WidgetId:
-      name: widget_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Widget resource ID (22-character ShortUUID)
-      example: wgt456xyz789abc012defg
   responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
     BadRequest:
       description: Invalid request
       content:
@@ -708,19 +679,18 @@ components:
               details:
               - field: display_name
                 description: display_name must be between 1 and 255 characters
-    Unauthorized:
-      description: Authentication failed
+    InternalError:
+      description: Internal server error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           example:
             error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
+              code: INTERNAL
+              message: Internal server error
               details:
-              - field: X-API-Key
-                description: Invalid or missing API key
+              - description: An unexpected error occurred
     NotFound:
       description: Resource not found
       content:
@@ -734,7 +704,50 @@ components:
               details:
               - field: dashboard_id
                 description: Dashboard not found or not accessible by your organization
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+  parameters:
+    WidgetId:
+      name: widget_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Widget resource ID (22-character ShortUUID)
+      example: wgt456xyz789abc012defg
+    DashboardId:
+      name: dashboard_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Dashboard resource ID (22-character ShortUUID)
+      example: abc123def456ghi789jklm
   examples:
+    CreateTextWidget:
+      summary: Create a text widget
+      value:
+        display_name: Dashboard Notes
+        type: text
+        grid_x: 0
+        grid_y: 4
+        grid_w: 12
+        grid_h: 2
+        config:
+          text: '## Overview
+
+            This dashboard tracks key voice agent metrics across production.'
     CreateTableWidget:
       summary: Create a table widget
       value:
@@ -751,19 +764,6 @@ components:
           - metric_satisfaction
           monitoring: Simulations
           aggregation: avg
-    CreateTextWidget:
-      summary: Create a text widget
-      value:
-        display_name: Dashboard Notes
-        type: text
-        grid_x: 0
-        grid_y: 4
-        grid_w: 12
-        grid_h: 2
-        config:
-          text: '## Overview
-
-            This dashboard tracks key voice agent metrics across production.'
     CreateChartWidget:
       summary: Create a chart widget
       value:

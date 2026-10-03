@@ -170,18 +170,6 @@ components:
               message: Service temporarily unavailable
               details:
               - description: Database routing is temporarily unavailable. Please retry.
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
     PermissionDenied:
       description: API key lacks required permission scope
       content:
@@ -195,19 +183,6 @@ components:
               details:
               - field: permissions
                 description: 'API key does not have required permission: webhooks:write'
-    Unauthorized:
-      description: Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
     NotFound:
       description: The webhook does not exist or is not accessible
       content:
@@ -234,49 +209,76 @@ components:
               details:
               - field: url
                 description: url must be an HTTP(S) URL.
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
   schemas:
-    ListWebhooksResponse:
+    ErrorResponse:
       type: object
+      description: Standard error response
       required:
-      - webhooks
+      - error
       properties:
-        webhooks:
-          type: array
-          description: List of webhook resources
-          items:
-            $ref: '#/components/schemas/WebhookResource'
-    CreateWebhookRequest:
-      type: object
-      required:
-      - type
-      - url
-      properties:
-        type:
-          type: string
-          description: Event that triggers the webhook
-          enum:
-          - job_complete
-          example: job_complete
-        url:
-          type: string
-          minLength: 1
-          maxLength: 200
-          description: HTTP(S) URL Coval POSTs to when the event fires
-          example: https://example.com/hooks/coval
-        auth_token:
-          type:
-          - string
-          - 'null'
-          maxLength: 255
-          description: Optional secret Coval sends when calling your endpoint. Never returned.
-          example: whsec_example_token
-    WebhookResponse:
-      type: object
-      required:
-      - webhook
-      properties:
-        webhook:
-          $ref: '#/components/schemas/WebhookResource'
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              description: Error code enum
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - PERMISSION_DENIED
+              - NOT_FOUND
+              - ALREADY_EXISTS
+              - INTERNAL
+              example: NOT_FOUND
+            message:
+              type: string
+              description: Human-readable error message
+              example: Webhook not found
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type:
+                    - string
+                    - 'null'
+                    description: Field name that caused the error
+                    example: webhook_id
+                  description:
+                    type: string
+                    description: Detailed error description
+                    example: Webhook abc123 not found
     WebhookResource:
       type: object
       description: A webhook subscription. The auth token is never returned.
@@ -322,50 +324,13 @@ components:
           type: boolean
           description: Whether an auth token is configured for this webhook
           example: true
-    ErrorResponse:
+    WebhookResponse:
       type: object
-      description: Standard error response
       required:
-      - error
+      - webhook
       properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          - details
-          properties:
-            code:
-              type: string
-              description: Error code enum
-              enum:
-              - INVALID_ARGUMENT
-              - UNAUTHENTICATED
-              - PERMISSION_DENIED
-              - NOT_FOUND
-              - ALREADY_EXISTS
-              - INTERNAL
-              example: NOT_FOUND
-            message:
-              type: string
-              description: Human-readable error message
-              example: Webhook not found
-            details:
-              type: array
-              description: Detailed error information
-              items:
-                type: object
-                properties:
-                  field:
-                    type:
-                    - string
-                    - 'null'
-                    description: Field name that caused the error
-                    example: webhook_id
-                  description:
-                    type: string
-                    description: Detailed error description
-                    example: Webhook abc123 not found
+        webhook:
+          $ref: '#/components/schemas/WebhookResource'
     DeleteWebhookResponse:
       type: object
       required:
@@ -375,6 +340,41 @@ components:
           type: boolean
           description: True when the webhook was deleted
           example: true
+    ListWebhooksResponse:
+      type: object
+      required:
+      - webhooks
+      properties:
+        webhooks:
+          type: array
+          description: List of webhook resources
+          items:
+            $ref: '#/components/schemas/WebhookResource'
+    CreateWebhookRequest:
+      type: object
+      required:
+      - type
+      - url
+      properties:
+        type:
+          type: string
+          description: Event that triggers the webhook
+          enum:
+          - job_complete
+          example: job_complete
+        url:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: HTTP(S) URL Coval POSTs to when the event fires
+          example: https://example.com/hooks/coval
+        auth_token:
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+          description: Optional secret Coval sends when calling your endpoint. Never returned.
+          example: whsec_example_token
     UpdateWebhookRequest:
       type: object
       description: Partial update. Only provided fields are changed.

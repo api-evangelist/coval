@@ -205,6 +205,149 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameters
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    description: Field that caused the error
+                    example: test_set_id
+                  description:
+                    type: string
+                    description: Description of the error
+                    example: test_set_id is required
+    TestCaseResource:
+      type: object
+      description: Test case resource.
+      properties:
+        name:
+          type: string
+          description: Resource name in format `test-cases/{id}`
+          example: test-cases/abc123def456ghi789jklm
+        id:
+          type: string
+          description: Test case ID
+          minLength: 22
+          maxLength: 22
+          example: abc123def456ghi789jklm
+        test_set_id:
+          type:
+          - string
+          - 'null'
+          description: Test set ID (8-character ID)
+          minLength: 8
+          maxLength: 8
+          example: abc12345
+        input_str:
+          type: string
+          description: Input for the test case
+          example: What is the weather today?
+        expected_output_str:
+          type:
+          - string
+          - 'null'
+          description: Expected output string
+          example: The weather is sunny with a high of 75 degrees.
+        expected_output_json:
+          type: object
+          description: Expected output as JSON object
+          additionalProperties: true
+          example:
+            temperature: 75
+            condition: sunny
+        description:
+          type:
+          - string
+          - 'null'
+          description: Human-readable description of the test case
+          example: Test case for weather query with sunny conditions
+        input_type:
+          type:
+          - string
+          - 'null'
+          description: 'Type of input for the test case. Defaults to SCENARIO. When set
+
+            to SCRIPT, the simulation_metadata_input should contain a
+
+            script_turns field with ordered persona turn texts.
+
+            '
+          enum:
+          - SCENARIO
+          - TRANSCRIPT
+          - IVR
+          - AUDIO
+          - MANUAL
+          - SCRIPT
+          default: SCENARIO
+          example: SCENARIO
+        simulation_metadata_input:
+          type: object
+          description: 'Metadata for simulation execution. Contents vary by input_type.
+
+            When input_type is SCRIPT, this object should contain a
+
+            script_turns field (array of strings) with the ordered lines
+
+            for the persona to deliver.
+
+            '
+          additionalProperties: true
+          example:
+            script_turns:
+            - Hi, I'd like to check my account balance.
+            - Yes, my account number is 12345.
+            - Thank you, goodbye.
+        metric_input:
+          type: object
+          description: Input data for metric calculations
+          additionalProperties: true
+          example:
+            expected_entities:
+            - weather
+            - temperature
+        user_notes:
+          type:
+          - string
+          - 'null'
+          description: User-provided notes about the test case
+          example: Added for regression testing weather queries
+        create_time:
+          type: string
+          format: date-time
+          description: Timestamp when test case was created
+          example: '2025-10-14T12:00:00Z'
+        update_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when test case was last updated
+          example: '2025-10-15T14:30:00Z'
     UpdateTestCaseRequest:
       type: object
       description: Update request. Only provided fields will be updated.
@@ -382,162 +525,7 @@ components:
           - 'null'
           description: User notes
           example: Created for regression testing
-    TestCaseResource:
-      type: object
-      description: Test case resource.
-      properties:
-        name:
-          type: string
-          description: Resource name in format `test-cases/{id}`
-          example: test-cases/abc123def456ghi789jklm
-        id:
-          type: string
-          description: Test case ID
-          minLength: 22
-          maxLength: 22
-          example: abc123def456ghi789jklm
-        test_set_id:
-          type:
-          - string
-          - 'null'
-          description: Test set ID (8-character ID)
-          minLength: 8
-          maxLength: 8
-          example: abc12345
-        input_str:
-          type: string
-          description: Input for the test case
-          example: What is the weather today?
-        expected_output_str:
-          type:
-          - string
-          - 'null'
-          description: Expected output string
-          example: The weather is sunny with a high of 75 degrees.
-        expected_output_json:
-          type: object
-          description: Expected output as JSON object
-          additionalProperties: true
-          example:
-            temperature: 75
-            condition: sunny
-        description:
-          type:
-          - string
-          - 'null'
-          description: Human-readable description of the test case
-          example: Test case for weather query with sunny conditions
-        input_type:
-          type:
-          - string
-          - 'null'
-          description: 'Type of input for the test case. Defaults to SCENARIO. When set
-
-            to SCRIPT, the simulation_metadata_input should contain a
-
-            script_turns field with ordered persona turn texts.
-
-            '
-          enum:
-          - SCENARIO
-          - TRANSCRIPT
-          - IVR
-          - AUDIO
-          - MANUAL
-          - SCRIPT
-          default: SCENARIO
-          example: SCENARIO
-        simulation_metadata_input:
-          type: object
-          description: 'Metadata for simulation execution. Contents vary by input_type.
-
-            When input_type is SCRIPT, this object should contain a
-
-            script_turns field (array of strings) with the ordered lines
-
-            for the persona to deliver.
-
-            '
-          additionalProperties: true
-          example:
-            script_turns:
-            - Hi, I'd like to check my account balance.
-            - Yes, my account number is 12345.
-            - Thank you, goodbye.
-        metric_input:
-          type: object
-          description: Input data for metric calculations
-          additionalProperties: true
-          example:
-            expected_entities:
-            - weather
-            - temperature
-        user_notes:
-          type:
-          - string
-          - 'null'
-          description: User-provided notes about the test case
-          example: Added for regression testing weather queries
-        create_time:
-          type: string
-          format: date-time
-          description: Timestamp when test case was created
-          example: '2025-10-14T12:00:00Z'
-        update_time:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Timestamp when test case was last updated
-          example: '2025-10-15T14:30:00Z'
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          - details
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code
-              example: INVALID_ARGUMENT
-            message:
-              type: string
-              description: Human-readable error message
-              example: Invalid request parameters
-            details:
-              type: array
-              description: Detailed error information
-              items:
-                type: object
-                properties:
-                  field:
-                    type: string
-                    description: Field that caused the error
-                    example: test_set_id
-                  description:
-                    type: string
-                    description: Description of the error
-                    example: test_set_id is required
   responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred while processing the request
     BadRequest:
       description: Invalid request parameters
       content:
@@ -551,19 +539,6 @@ components:
               details:
               - field: input_str
                 description: input_str is required and cannot be empty
-    Unauthorized:
-      description: Authentication failed or missing API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
     NotFound:
       description: Resource not found or doesn't belong to organization
       content:
@@ -577,6 +552,31 @@ components:
               details:
               - field: test_case_id
                 description: Test case 'abc123def456ghi789jklm' not found
+    Unauthorized:
+      description: Authentication failed or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred while processing the request
   securitySchemes:
     apiKey:
       type: apiKey
