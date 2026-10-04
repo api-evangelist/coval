@@ -325,6 +325,9 @@ apis:
   - type: OpenAPI
     url: openapi/coval-widgets-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/coval-capability-edges.yml
+  name: Coval Business Capability Map
 - type: Website
   url: https://coval.ai
 - type: Overlay

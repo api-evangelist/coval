@@ -1,0 +1,69 @@
+slug: coval
+provider: Coval
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Test Cases
+  spec_file: coval-test-cases-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.85
+  evidence: API for managing test cases - individual test inputs for evaluation
+  reason: Explicit test-case lifecycle management, squarely automated test suite stewardship.
+- tag: Test Sets
+  spec_file: coval-test-sets-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.85
+  evidence: API for managing test sets - collections of test cases for evaluation
+  reason: Test suite composition, versioning and agent association — test suite stewardship within Software
+    Quality Engineering.
+- tag: Runs
+  spec_file: coval-runs-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.8
+  evidence: Launch and manage simulation runs for AI agent testing
+  reason: Executing test/simulation runs against an agent is test execution — Software Quality Engineering,
+    not a line-of-business capability.
+- tag: Simulations
+  spec_file: coval-simulations-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.78
+  evidence: Launch and manage voice simulations for AI agent testing; resimulateSimulation Rerun a simulation
+  reason: Simulated conversations executed against an agent to validate behaviour are test executions
+    with transcripts and metric reruns — quality engineering.
+- tag: Run Templates
+  spec_file: coval-run-templates-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.75
+  evidence: Create and manage reusable run configurations for automated evaluations. Run templates define
+    what to run (agent, persona, test set, metrics)
+  reason: Reusable automated-evaluation configurations are automated test suite stewardship for an AI
+    agent under test.
+- tag: Scheduled Runs
+  spec_file: coval-scheduled-runs-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.72
+  evidence: Use them for health checks, nightly regression tests, or any recurring evaluation workflow
+  reason: Scheduled recurring regression evaluation is automated test suite execution; could also be read
+    as CI, but the payload is test runs rather than build pipelines.
