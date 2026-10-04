@@ -323,123 +323,13 @@ components:
       properties:
         mutation:
           $ref: '#/components/schemas/MutationResource'
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          - details
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code
-              enum:
-              - INVALID_ARGUMENT
-              - UNAUTHENTICATED
-              - NOT_FOUND
-              - ALREADY_EXISTS
-              - INTERNAL
-              example: INVALID_ARGUMENT
-            message:
-              type: string
-              description: Human-readable error message
-              example: Invalid request parameter
-            details:
-              type: array
-              description: Detailed error information
-              items:
-                type: object
-                properties:
-                  field:
-                    type:
-                    - string
-                    - 'null'
-                    description: Field name that caused the error
-                    example: config_overrides
-                  description:
-                    type: string
-                    description: Detailed error description
-                    example: Override key 'invalid_key' does not exist on parent agent
-    CreateMutationRequest:
-      type: object
-      required:
-      - display_name
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          maxLength: 200
-          description: Human-readable mutation name (must be unique per agent among active mutations)
-          example: GPT-4 Fast VAD
-        description:
-          type: string
-          maxLength: 2000
-          default: ''
-          description: Optional description of the mutation's purpose
-          example: Testing faster VAD settings with GPT-4
-        config_overrides:
-          type: object
-          additionalProperties: true
-          default: {}
-          description: Configuration delta to merge with parent agent at runtime. Keys must exist on parent agent config. Max 10KB.
-          example:
-            voice: nova
-            vad_stop_secs: 0.3
-        parameter_values:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-          description: 'Flattened key-value pairs for display purposes.
-
-            If not provided, auto-derived from config_overrides.
-
-            '
-          example:
-            voice: nova
-            vad_stop_secs: '0.3'
-    CreateMutationResponse:
+    UpdateMutationResponse:
       type: object
       required:
       - mutation
       properties:
         mutation:
           $ref: '#/components/schemas/MutationResource'
-    UpdateMutationRequest:
-      type: object
-      description: Partial update request.
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          maxLength: 200
-          description: Human-readable mutation name
-          example: GPT-4 Slow VAD
-        description:
-          type: string
-          maxLength: 2000
-          description: Optional description
-          example: Updated to use slower VAD settings
-        config_overrides:
-          type: object
-          additionalProperties: true
-          description: Configuration delta (validated against parent agent)
-          example:
-            vad_stop_secs: 0.5
-        parameter_values:
-          type: object
-          additionalProperties:
-            type: string
-          description: Flattened display values
-          example:
-            vad_stop_secs: '0.5'
     ListMutationsResponse:
       type: object
       required:
@@ -528,39 +418,123 @@ components:
           format: date-time
           description: Last update timestamp (ISO 8601)
           example: '2025-10-15T14:30:00Z'
-    UpdateMutationResponse:
+    UpdateMutationRequest:
+      type: object
+      description: Partial update request.
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: Human-readable mutation name
+          example: GPT-4 Slow VAD
+        description:
+          type: string
+          maxLength: 2000
+          description: Optional description
+          example: Updated to use slower VAD settings
+        config_overrides:
+          type: object
+          additionalProperties: true
+          description: Configuration delta (validated against parent agent)
+          example:
+            vad_stop_secs: 0.5
+        parameter_values:
+          type: object
+          additionalProperties:
+            type: string
+          description: Flattened display values
+          example:
+            vad_stop_secs: '0.5'
+    CreateMutationResponse:
       type: object
       required:
       - mutation
       properties:
         mutation:
           $ref: '#/components/schemas/MutationResource'
-  responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    CreateMutationRequest:
+      type: object
+      required:
+      - display_name
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: Human-readable mutation name (must be unique per agent among active mutations)
+          example: GPT-4 Fast VAD
+        description:
+          type: string
+          maxLength: 2000
+          default: ''
+          description: Optional description of the mutation's purpose
+          example: Testing faster VAD settings with GPT-4
+        config_overrides:
+          type: object
+          additionalProperties: true
+          default: {}
+          description: Configuration delta to merge with parent agent at runtime. Keys must exist on parent agent config. Max 10KB.
           example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
-    Unauthorized:
-      description: Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            voice: nova
+            vad_stop_secs: 0.3
+        parameter_values:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+          description: 'Flattened key-value pairs for display purposes.
+
+            If not provided, auto-derived from config_overrides.
+
+            '
           example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
+            voice: nova
+            vad_stop_secs: '0.3'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - NOT_FOUND
+              - ALREADY_EXISTS
+              - INTERNAL
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameter
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type:
+                    - string
+                    - 'null'
+                    description: Field name that caused the error
+                    example: config_overrides
+                  description:
+                    type: string
+                    description: Detailed error description
+                    example: Override key 'invalid_key' does not exist on parent agent
   examples:
     InvalidOverrideKeyError:
       summary: Invalid override key
@@ -571,11 +545,43 @@ components:
           details:
           - field: config_overrides
             description: 'Override keys not found on parent agent: [''invalid_key'', ''another_bad_key'']'
-    UpdateMutationName:
-      summary: Update mutation name only
+    MutationCreated:
+      summary: Mutation created successfully
       value:
-        display_name: GPT-4 Slower VAD
-        description: Updated to use slower VAD for better accuracy
+        mutation:
+          id: 01ARZ3NDEKTSV4RRFFQ69G5FAX
+          agent_id: gk3jK9mPq2xRt5vW8yZaBc
+          display_name: GPT-4 Fast VAD
+          description: ''
+          config_overrides:
+            voice: nova
+            vad_stop_secs: 0.3
+          parameter_values:
+            voice: nova
+            vad_stop_secs: '0.3'
+          create_time: '2025-10-16T09:00:00Z'
+          update_time: null
+    CreateMutationNestedOverrides:
+      summary: Mutation with nested config overrides
+      value:
+        display_name: Custom Headers Test
+        description: Testing with modified request headers
+        config_overrides:
+          custom_headers:
+            X-Debug: 'true'
+            X-Version: v2
+          response_format: chat_completions
+    CreateMutationWithDescription:
+      summary: Mutation with description and custom parameter_values
+      value:
+        display_name: Claude Model Test
+        description: Testing Claude 3 Opus model for improved reasoning
+        config_overrides:
+          model: claude-3-opus
+          temperature: 0.7
+        parameter_values:
+          model: claude-3-opus
+          temperature: 0.7 (more creative)
     GetMutationSuccess:
       summary: Successful get response
       value:
@@ -592,6 +598,31 @@ components:
             vad_stop_secs: '0.3'
           create_time: '2025-10-14T12:00:00Z'
           update_time: '2025-10-15T14:30:00Z'
+    MutationNameConflictError:
+      summary: Mutation name already exists
+      value:
+        error:
+          code: ALREADY_EXISTS
+          message: Mutation already exists
+          details:
+          - field: display_name
+            description: An active mutation with name 'GPT-4 Fast VAD' already exists for this agent
+    AgentNotFoundError:
+      summary: Agent not found
+      value:
+        error:
+          code: NOT_FOUND
+          message: Agent not found
+          details:
+          - field: agent_id
+            description: Agent 'gk3jK9mPq2xRt5vW8yZaBc' does not exist or is not accessible by your organization
+    CreateMutationBasic:
+      summary: Basic mutation with config overrides
+      value:
+        display_name: GPT-4 Fast VAD
+        config_overrides:
+          voice: nova
+          vad_stop_secs: 0.3
     ListMutationsSuccess:
       summary: Successful list response
       value:
@@ -629,24 +660,20 @@ components:
           details:
           - field: mutation_id
             description: Mutation '01ARZ3NDEKTSV4RRFFQ69G5FAV' does not exist or is not accessible
-    CreateMutationBasic:
-      summary: Basic mutation with config overrides
+    UpdateMutationName:
+      summary: Update mutation name only
       value:
-        display_name: GPT-4 Fast VAD
-        config_overrides:
-          voice: nova
-          vad_stop_secs: 0.3
-    CreateMutationWithDescription:
-      summary: Mutation with description and custom parameter_values
+        display_name: GPT-4 Slower VAD
+        description: Updated to use slower VAD for better accuracy
+    ConfigTooLargeError:
+      summary: Config overrides too large
       value:
-        display_name: Claude Model Test
-        description: Testing Claude 3 Opus model for improved reasoning
-        config_overrides:
-          model: claude-3-opus
-          temperature: 0.7
-        parameter_values:
-          model: claude-3-opus
-          temperature: 0.7 (more creative)
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: config_overrides
+            description: config_overrides exceeds maximum size (12288 bytes > 10240 bytes)
     MutationUpdated:
       summary: Mutation updated successfully
       value:
@@ -663,65 +690,38 @@ components:
             vad_stop_secs: '0.5'
           create_time: '2025-10-14T12:00:00Z'
           update_time: '2025-10-16T10:30:00Z'
-    MutationCreated:
-      summary: Mutation created successfully
-      value:
-        mutation:
-          id: 01ARZ3NDEKTSV4RRFFQ69G5FAX
-          agent_id: gk3jK9mPq2xRt5vW8yZaBc
-          display_name: GPT-4 Fast VAD
-          description: ''
-          config_overrides:
-            voice: nova
-            vad_stop_secs: 0.3
-          parameter_values:
-            voice: nova
-            vad_stop_secs: '0.3'
-          create_time: '2025-10-16T09:00:00Z'
-          update_time: null
     UpdateMutationOverrides:
       summary: Update config overrides
       value:
         config_overrides:
           vad_stop_secs: 0.5
           voice: alloy
-    CreateMutationNestedOverrides:
-      summary: Mutation with nested config overrides
-      value:
-        display_name: Custom Headers Test
-        description: Testing with modified request headers
-        config_overrides:
-          custom_headers:
-            X-Debug: 'true'
-            X-Version: v2
-          response_format: chat_completions
-    AgentNotFoundError:
-      summary: Agent not found
-      value:
-        error:
-          code: NOT_FOUND
-          message: Agent not found
-          details:
-          - field: agent_id
-            description: Agent 'gk3jK9mPq2xRt5vW8yZaBc' does not exist or is not accessible by your organization
-    MutationNameConflictError:
-      summary: Mutation name already exists
-      value:
-        error:
-          code: ALREADY_EXISTS
-          message: Mutation already exists
-          details:
-          - field: display_name
-            description: An active mutation with name 'GPT-4 Fast VAD' already exists for this agent
-    ConfigTooLargeError:
-      summary: Config overrides too large
-      value:
-        error:
-          code: INVALID_ARGUMENT
-          message: Invalid request body
-          details:
-          - field: config_overrides
-            description: config_overrides exceeds maximum size (12288 bytes > 10240 bytes)
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

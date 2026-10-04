@@ -189,78 +189,13 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          - details
-          properties:
-            code:
-              type: string
-              description: Error code
-              enum:
-              - INVALID_ARGUMENT
-              - UNAUTHENTICATED
-              - NOT_FOUND
-              - INTERNAL
-              example: INVALID_ARGUMENT
-            message:
-              type: string
-              description: Human-readable error message
-              example: Invalid request parameter
-            details:
-              type: array
-              description: Detailed error information
-              items:
-                type: object
-                properties:
-                  field:
-                    type:
-                    - string
-                    - 'null'
-                    description: Field that caused the error
-                  description:
-                    type: string
-                    description: Detailed error description
-    CreateDashboardRequest:
+    UpdateDashboardResponse:
       type: object
       required:
-      - display_name
+      - dashboard
       properties:
-        display_name:
-          type: string
-          minLength: 1
-          maxLength: 255
-          description: Human-readable dashboard name
-          example: Production Metrics
-        description:
-          type: string
-          maxLength: 1000
-          description: Optional free-text description
-        is_favorite:
-          type: boolean
-          default: false
-          description: Mark the dashboard as a favorite
-        is_default:
-          type:
-          - boolean
-          - 'null'
-          description: Mark as the organization's default dashboard. Omit to auto-default the first dashboard in the organization; set true to make this the default (any existing default is unset).
-        position:
-          type: integer
-          minimum: 0
-          description: Ordering position. Omit to append to the end.
-        config:
-          type: object
-          additionalProperties: true
-          description: Free-form JSON config blob (max 50000 bytes serialized)
+        dashboard:
+          $ref: '#/components/schemas/DashboardResource'
     DashboardResource:
       type: object
       description: Dashboard resource
@@ -314,27 +249,6 @@ components:
           format: date-time
           description: Last update timestamp (ISO 8601)
           example: '2025-10-15T14:30:00Z'
-    GetDashboardResponse:
-      type: object
-      required:
-      - dashboard
-      properties:
-        dashboard:
-          $ref: '#/components/schemas/DashboardResource'
-    CreateDashboardResponse:
-      type: object
-      required:
-      - dashboard
-      properties:
-        dashboard:
-          $ref: '#/components/schemas/DashboardResource'
-    UpdateDashboardResponse:
-      type: object
-      required:
-      - dashboard
-      properties:
-        dashboard:
-          $ref: '#/components/schemas/DashboardResource'
     UpdateDashboardRequest:
       type: object
       description: All fields optional (PATCH semantics). Provided fields are updated; omitted or null fields are left unchanged. Setting is_default=true unsets any other default dashboard in the organization. config fully replaces the stored blob; to clear a value send an empty string (description) or an empty object (config) rather than null.
@@ -374,6 +288,60 @@ components:
           - 'null'
           additionalProperties: true
           description: Replacement free-form JSON config blob (max 50000 bytes serialized)
+    GetDashboardResponse:
+      type: object
+      required:
+      - dashboard
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/DashboardResource'
+    CreateDashboardResponse:
+      type: object
+      required:
+      - dashboard
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/DashboardResource'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              description: Error code
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - NOT_FOUND
+              - INTERNAL
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameter
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type:
+                    - string
+                    - 'null'
+                    description: Field that caused the error
+                  description:
+                    type: string
+                    description: Detailed error description
     ListDashboardsResponse:
       type: object
       required:
@@ -388,20 +356,51 @@ components:
           - string
           - 'null'
           description: Token for fetching next page (null if no more results)
+    CreateDashboardRequest:
+      type: object
+      required:
+      - display_name
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Human-readable dashboard name
+          example: Production Metrics
+        description:
+          type: string
+          maxLength: 1000
+          description: Optional free-text description
+        is_favorite:
+          type: boolean
+          default: false
+          description: Mark the dashboard as a favorite
+        is_default:
+          type:
+          - boolean
+          - 'null'
+          description: Mark as the organization's default dashboard. Omit to auto-default the first dashboard in the organization; set true to make this the default (any existing default is unset).
+        position:
+          type: integer
+          minimum: 0
+          description: Ordering position. Omit to append to the end.
+        config:
+          type: object
+          additionalProperties: true
+          description: Free-form JSON config blob (max 50000 bytes serialized)
   responses:
-    BadRequest:
-      description: Invalid request
+    InternalError:
+      description: Internal server error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           example:
             error:
-              code: INVALID_ARGUMENT
-              message: Invalid request body
+              code: INTERNAL
+              message: Internal server error
               details:
-              - field: display_name
-                description: display_name must be between 1 and 255 characters
+              - description: An unexpected error occurred
     NotFound:
       description: Resource not found
       content:
@@ -415,6 +414,19 @@ components:
               details:
               - field: dashboard_id
                 description: Dashboard not found or not accessible by your organization
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: display_name
+                description: display_name must be between 1 and 255 characters
     Unauthorized:
       description: Authentication failed
       content:
@@ -428,27 +440,7 @@ components:
               details:
               - field: X-API-Key
                 description: Invalid or missing API key
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
   examples:
-    DashboardCreated:
-      summary: Dashboard created
-      value:
-        dashboard:
-          name: dashboards/abc123def456ghi789jklm
-          display_name: Production Metrics
-          create_time: '2025-10-14T12:00:00Z'
-          update_time: '2025-10-14T12:00:00Z'
     ListDashboardsSuccess:
       summary: Successful list response
       value:
@@ -462,6 +454,14 @@ components:
           create_time: '2025-10-13T08:00:00Z'
           update_time: '2025-10-13T08:00:00Z'
         next_page_token: null
+    DashboardCreated:
+      summary: Dashboard created
+      value:
+        dashboard:
+          name: dashboards/abc123def456ghi789jklm
+          display_name: Production Metrics
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: '2025-10-14T12:00:00Z'
   parameters:
     DashboardId:
       name: dashboard_id

@@ -1214,107 +1214,6 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          properties:
-            code:
-              type: string
-              enum:
-              - INVALID_ARGUMENT
-              - UNAUTHENTICATED
-              - PERMISSION_DENIED
-              - NOT_FOUND
-              - ALREADY_EXISTS
-              - INTERNAL
-            message:
-              type: string
-            details:
-              type: array
-              items:
-                type: object
-                properties:
-                  field:
-                    type:
-                    - string
-                    - 'null'
-                  description:
-                    type: string
-    ComparisonOperator:
-      type: string
-      description: Comparison operator for thresholds
-      enum:
-      - eq
-      - neq
-      - gt
-      - gte
-      - lt
-      - lte
-      - in
-      - nin
-      - bt
-      - nbt
-    PatchThresholdResponse:
-      type: object
-      required:
-      - threshold
-      properties:
-        threshold:
-          $ref: '#/components/schemas/MetricThresholdResource'
-    CurrentMetricVersion:
-      type: object
-      description: The metric's live version, embedded on MetricResource.
-      required:
-      - ulid
-      - version_number
-      - change_type
-      properties:
-        ulid:
-          type: string
-          description: Identifier of the current version row (26-char ULID)
-          example: 01KKWQYSF737ZN6X1Q1RYX8M2D
-        version_number:
-          type: integer
-          description: Per-metric monotonic version number, 1-based
-          example: 3
-        change_type:
-          $ref: '#/components/schemas/MetricVersionChangeType'
-    CreateThresholdRequest:
-      type: object
-      description: Request body for creating a threshold
-      required:
-      - comparison_operator
-      properties:
-        comparison_operator:
-          $ref: '#/components/schemas/ComparisonOperator'
-        target_float_upper:
-          type:
-          - number
-          - 'null'
-          description: Target float value (upper bound for bt/nbt, single value for others)
-        target_float_lower:
-          type:
-          - number
-          - 'null'
-          description: Lower bound for range operators (bt/nbt)
-        target_values:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          minItems: 1
-          maxItems: 50
-          description: Target values for list operators (in/nin)
-        source:
-          $ref: '#/components/schemas/ThresholdSource'
     GetThresholdResponse:
       type: object
       required:
@@ -1322,194 +1221,134 @@ components:
       properties:
         threshold:
           $ref: '#/components/schemas/MetricThresholdResource'
-    MetricVersionResource:
+    ThresholdSource:
+      type: string
+      description: Source of the threshold value
+      enum:
+      - manual
+      - model
+    UpdateMetricRequest:
       type: object
-      description: A prior, displaced snapshot of a metric's scoring config.
-      required:
-      - name
-      - ulid
-      - version_number
-      - change_type
-      - metric_type
-      - created_by
+      description: Update metric request (partial update)
       properties:
-        name:
+        metric_name:
           type: string
-          description: Resource name
-          example: metrics/abc123def456ghi789jklm/versions/01KKWQYSF737ZN6X1Q1RYX8M2D
-        ulid:
+          minLength: 1
+          maxLength: 200
+        description:
           type: string
-          description: Version identifier (26-char ULID)
-          example: 01KKWQYSF737ZN6X1Q1RYX8M2D
-        version_number:
-          type: integer
-          description: Per-metric monotonic version number, 1-based
-          example: 2
-        change_type:
-          $ref: '#/components/schemas/MetricVersionChangeType'
+          minLength: 1
+          maxLength: 1000
         metric_type:
           $ref: '#/components/schemas/MetricType'
-        metric_metadata:
-          type: object
-          additionalProperties: true
-          description: Verbatim scoring-config snapshot for this version
-        label:
-          type:
-          - string
-          - 'null'
-          description: Optional user-supplied tag
-          example: v1.2 prod
-        created_by:
+        prompt:
           type: string
-          description: Who created this version (email address)
-        create_time:
+        categories:
+          type: array
+          items:
+            type: string
+          minItems: 2
+          maxItems: 50
+        min_value:
+          type: number
+        max_value:
+          type: number
+        metadata_field_type:
+          $ref: '#/components/schemas/MetadataFieldType'
+        metadata_field_key:
+          type: string
+        regex_pattern:
+          type: string
+        role:
+          type: string
+          enum:
+          - agent
+          - user
+        min_pause_duration_seconds:
+          type: number
+          minimum: 0.5
+        include_traces:
           type:
-          - string
+          - boolean
           - 'null'
-          format: date-time
-          description: When this version became current
-    GetMetricResponse:
+          description: 'Inject OTel trace context into the LLM judge prompt during evaluation.
+
+            Supported for LLM judge metric types only.
+
+            '
+        runtime_config:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/MetricRuntimeConfig'
+          description: 'Override the LLM model used for metric evaluation. Set to `null` to revert to
+
+            the platform default. Use `GET /v1/models/metric` to list available models.
+
+            Not supported for audio metric types (`METRIC_AUDIO_LLM_BINARY`,
+
+            `METRIC_AUDIO_LLM_CATEGORICAL`, `METRIC_AUDIO_LLM_NUMERICAL`),
+
+            which always use the platform-default audio model.
+
+            '
+        target_condition:
+          allOf:
+          - $ref: '#/components/schemas/TargetCondition'
+          description: Target condition for metric evaluation
+        tags:
+          type:
+          - array
+          - 'null'
+          description: Tags to associate with this metric. Null or omitted leaves tags unchanged. Pass [] to clear all tags.
+          items:
+            type: string
+          example:
+          - production
+    ListMetricsResponse:
       type: object
-      required:
-      - metric
-      properties:
-        metric:
-          $ref: '#/components/schemas/MetricResource'
-    ListRecentlyDeletedMetricsResponse:
-      type: object
-      description: Response for GET /v1/metrics/recently-deleted (newest first)
       required:
       - metrics
       properties:
         metrics:
           type: array
           items:
-            $ref: '#/components/schemas/RecentlyDeletedMetricResource'
-    RecentlyDeletedMetricResource:
+            $ref: '#/components/schemas/MetricResource'
+        next_page_token:
+          type:
+          - string
+          - 'null'
+    TestMetricResponse:
       type: object
-      description: A soft-deleted metric in the Recently Deleted list, with its purge countdown.
-      required:
-      - name
-      - id
-      - metric_name
       properties:
-        name:
+        metric_output_ulid:
           type: string
-          description: Resource name
-          example: metrics/abc123def456ghi789jklm
-        id:
-          type: string
-          description: Metric ID (22-char ShortUUID)
-          example: abc123def456ghi789jklm
-        metric_name:
-          type: string
-          description: User-facing metric name
-        delete_time:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: When the metric was deleted
-        deleted_by:
-          type:
-          - string
-          - 'null'
-          description: Who deleted the metric (email address)
-        purge_time:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: When the metric will be permanently purged (delete_time + retention window)
-    Baseline:
+          description: The ULID of the created metric output, used to track result
+          minLength: 26
+          maxLength: 26
+          pattern: ^[0-9A-HJKMNP-TV-Z]{26}$
+      additionalProperties: false
+    TestMetricRequest:
       type: object
-      description: Anomaly-detection baseline for a metric.
       required:
-      - ulid
-      - status
-      - detection_method
-      - sigma_threshold
-      - direction
-      - created_at
-      - last_updated_at
+      - simulation_output_id
       properties:
-        ulid:
+        simulation_output_id:
           type: string
-          description: Baseline ULID.
-          example: 01HXKZ4M5N6P7Q8R9STVWXYZAB
-        metric_id:
-          type:
-          - string
-          - 'null'
-          description: Metric ULID.
-        agent_id:
-          type:
-          - string
-          - 'null'
-          description: Agent ID. Null for org-wide baselines.
-        test_set_id:
-          type:
-          - string
-          - 'null'
-          description: Test set ULID. Null for monitoring.
-        persona_id:
-          type:
-          - string
-          - 'null'
-          description: Persona ULID. Null when the baseline covers all personas.
-        display_name:
-          type:
-          - string
-          - 'null'
-          description: User-facing label.
-        status:
-          $ref: '#/components/schemas/BaselineStatus'
-        detection_method:
-          $ref: '#/components/schemas/BaselineDetectionMethod'
-        baseline_float:
-          type:
-          - number
-          - 'null'
-          description: Current baseline mean estimate.
-        baseline_sigma:
-          type:
-          - number
-          - 'null'
-          description: Current baseline standard deviation estimate.
-        observation_count:
-          type: integer
-          default: 0
-          description: Number of observations processed.
-        sigma_threshold:
-          type: number
-          description: Sigmas from the baseline that constitute an anomaly.
-        direction:
-          $ref: '#/components/schemas/BaselineDirection'
-        sigma_bands:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: number
-          description: 'Computed sigma bands keyed by level (e.g. `upper_1sigma`, `lower_2sigma`,
-
-            `upper_2sigma`). Null when baseline stats are not yet populated. Levels
-
-            controlled by the `sigma_levels` query param.
-
-            '
-        last_processed_run_completed_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: 'Cursor: when the last processed run completed.'
-        created_at:
+          description: The simulation output ID (22-character ShortUUID) to run the metric against
+          pattern: ^[a-zA-Z0-9]{22}$
+        dev_id:
           type: string
-          format: date-time
-        last_updated_at:
-          type: string
-          format: date-time
+          description: Optional developer identifier for debugging
+      additionalProperties: false
+    PatchThresholdResponse:
+      type: object
+      required:
+      - threshold
+      properties:
+        threshold:
+          $ref: '#/components/schemas/MetricThresholdResource'
     MetricThresholdResource:
       type: object
       description: Org-specific threshold for a metric
@@ -1552,95 +1391,6 @@ components:
           - string
           - 'null'
           format: date-time
-    CreateMetricBaselineRequest:
-      type: object
-      description: Request body for creating a baseline. All fields optional.
-      properties:
-        agent_id:
-          type:
-          - string
-          - 'null'
-          description: Agent ID. Null for org-wide baselines.
-        test_set_id:
-          type:
-          - string
-          - 'null'
-          description: Test set ULID. Null for monitoring.
-        persona_id:
-          type:
-          - string
-          - 'null'
-          description: Persona ULID. Null when the baseline covers all personas.
-        display_name:
-          type:
-          - string
-          - 'null'
-          maxLength: 200
-          description: User-facing label.
-        status:
-          allOf:
-          - $ref: '#/components/schemas/BaselineStatus'
-          description: Initial status. Defaults to STANDBY.
-        detection_method:
-          allOf:
-          - $ref: '#/components/schemas/BaselineDetectionMethod'
-          description: Algorithm. Defaults to EWMA.
-        sigma_threshold:
-          type:
-          - number
-          - 'null'
-          description: Sigmas from the baseline that constitute an anomaly. Defaults to 2.0.
-          exclusiveMinimum: 0
-        direction:
-          allOf:
-          - $ref: '#/components/schemas/BaselineDirection'
-          description: Which direction(s) of deviation count as anomalous. Defaults to BOTH.
-        config:
-          allOf:
-          - $ref: '#/components/schemas/BaselineConfig'
-    TargetCondition:
-      type: object
-      description: 'The metric''s success criteria — the rule that decides which output value counts as a pass/success. It is a comparison operator plus a target value, stored in the metric''s config and used to compute pass/fail and dashboard success rates. Set it via create or update so no manual UI step is needed. For a yes/no (binary) metric where "YES" is a pass, use `{"comparison_operator": "in", "target_values": ["YES"]}`; for a 1-5 numeric metric where >= 4 is a pass, use `{"comparison_operator": "gte", "target_float": 4}`.'
-      required:
-      - comparison_operator
-      oneOf:
-      - required:
-        - target_float
-      - required:
-        - target_values
-      properties:
-        comparison_operator:
-          type: string
-          description: How the metric output is compared to the target. Use a numeric operator (`eq`/`neq`/`gt`/`gte`/`lt`/`lte`) with `target_float`, or a membership operator (`in`/`nin`) with `target_values`.
-          enum:
-          - eq
-          - neq
-          - gt
-          - gte
-          - lt
-          - lte
-          - in
-          - nin
-        target_float:
-          type:
-          - number
-          - 'null'
-          description: Target number for the numeric operators (eq/neq/gt/gte/lt/lte).
-        target_values:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          minItems: 1
-          maxItems: 50
-          description: Target value(s) for the membership operators (in/nin), e.g. `["YES"]`.
-          example:
-          - 'YES'
-      example:
-        comparison_operator: in
-        target_values:
-        - 'YES'
     GetMetricTemplateVariablesResponse:
       type: object
       required:
@@ -1656,19 +1406,199 @@ components:
           description: Available template-variable categories
           items:
             $ref: '#/components/schemas/MetricTemplateVariableCategory'
-    TestMetricRequest:
+    CreateThresholdResponse:
       type: object
       required:
-      - simulation_output_id
+      - threshold
       properties:
-        simulation_output_id:
+        threshold:
+          $ref: '#/components/schemas/MetricThresholdResource'
+    ListMetricVersionsResponse:
+      type: object
+      description: Response for GET /v1/metrics/{metric_id}/versions (newest first)
+      required:
+      - versions
+      properties:
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricVersionResource'
+    MetricVersionChangeType:
+      type: string
+      description: How a metric version came about. A revert is a save whose new state mirrors an older version.
+      enum:
+      - save
+      - revert
+    UpdateMetricBaselineRequest:
+      type: object
+      description: Request body for updating a baseline. All fields optional.
+      properties:
+        display_name:
+          type:
+          - string
+          - 'null'
+          maxLength: 200
+          description: User-facing label.
+        sigma_threshold:
+          type:
+          - number
+          - 'null'
+          description: Sigmas from the baseline that constitute an anomaly.
+          exclusiveMinimum: 0
+        direction:
+          allOf:
+          - $ref: '#/components/schemas/BaselineDirection'
+        status:
+          allOf:
+          - $ref: '#/components/schemas/BaselineStatus'
+    ListThresholdsResponse:
+      type: object
+      required:
+      - thresholds
+      properties:
+        thresholds:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricThresholdResource'
+        next_page_token:
+          type:
+          - string
+          - 'null'
+    MetricModelResource:
+      type: object
+      description: A single LLM model available for metric evaluation
+      required:
+      - model_id
+      - display_name
+      - provider
+      - tier
+      - supports_thinking
+      properties:
+        model_id:
           type: string
-          description: The simulation output ID (22-character ShortUUID) to run the metric against
-          pattern: ^[a-zA-Z0-9]{22}$
-        dev_id:
+          description: Canonical colon-separated model identifier
+          example: openai:gpt-4.1-mini-2025-04-14
+        display_name:
           type: string
-          description: Optional developer identifier for debugging
-      additionalProperties: false
+          description: Human-readable model name
+          example: GPT-4.1 Mini
+        provider:
+          type: string
+          description: Model provider
+          enum:
+          - openai
+          - anthropic
+          - google
+        tier:
+          type: string
+          description: Access tier — standard models are available to all orgs; enterprise models require an Enterprise plan
+          enum:
+          - standard
+          - enterprise
+        supports_thinking:
+          type: boolean
+          description: Whether extended thinking / reasoning mode is supported on this model
+    MetadataFieldType:
+      type: string
+      description: Data type for metadata field extraction
+      enum:
+      - STRING
+      - NUMBER
+      - BOOLEAN
+    CreateMetricRequest:
+      type: object
+      description: Create metric request
+      required:
+      - metric_name
+      - description
+      - metric_type
+      properties:
+        metric_name:
+          type: string
+          description: Display name
+          minLength: 1
+          maxLength: 200
+        description:
+          type: string
+          description: Metric description
+          minLength: 1
+          maxLength: 1000
+        metric_type:
+          $ref: '#/components/schemas/MetricType'
+        prompt:
+          type: string
+          description: LLM evaluation prompt. Required for LLM-based metrics.
+        categories:
+          type: array
+          items:
+            type: string
+          minItems: 2
+          maxItems: 50
+          description: Categories for classification. Required for categorical metrics.
+        min_value:
+          type: number
+          description: Minimum score. Required for numerical metrics.
+        max_value:
+          type: number
+          description: Maximum score. Required for numerical metrics.
+        metadata_field_type:
+          allOf:
+          - $ref: '#/components/schemas/MetadataFieldType'
+          description: Field type. Required for METRIC_METADATA_FIELD.
+        metadata_field_key:
+          type: string
+          description: Metadata key. Required for METRIC_METADATA_FIELD.
+        regex_pattern:
+          type: string
+          description: Regex pattern. Required for METRIC_TRANSCRIPT_REGEX.
+        role:
+          type: string
+          enum:
+          - agent
+          - user
+          description: Speaker role filter. Optional for METRIC_TRANSCRIPT_REGEX.
+        min_pause_duration_seconds:
+          type: number
+          minimum: 0.5
+          description: Min pause duration in seconds. Required for METRIC_PAUSE_ANALYSIS.
+        include_traces:
+          type: boolean
+          description: 'Inject OTel trace context into the LLM judge prompt during evaluation.
+
+            Supported for LLM judge metric types only (`METRIC_LLM_BINARY`, `METRIC_CATEGORICAL`,
+
+            `METRIC_NUMERICAL_LLM_JUDGE`, `METRIC_AUDIO_LLM_BINARY`, `METRIC_AUDIO_LLM_CATEGORICAL`,
+
+            `METRIC_AUDIO_LLM_NUMERICAL`).
+
+            '
+        runtime_config:
+          allOf:
+          - $ref: '#/components/schemas/MetricRuntimeConfig'
+          description: 'Override the LLM model used for metric evaluation. If omitted, the platform default
+
+            model is used. Use `GET /v1/models/metric` to list available models.
+
+            Not supported for audio metric types (`METRIC_AUDIO_LLM_BINARY`,
+
+            `METRIC_AUDIO_LLM_CATEGORICAL`, `METRIC_AUDIO_LLM_NUMERICAL`),
+
+            which always use the platform-default audio model.
+
+            '
+        target_condition:
+          allOf:
+          - $ref: '#/components/schemas/TargetCondition'
+          description: Target condition for metric evaluation
+        tags:
+          type:
+          - array
+          - 'null'
+          description: Tags to associate with this metric. Null or omitted creates the metric with no tags. Pass [] for an empty tag list.
+          items:
+            type: string
+          example:
+          - production
     MetricResource:
       type: object
       description: Metric resource
@@ -1809,6 +1739,312 @@ components:
           allOf:
           - $ref: '#/components/schemas/CurrentMetricVersion'
           description: The metric's live version. Null for pre-versioning metrics that have not yet been saved or run under the versioning system. Full history at GET /v1/metrics/{metric_id}/versions.
+    GetMetricResponse:
+      type: object
+      required:
+      - metric
+      properties:
+        metric:
+          $ref: '#/components/schemas/MetricResource'
+    MetricVersionResource:
+      type: object
+      description: A prior, displaced snapshot of a metric's scoring config.
+      required:
+      - name
+      - ulid
+      - version_number
+      - change_type
+      - metric_type
+      - created_by
+      properties:
+        name:
+          type: string
+          description: Resource name
+          example: metrics/abc123def456ghi789jklm/versions/01KKWQYSF737ZN6X1Q1RYX8M2D
+        ulid:
+          type: string
+          description: Version identifier (26-char ULID)
+          example: 01KKWQYSF737ZN6X1Q1RYX8M2D
+        version_number:
+          type: integer
+          description: Per-metric monotonic version number, 1-based
+          example: 2
+        change_type:
+          $ref: '#/components/schemas/MetricVersionChangeType'
+        metric_type:
+          $ref: '#/components/schemas/MetricType'
+        metric_metadata:
+          type: object
+          additionalProperties: true
+          description: Verbatim scoring-config snapshot for this version
+        label:
+          type:
+          - string
+          - 'null'
+          description: Optional user-supplied tag
+          example: v1.2 prod
+        created_by:
+          type: string
+          description: Who created this version (email address)
+        create_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: When this version became current
+    CreateMetricBaselineRequest:
+      type: object
+      description: Request body for creating a baseline. All fields optional.
+      properties:
+        agent_id:
+          type:
+          - string
+          - 'null'
+          description: Agent ID. Null for org-wide baselines.
+        test_set_id:
+          type:
+          - string
+          - 'null'
+          description: Test set ULID. Null for monitoring.
+        persona_id:
+          type:
+          - string
+          - 'null'
+          description: Persona ULID. Null when the baseline covers all personas.
+        display_name:
+          type:
+          - string
+          - 'null'
+          maxLength: 200
+          description: User-facing label.
+        status:
+          allOf:
+          - $ref: '#/components/schemas/BaselineStatus'
+          description: Initial status. Defaults to STANDBY.
+        detection_method:
+          allOf:
+          - $ref: '#/components/schemas/BaselineDetectionMethod'
+          description: Algorithm. Defaults to EWMA.
+        sigma_threshold:
+          type:
+          - number
+          - 'null'
+          description: Sigmas from the baseline that constitute an anomaly. Defaults to 2.0.
+          exclusiveMinimum: 0
+        direction:
+          allOf:
+          - $ref: '#/components/schemas/BaselineDirection'
+          description: Which direction(s) of deviation count as anomalous. Defaults to BOTH.
+        config:
+          allOf:
+          - $ref: '#/components/schemas/BaselineConfig'
+    ListMetricBaselinesResponse:
+      type: object
+      required:
+      - baselines
+      properties:
+        baselines:
+          type: array
+          items:
+            $ref: '#/components/schemas/Baseline'
+        next_page_token:
+          type:
+          - string
+          - 'null'
+        total_count:
+          type: integer
+          default: 0
+          description: Total count of baselines matching the filter.
+    ListMetricModelsResponse:
+      type: object
+      required:
+      - models
+      properties:
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricModelResource'
+    BaselineStatus:
+      type: string
+      description: Baseline lifecycle status.
+      enum:
+      - ACTIVE
+      - STANDBY
+      - ARCHIVED
+    MetricType:
+      type: string
+      description: 'Metric evaluation type.
+
+
+        - `METRIC_LLM_BINARY` - Yes/no LLM evaluation
+
+        - `METRIC_CATEGORICAL` - Multi-class classification
+
+        - `METRIC_NUMERICAL_LLM_JUDGE` - Numerical scoring (1-N)
+
+        - `METRIC_AUDIO_LLM_BINARY` - Audio-based yes/no
+
+        - `METRIC_AUDIO_LLM_CATEGORICAL` - Audio-based classification
+
+        - `METRIC_AUDIO_LLM_NUMERICAL` - Audio-based scoring
+
+        - `METRIC_TOOLCALL` - Tool/function call evaluation
+
+        - `METRIC_METADATA_FIELD` - Extract metadata field
+
+        - `METRIC_TRANSCRIPT_REGEX` - Regex pattern matching
+
+        - `METRIC_PAUSE_ANALYSIS` - Speech pause detection
+
+        '
+      enum:
+      - METRIC_LLM_BINARY
+      - METRIC_CATEGORICAL
+      - METRIC_NUMERICAL_LLM_JUDGE
+      - METRIC_AUDIO_LLM_BINARY
+      - METRIC_AUDIO_LLM_CATEGORICAL
+      - METRIC_AUDIO_LLM_NUMERICAL
+      - METRIC_TOOLCALL
+      - METRIC_METADATA_FIELD
+      - METRIC_TRANSCRIPT_REGEX
+      - METRIC_PAUSE_ANALYSIS
+    Baseline:
+      type: object
+      description: Anomaly-detection baseline for a metric.
+      required:
+      - ulid
+      - status
+      - detection_method
+      - sigma_threshold
+      - direction
+      - created_at
+      - last_updated_at
+      properties:
+        ulid:
+          type: string
+          description: Baseline ULID.
+          example: 01HXKZ4M5N6P7Q8R9STVWXYZAB
+        metric_id:
+          type:
+          - string
+          - 'null'
+          description: Metric ULID.
+        agent_id:
+          type:
+          - string
+          - 'null'
+          description: Agent ID. Null for org-wide baselines.
+        test_set_id:
+          type:
+          - string
+          - 'null'
+          description: Test set ULID. Null for monitoring.
+        persona_id:
+          type:
+          - string
+          - 'null'
+          description: Persona ULID. Null when the baseline covers all personas.
+        display_name:
+          type:
+          - string
+          - 'null'
+          description: User-facing label.
+        status:
+          $ref: '#/components/schemas/BaselineStatus'
+        detection_method:
+          $ref: '#/components/schemas/BaselineDetectionMethod'
+        baseline_float:
+          type:
+          - number
+          - 'null'
+          description: Current baseline mean estimate.
+        baseline_sigma:
+          type:
+          - number
+          - 'null'
+          description: Current baseline standard deviation estimate.
+        observation_count:
+          type: integer
+          default: 0
+          description: Number of observations processed.
+        sigma_threshold:
+          type: number
+          description: Sigmas from the baseline that constitute an anomaly.
+        direction:
+          $ref: '#/components/schemas/BaselineDirection'
+        sigma_bands:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: number
+          description: 'Computed sigma bands keyed by level (e.g. `upper_1sigma`, `lower_2sigma`,
+
+            `upper_2sigma`). Null when baseline stats are not yet populated. Levels
+
+            controlled by the `sigma_levels` query param.
+
+            '
+        last_processed_run_completed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: 'Cursor: when the last processed run completed.'
+        created_at:
+          type: string
+          format: date-time
+        last_updated_at:
+          type: string
+          format: date-time
+    BaselineDetectionMethod:
+      type: string
+      description: Anomaly detection algorithm. Currently only EWMA.
+      enum:
+      - EWMA
+    TargetCondition:
+      type: object
+      description: 'The metric''s success criteria — the rule that decides which output value counts as a pass/success. It is a comparison operator plus a target value, stored in the metric''s config and used to compute pass/fail and dashboard success rates. Set it via create or update so no manual UI step is needed. For a yes/no (binary) metric where "YES" is a pass, use `{"comparison_operator": "in", "target_values": ["YES"]}`; for a 1-5 numeric metric where >= 4 is a pass, use `{"comparison_operator": "gte", "target_float": 4}`.'
+      required:
+      - comparison_operator
+      oneOf:
+      - required:
+        - target_float
+      - required:
+        - target_values
+      properties:
+        comparison_operator:
+          type: string
+          description: How the metric output is compared to the target. Use a numeric operator (`eq`/`neq`/`gt`/`gte`/`lt`/`lte`) with `target_float`, or a membership operator (`in`/`nin`) with `target_values`.
+          enum:
+          - eq
+          - neq
+          - gt
+          - gte
+          - lt
+          - lte
+          - in
+          - nin
+        target_float:
+          type:
+          - number
+          - 'null'
+          description: Target number for the numeric operators (eq/neq/gt/gte/lt/lte).
+        target_values:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          minItems: 1
+          maxItems: 50
+          description: Target value(s) for the membership operators (in/nin), e.g. `["YES"]`.
+          example:
+          - 'YES'
+      example:
+        comparison_operator: in
+        target_values:
+        - 'YES'
     MetricTemplateVariableCategory:
       type: object
       description: One category of `{{prefix.key}}` template variables usable in metric prompts.
@@ -1848,20 +2084,6 @@ components:
           example:
           - company_name
           - support_hours
-    BaselineStatus:
-      type: string
-      description: Baseline lifecycle status.
-      enum:
-      - ACTIVE
-      - STANDBY
-      - ARCHIVED
-    MetadataFieldType:
-      type: string
-      description: Data type for metadata field extraction
-      enum:
-      - STRING
-      - NUMBER
-      - BOOLEAN
     BaselineConfig:
       type: object
       description: Algorithm-specific configuration. Currently only the EWMA detector is supported.
@@ -1870,266 +2092,178 @@ components:
           type: integer
           default: 604800
           description: EWMA time constant in seconds; controls decay rate. Default 604800 (7 days).
-    BaselineDetectionMethod:
-      type: string
-      description: Anomaly detection algorithm. Currently only EWMA.
-      enum:
-      - EWMA
-    ListMetricVersionsResponse:
+    CurrentMetricVersion:
       type: object
-      description: Response for GET /v1/metrics/{metric_id}/versions (newest first)
+      description: The metric's live version, embedded on MetricResource.
       required:
-      - versions
+      - ulid
+      - version_number
+      - change_type
       properties:
-        versions:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricVersionResource'
-    CreateMetricRequest:
-      type: object
-      description: Create metric request
-      required:
-      - metric_name
-      - description
-      - metric_type
-      properties:
-        metric_name:
+        ulid:
           type: string
-          description: Display name
-          minLength: 1
-          maxLength: 200
-        description:
-          type: string
-          description: Metric description
-          minLength: 1
-          maxLength: 1000
-        metric_type:
-          $ref: '#/components/schemas/MetricType'
-        prompt:
-          type: string
-          description: LLM evaluation prompt. Required for LLM-based metrics.
-        categories:
-          type: array
-          items:
-            type: string
-          minItems: 2
-          maxItems: 50
-          description: Categories for classification. Required for categorical metrics.
-        min_value:
-          type: number
-          description: Minimum score. Required for numerical metrics.
-        max_value:
-          type: number
-          description: Maximum score. Required for numerical metrics.
-        metadata_field_type:
-          allOf:
-          - $ref: '#/components/schemas/MetadataFieldType'
-          description: Field type. Required for METRIC_METADATA_FIELD.
-        metadata_field_key:
-          type: string
-          description: Metadata key. Required for METRIC_METADATA_FIELD.
-        regex_pattern:
-          type: string
-          description: Regex pattern. Required for METRIC_TRANSCRIPT_REGEX.
-        role:
-          type: string
-          enum:
-          - agent
-          - user
-          description: Speaker role filter. Optional for METRIC_TRANSCRIPT_REGEX.
-        min_pause_duration_seconds:
-          type: number
-          minimum: 0.5
-          description: Min pause duration in seconds. Required for METRIC_PAUSE_ANALYSIS.
-        include_traces:
-          type: boolean
-          description: 'Inject OTel trace context into the LLM judge prompt during evaluation.
-
-            Supported for LLM judge metric types only (`METRIC_LLM_BINARY`, `METRIC_CATEGORICAL`,
-
-            `METRIC_NUMERICAL_LLM_JUDGE`, `METRIC_AUDIO_LLM_BINARY`, `METRIC_AUDIO_LLM_CATEGORICAL`,
-
-            `METRIC_AUDIO_LLM_NUMERICAL`).
-
-            '
-        runtime_config:
-          allOf:
-          - $ref: '#/components/schemas/MetricRuntimeConfig'
-          description: 'Override the LLM model used for metric evaluation. If omitted, the platform default
-
-            model is used. Use `GET /v1/models/metric` to list available models.
-
-            Not supported for audio metric types (`METRIC_AUDIO_LLM_BINARY`,
-
-            `METRIC_AUDIO_LLM_CATEGORICAL`, `METRIC_AUDIO_LLM_NUMERICAL`),
-
-            which always use the platform-default audio model.
-
-            '
-        target_condition:
-          allOf:
-          - $ref: '#/components/schemas/TargetCondition'
-          description: Target condition for metric evaluation
-        tags:
-          type:
-          - array
-          - 'null'
-          description: Tags to associate with this metric. Null or omitted creates the metric with no tags. Pass [] for an empty tag list.
-          items:
-            type: string
-          example:
-          - production
-    ListThresholdsResponse:
-      type: object
-      required:
-      - thresholds
-      properties:
-        thresholds:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricThresholdResource'
-        next_page_token:
-          type:
-          - string
-          - 'null'
-    MetricVersionChangeType:
-      type: string
-      description: How a metric version came about. A revert is a save whose new state mirrors an older version.
-      enum:
-      - save
-      - revert
-    CreateThresholdResponse:
-      type: object
-      required:
-      - threshold
-      properties:
-        threshold:
-          $ref: '#/components/schemas/MetricThresholdResource'
-    ListMetricBaselinesResponse:
-      type: object
-      required:
-      - baselines
-      properties:
-        baselines:
-          type: array
-          items:
-            $ref: '#/components/schemas/Baseline'
-        next_page_token:
-          type:
-          - string
-          - 'null'
-        total_count:
+          description: Identifier of the current version row (26-char ULID)
+          example: 01KKWQYSF737ZN6X1Q1RYX8M2D
+        version_number:
           type: integer
-          default: 0
-          description: Total count of baselines matching the filter.
-    ListMetricModelsResponse:
+          description: Per-metric monotonic version number, 1-based
+          example: 3
+        change_type:
+          $ref: '#/components/schemas/MetricVersionChangeType'
+    BaselineDirection:
+      type: string
+      description: Which direction(s) of deviation count as anomalous.
+      enum:
+      - BOTH
+      - ABOVE
+      - BELOW
+    ErrorResponse:
       type: object
       required:
-      - models
+      - error
       properties:
-        models:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricModelResource'
-    MetricModelResource:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - PERMISSION_DENIED
+              - NOT_FOUND
+              - ALREADY_EXISTS
+              - INTERNAL
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type:
+                    - string
+                    - 'null'
+                  description:
+                    type: string
+    CreateThresholdRequest:
       type: object
-      description: A single LLM model available for metric evaluation
+      description: Request body for creating a threshold
       required:
-      - model_id
-      - display_name
-      - provider
-      - tier
-      - supports_thinking
+      - comparison_operator
       properties:
-        model_id:
-          type: string
-          description: Canonical colon-separated model identifier
-          example: openai:gpt-4.1-mini-2025-04-14
-        display_name:
-          type: string
-          description: Human-readable model name
-          example: GPT-4.1 Mini
-        provider:
-          type: string
-          description: Model provider
-          enum:
-          - openai
-          - anthropic
-          - google
-        tier:
-          type: string
-          description: Access tier — standard models are available to all orgs; enterprise models require an Enterprise plan
-          enum:
-          - standard
-          - enterprise
-        supports_thinking:
-          type: boolean
-          description: Whether extended thinking / reasoning mode is supported on this model
-    ThresholdSource:
-      type: string
-      description: Source of the threshold value
-      enum:
-      - manual
-      - model
-    MetricType:
-      type: string
-      description: 'Metric evaluation type.
-
-
-        - `METRIC_LLM_BINARY` - Yes/no LLM evaluation
-
-        - `METRIC_CATEGORICAL` - Multi-class classification
-
-        - `METRIC_NUMERICAL_LLM_JUDGE` - Numerical scoring (1-N)
-
-        - `METRIC_AUDIO_LLM_BINARY` - Audio-based yes/no
-
-        - `METRIC_AUDIO_LLM_CATEGORICAL` - Audio-based classification
-
-        - `METRIC_AUDIO_LLM_NUMERICAL` - Audio-based scoring
-
-        - `METRIC_TOOLCALL` - Tool/function call evaluation
-
-        - `METRIC_METADATA_FIELD` - Extract metadata field
-
-        - `METRIC_TRANSCRIPT_REGEX` - Regex pattern matching
-
-        - `METRIC_PAUSE_ANALYSIS` - Speech pause detection
-
-        '
-      enum:
-      - METRIC_LLM_BINARY
-      - METRIC_CATEGORICAL
-      - METRIC_NUMERICAL_LLM_JUDGE
-      - METRIC_AUDIO_LLM_BINARY
-      - METRIC_AUDIO_LLM_CATEGORICAL
-      - METRIC_AUDIO_LLM_NUMERICAL
-      - METRIC_TOOLCALL
-      - METRIC_METADATA_FIELD
-      - METRIC_TRANSCRIPT_REGEX
-      - METRIC_PAUSE_ANALYSIS
-    UpdateMetricBaselineRequest:
-      type: object
-      description: Request body for updating a baseline. All fields optional.
-      properties:
-        display_name:
-          type:
-          - string
-          - 'null'
-          maxLength: 200
-          description: User-facing label.
-        sigma_threshold:
+        comparison_operator:
+          $ref: '#/components/schemas/ComparisonOperator'
+        target_float_upper:
           type:
           - number
           - 'null'
-          description: Sigmas from the baseline that constitute an anomaly.
-          exclusiveMinimum: 0
-        direction:
-          allOf:
-          - $ref: '#/components/schemas/BaselineDirection'
-        status:
-          allOf:
-          - $ref: '#/components/schemas/BaselineStatus'
+          description: Target float value (upper bound for bt/nbt, single value for others)
+        target_float_lower:
+          type:
+          - number
+          - 'null'
+          description: Lower bound for range operators (bt/nbt)
+        target_values:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          minItems: 1
+          maxItems: 50
+          description: Target values for list operators (in/nin)
+        source:
+          $ref: '#/components/schemas/ThresholdSource'
+    RecentlyDeletedMetricResource:
+      type: object
+      description: A soft-deleted metric in the Recently Deleted list, with its purge countdown.
+      required:
+      - name
+      - id
+      - metric_name
+      properties:
+        name:
+          type: string
+          description: Resource name
+          example: metrics/abc123def456ghi789jklm
+        id:
+          type: string
+          description: Metric ID (22-char ShortUUID)
+          example: abc123def456ghi789jklm
+        metric_name:
+          type: string
+          description: User-facing metric name
+        delete_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: When the metric was deleted
+        deleted_by:
+          type:
+          - string
+          - 'null'
+          description: Who deleted the metric (email address)
+        purge_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: When the metric will be permanently purged (delete_time + retention window)
+    MetricRuntimeConfig:
+      type: object
+      description: LLM model and thinking configuration for metric execution
+      properties:
+        model_version:
+          type: string
+          description: 'Model identifier in canonical colon-separated format (e.g.
+
+            `"openai:gpt-4.1-mini-2025-04-14"`). Use `GET /v1/models/metric` to list
+
+            available models and their identifiers.
+
+            '
+          example: openai:gpt-4.1-mini-2025-04-14
+        thinking_enabled:
+          type:
+          - boolean
+          - 'null'
+          description: 'Enable extended thinking / reasoning mode. Only supported on select enterprise
+
+            models (`supports_thinking: true` in the model list). Attempting to enable this
+
+            on an unsupported model returns `400 THINKING_NOT_SUPPORTED`.
+
+            '
+    ListRecentlyDeletedMetricsResponse:
+      type: object
+      description: Response for GET /v1/metrics/recently-deleted (newest first)
+      required:
+      - metrics
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecentlyDeletedMetricResource'
+    ComparisonOperator:
+      type: string
+      description: Comparison operator for thresholds
+      enum:
+      - eq
+      - neq
+      - gt
+      - gte
+      - lt
+      - lte
+      - in
+      - nin
+      - bt
+      - nbt
     PatchThresholdRequest:
       type: object
       description: 'Request body for updating a threshold.
@@ -2177,140 +2311,6 @@ components:
           description: Target values for list operators (in/nin)
         source:
           $ref: '#/components/schemas/ThresholdSource'
-    UpdateMetricRequest:
-      type: object
-      description: Update metric request (partial update)
-      properties:
-        metric_name:
-          type: string
-          minLength: 1
-          maxLength: 200
-        description:
-          type: string
-          minLength: 1
-          maxLength: 1000
-        metric_type:
-          $ref: '#/components/schemas/MetricType'
-        prompt:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
-          minItems: 2
-          maxItems: 50
-        min_value:
-          type: number
-        max_value:
-          type: number
-        metadata_field_type:
-          $ref: '#/components/schemas/MetadataFieldType'
-        metadata_field_key:
-          type: string
-        regex_pattern:
-          type: string
-        role:
-          type: string
-          enum:
-          - agent
-          - user
-        min_pause_duration_seconds:
-          type: number
-          minimum: 0.5
-        include_traces:
-          type:
-          - boolean
-          - 'null'
-          description: 'Inject OTel trace context into the LLM judge prompt during evaluation.
-
-            Supported for LLM judge metric types only.
-
-            '
-        runtime_config:
-          type:
-          - object
-          - 'null'
-          allOf:
-          - $ref: '#/components/schemas/MetricRuntimeConfig'
-          description: 'Override the LLM model used for metric evaluation. Set to `null` to revert to
-
-            the platform default. Use `GET /v1/models/metric` to list available models.
-
-            Not supported for audio metric types (`METRIC_AUDIO_LLM_BINARY`,
-
-            `METRIC_AUDIO_LLM_CATEGORICAL`, `METRIC_AUDIO_LLM_NUMERICAL`),
-
-            which always use the platform-default audio model.
-
-            '
-        target_condition:
-          allOf:
-          - $ref: '#/components/schemas/TargetCondition'
-          description: Target condition for metric evaluation
-        tags:
-          type:
-          - array
-          - 'null'
-          description: Tags to associate with this metric. Null or omitted leaves tags unchanged. Pass [] to clear all tags.
-          items:
-            type: string
-          example:
-          - production
-    ListMetricsResponse:
-      type: object
-      required:
-      - metrics
-      properties:
-        metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricResource'
-        next_page_token:
-          type:
-          - string
-          - 'null'
-    BaselineDirection:
-      type: string
-      description: Which direction(s) of deviation count as anomalous.
-      enum:
-      - BOTH
-      - ABOVE
-      - BELOW
-    TestMetricResponse:
-      type: object
-      properties:
-        metric_output_ulid:
-          type: string
-          description: The ULID of the created metric output, used to track result
-          minLength: 26
-          maxLength: 26
-          pattern: ^[0-9A-HJKMNP-TV-Z]{26}$
-      additionalProperties: false
-    MetricRuntimeConfig:
-      type: object
-      description: LLM model and thinking configuration for metric execution
-      properties:
-        model_version:
-          type: string
-          description: 'Model identifier in canonical colon-separated format (e.g.
-
-            `"openai:gpt-4.1-mini-2025-04-14"`). Use `GET /v1/models/metric` to list
-
-            available models and their identifiers.
-
-            '
-          example: openai:gpt-4.1-mini-2025-04-14
-        thinking_enabled:
-          type:
-          - boolean
-          - 'null'
-          description: 'Enable extended thinking / reasoning mode. Only supported on select enterprise
-
-            models (`supports_thinking: true` in the model list). Attempting to enable this
-
-            on an unsupported model returns `400 THINKING_NOT_SUPPORTED`.
-
-            '
   responses:
     InternalError:
       description: Internal server error

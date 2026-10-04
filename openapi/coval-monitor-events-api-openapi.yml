@@ -87,6 +87,65 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
+    MonitorEventOutcome:
+      type: string
+      enum:
+      - TRIGGERED
+      - NOT_MET
+      - SUPPRESSED
+      - ERROR
+      description: Outcome of a monitor evaluation
+    ListMonitorEventsResponse:
+      type: object
+      required:
+      - events
+      - total_count
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonitorEventResource'
+        next_page_token:
+          type:
+          - string
+          - 'null'
+        total_count:
+          type: integer
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - PERMISSION_DENIED
+              - NOT_FOUND
+              - ALREADY_EXISTS
+              - INTERNAL
+            message:
+              type: string
+              description: Human-readable error message
+            details:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type:
+                    - string
+                    - 'null'
+                  description:
+                    type: string
     MonitorEventResource:
       type: object
       required:
@@ -157,66 +216,19 @@ components:
           type: string
           format: date-time
           description: Event creation timestamp
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          - details
-          properties:
-            code:
-              type: string
-              enum:
-              - INVALID_ARGUMENT
-              - UNAUTHENTICATED
-              - PERMISSION_DENIED
-              - NOT_FOUND
-              - ALREADY_EXISTS
-              - INTERNAL
-            message:
-              type: string
-              description: Human-readable error message
-            details:
-              type: array
-              items:
-                type: object
-                properties:
-                  field:
-                    type:
-                    - string
-                    - 'null'
-                  description:
-                    type: string
-    ListMonitorEventsResponse:
-      type: object
-      required:
-      - events
-      - total_count
-      properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/MonitorEventResource'
-        next_page_token:
-          type:
-          - string
-          - 'null'
-        total_count:
-          type: integer
-    MonitorEventOutcome:
-      type: string
-      enum:
-      - TRIGGERED
-      - NOT_MET
-      - SUPPRESSED
-      - ERROR
-      description: Outcome of a monitor evaluation
   responses:
+    InternalError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
     PermissionDenied:
       description: Permission Denied
       content:
@@ -256,18 +268,6 @@ components:
               details:
               - field: X-API-Key
                 description: Invalid or missing API key
-    InternalError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
   parameters:
     MonitorId:
       name: monitor_id

@@ -416,27 +416,13 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   schemas:
-    MetricSummary:
+    LaunchRunResponse:
       type: object
-      description: Aggregated metric statistics
       required:
-      - mean
+      - run
       properties:
-        mean:
-          type: number
-          format: float
-          description: Mean value across all test cases
-          example: 0.95
-        min:
-          type: number
-          format: float
-          description: Minimum value
-          example: 0.85
-        max:
-          type: number
-          format: float
-          description: Maximum value
-          example: 1.0
+        run:
+          $ref: '#/components/schemas/Run'
     Run:
       type: object
       required:
@@ -528,96 +514,6 @@ components:
           - 'null'
           description: Error message if status is FAILED
           example: Agent connection timeout
-    LaunchRunRequest:
-      type: object
-      required:
-      - agent_id
-      - persona_id
-      - test_set_id
-      properties:
-        agent_id:
-          type: string
-          minLength: 22
-          maxLength: 22
-          description: The agent to test. Must be owned by the authenticated organization.
-          example: gk3jK9mPq2xRt5vW8yZaBc
-        persona_id:
-          type: string
-          minLength: 22
-          maxLength: 22
-          description: The simulated persona to use for testing.
-          example: hL4kL0nQr3ySt6vX9zAcDd
-        test_set_id:
-          type: string
-          minLength: 8
-          maxLength: 8
-          description: The test set containing test cases to run.
-          example: aB1cD2eF
-        metric_ids:
-          type: array
-          items:
-            type: string
-            minLength: 22
-            maxLength: 22
-          description: Optional list of metric IDs to evaluate. If not provided, uses agent's default metrics.
-          example:
-          - iM5lM1oRs4zTu7wY0aBdEe
-          - jN6mN2pSt5aUv8xZ1bCeFf
-        mutation_id:
-          type:
-          - string
-          - 'null'
-          minLength: 26
-          maxLength: 26
-          description: 'Single mutation ID to run in addition to the base agent.
-
-            Mutually exclusive with `mutation_ids`. The base agent always runs.
-
-            '
-          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
-        mutation_ids:
-          type: array
-          items:
-            type: string
-            minLength: 26
-            maxLength: 26
-          maxItems: 100
-          description: 'List of mutation IDs to run in addition to the base agent.
-
-            Mutually exclusive with `mutation_id`. Max 100 mutations.
-
-            The base agent always runs alongside all mutations.
-
-
-            **Total simulations** = test_cases × iterations × (1 + len(mutation_ids))
-
-            '
-          example:
-          - 01ARZ3NDEKTSV4RRFFQ69G5FAV
-          - 01ARZ3NDEKTSV4RRFFQ69G5FAW
-        persona_metrics:
-          type: array
-          items:
-            type: string
-          description: 'List of metric names that should evaluate the persona instead of the agent.
-
-            Each entry should be the base metric name (e.g., ''latency'', not ''persona:latency'').
-
-            '
-          example:
-          - latency
-          - interruption_rate
-        options:
-          $ref: '#/components/schemas/LaunchOptions'
-        metadata:
-          $ref: '#/components/schemas/LaunchMetadata'
-    LaunchRunResponse:
-      type: object
-      required:
-      - run
-      properties:
-        run:
-          $ref: '#/components/schemas/Run'
     LaunchMetadata:
       type: object
       description: Metadata for tracking and organization purposes.
@@ -661,17 +557,6 @@ components:
           - regression
           - v2.1
           - nightly
-    ErrorDetail:
-      type: object
-      properties:
-        field:
-          type: string
-          description: The field that caused the error (if applicable)
-          example: agent_id
-        description:
-          type: string
-          description: Human-readable description of the error
-          example: Agent 'gk3jK9mPq2xRt5vW8yZaBc' does not exist or is not accessible by your organization
     UpdateRunRequest:
       type: object
       required:
@@ -693,30 +578,6 @@ components:
           example:
           - baseline
           - production
-    Error:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          enum:
-          - INVALID_ARGUMENT
-          - UNAUTHENTICATED
-          - PERMISSION_DENIED
-          - NOT_FOUND
-          - INTERNAL
-          description: Machine-readable error code
-          example: INVALID_ARGUMENT
-        message:
-          type: string
-          description: Human-readable error message
-          example: 'Invalid agent_id: Agent not found'
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
     LaunchOptions:
       type: object
       description: Execution options for launching simulations.
@@ -812,6 +673,27 @@ components:
               mean: 0.95
               min: 0.85
               max: 1.0
+    MetricSummary:
+      type: object
+      description: Aggregated metric statistics
+      required:
+      - mean
+      properties:
+        mean:
+          type: number
+          format: float
+          description: Mean value across all test cases
+          example: 0.95
+        min:
+          type: number
+          format: float
+          description: Minimum value
+          example: 0.85
+        max:
+          type: number
+          format: float
+          description: Maximum value
+          example: 1.0
     Progress:
       type: object
       description: Progress information for the run
@@ -837,9 +719,127 @@ components:
           type: integer
           description: Number of test cases currently running
           example: 1
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type: string
+          description: The field that caused the error (if applicable)
+          example: agent_id
+        description:
+          type: string
+          description: Human-readable description of the error
+          example: Agent 'gk3jK9mPq2xRt5vW8yZaBc' does not exist or is not accessible by your organization
+    Error:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          enum:
+          - INVALID_ARGUMENT
+          - UNAUTHENTICATED
+          - PERMISSION_DENIED
+          - NOT_FOUND
+          - INTERNAL
+          description: Machine-readable error code
+          example: INVALID_ARGUMENT
+        message:
+          type: string
+          description: Human-readable error message
+          example: 'Invalid agent_id: Agent not found'
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+    LaunchRunRequest:
+      type: object
+      required:
+      - agent_id
+      - persona_id
+      - test_set_id
+      properties:
+        agent_id:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: The agent to test. Must be owned by the authenticated organization.
+          example: gk3jK9mPq2xRt5vW8yZaBc
+        persona_id:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: The simulated persona to use for testing.
+          example: hL4kL0nQr3ySt6vX9zAcDd
+        test_set_id:
+          type: string
+          minLength: 8
+          maxLength: 8
+          description: The test set containing test cases to run.
+          example: aB1cD2eF
+        metric_ids:
+          type: array
+          items:
+            type: string
+            minLength: 22
+            maxLength: 22
+          description: Optional list of metric IDs to evaluate. If not provided, uses agent's default metrics.
+          example:
+          - iM5lM1oRs4zTu7wY0aBdEe
+          - jN6mN2pSt5aUv8xZ1bCeFf
+        mutation_id:
+          type:
+          - string
+          - 'null'
+          minLength: 26
+          maxLength: 26
+          description: 'Single mutation ID to run in addition to the base agent.
+
+            Mutually exclusive with `mutation_ids`. The base agent always runs.
+
+            '
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+        mutation_ids:
+          type: array
+          items:
+            type: string
+            minLength: 26
+            maxLength: 26
+          maxItems: 100
+          description: 'List of mutation IDs to run in addition to the base agent.
+
+            Mutually exclusive with `mutation_id`. Max 100 mutations.
+
+            The base agent always runs alongside all mutations.
+
+
+            **Total simulations** = test_cases × iterations × (1 + len(mutation_ids))
+
+            '
+          example:
+          - 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          - 01ARZ3NDEKTSV4RRFFQ69G5FAW
+        persona_metrics:
+          type: array
+          items:
+            type: string
+          description: 'List of metric names that should evaluate the persona instead of the agent.
+
+            Each entry should be the base metric name (e.g., ''latency'', not ''persona:latency'').
+
+            '
+          example:
+          - latency
+          - interruption_rate
+        options:
+          $ref: '#/components/schemas/LaunchOptions'
+        metadata:
+          $ref: '#/components/schemas/LaunchMetadata'
   responses:
-    ServiceUnavailable:
-      description: Service temporarily unavailable
+    InternalError:
+      description: Internal Server Error
       content:
         application/json:
           schema:
@@ -852,11 +852,11 @@ components:
           example:
             error:
               code: INTERNAL
-              message: Service temporarily unavailable
+              message: Internal server error
               details:
-              - description: Database routing is temporarily unavailable. Please retry.
-    BadRequest:
-      description: Bad Request
+              - description: An unexpected error occurred. Please contact support.
+    Forbidden:
+      description: Forbidden
       content:
         application/json:
           schema:
@@ -868,11 +868,10 @@ components:
                 $ref: '#/components/schemas/Error'
           example:
             error:
-              code: INVALID_ARGUMENT
-              message: Request validation failed
+              code: PERMISSION_DENIED
+              message: Access denied
               details:
-              - field: iteration_count
-                description: Value must be between 1 and 10
+              - description: Your organization does not have access to this resource
     NotFound:
       description: Not Found
       content:
@@ -909,8 +908,26 @@ components:
               details:
               - field: X-API-Key
                 description: API key is required in the X-API-Key header
-    InternalError:
-      description: Internal Server Error
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - error
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Request validation failed
+              details:
+              - field: iteration_count
+                description: Value must be between 1 and 10
+    ServiceUnavailable:
+      description: Service temporarily unavailable
       content:
         application/json:
           schema:
@@ -923,26 +940,9 @@ components:
           example:
             error:
               code: INTERNAL
-              message: Internal server error
+              message: Service temporarily unavailable
               details:
-              - description: An unexpected error occurred. Please contact support.
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - error
-            properties:
-              error:
-                $ref: '#/components/schemas/Error'
-          example:
-            error:
-              code: PERMISSION_DENIED
-              message: Access denied
-              details:
-              - description: Your organization does not have access to this resource
+              - description: Database routing is temporarily unavailable. Please retry.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

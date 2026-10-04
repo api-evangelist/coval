@@ -440,6 +440,58 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
+  responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred while processing the request
+    NotFound:
+      description: Resource not found or doesn't belong to organization
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Test set not found
+              details:
+              - field: test_set_id
+                description: Test set 'abc12345' not found
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request parameters
+              details:
+              - field: display_name
+                description: display_name is required and cannot be empty
+    Unauthorized:
+      description: Authentication failed or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
   schemas:
     AddTestSetAgentsRequest:
       type: object
@@ -611,67 +663,16 @@ components:
             type: string
           example:
           - regression
-    TestSetVersionResource:
+    ListTestSetVersionsResponse:
       type: object
-      description: A prior, displaced snapshot of a test set's content (config + test-case grid).
+      description: Response for GET /v1/test-sets/{test_set_id}/versions (newest first)
       required:
-      - name
-      - ulid
-      - version_number
-      - change_type
-      - created_by
+      - versions
       properties:
-        name:
-          type: string
-          description: Resource name
-          example: test-sets/abc12345/versions/01KKWQYSF737ZN6X1Q1RYX8M2D
-        ulid:
-          type: string
-          description: Version identifier (26-char ULID)
-          example: 01KKWQYSF737ZN6X1Q1RYX8M2D
-        version_number:
-          type: integer
-          description: Per-test-set monotonic version number, 1-based
-          example: 2
-        change_type:
-          type: string
-          description: How this version came about. A revert is a save whose new state mirrors an older version.
-          enum:
-          - save
-          - revert
-        label:
-          type:
-          - string
-          - 'null'
-          description: Optional user-supplied tag
-          example: v1.2 prod
-        test_set_metadata:
-          type: object
-          additionalProperties: true
-          description: Verbatim config snapshot
-        parameters:
-          type: object
-          additionalProperties: true
-          description: Verbatim parameter-sweep snapshot
-        test_set_type:
-          type:
-          - string
-          - 'null'
-        test_cases:
+        versions:
           type: array
-          description: Ordered snapshot of the test set's active rows at this version
           items:
-            type: object
-            additionalProperties: true
-        created_by:
-          type: string
-          description: Who created this version (user ULID)
-        create_time:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: When this version became current
+            $ref: '#/components/schemas/TestSetVersionResource'
     TestSetResource:
       type: object
       description: 'Test set resource representation.
@@ -771,68 +772,67 @@ components:
           type: string
           description: Human-readable agent name.
           example: Support Bot
-    ListTestSetVersionsResponse:
+    TestSetVersionResource:
       type: object
-      description: Response for GET /v1/test-sets/{test_set_id}/versions (newest first)
+      description: A prior, displaced snapshot of a test set's content (config + test-case grid).
       required:
-      - versions
+      - name
+      - ulid
+      - version_number
+      - change_type
+      - created_by
       properties:
-        versions:
+        name:
+          type: string
+          description: Resource name
+          example: test-sets/abc12345/versions/01KKWQYSF737ZN6X1Q1RYX8M2D
+        ulid:
+          type: string
+          description: Version identifier (26-char ULID)
+          example: 01KKWQYSF737ZN6X1Q1RYX8M2D
+        version_number:
+          type: integer
+          description: Per-test-set monotonic version number, 1-based
+          example: 2
+        change_type:
+          type: string
+          description: How this version came about. A revert is a save whose new state mirrors an older version.
+          enum:
+          - save
+          - revert
+        label:
+          type:
+          - string
+          - 'null'
+          description: Optional user-supplied tag
+          example: v1.2 prod
+        test_set_metadata:
+          type: object
+          additionalProperties: true
+          description: Verbatim config snapshot
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Verbatim parameter-sweep snapshot
+        test_set_type:
+          type:
+          - string
+          - 'null'
+        test_cases:
           type: array
+          description: Ordered snapshot of the test set's active rows at this version
           items:
-            $ref: '#/components/schemas/TestSetVersionResource'
-  responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INVALID_ARGUMENT
-              message: Invalid request parameters
-              details:
-              - field: display_name
-                description: display_name is required and cannot be empty
-    NotFound:
-      description: Resource not found or doesn't belong to organization
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: NOT_FOUND
-              message: Test set not found
-              details:
-              - field: test_set_id
-                description: Test set 'abc12345' not found
-    Unauthorized:
-      description: Authentication failed or missing API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred while processing the request
+            type: object
+            additionalProperties: true
+        created_by:
+          type: string
+          description: Who created this version (user ULID)
+        create_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: When this version became current
   securitySchemes:
     apiKey:
       type: apiKey

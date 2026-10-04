@@ -258,188 +258,26 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
-  responses:
-    ServiceUnavailable:
-      description: Service temporarily unavailable
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Service temporarily unavailable
-              details:
-              - description: Database routing is temporarily unavailable. Please retry.
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INVALID_ARGUMENT
-              message: Invalid request body
-              details:
-              - field: metadata_key
-                description: metadata_key is required when compare_by is metadata
-    InternalError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred while processing the report request
-    Forbidden:
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: PERMISSION_DENIED
-              message: Insufficient permissions
-              details:
-              - field: permissions
-                description: The API key does not include the required report permission.
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: NOT_FOUND
-              message: Report not found
-              details:
-              - field: report_id
-                description: Report not found or not authorized.
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: x-api-key
-                description: API key is required in the x-api-key header
+  examples:
+    ReportCreated:
+      value:
+        report:
+          id: 01JABCDEFGHJKMNPQRSTVWXYZ0
+          name: Plan comparison
+          run_ids:
+          - 8EktrIgaVxn9LfxkIynagX
+          - 9FltuJhbWyoAMgymJzobhY
+          compare_by: metadata
+          metadata_key: customer.plan
+          permissions: PUBLIC
   schemas:
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-    ErrorDetail:
-      type: object
-      properties:
-        field:
-          type:
-          - string
-          - 'null'
-          description: Field that caused the error, when available.
-          example: metadata_key
-        description:
-          type: string
-          description: Human-readable detail about the error.
-          example: metadata_key is required when compare_by is metadata
-    Error:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          enum:
-          - INVALID_ARGUMENT
-          - UNAUTHENTICATED
-          - PERMISSION_DENIED
-          - NOT_FOUND
-          - INTERNAL
-          description: Machine-readable error code.
-          example: INVALID_ARGUMENT
-        message:
-          type: string
-          description: Human-readable error message.
-          example: Invalid request body
-        details:
-          type: array
-          maxItems: 100
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-    CompareBy:
-      type: string
-      enum:
-      - none
-      - run
-      - agent
-      - mutation
-      - persona
-      - test_case
-      - metadata
-      default: none
-      description: Dimension to group and compare runs by in the report view.
-      example: persona
-    DeleteReportResponse:
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          example: Report deleted successfully.
-    GetReportResponse:
+    UpdateReportResponse:
       type: object
       required:
       - report
       properties:
         report:
           $ref: '#/components/schemas/Report'
-    CreateReportResponse:
-      type: object
-      required:
-      - report
-      properties:
-        report:
-          $ref: '#/components/schemas/Report'
-    ListReportsResponse:
-      type: object
-      required:
-      - reports
-      properties:
-        reports:
-          type: array
-          maxItems: 100
-          items:
-            $ref: '#/components/schemas/Report'
-        next_cursor:
-          type:
-          - string
-          - 'null'
-          description: Cursor for fetching the next page of results.
-          example: '50'
-    ReportPermission:
-      type: string
-      enum:
-      - PUBLIC
-      - PRIVATE
-      default: PRIVATE
-      description: PUBLIC creates a login-free shareable report; PRIVATE keeps it organization-only.
-      example: PRIVATE
     UpdateReportRequest:
       type: object
       additionalProperties: false
@@ -497,13 +335,64 @@ components:
           example: customer.plan
         permissions:
           $ref: '#/components/schemas/ReportPermission'
-    UpdateReportResponse:
+    Error:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          enum:
+          - INVALID_ARGUMENT
+          - UNAUTHENTICATED
+          - PERMISSION_DENIED
+          - NOT_FOUND
+          - INTERNAL
+          description: Machine-readable error code.
+          example: INVALID_ARGUMENT
+        message:
+          type: string
+          description: Human-readable error message.
+          example: Invalid request body
+        details:
+          type: array
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+    CreateReportResponse:
       type: object
       required:
       - report
       properties:
         report:
           $ref: '#/components/schemas/Report'
+    CompareBy:
+      type: string
+      enum:
+      - none
+      - run
+      - agent
+      - mutation
+      - persona
+      - test_case
+      - metadata
+      default: none
+      description: Dimension to group and compare runs by in the report view.
+      example: persona
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type:
+          - string
+          - 'null'
+          description: Field that caused the error, when available.
+          example: metadata_key
+        description:
+          type: string
+          description: Human-readable detail about the error.
+          example: metadata_key is required when compare_by is metadata
     Report:
       type: object
       required:
@@ -557,6 +446,21 @@ components:
           example: customer.plan
         permissions:
           $ref: '#/components/schemas/ReportPermission'
+    ReportPermission:
+      type: string
+      enum:
+      - PUBLIC
+      - PRIVATE
+      default: PRIVATE
+      description: PUBLIC creates a login-free shareable report; PRIVATE keeps it organization-only.
+      example: PRIVATE
+    GetReportResponse:
+      type: object
+      required:
+      - report
+      properties:
+        report:
+          $ref: '#/components/schemas/Report'
     CreateReportRequest:
       type: object
       additionalProperties: false
@@ -620,6 +524,114 @@ components:
           example: customer.plan
         permissions:
           $ref: '#/components/schemas/ReportPermission'
+    DeleteReportResponse:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          example: Report deleted successfully.
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    ListReportsResponse:
+      type: object
+      required:
+      - reports
+      properties:
+        reports:
+          type: array
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/Report'
+        next_cursor:
+          type:
+          - string
+          - 'null'
+          description: Cursor for fetching the next page of results.
+          example: '50'
+  responses:
+    ServiceUnavailable:
+      description: Service temporarily unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Service temporarily unavailable
+              details:
+              - description: Database routing is temporarily unavailable. Please retry.
+    InternalError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred while processing the report request
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: The API key does not include the required report permission.
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Report not found
+              details:
+              - field: report_id
+                description: Report not found or not authorized.
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: metadata_key
+                description: metadata_key is required when compare_by is metadata
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: x-api-key
+                description: API key is required in the x-api-key header
   parameters:
     ReportId:
       name: report_id
@@ -631,18 +643,6 @@ components:
         maxLength: 26
       description: Saved report ULID.
       example: 01JABCDEFGHJKMNPQRSTVWXYZ0
-  examples:
-    ReportCreated:
-      value:
-        report:
-          id: 01JABCDEFGHJKMNPQRSTVWXYZ0
-          name: Plan comparison
-          run_ids:
-          - 8EktrIgaVxn9LfxkIynagX
-          - 9FltuJhbWyoAMgymJzobhY
-          compare_by: metadata
-          metadata_key: customer.plan
-          permissions: PUBLIC
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
