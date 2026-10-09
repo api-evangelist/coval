@@ -1,23 +1,25 @@
-generated: '2026-07-18'
+generated: '2026-09-23'
 method: generated
-source: openapi/coval-agents-openapi.yml, openapi/coval-api-keys-openapi.yml, openapi/coval-conversations-openapi.yml,
-  openapi/coval-dashboards-openapi.yml, openapi/coval-metrics-openapi.yml, openapi/coval-monitors-openapi.yml,
-  openapi/coval-mutations-openapi.yml, openapi/coval-organization-openapi.yml, openapi/coval-personas-openapi.yml,
-  openapi/coval-reports-openapi.yml, openapi/coval-reviews-openapi.yml, openapi/coval-run-templates-openapi.yml,
-  openapi/coval-runs-openapi.yml, openapi/coval-scheduled-runs-openapi.yml, openapi/coval-simulations-openapi.yml,
-  openapi/coval-tags-openapi.yml, openapi/coval-test-cases-openapi.yml, openapi/coval-test-sets-openapi.yml,
-  openapi/coval-traces-openapi.yml, openapi/coval-webhooks-openapi.yml
+source: openapi/coval-agents-api-openapi.yml, openapi/coval-api-keys-api-openapi.yml, openapi/coval-audio-api-openapi.yml,
+  openapi/coval-conversations-api-openapi.yml, openapi/coval-dashboards-api-openapi.yml, openapi/coval-metric-outputs-api-openapi.yml,
+  openapi/coval-metrics-api-openapi.yml, openapi/coval-monitor-events-api-openapi.yml, openapi/coval-monitors-api-openapi.yml,
+  openapi/coval-mutations-api-openapi.yml, openapi/coval-organization-conversations-config-api-openapi.yml,
+  openapi/coval-personas-api-openapi.yml, openapi/coval-reports-api-openapi.yml, openapi/coval-review-annotations-api-openapi.yml,
+  openapi/coval-review-projects-api-openapi.yml, openapi/coval-run-templates-api-openapi.yml,
+  openapi/coval-runs-api-openapi.yml, openapi/coval-scheduled-runs-api-openapi.yml, openapi/coval-simulations-api-openapi.yml,
+  openapi/coval-tags-api-openapi.yml, openapi/coval-test-cases-api-openapi.yml, openapi/coval-test-sets-api-openapi.yml,
+  openapi/coval-traces-api-openapi.yml, openapi/coval-webhooks-api-openapi.yml, openapi/coval-widgets-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 151
   by_action_class:
-    connected: 65
-    acting: 86
+    connected: 66
+    acting: 85
   by_consequence:
-    read: 65
-    write: 86
+    read: 66
+    write: 85
   human_in_the_loop_required: 0
 operations:
 - path: /agents
@@ -204,6 +206,16 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /conversations/{conversation_id}/audio
+  method: get
+  operationId: getConversationAudio
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /conversations:submit
   method: post
   operationId: submitConversation
@@ -272,16 +284,6 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /conversations/{conversation_id}/audio
-  method: get
-  operationId: getConversationAudio
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /conversations/{conversation_id}/metrics
   method: get
   operationId: listConversationMetrics
@@ -370,25 +372,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /dashboards/{dashboard_id}/widgets
-  method: post
-  operationId: createWidget
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /dashboards/{dashboard_id}/widgets
+- path: /simulations/{simulation_id}/metrics
   method: get
-  operationId: listWidgets
+  operationId: listMetrics
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -396,9 +382,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /dashboards/{dashboard_id}/widgets/{widget_id}
+- path: /simulations/{simulation_id}/metrics/{metric_output_id}
   method: get
-  operationId: getWidget
+  operationId: getMetric
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -406,38 +392,6 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /dashboards/{dashboard_id}/widgets/{widget_id}
-  method: patch
-  operationId: updateWidget
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /dashboards/{dashboard_id}/widgets/{widget_id}
-  method: delete
-  operationId: deleteWidget
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
 - path: /metrics
   method: get
   operationId: listMetrics
@@ -730,6 +684,16 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /monitors/{monitor_id}/events
+  method: get
+  operationId: listMonitorEvents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /monitors
   method: get
   operationId: listMonitors
@@ -798,16 +762,6 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /monitors/{monitor_id}/events
-  method: get
-  operationId: listMonitorEvents
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /monitors/{monitor_id}/test-evaluate
   method: post
   operationId: testEvaluateMonitor
@@ -1242,6 +1196,26 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /review-annotations/metric-health-stats
+  method: get
+  operationId: getReviewMetricHealthStats
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /review-annotations:withMetricOutputs
+  method: post
+  operationId: getReviewAnnotationsWithMetricOutputs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /review-projects
   method: get
   operationId: listReviewProjects
@@ -1330,32 +1304,6 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /review-annotations/metric-health-stats
-  method: get
-  operationId: getReviewMetricHealthStats
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /review-annotations:withMetricOutputs
-  method: post
-  operationId: getReviewAnnotationsWithMetricOutputs
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
 - path: /run-templates
   method: get
   operationId: listRunTemplates
@@ -1657,26 +1605,6 @@ operations:
 - path: /simulations/{simulation_id}/audio
   method: get
   operationId: getAudioURL
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /simulations/{simulation_id}/metrics
-  method: get
-  operationId: listMetrics
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /simulations/{simulation_id}/metrics/{metric_output_id}
-  method: get
-  operationId: getMetric
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -2033,6 +1961,74 @@ operations:
 - path: /webhooks/{webhook_id}
   method: delete
   operationId: deleteWebhook
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /dashboards/{dashboard_id}/widgets
+  method: post
+  operationId: createWidget
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /dashboards/{dashboard_id}/widgets
+  method: get
+  operationId: listWidgets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /dashboards/{dashboard_id}/widgets/{widget_id}
+  method: get
+  operationId: getWidget
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /dashboards/{dashboard_id}/widgets/{widget_id}
+  method: patch
+  operationId: updateWidget
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /dashboards/{dashboard_id}/widgets/{widget_id}
+  method: delete
+  operationId: deleteWidget
   x-agentic-access:
     action-class: acting
     consequence: write
