@@ -295,7 +295,120 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: display_name
+                description: Field required
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
   examples:
+    ListRunTemplatesSuccess:
+      summary: Successful list response
+      value:
+        run_templates:
+        - name: run-templates/abc123def456ghi789jklm
+          id: abc123def456ghi789jklm
+          display_name: Voice Agent Daily Test
+          description: Daily regression test for voice agent
+          agent_id: gk3jK9mPq2xRt5vW8yZaBc
+          persona_id: hL4kL0nQr3ySt6vX9zAcDd
+          test_set_id: aB1cD2eF
+          metric_ids:
+          - iM5lM1oRs4zTu7wY0aBdEe
+          mutation_ids: []
+          iteration_count: 3
+          concurrency: 5
+          sub_sample_size: 0
+          sub_sample_seed: null
+          metadata:
+            customer:
+              campaign_id: q4_2025
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: '2025-10-15T14:30:00Z'
+        next_page_token: null
+        total_count: 1
+    RunTemplateUpdated:
+      summary: Run template updated successfully
+      value:
+        run_template:
+          name: run-templates/abc123def456ghi789jklm
+          id: abc123def456ghi789jklm
+          display_name: Updated Template Name
+          description: ''
+          agent_id: gk3jK9mPq2xRt5vW8yZaBc
+          persona_id: hL4kL0nQr3ySt6vX9zAcDd
+          test_set_id: aB1cD2eF
+          metric_ids: []
+          mutation_ids: []
+          iteration_count: 5
+          concurrency: 1
+          sub_sample_size: 0
+          sub_sample_seed: null
+          metadata:
+            updated: true
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: '2025-10-15T14:30:00Z'
+    TemplateHasSchedulesError:
+      summary: Cannot delete - template has active schedules
+      value:
+        error:
+          code: CONFLICT
+          message: Cannot delete template
+          details:
+          - description: Template has 2 active scheduled runs. Disable or delete them first.
+    RunTemplateCreated:
+      summary: Run template created successfully
+      value:
+        run_template:
+          name: run-templates/abc123def456ghi789jklm
+          id: abc123def456ghi789jklm
+          display_name: Voice Agent Test
+          description: ''
+          agent_id: gk3jK9mPq2xRt5vW8yZaBc
+          persona_id: hL4kL0nQr3ySt6vX9zAcDd
+          test_set_id: aB1cD2eF
+          metric_ids: []
+          mutation_ids: []
+          iteration_count: 1
+          concurrency: 1
+          sub_sample_size: 0
+          sub_sample_seed: null
+          metadata: {}
+          create_time: '2025-10-14T12:00:00Z'
+          update_time: null
     InvalidAgentError:
       summary: Agent not found
       value:
@@ -326,6 +439,15 @@ components:
           metadata: {}
           create_time: '2025-10-14T12:00:00Z'
           update_time: null
+    MissingFieldError:
+      summary: Missing required field
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: display_name
+            description: Field required
     CreateRunTemplateFull:
       summary: Full request with all options
       value:
@@ -353,36 +475,6 @@ components:
         agent_id: gk3jK9mPq2xRt5vW8yZaBc
         persona_id: hL4kL0nQr3ySt6vX9zAcDd
         test_set_id: aB1cD2eF
-    MissingFieldError:
-      summary: Missing required field
-      value:
-        error:
-          code: INVALID_ARGUMENT
-          message: Invalid request body
-          details:
-          - field: display_name
-            description: Field required
-    RunTemplateUpdated:
-      summary: Run template updated successfully
-      value:
-        run_template:
-          name: run-templates/abc123def456ghi789jklm
-          id: abc123def456ghi789jklm
-          display_name: Updated Template Name
-          description: ''
-          agent_id: gk3jK9mPq2xRt5vW8yZaBc
-          persona_id: hL4kL0nQr3ySt6vX9zAcDd
-          test_set_id: aB1cD2eF
-          metric_ids: []
-          mutation_ids: []
-          iteration_count: 5
-          concurrency: 1
-          sub_sample_size: 0
-          sub_sample_seed: null
-          metadata:
-            updated: true
-          create_time: '2025-10-14T12:00:00Z'
-          update_time: '2025-10-15T14:30:00Z'
     UpdateRunTemplatePartial:
       summary: Partial update (only some fields)
       value:
@@ -390,59 +482,6 @@ components:
         iteration_count: 5
         metadata:
           updated: true
-    TemplateHasSchedulesError:
-      summary: Cannot delete - template has active schedules
-      value:
-        error:
-          code: CONFLICT
-          message: Cannot delete template
-          details:
-          - description: Template has 2 active scheduled runs. Disable or delete them first.
-    RunTemplateCreated:
-      summary: Run template created successfully
-      value:
-        run_template:
-          name: run-templates/abc123def456ghi789jklm
-          id: abc123def456ghi789jklm
-          display_name: Voice Agent Test
-          description: ''
-          agent_id: gk3jK9mPq2xRt5vW8yZaBc
-          persona_id: hL4kL0nQr3ySt6vX9zAcDd
-          test_set_id: aB1cD2eF
-          metric_ids: []
-          mutation_ids: []
-          iteration_count: 1
-          concurrency: 1
-          sub_sample_size: 0
-          sub_sample_seed: null
-          metadata: {}
-          create_time: '2025-10-14T12:00:00Z'
-          update_time: null
-    ListRunTemplatesSuccess:
-      summary: Successful list response
-      value:
-        run_templates:
-        - name: run-templates/abc123def456ghi789jklm
-          id: abc123def456ghi789jklm
-          display_name: Voice Agent Daily Test
-          description: Daily regression test for voice agent
-          agent_id: gk3jK9mPq2xRt5vW8yZaBc
-          persona_id: hL4kL0nQr3ySt6vX9zAcDd
-          test_set_id: aB1cD2eF
-          metric_ids:
-          - iM5lM1oRs4zTu7wY0aBdEe
-          mutation_ids: []
-          iteration_count: 3
-          concurrency: 5
-          sub_sample_size: 0
-          sub_sample_seed: null
-          metadata:
-            customer:
-              campaign_id: q4_2025
-          create_time: '2025-10-14T12:00:00Z'
-          update_time: '2025-10-15T14:30:00Z'
-        next_page_token: null
-        total_count: 1
     RunTemplateNotFoundError:
       summary: Run template not found
       value:
@@ -453,6 +492,166 @@ components:
           - field: run_template_id
             description: Run template not found or not accessible by your organization
   schemas:
+    UpdateRunTemplateRequest:
+      type: object
+      description: Partial update request (PATCH semantics - only provided fields are updated)
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: Human-readable template name
+          example: Updated Template Name
+        description:
+          type: string
+          description: Optional description
+          example: Updated description
+        agent_id:
+          type: string
+          pattern: ^[A-Za-z0-9]{22}$
+          description: Agent to test
+          example: gk3jK9mPq2xRt5vW8yZaBc
+        persona_id:
+          type: string
+          pattern: ^[A-Za-z0-9]{22}$
+          description: Simulated persona to use
+          example: hL4kL0nQr3ySt6vX9zAcDd
+        test_set_id:
+          type: string
+          pattern: ^[A-Za-z0-9]{8}$
+          description: Test set containing test cases
+          example: aB1cD2eF
+        metric_ids:
+          type: array
+          items:
+            type: string
+          description: Metrics to evaluate (null = no change, [] = use agent defaults)
+          example:
+          - iM5lM1oRs4zTu7wY0aBdEe
+        mutation_ids:
+          type: array
+          items:
+            type: string
+          description: Mutations for A/B testing (null = no change, [] = clear)
+          example: []
+        iteration_count:
+          type: integer
+          minimum: 1
+          maximum: 100
+          description: Number of times to run each test case
+          example: 5
+        concurrency:
+          type: integer
+          minimum: 1
+          maximum: 50
+          description: Number of simulations to run concurrently
+          example: 10
+        sub_sample_size:
+          type: integer
+          minimum: 0
+          description: Number of test cases to randomly sample
+          example: 20
+        sub_sample_seed:
+          type:
+          - integer
+          - 'null'
+          description: Random seed for reproducible sub-sampling
+          example: 123456
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Custom metadata (null = no change, {} = clear)
+          example:
+            updated: true
+        tags:
+          type:
+          - array
+          - 'null'
+          description: Tags to associate with this run template. Null or omitted leaves tags unchanged. Pass [] to clear all tags.
+          items:
+            type: string
+          example:
+          - nightly
+    ListRunTemplatesResponse:
+      type: object
+      required:
+      - run_templates
+      properties:
+        run_templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/RunTemplateResource'
+        next_page_token:
+          type:
+          - string
+          - 'null'
+          description: Token for fetching next page (null if no more results)
+          example: eyJvZmZzZXQiOjUwfQ==
+        total_count:
+          type: integer
+          description: Total count of templates matching filter
+          example: 25
+    ErrorResponse:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              enum:
+              - INVALID_ARGUMENT
+              - UNAUTHENTICATED
+              - NOT_FOUND
+              - CONFLICT
+              - INTERNAL
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameter
+            details:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type:
+                    - string
+                    - 'null'
+                    description: Field that caused the error
+                    example: agent_id
+                  description:
+                    type: string
+                    description: Detailed error description
+                    example: Agent not found or not accessible
+    GetRunTemplateResponse:
+      type: object
+      required:
+      - run_template
+      properties:
+        run_template:
+          $ref: '#/components/schemas/RunTemplateResource'
+    CreateRunTemplateResponse:
+      type: object
+      required:
+      - run_template
+      properties:
+        run_template:
+          $ref: '#/components/schemas/RunTemplateResource'
+    UpdateRunTemplateResponse:
+      type: object
+      required:
+      - run_template
+      properties:
+        run_template:
+          $ref: '#/components/schemas/RunTemplateResource'
     CreateRunTemplateRequest:
       type: object
       required:
@@ -661,205 +860,6 @@ components:
           format: date-time
           description: Last update timestamp (ISO 8601)
           example: '2025-10-15T14:30:00Z'
-    GetRunTemplateResponse:
-      type: object
-      required:
-      - run_template
-      properties:
-        run_template:
-          $ref: '#/components/schemas/RunTemplateResource'
-    CreateRunTemplateResponse:
-      type: object
-      required:
-      - run_template
-      properties:
-        run_template:
-          $ref: '#/components/schemas/RunTemplateResource'
-    ListRunTemplatesResponse:
-      type: object
-      required:
-      - run_templates
-      properties:
-        run_templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/RunTemplateResource'
-        next_page_token:
-          type:
-          - string
-          - 'null'
-          description: Token for fetching next page (null if no more results)
-          example: eyJvZmZzZXQiOjUwfQ==
-        total_count:
-          type: integer
-          description: Total count of templates matching filter
-          example: 25
-    UpdateRunTemplateRequest:
-      type: object
-      description: Partial update request (PATCH semantics - only provided fields are updated)
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          maxLength: 200
-          description: Human-readable template name
-          example: Updated Template Name
-        description:
-          type: string
-          description: Optional description
-          example: Updated description
-        agent_id:
-          type: string
-          pattern: ^[A-Za-z0-9]{22}$
-          description: Agent to test
-          example: gk3jK9mPq2xRt5vW8yZaBc
-        persona_id:
-          type: string
-          pattern: ^[A-Za-z0-9]{22}$
-          description: Simulated persona to use
-          example: hL4kL0nQr3ySt6vX9zAcDd
-        test_set_id:
-          type: string
-          pattern: ^[A-Za-z0-9]{8}$
-          description: Test set containing test cases
-          example: aB1cD2eF
-        metric_ids:
-          type: array
-          items:
-            type: string
-          description: Metrics to evaluate (null = no change, [] = use agent defaults)
-          example:
-          - iM5lM1oRs4zTu7wY0aBdEe
-        mutation_ids:
-          type: array
-          items:
-            type: string
-          description: Mutations for A/B testing (null = no change, [] = clear)
-          example: []
-        iteration_count:
-          type: integer
-          minimum: 1
-          maximum: 100
-          description: Number of times to run each test case
-          example: 5
-        concurrency:
-          type: integer
-          minimum: 1
-          maximum: 50
-          description: Number of simulations to run concurrently
-          example: 10
-        sub_sample_size:
-          type: integer
-          minimum: 0
-          description: Number of test cases to randomly sample
-          example: 20
-        sub_sample_seed:
-          type:
-          - integer
-          - 'null'
-          description: Random seed for reproducible sub-sampling
-          example: 123456
-        metadata:
-          type: object
-          additionalProperties: true
-          description: Custom metadata (null = no change, {} = clear)
-          example:
-            updated: true
-        tags:
-          type:
-          - array
-          - 'null'
-          description: Tags to associate with this run template. Null or omitted leaves tags unchanged. Pass [] to clear all tags.
-          items:
-            type: string
-          example:
-          - nightly
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          - details
-          properties:
-            code:
-              type: string
-              enum:
-              - INVALID_ARGUMENT
-              - UNAUTHENTICATED
-              - NOT_FOUND
-              - CONFLICT
-              - INTERNAL
-              example: INVALID_ARGUMENT
-            message:
-              type: string
-              description: Human-readable error message
-              example: Invalid request parameter
-            details:
-              type: array
-              items:
-                type: object
-                properties:
-                  field:
-                    type:
-                    - string
-                    - 'null'
-                    description: Field that caused the error
-                    example: agent_id
-                  description:
-                    type: string
-                    description: Detailed error description
-                    example: Agent not found or not accessible
-    UpdateRunTemplateResponse:
-      type: object
-      required:
-      - run_template
-      properties:
-        run_template:
-          $ref: '#/components/schemas/RunTemplateResource'
-  responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INVALID_ARGUMENT
-              message: Invalid request body
-              details:
-              - field: display_name
-                description: Field required
-    Unauthorized:
-      description: Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

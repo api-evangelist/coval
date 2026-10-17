@@ -123,117 +123,6 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
-  responses:
-    Unauthenticated:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Invalid or missing API key
-              details: []
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL_ERROR
-              message: An internal error occurred while processing the request
-              details: []
-    InvalidArgument:
-      description: Invalid request arguments
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            missingInput:
-              summary: Missing required input
-              value:
-                error:
-                  code: INVALID_ARGUMENT
-                  message: Missing required input data
-                  details:
-                  - field: transcript
-                    description: At least one of transcript or audio_url must be provided
-            invalidFilter:
-              summary: Invalid filter expression
-              value:
-                error:
-                  code: INVALID_ARGUMENT
-                  message: Invalid filter expression
-                  details:
-                  - field: filter
-                    description: 'Unknown field ''invalid_field''. Valid fields: status, create_time, occurred_at, external_conversation_id'
-            invalidPageSize:
-              summary: Invalid page_size
-              value:
-                error:
-                  code: INVALID_ARGUMENT
-                  message: Invalid page_size
-                  details:
-                  - field: page_size
-                    description: page_size must be between 1 and 250
-            audioFormatInvalid:
-              summary: Unsupported audio format
-              value:
-                error:
-                  code: INVALID_ARGUMENT
-                  message: 'Unsupported audio format: MP4. Only WAV and MP3 files are supported.'
-                  details:
-                  - field: audio_url
-                    description: Audio format detected as MP4 via magic byte analysis. Convert to WAV or MP3.
-            audioTooShort:
-              summary: Audio duration too short
-              value:
-                error:
-                  code: INVALID_ARGUMENT
-                  message: 'Audio too short: 3.0 seconds. Minimum duration is 5 seconds.'
-                  details:
-                  - field: audio_url
-                    description: Audio file duration is below the 5 second minimum requirement
-            audioTooLong:
-              summary: Audio duration too long
-              value:
-                error:
-                  code: INVALID_ARGUMENT
-                  message: 'Audio too long: 75.0 minutes. Maximum duration is 60 minutes.'
-                  details:
-                  - field: audio_url
-                    description: Audio file duration exceeds the 1 hour maximum limit
-            audioTooLarge:
-              summary: Audio file size too large
-              value:
-                error:
-                  code: INVALID_ARGUMENT
-                  message: 'Audio file too large: 250.0 MB. Maximum size is 200 MB.'
-                  details:
-                  - field: audio_url
-                    description: Audio file size exceeds 200 MB limit
-            audioEmpty:
-              summary: Empty audio file
-              value:
-                error:
-                  code: INVALID_ARGUMENT
-                  message: Audio file is empty.
-                  details:
-                  - field: audio_url
-                    description: Audio file contains no data
-            audioCorrupt:
-              summary: Corrupt or invalid audio file
-              value:
-                error:
-                  code: INVALID_ARGUMENT
-                  message: Invalid or corrupt audio file. Unable to read audio metadata.
-                  details:
-                  - field: audio_url
-                    description: Audio file headers could not be read or are corrupted
   schemas:
     CreateAudioUploadRequest:
       type: object
@@ -267,6 +156,17 @@ components:
         an empty body issues a WAV upload URL.
 
         '
+    ErrorDetail:
+      type: object
+      properties:
+        field:
+          type: string
+          description: Field that caused the error
+          example: transcript
+        description:
+          type: string
+          description: Detailed description of the error
+          example: At least one of transcript, audio, or audio_url must be provided
     GetConversationAudioResponse:
       type: object
       required:
@@ -402,17 +302,117 @@ components:
                 $ref: '#/components/schemas/ErrorDetail'
               description: Additional error details
               default: []
-    ErrorDetail:
-      type: object
-      properties:
-        field:
-          type: string
-          description: Field that caused the error
-          example: transcript
-        description:
-          type: string
-          description: Detailed description of the error
-          example: At least one of transcript, audio, or audio_url must be provided
+  responses:
+    InvalidArgument:
+      description: Invalid request arguments
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            missingInput:
+              summary: Missing required input
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: Missing required input data
+                  details:
+                  - field: transcript
+                    description: At least one of transcript or audio_url must be provided
+            invalidFilter:
+              summary: Invalid filter expression
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: Invalid filter expression
+                  details:
+                  - field: filter
+                    description: 'Unknown field ''invalid_field''. Valid fields: status, create_time, occurred_at, external_conversation_id'
+            invalidPageSize:
+              summary: Invalid page_size
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: Invalid page_size
+                  details:
+                  - field: page_size
+                    description: page_size must be between 1 and 250
+            audioFormatInvalid:
+              summary: Unsupported audio format
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: 'Unsupported audio format: MP4. Only WAV and MP3 files are supported.'
+                  details:
+                  - field: audio_url
+                    description: Audio format detected as MP4 via magic byte analysis. Convert to WAV or MP3.
+            audioTooShort:
+              summary: Audio duration too short
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: 'Audio too short: 3.0 seconds. Minimum duration is 5 seconds.'
+                  details:
+                  - field: audio_url
+                    description: Audio file duration is below the 5 second minimum requirement
+            audioTooLong:
+              summary: Audio duration too long
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: 'Audio too long: 75.0 minutes. Maximum duration is 60 minutes.'
+                  details:
+                  - field: audio_url
+                    description: Audio file duration exceeds the 1 hour maximum limit
+            audioTooLarge:
+              summary: Audio file size too large
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: 'Audio file too large: 250.0 MB. Maximum size is 200 MB.'
+                  details:
+                  - field: audio_url
+                    description: Audio file size exceeds 200 MB limit
+            audioEmpty:
+              summary: Empty audio file
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: Audio file is empty.
+                  details:
+                  - field: audio_url
+                    description: Audio file contains no data
+            audioCorrupt:
+              summary: Corrupt or invalid audio file
+              value:
+                error:
+                  code: INVALID_ARGUMENT
+                  message: Invalid or corrupt audio file. Unable to read audio metadata.
+                  details:
+                  - field: audio_url
+                    description: Audio file headers could not be read or are corrupted
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL_ERROR
+              message: An internal error occurred while processing the request
+              details: []
+    Unauthenticated:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Invalid or missing API key
+              details: []
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

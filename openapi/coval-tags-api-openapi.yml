@@ -275,60 +275,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
-  responses:
-    PermissionDenied:
-      description: API key lacks required permission scope
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: PERMISSION_DENIED
-              message: Insufficient permissions
-              details:
-              - field: permissions
-                description: 'API key does not have required permission: tags:write'
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
-    Unauthorized:
-      description: Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
   schemas:
-    GetTagResponse:
-      type: object
-      required:
-      - tag
-      properties:
-        tag:
-          $ref: '#/components/schemas/TagResource'
-    UpdateTagResponse:
-      type: object
-      required:
-      - tag
-      properties:
-        tag:
-          $ref: '#/components/schemas/TagResource'
     ListTagsResponse:
       type: object
       required:
@@ -345,61 +292,14 @@ components:
           - 'null'
           description: Token for fetching next page (null if no more results)
           example: eyJvZmZzZXQiOjUwfQ==
-    UpdateTagRequest:
+    UpdateTagResponse:
       type: object
-      description: Partial update request. Only provided fields are updated.
-      minProperties: 1
+      required:
+      - tag
       properties:
-        tag_name:
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          maxLength: 200
-          description: New tag display name. Normalized to lowercase before persistence.
-          example: staging
-        color:
-          type:
-          - string
-          - 'null'
-          maxLength: 9
-          pattern: ^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$
-          description: New hex color code (#RGB,
-          example: '#f59e0b'
-    TagResource:
-      type: object
-      description: Tag resource. Tags are used to organize agents, personas, test sets, metrics, and run templates.
-      properties:
-        name:
-          type: string
-          description: Resource name in format "tags/{tag_id}"
-          example: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
-        id:
-          type: string
-          description: Tag resource ID
-          example: 01HX2ABC3DEF4GHI5JKL6MNO7P
-        tag_name:
-          type: string
-          description: Lowercase tag display name
-          example: production
-        color:
-          type:
-          - string
-          - 'null'
-          description: Hex color code (#RGB,
-          example: '#3b82f6'
-        create_time:
-          type: string
-          format: date-time
-          description: Creation timestamp (ISO 8601)
-          example: '2025-10-14T12:00:00Z'
-        created_by:
-          type:
-          - string
-          - 'null'
-          description: Email of the user who created the tag
-          example: engineer@example.com
-    CreateTagResponse:
+        tag:
+          $ref: '#/components/schemas/TagResource'
+    DeleteTagResponse:
       type: object
       required:
       - tag
@@ -469,7 +369,68 @@ components:
           pattern: ^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$
           description: Optional hex color code (#RGB,
           example: '#3b82f6'
-    DeleteTagResponse:
+    GetTagResponse:
+      type: object
+      required:
+      - tag
+      properties:
+        tag:
+          $ref: '#/components/schemas/TagResource'
+    TagResource:
+      type: object
+      description: Tag resource. Tags are used to organize agents, personas, test sets, metrics, and run templates.
+      properties:
+        name:
+          type: string
+          description: Resource name in format "tags/{tag_id}"
+          example: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
+        id:
+          type: string
+          description: Tag resource ID
+          example: 01HX2ABC3DEF4GHI5JKL6MNO7P
+        tag_name:
+          type: string
+          description: Lowercase tag display name
+          example: production
+        color:
+          type:
+          - string
+          - 'null'
+          description: Hex color code (#RGB,
+          example: '#3b82f6'
+        create_time:
+          type: string
+          format: date-time
+          description: Creation timestamp (ISO 8601)
+          example: '2025-10-14T12:00:00Z'
+        created_by:
+          type:
+          - string
+          - 'null'
+          description: Email of the user who created the tag
+          example: engineer@example.com
+    UpdateTagRequest:
+      type: object
+      description: Partial update request. Only provided fields are updated.
+      minProperties: 1
+      properties:
+        tag_name:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 200
+          description: New tag display name. Normalized to lowercase before persistence.
+          example: staging
+        color:
+          type:
+          - string
+          - 'null'
+          maxLength: 9
+          pattern: ^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$
+          description: New hex color code (#RGB,
+          example: '#f59e0b'
+    CreateTagResponse:
       type: object
       required:
       - tag
@@ -477,44 +438,16 @@ components:
         tag:
           $ref: '#/components/schemas/TagResource'
   examples:
-    EmptyTagNameError:
-      summary: Empty tag name
-      value:
-        error:
-          code: INVALID_ARGUMENT
-          message: Invalid request body
-          details:
-          - field: tag_name
-            description: tag name cannot be empty
-    CreateTagMinimal:
-      summary: Create tag with name only
-      value:
-        tag_name: production
-    GetTagSuccess:
-      summary: Successful get response
+    TagUpdated:
+      summary: Tag updated successfully
       value:
         tag:
           name: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
           id: 01HX2ABC3DEF4GHI5JKL6MNO7P
-          tag_name: production
-          color: '#3b82f6'
+          tag_name: staging
+          color: '#f59e0b'
           create_time: '2025-10-14T12:00:00Z'
           created_by: engineer@example.com
-    TagCreated:
-      summary: Tag created successfully
-      value:
-        tag:
-          name: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
-          id: 01HX2ABC3DEF4GHI5JKL6MNO7P
-          tag_name: production
-          color: '#3b82f6'
-          create_time: '2025-10-14T12:00:00Z'
-          created_by: engineer@example.com
-    CreateTagWithColor:
-      summary: Create tag with name and color
-      value:
-        tag_name: Production
-        color: '#3b82f6'
     TagNotFoundError:
       summary: Tag not found
       value:
@@ -528,19 +461,24 @@ components:
       summary: Rename a tag
       value:
         tag_name: staging
-    UpdateTagRecolor:
-      summary: Change tag color
-      value:
-        color: '#f59e0b'
-    InvalidColorError:
-      summary: Invalid hex color format
+    EmptyTagNameError:
+      summary: Empty tag name
       value:
         error:
           code: INVALID_ARGUMENT
           message: Invalid request body
           details:
-          - field: color
-            description: color must be a hex string like '#RRGGBB' or '#RRGGBBAA'; got 'blue'
+          - field: tag_name
+            description: tag name cannot be empty
+    DuplicateTagError:
+      summary: Tag name already exists
+      value:
+        error:
+          code: ALREADY_EXISTS
+          message: Tag already exists
+          details:
+          - field: tag_name
+            description: An active tag named 'production' already exists in your organization
     ListTagsSuccess:
       summary: Successful list response
       value:
@@ -558,6 +496,40 @@ components:
           create_time: '2025-10-13T08:00:00Z'
           created_by: engineer@example.com
         next_page_token: null
+    TagCreated:
+      summary: Tag created successfully
+      value:
+        tag:
+          name: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
+          id: 01HX2ABC3DEF4GHI5JKL6MNO7P
+          tag_name: production
+          color: '#3b82f6'
+          create_time: '2025-10-14T12:00:00Z'
+          created_by: engineer@example.com
+    GetTagSuccess:
+      summary: Successful get response
+      value:
+        tag:
+          name: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
+          id: 01HX2ABC3DEF4GHI5JKL6MNO7P
+          tag_name: production
+          color: '#3b82f6'
+          create_time: '2025-10-14T12:00:00Z'
+          created_by: engineer@example.com
+    InvalidColorError:
+      summary: Invalid hex color format
+      value:
+        error:
+          code: INVALID_ARGUMENT
+          message: Invalid request body
+          details:
+          - field: color
+            description: color must be a hex string like '#RRGGBB' or '#RRGGBBAA'; got 'blue'
+    CreateTagWithColor:
+      summary: Create tag with name and color
+      value:
+        tag_name: Production
+        color: '#3b82f6'
     TagDeleted:
       summary: Tag deleted successfully
       value:
@@ -568,25 +540,53 @@ components:
           color: '#3b82f6'
           create_time: '2025-10-14T12:00:00Z'
           created_by: engineer@example.com
-    TagUpdated:
-      summary: Tag updated successfully
+    UpdateTagRecolor:
+      summary: Change tag color
       value:
-        tag:
-          name: tags/01HX2ABC3DEF4GHI5JKL6MNO7P
-          id: 01HX2ABC3DEF4GHI5JKL6MNO7P
-          tag_name: staging
-          color: '#f59e0b'
-          create_time: '2025-10-14T12:00:00Z'
-          created_by: engineer@example.com
-    DuplicateTagError:
-      summary: Tag name already exists
+        color: '#f59e0b'
+    CreateTagMinimal:
+      summary: Create tag with name only
       value:
-        error:
-          code: ALREADY_EXISTS
-          message: Tag already exists
-          details:
-          - field: tag_name
-            description: An active tag named 'production' already exists in your organization
+        tag_name: production
+  responses:
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
+    PermissionDenied:
+      description: API key lacks required permission scope
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: 'API key does not have required permission: tags:write'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

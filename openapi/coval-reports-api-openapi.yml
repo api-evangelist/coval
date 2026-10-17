@@ -258,19 +258,91 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
-  examples:
-    ReportCreated:
-      value:
-        report:
-          id: 01JABCDEFGHJKMNPQRSTVWXYZ0
-          name: Plan comparison
-          run_ids:
+  schemas:
+    Report:
+      type: object
+      required:
+      - id
+      - name
+      - run_ids
+      - compare_by
+      - metadata_key
+      - permissions
+      properties:
+        id:
+          type: string
+          minLength: 26
+          maxLength: 26
+          description: The report's ULID. Open it in the app at /<organization>/reports/<id>.
+          example: 01JABCDEFGHJKMNPQRSTVWXYZ0
+        name:
+          type: string
+          description: Display name for the saved report.
+          example: Plan comparison
+        run_ids:
+          type: array
+          maxItems: 2000
+          items:
+            type: string
+          description: Run IDs included in the saved report.
+          example:
           - 8EktrIgaVxn9LfxkIynagX
           - 9FltuJhbWyoAMgymJzobhY
-          compare_by: metadata
-          metadata_key: customer.plan
-          permissions: PUBLIC
-  schemas:
+        simulation_output_ids:
+          type: array
+          maxItems: 10000
+          items:
+            type: string
+          description: Simulation IDs pinning the saved report to a subset of simulations; empty for run-scoped reports.
+          example:
+          - AGktrIgaVxn9LfxkIynagX
+        source_human_review_project_id:
+          type:
+          - string
+          - 'null'
+          description: Human review project the pinned simulations were sourced from; null when not report-linked.
+          example: 01JABCDEFGHJKMNPQRSTVWXYZ0
+        compare_by:
+          $ref: '#/components/schemas/CompareBy'
+        metadata_key:
+          type:
+          - string
+          - 'null'
+          description: Metadata key used for grouping when `compare_by` is `metadata`; null otherwise.
+          example: customer.plan
+        permissions:
+          $ref: '#/components/schemas/ReportPermission'
+    GetReportResponse:
+      type: object
+      required:
+      - report
+      properties:
+        report:
+          $ref: '#/components/schemas/Report'
+    ListReportsResponse:
+      type: object
+      required:
+      - reports
+      properties:
+        reports:
+          type: array
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/Report'
+        next_cursor:
+          type:
+          - string
+          - 'null'
+          description: Cursor for fetching the next page of results.
+          example: '50'
+    ReportPermission:
+      type: string
+      enum:
+      - PUBLIC
+      - PRIVATE
+      default: PRIVATE
+      description: PUBLIC creates a login-free shareable report; PRIVATE keeps it organization-only.
+      example: PRIVATE
     UpdateReportResponse:
       type: object
       required:
@@ -335,6 +407,13 @@ components:
           example: customer.plan
         permissions:
           $ref: '#/components/schemas/ReportPermission'
+    CreateReportResponse:
+      type: object
+      required:
+      - report
+      properties:
+        report:
+          $ref: '#/components/schemas/Report'
     Error:
       type: object
       required:
@@ -360,26 +439,14 @@ components:
           maxItems: 100
           items:
             $ref: '#/components/schemas/ErrorDetail'
-    CreateReportResponse:
+    DeleteReportResponse:
       type: object
       required:
-      - report
+      - message
       properties:
-        report:
-          $ref: '#/components/schemas/Report'
-    CompareBy:
-      type: string
-      enum:
-      - none
-      - run
-      - agent
-      - mutation
-      - persona
-      - test_case
-      - metadata
-      default: none
-      description: Dimension to group and compare runs by in the report view.
-      example: persona
+        message:
+          type: string
+          example: Report deleted successfully.
     ErrorDetail:
       type: object
       properties:
@@ -393,74 +460,26 @@ components:
           type: string
           description: Human-readable detail about the error.
           example: metadata_key is required when compare_by is metadata
-    Report:
+    ErrorResponse:
       type: object
       required:
-      - id
-      - name
-      - run_ids
-      - compare_by
-      - metadata_key
-      - permissions
+      - error
       properties:
-        id:
-          type: string
-          minLength: 26
-          maxLength: 26
-          description: The report's ULID. Open it in the app at /<organization>/reports/<id>.
-          example: 01JABCDEFGHJKMNPQRSTVWXYZ0
-        name:
-          type: string
-          description: Display name for the saved report.
-          example: Plan comparison
-        run_ids:
-          type: array
-          maxItems: 2000
-          items:
-            type: string
-          description: Run IDs included in the saved report.
-          example:
-          - 8EktrIgaVxn9LfxkIynagX
-          - 9FltuJhbWyoAMgymJzobhY
-        simulation_output_ids:
-          type: array
-          maxItems: 10000
-          items:
-            type: string
-          description: Simulation IDs pinning the saved report to a subset of simulations; empty for run-scoped reports.
-          example:
-          - AGktrIgaVxn9LfxkIynagX
-        source_human_review_project_id:
-          type:
-          - string
-          - 'null'
-          description: Human review project the pinned simulations were sourced from; null when not report-linked.
-          example: 01JABCDEFGHJKMNPQRSTVWXYZ0
-        compare_by:
-          $ref: '#/components/schemas/CompareBy'
-        metadata_key:
-          type:
-          - string
-          - 'null'
-          description: Metadata key used for grouping when `compare_by` is `metadata`; null otherwise.
-          example: customer.plan
-        permissions:
-          $ref: '#/components/schemas/ReportPermission'
-    ReportPermission:
+        error:
+          $ref: '#/components/schemas/Error'
+    CompareBy:
       type: string
       enum:
-      - PUBLIC
-      - PRIVATE
-      default: PRIVATE
-      description: PUBLIC creates a login-free shareable report; PRIVATE keeps it organization-only.
-      example: PRIVATE
-    GetReportResponse:
-      type: object
-      required:
-      - report
-      properties:
-        report:
-          $ref: '#/components/schemas/Report'
+      - none
+      - run
+      - agent
+      - mutation
+      - persona
+      - test_case
+      - metadata
+      default: none
+      description: Dimension to group and compare runs by in the report view.
+      example: persona
     CreateReportRequest:
       type: object
       additionalProperties: false
@@ -524,62 +543,7 @@ components:
           example: customer.plan
         permissions:
           $ref: '#/components/schemas/ReportPermission'
-    DeleteReportResponse:
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          example: Report deleted successfully.
-    ErrorResponse:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-    ListReportsResponse:
-      type: object
-      required:
-      - reports
-      properties:
-        reports:
-          type: array
-          maxItems: 100
-          items:
-            $ref: '#/components/schemas/Report'
-        next_cursor:
-          type:
-          - string
-          - 'null'
-          description: Cursor for fetching the next page of results.
-          example: '50'
   responses:
-    ServiceUnavailable:
-      description: Service temporarily unavailable
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Service temporarily unavailable
-              details:
-              - description: Database routing is temporarily unavailable. Please retry.
-    InternalError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred while processing the report request
     Forbidden:
       description: Forbidden
       content:
@@ -593,19 +557,6 @@ components:
               details:
               - field: permissions
                 description: The API key does not include the required report permission.
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: NOT_FOUND
-              message: Report not found
-              details:
-              - field: report_id
-                description: Report not found or not authorized.
     BadRequest:
       description: Bad Request
       content:
@@ -619,6 +570,18 @@ components:
               details:
               - field: metadata_key
                 description: metadata_key is required when compare_by is metadata
+    ServiceUnavailable:
+      description: Service temporarily unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Service temporarily unavailable
+              details:
+              - description: Database routing is temporarily unavailable. Please retry.
     Unauthorized:
       description: Unauthorized
       content:
@@ -632,6 +595,43 @@ components:
               details:
               - field: x-api-key
                 description: API key is required in the x-api-key header
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Report not found
+              details:
+              - field: report_id
+                description: Report not found or not authorized.
+    InternalError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred while processing the report request
+  examples:
+    ReportCreated:
+      value:
+        report:
+          id: 01JABCDEFGHJKMNPQRSTVWXYZ0
+          name: Plan comparison
+          run_ids:
+          - 8EktrIgaVxn9LfxkIynagX
+          - 9FltuJhbWyoAMgymJzobhY
+          compare_by: metadata
+          metadata_key: customer.plan
+          permissions: PUBLIC
   parameters:
     ReportId:
       name: report_id

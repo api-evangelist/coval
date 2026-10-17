@@ -205,18 +205,6 @@ paths:
           $ref: '#/components/responses/InternalError'
 components:
   responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred while processing the request
     NotFound:
       description: Resource not found or doesn't belong to organization
       content:
@@ -256,6 +244,18 @@ components:
               details:
               - field: X-API-Key
                 description: Invalid or missing API key
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred while processing the request
   schemas:
     UpdateTestCaseRequest:
       type: object
@@ -342,41 +342,6 @@ components:
           - 'null'
           description: User notes
           example: Updated notes
-    ErrorResponse:
-      type: object
-      description: Standard error response
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - message
-          - details
-          properties:
-            code:
-              type: string
-              description: Machine-readable error code
-              example: INVALID_ARGUMENT
-            message:
-              type: string
-              description: Human-readable error message
-              example: Invalid request parameters
-            details:
-              type: array
-              description: Detailed error information
-              items:
-                type: object
-                properties:
-                  field:
-                    type: string
-                    description: Field that caused the error
-                    example: test_set_id
-                  description:
-                    type: string
-                    description: Description of the error
-                    example: test_set_id is required
     CreateTestCaseRequest:
       type: object
       description: Request body for creating a test case
@@ -577,6 +542,41 @@ components:
           format: date-time
           description: Timestamp when test case was last updated
           example: '2025-10-15T14:30:00Z'
+    ErrorResponse:
+      type: object
+      description: Standard error response
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - message
+          - details
+          properties:
+            code:
+              type: string
+              description: Machine-readable error code
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameters
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    description: Field that caused the error
+                    example: test_set_id
+                  description:
+                    type: string
+                    description: Description of the error
+                    example: test_set_id is required
   securitySchemes:
     apiKey:
       type: apiKey

@@ -188,6 +188,67 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Resource not found
+              details:
+              - field: dashboard_id
+                description: Dashboard not found or not accessible by your organization
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: display_name
+                description: display_name must be between 1 and 255 characters
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
+  parameters:
+    DashboardId:
+      name: dashboard_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Dashboard resource ID (22-character ShortUUID)
+      example: abc123def456ghi789jklm
   schemas:
     UpdateDashboardResponse:
       type: object
@@ -196,6 +257,73 @@ components:
       properties:
         dashboard:
           $ref: '#/components/schemas/DashboardResource'
+    UpdateDashboardRequest:
+      type: object
+      description: All fields optional (PATCH semantics). Provided fields are updated; omitted or null fields are left unchanged. Setting is_default=true unsets any other default dashboard in the organization. config fully replaces the stored blob; to clear a value send an empty string (description) or an empty object (config) rather than null.
+      properties:
+        display_name:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 255
+          description: Updated dashboard name
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 1000
+          description: Updated free-text description (empty string clears it)
+        is_favorite:
+          type:
+          - boolean
+          - 'null'
+          description: Updated favorite flag
+        is_default:
+          type:
+          - boolean
+          - 'null'
+          description: Set true to make this the organization's default dashboard (unsets any other default)
+        position:
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+          description: Updated ordering position
+        config:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          description: Replacement free-form JSON config blob (max 50000 bytes serialized)
+    CreateDashboardResponse:
+      type: object
+      required:
+      - dashboard
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/DashboardResource'
+    GetDashboardResponse:
+      type: object
+      required:
+      - dashboard
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/DashboardResource'
+    ListDashboardsResponse:
+      type: object
+      required:
+      - dashboards
+      properties:
+        dashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardResource'
+        next_page_token:
+          type:
+          - string
+          - 'null'
+          description: Token for fetching next page (null if no more results)
     DashboardResource:
       type: object
       description: Dashboard resource
@@ -249,59 +377,6 @@ components:
           format: date-time
           description: Last update timestamp (ISO 8601)
           example: '2025-10-15T14:30:00Z'
-    UpdateDashboardRequest:
-      type: object
-      description: All fields optional (PATCH semantics). Provided fields are updated; omitted or null fields are left unchanged. Setting is_default=true unsets any other default dashboard in the organization. config fully replaces the stored blob; to clear a value send an empty string (description) or an empty object (config) rather than null.
-      properties:
-        display_name:
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          maxLength: 255
-          description: Updated dashboard name
-        description:
-          type:
-          - string
-          - 'null'
-          maxLength: 1000
-          description: Updated free-text description (empty string clears it)
-        is_favorite:
-          type:
-          - boolean
-          - 'null'
-          description: Updated favorite flag
-        is_default:
-          type:
-          - boolean
-          - 'null'
-          description: Set true to make this the organization's default dashboard (unsets any other default)
-        position:
-          type:
-          - integer
-          - 'null'
-          minimum: 0
-          description: Updated ordering position
-        config:
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
-          description: Replacement free-form JSON config blob (max 50000 bytes serialized)
-    GetDashboardResponse:
-      type: object
-      required:
-      - dashboard
-      properties:
-        dashboard:
-          $ref: '#/components/schemas/DashboardResource'
-    CreateDashboardResponse:
-      type: object
-      required:
-      - dashboard
-      properties:
-        dashboard:
-          $ref: '#/components/schemas/DashboardResource'
     ErrorResponse:
       type: object
       description: Standard error response
@@ -342,20 +417,6 @@ components:
                   description:
                     type: string
                     description: Detailed error description
-    ListDashboardsResponse:
-      type: object
-      required:
-      - dashboards
-      properties:
-        dashboards:
-          type: array
-          items:
-            $ref: '#/components/schemas/DashboardResource'
-        next_page_token:
-          type:
-          - string
-          - 'null'
-          description: Token for fetching next page (null if no more results)
     CreateDashboardRequest:
       type: object
       required:
@@ -388,58 +449,6 @@ components:
           type: object
           additionalProperties: true
           description: Free-form JSON config blob (max 50000 bytes serialized)
-  responses:
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: NOT_FOUND
-              message: Resource not found
-              details:
-              - field: dashboard_id
-                description: Dashboard not found or not accessible by your organization
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INVALID_ARGUMENT
-              message: Invalid request body
-              details:
-              - field: display_name
-                description: display_name must be between 1 and 255 characters
-    Unauthorized:
-      description: Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
   examples:
     ListDashboardsSuccess:
       summary: Successful list response
@@ -462,15 +471,6 @@ components:
           display_name: Production Metrics
           create_time: '2025-10-14T12:00:00Z'
           update_time: '2025-10-14T12:00:00Z'
-  parameters:
-    DashboardId:
-      name: dashboard_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Dashboard resource ID (22-character ShortUUID)
-      example: abc123def456ghi789jklm
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

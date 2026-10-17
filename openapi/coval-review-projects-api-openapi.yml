@@ -312,21 +312,98 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 components:
+  responses:
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: PERMISSION_DENIED
+              message: Insufficient permissions
+              details:
+              - field: permissions
+                description: The API key does not include the required reviews permission.
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INVALID_ARGUMENT
+              message: Invalid request body
+              details:
+              - field: simulation_output_id
+                description: simulation_output_id is required
+    ServiceUnavailable:
+      description: Service temporarily unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Service temporarily unavailable
+              details:
+              - description: Database routing is temporarily unavailable. Please retry.
+    Unauthorized:
+      description: Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHENTICATED
+              message: Authentication failed
+              details:
+              - field: X-API-Key
+                description: Invalid or missing API key
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Resource not found
+              details:
+              - field: annotation_id
+                description: Annotation not found or not accessible by your organization
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred
   schemas:
-    ListReviewProjectsResponse:
+    UpdateReviewProjectResponse:
       type: object
       required:
-      - review_projects
+      - review_project
       properties:
-        review_projects:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReviewProjectResource'
-        next_page_token:
-          type:
-          - string
-          - 'null'
-          description: Opaque token for fetching the next page
+        review_project:
+          $ref: '#/components/schemas/ReviewProjectResource'
+    GetReviewProjectResponse:
+      type: object
+      required:
+      - review_project
+      properties:
+        review_project:
+          $ref: '#/components/schemas/ReviewProjectResource'
     ReviewProjectResource:
       type: object
       description: A single review project resource.
@@ -393,29 +470,13 @@ components:
           type: string
           format: date-time
           description: Last update timestamp (ISO 8601)
-    ProjectMetricAgreementResource:
+    CreateReviewProjectResponse:
       type: object
       required:
-      - metric_id
-      - agreements
-      - disagreements
-      - agreement_rate
+      - review_project
       properties:
-        metric_id:
-          type: string
-        agreements:
-          type: integer
-        disagreements:
-          type: integer
-        agreement_rate:
-          type: number
-    ProjectType:
-      type: string
-      enum:
-      - PROJECT_COLLABORATIVE
-      - PROJECT_INDIVIDUAL
-      default: PROJECT_INDIVIDUAL
-      description: 'Project type: COLLABORATIVE (shared annotations) or INDIVIDUAL (per-assignee annotations)'
+        review_project:
+          $ref: '#/components/schemas/ReviewProjectResource'
     GetHumanReviewProjectInsightsResponse:
       type: object
       required:
@@ -452,35 +513,20 @@ components:
           items:
             type: object
           description: Per-metric insight rows (counts, agreement rate, simulation output ids).
-    UpdateReviewProjectResponse:
+    ListReviewProjectsResponse:
       type: object
       required:
-      - review_project
+      - review_projects
       properties:
-        review_project:
-          $ref: '#/components/schemas/ReviewProjectResource'
-    CreateReviewProjectResponse:
-      type: object
-      required:
-      - review_project
-      properties:
-        review_project:
-          $ref: '#/components/schemas/ReviewProjectResource'
-    GetProjectMetricAgreementResponse:
-      type: object
-      required:
-      - agreement_by_metric_id
-      properties:
-        agreement_by_metric_id:
-          type: object
-          description: Agreement stats keyed by metric ID.
-          additionalProperties:
-            $ref: '#/components/schemas/ProjectMetricAgreementResource'
-    ProjectRule:
-      type: string
-      enum:
-      - require_disagreement_notes
-      description: 'Project rule: require_disagreement_notes requires reviewer notes when ground truth disagrees with model output'
+        review_projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewProjectResource'
+        next_page_token:
+          type:
+          - string
+          - 'null'
+          description: Opaque token for fetching the next page
     UpdateReviewProjectRequest:
       type: object
       properties:
@@ -559,13 +605,51 @@ components:
           items:
             type: string
           description: Assignees who opted out of notifications
-    GetReviewProjectResponse:
+    GetProjectMetricAgreementResponse:
       type: object
       required:
-      - review_project
+      - agreement_by_metric_id
       properties:
-        review_project:
-          $ref: '#/components/schemas/ReviewProjectResource'
+        agreement_by_metric_id:
+          type: object
+          description: Agreement stats keyed by metric ID.
+          additionalProperties:
+            $ref: '#/components/schemas/ProjectMetricAgreementResource'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code
+              example: INVALID_ARGUMENT
+            message:
+              type: string
+              description: Human-readable error message
+              example: Invalid request parameter
+            details:
+              type: array
+              description: Detailed error information
+              items:
+                type: object
+                properties:
+                  field:
+                    type:
+                    - string
+                    - 'null'
+                    description: Field that caused the error
+                  description:
+                    type: string
+                    description: Detailed error description
+    ProjectType:
+      type: string
+      enum:
+      - PROJECT_COLLABORATIVE
+      - PROJECT_INDIVIDUAL
+      default: PROJECT_INDIVIDUAL
+      description: 'Project type: COLLABORATIVE (shared annotations) or INDIVIDUAL (per-assignee annotations)'
     CreateReviewProjectRequest:
       type: object
       required:
@@ -622,111 +706,27 @@ components:
           items:
             type: string
           description: Metric IDs whose machine score stays visible during blind labeling
-    ErrorResponse:
+    ProjectMetricAgreementResource:
       type: object
+      required:
+      - metric_id
+      - agreements
+      - disagreements
+      - agreement_rate
       properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-              description: Error code
-              example: INVALID_ARGUMENT
-            message:
-              type: string
-              description: Human-readable error message
-              example: Invalid request parameter
-            details:
-              type: array
-              description: Detailed error information
-              items:
-                type: object
-                properties:
-                  field:
-                    type:
-                    - string
-                    - 'null'
-                    description: Field that caused the error
-                  description:
-                    type: string
-                    description: Detailed error description
-  responses:
-    ServiceUnavailable:
-      description: Service temporarily unavailable
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Service temporarily unavailable
-              details:
-              - description: Database routing is temporarily unavailable. Please retry.
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred
-    Forbidden:
-      description: Insufficient permissions
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: PERMISSION_DENIED
-              message: Insufficient permissions
-              details:
-              - field: permissions
-                description: The API key does not include the required reviews permission.
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: NOT_FOUND
-              message: Resource not found
-              details:
-              - field: annotation_id
-                description: Annotation not found or not accessible by your organization
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INVALID_ARGUMENT
-              message: Invalid request body
-              details:
-              - field: simulation_output_id
-                description: simulation_output_id is required
-    Unauthorized:
-      description: Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: UNAUTHENTICATED
-              message: Authentication failed
-              details:
-              - field: X-API-Key
-                description: Invalid or missing API key
+        metric_id:
+          type: string
+        agreements:
+          type: integer
+        disagreements:
+          type: integer
+        agreement_rate:
+          type: number
+    ProjectRule:
+      type: string
+      enum:
+      - require_disagreement_notes
+      description: 'Project rule: require_disagreement_notes requires reviewer notes when ground truth disagrees with model output'
   examples:
     ListProjectsSuccess:
       summary: Successful project list response

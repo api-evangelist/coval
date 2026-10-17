@@ -214,6 +214,18 @@ paths:
                   - description: Database routing is temporarily unavailable. Please retry.
 components:
   responses:
+    InternalError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: INTERNAL
+              message: Internal server error
+              details:
+              - description: An unexpected error occurred while processing the request
     Unauthorized:
       description: Authentication failed or missing API key
       content:
@@ -227,18 +239,6 @@ components:
               details:
               - field: X-API-Key
                 description: Invalid or missing API key
-    InternalError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          example:
-            error:
-              code: INTERNAL
-              message: Internal server error
-              details:
-              - description: An unexpected error occurred while processing the request
   schemas:
     ErrorResponse:
       type: object
